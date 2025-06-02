@@ -14,7 +14,7 @@ This project aims to build a weight-loss drug recommendation agent. It collects,
 
 ## 3. Directory Structure
 
-
+```
 Weight-Loss-Drug-Recommendation-Agent/
 ├── code_chatbot/                   # Chatbot-related code
 │   ├── chatbot.py
@@ -65,7 +65,7 @@ Weight-Loss-Drug-Recommendation-Agent/
 ├── webmd_victoza_reviews.csv
 ├── webmd_wegovy_reviews.csv
 └── webmd_zepbound_reviews.csv
-
+```
 
 ## 4. File Detailed Description
 
