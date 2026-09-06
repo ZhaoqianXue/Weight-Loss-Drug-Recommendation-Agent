@@ -13,7 +13,7 @@ df = pd.read_csv(file_path)
 # 1. Extract structured information from reviews
 ################################################################################################################
 
-client = OpenAI(api_key="")  # Add your API key here)
+client = OpenAI()  # Add your API key here)
 def safe_extract(text):
     try:
         prompt = f"""

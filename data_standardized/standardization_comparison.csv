@@ -1,0 +1,20 @@
+Original Term,Standardized Term,Frequency,Status,Severity
+constipation,constipation,2,Mapped,
+difficulty swallowing,dysphagia,1,Mapped,Severe
+sickness,illness,1,Mapped,
+intestinal pain with diarrhea and bleeding,N/A,1,Unmapped,Various
+acid reflux,N/A,1,Unmapped,Various
+bppv (benign paroxysmal positional vertigo),N/A,1,Unmapped,Various
+weak,N/A,1,Unmapped,Various
+stomach pain,N/A,1,Unmapped,Various
+tired and sleepy,N/A,1,Unmapped,Various
+taste and smell of food changed,N/A,1,Unmapped,Various
+disgusted by food,food aversion,1,Mapped,
+throwing up,vomiting,1,Mapped,
+nauseated,nausea,1,Mapped,
+dizzy,dizziness,1,Mapped,
+sick,illness,1,Mapped,
+dizziness,dizziness,1,Mapped,
+dumping syndrome,dumping syndrome,1,Mapped,
+allergic reaction,hypersensitivity,1,Mapped,
+bloating,N/A,1,Unmapped,Various

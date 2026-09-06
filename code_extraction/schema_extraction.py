@@ -1,5 +1,6 @@
 # code_extraction/schema_extraction.py
 
+import os
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field, validator, field_validator
@@ -19,7 +20,7 @@ df = pd.read_csv(INPUT_CSV_PATH)
 llm = ChatOpenAI(
     model="gpt-4.1-nano",
     temperature=0.2,
-    api_key="" # Add your API key here
+    api_key=os.environ.get("OPENAI_API_KEY", "") # Add your API key here
 )
 
 ################################################################################################################
@@ -54,7 +55,6 @@ class SideEffectInfo(BaseModel):
     """Side effect information model"""
     name: Union[str, List[str]] = Field(..., description="Side effect name(s)")
     severity: Optional[str] = Field(None, description="Severity of side effect. Categorize as: Mild, Moderate, or Severe, only if explicitly mentioned.")
-    associated_drug: Optional[str] = Field(None, description="Drug associated with this side effect")
 
 class NodeProperties(BaseModel):
     """Properties for graph nodes"""
@@ -124,25 +124,14 @@ The primary drug name "{drug_name}", condition "{condition_from_csv}", and medic
 3. **Side Effects** (CRITICAL - Drug Attribution):
    - Only extract when clearly described in the review text
    - If severity isn't mentioned, set to null
-   - **IMPORTANT**: For each side effect, determine which specific drug caused it
-   - Set "associated_drug" field based on the following rules:
-     a) If the text explicitly states which drug caused the side effect (e.g., "Drug A caused nausea", "I got headaches from Drug B"), use that specific drug name
-     b) If the text mentions multiple drugs but doesn't specify which caused the side effect, use the primary drug name "{drug_name}"
-     c) If only the primary drug "{drug_name}" is mentioned, use "{drug_name}"
-   - Pay careful attention to phrases like: "switched from X to Y", "X caused Z", "Y didn't have side effects", etc.
-   - **Severity**: If severity is mentioned, categorize it strictly as one of the following: "Mild", "Moderate", or "Severe". If severity is mentioned but does not fit these categories, set to null.
 
 4. **Null Handling**:
    - All missing/unmentioned fields MUST be null except where specified
    - Empty arrays for side_effects if none mentioned
    - For condition: follow the logic in point 2 above
-   - For associated_drug: never leave null if side effect is mentioned - default to primary drug "{drug_name}"
 
 5. **Relations**:
    - Include medication-disease relations if condition is present (following condition logic above)
-   - Include medication-side effect relations for each side effect using the specific associated_drug
-   - Use "treats" for medication-disease relations
-   - Use "causes" for medication-side effect relations
 
 ### Processing Rules:
 1. Focus on identifying which specific drug causes each side effect
@@ -188,7 +177,7 @@ def safe_extract_structured(text: str, drug_name: str, condition_from_csv: str =
             "medication_duration": medication_duration
         })
         # Convert Pydantic model to dictionary for compatibility
-        extracted_dict = result.dict()       
+        extracted_dict = result.model_dump()
         # Post-process to ensure strict adherence to requirements
         processed_result = post_process_extraction(extracted_dict, drug_name, condition_from_csv, medication_duration)
         return processed_result
@@ -232,9 +221,6 @@ def post_process_extraction(extracted_dict: dict, drug_name: str, condition_from
     if structured_info.get('side_effects'):
         valid_severities = {"mild", "moderate", "severe"}
         for side_effect in structured_info['side_effects']:
-            # If associated_drug is not specified or is null, default to primary drug from CSV
-            if not side_effect.get('associated_drug'):
-                side_effect['associated_drug'] = drug_name
             # Validate and normalize severity
             severity = side_effect.get('severity')
             if severity and isinstance(severity, str):
@@ -273,13 +259,12 @@ def post_process_extraction(extracted_dict: dict, drug_name: str, condition_from
             side_effect_names = side_effect.get('name', [])
             if isinstance(side_effect_names, str):
                 side_effect_names = [side_effect_names]
-            # Use the associated_drug (which now defaults to primary drug if not specified)
-            associated_drug = side_effect.get('associated_drug', drug_name)
+            # Use the primary drug name for side effect attribution
             for side_effect_name in side_effect_names:
                 relations.append({
                     "start": {
                         "label": "Medication",
-                        "properties": {"name": associated_drug}
+                        "properties": {"name": drug_name}
                     },
                     "end": {
                         "label": "SideEffect",

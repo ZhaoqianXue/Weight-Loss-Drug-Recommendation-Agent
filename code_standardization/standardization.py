@@ -1,5 +1,6 @@
 # code_standardization/standardization.py
 
+import os
 import ast
 import json
 import numpy as np
@@ -28,7 +29,7 @@ MODEL_NAME = "pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb"
 # MODEL_NAME = "all-MiniLM-L6-v2"
 model = SentenceTransformer(MODEL_NAME)
 # OpenAI configuration
-OPENAI_API_KEY = "" # Add your API key here
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "") # Add your API key here
 openai_client = OpenAI(api_key=OPENAI_API_KEY)
 OPENAI_LLM_MODEL = "gpt-4.1-nano"
 OPENAI_LLM_TEMPERATURE = 0.2

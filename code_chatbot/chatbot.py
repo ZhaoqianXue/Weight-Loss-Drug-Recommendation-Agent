@@ -77,12 +77,12 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # --- Configuration ---
 NEO4J_URI = "bolt://localhost:7687"
 NEO4J_USERNAME = "neo4j"
-NEO4J_PASSWORD = "weightloss" # As provided by user
+NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD", "") # As provided by user
 
 # IMPORTANT: User needs to configure their actual LLM model name and API key/access.
 LLM_MODEL_NAME = "gpt-4.1-nano" # User wants "gpt-4.1-nano"
 # Ensure this environment variable is set, or hardcode your key (not recommended for production).
-OPENAI_API_KEY = "" # Add your API key here
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "") # Add your API key here
 
 # TableRAG DB paths (directories containing index.faiss and index.pkl)
 SCHEMA_DB_PATH = os.path.join("database_table", "schema_db_standardized_reviews_all")
@@ -298,7 +298,7 @@ def parse_age_range(age_str):
     if '<' in age_str:
         match = re.search(r'(\d+)', age_str)
         return (0, int(match.group(1)) - 1) if match else (pd.NA, pd.NA)
-    # Handle单一年龄数字
+    # Handle a single numeric age
     try:
         age_num = int(age_str)
         return age_num, age_num
@@ -1076,7 +1076,7 @@ class MedicalChatBot:
             self.graph_rag_module = None # Ensure it's None if init fails
 
         self.main_table_df = None
-        self.table_rag_df = None  # 专门为TableRAG优化的DataFrame，不包含结构化列
+        self.table_rag_df = None  # DataFrame optimized for TableRAG, excluding structured columns
         if self.table_rag_agent: # Only load if TableRAG agent is available
             try:
                 logger.info(f"Loading main table data from {TABLE_CSV_PATH} for TableRAG solver...")
@@ -1108,9 +1108,9 @@ class MedicalChatBot:
                 
                 # --- CREATE OPTIMIZED TABLERAG DATAFRAME ---
                 logger.info("Creating optimized TableRAG DataFrame by removing structured columns...")
-                # 定义要移除的结构化列
+                # Define structured columns to remove
                 structured_columns_to_remove = ['standardized_info', 'standardized_relations']
-                # 创建TableRAG专用的DataFrame，移除结构化列
+                # Create the TableRAG DataFrame without structured columns
                 tablerag_columns = [col for col in self.main_table_df.columns if col not in structured_columns_to_remove]
                 self.table_rag_df = self.main_table_df[tablerag_columns].copy()
                 
@@ -1523,6 +1523,8 @@ You *do not* have access to raw user review texts. Frame your answer accordingly
             final_prompt_system = """You are a helpful medical information assistant.
 Your task is to synthesize a **comparison** answer to the user's original question based ONLY on the provided context for each drug.
 The context contains results from TableRAG (tabular data analysis) and/or GraphRAG (knowledge graph insights).
+Also consider the provided 'Relevant Review Examples' if available.
+**When relevant to a point in your answer, you may refer to or briefly summarize content from the 'Relevant Review Examples' to illustrate user experiences. Clearly indicate that these are examples from user reviews.**
 1.  Address the user's original comparison question directly.
 2.  Highlight similarities and differences based *only* on the provided context.
 3.  If the context is contradictory or insufficient for a clear comparison, acknowledge that.
@@ -1534,6 +1536,9 @@ The context contains results from TableRAG (tabular data analysis) and/or GraphR
         else:
             final_prompt_system = """You are a helpful medical information assistant.
 Synthesize an answer to the user's question based ONLY on the provided context from TableRAG (tabular data analysis) and/or GraphRAG (knowledge graph insights).
+**Also consider the provided 'Relevant Review Examples' if available.**
+**When relevant to a point in your answer, you may refer to or briefly summarize content from the 'Relevant Review Examples' to illustrate user experiences. Clearly indicate that these are examples from user reviews.**
+**Extract and include any specific numerical values (e.g., average ratings, counts, percentages) found in the provided 'TableRAG Analysis' sections in your answer.**
 If the context is contradictory or insufficient to answer the question comprehensively, acknowledge that.
 Do not use any external knowledge or make assumptions beyond the provided context.
 If the context indicates errors from the RAG systems or lack of data, state that you encountered issues retrieving the information or that no specific data was found.

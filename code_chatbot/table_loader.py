@@ -96,7 +96,7 @@ class Retriever:
         docs = None
         embed_retriever = None
 
-        # --- 仅处理 Embed 模式 ---
+        # --- Handle Embed mode only ---
         safe_table_id = "".join(c for c in table_id if c.isalnum() or c in ('_', '-')).rstrip()
         db_path = os.path.join(self.db_dir, f'{data_type}_db_{safe_table_id}')
 

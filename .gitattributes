@@ -1,0 +1,9 @@
+# Preserve scientific data and captured pages byte-for-byte.
+data_*/** -whitespace
+code_website/data/** -whitespace
+code_website/static/*.csv -whitespace
+code_scraping/*.html -whitespace
+*.faiss binary
+*.pkl binary
+*.pdf binary
+*.png binary

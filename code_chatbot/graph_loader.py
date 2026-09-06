@@ -222,7 +222,7 @@ def main():
     # Configuration - Update these values according to your Neo4j setup
     NEO4J_URI = "bolt://localhost:7687"
     NEO4J_USERNAME = "neo4j"
-    NEO4J_PASSWORD = "weightloss"  
+    NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD", "")
     CSV_FILE_PATH = "data_standardized/standardized_reviews_all.csv"
     # Verify CSV file exists
     if not os.path.exists(CSV_FILE_PATH):

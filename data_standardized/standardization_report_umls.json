@@ -1,0 +1,34 @@
+{
+    "summary": {
+        "total_non_standard_terms": 19,
+        "total_standard_terms": 5718,
+        "successfully_mapped": 11,
+        "unmapped_terms": 8,
+        "mapping_success_rate": "57.89%"
+    },
+    "mappings": {
+        "sickness": "illness",
+        "dizziness": "dizziness",
+        "constipation": "constipation",
+        "sick": "illness",
+        "dumping syndrome": "dumping syndrome",
+        "allergic reaction": "hypersensitivity",
+        "dizzy": "dizziness",
+        "disgusted by food": "food aversion",
+        "nauseated": "nausea",
+        "throwing up": "vomiting",
+        "difficulty swallowing": "dysphagia"
+    },
+    "unmapped_terms": [
+        "taste and smell of food changed",
+        "tired and sleepy",
+        "stomach pain",
+        "weak",
+        "bppv (benign paroxysmal positional vertigo)",
+        "acid reflux",
+        "intestinal pain with diarrhea and bleeding",
+        "bloating"
+    ],
+    "cui_mappings_count": 5606,
+    "timestamp": "2025-06-20T03:31:31.311028"
+}

@@ -1,0 +1,6137 @@
+{
+  "total_unique_terms": 1530,
+  "mapped_terms": 1530,
+  "unmapped_terms": 0,
+  "mapping_methods": {
+    "Direct Match": 121,
+    "UMLS Match": 535,
+    "Fuzzy Match on Part": 16,
+    "Fuzzy Match (High Confidence)": 139,
+    "Fuzzy Match (Medium Confidence)": 83,
+    "Fallback Fuzzy Match": 533,
+    "Best Effort Fuzzy Match": 103
+  },
+  "mappings": {
+    "churning feeling in stomach": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling weird": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduced hunger": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Stool softening/constipation": {
+      "standard_name": "Constipation",
+      "method": "UMLS Match"
+    },
+    "daze": {
+      "standard_name": "Confusional State",
+      "method": "UMLS Match"
+    },
+    "Uneasiness": {
+      "standard_name": "Clumsiness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sneezing": {
+      "standard_name": "Sneezing",
+      "method": "Direct Match"
+    },
+    "Cholesterol normalization": {
+      "standard_name": "Blood Cholesterol",
+      "method": "UMLS Match"
+    },
+    "enlarged lymph nodes": {
+      "standard_name": "Lymphadenopathy",
+      "method": "UMLS Match"
+    },
+    "Passing out": {
+      "standard_name": "Loss Of Consciousness",
+      "method": "UMLS Match"
+    },
+    "crying a lot": {
+      "standard_name": "Crying",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "fatigue": {
+      "standard_name": "Fatigue",
+      "method": "Direct Match"
+    },
+    "zero appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bad rashes": {
+      "standard_name": "Paraesthesia",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Unbelievable fibro flares": {
+      "standard_name": "Multiple Fractures",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Feeling of heaviness in legs": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Food cravings reduction": {
+      "standard_name": "Adverse Food Reaction",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Repulsed by food": {
+      "standard_name": "Food Refusal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gallbladder stones": {
+      "standard_name": "Biliary Tract Disorder",
+      "method": "UMLS Match"
+    },
+    "pancreatitis": {
+      "standard_name": "Pancreatitis",
+      "method": "Direct Match"
+    },
+    "gas, burping, farting": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Pericardial effusion": {
+      "standard_name": "Pericardial Effusion",
+      "method": "Direct Match"
+    },
+    "swelling in neck": {
+      "standard_name": "Swelling",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Cannot taste food": {
+      "standard_name": "Product Taste Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Eggs tasting funny": {
+      "standard_name": "Regurgitation",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Sore throat": {
+      "standard_name": "Pharyngitis Streptococcal",
+      "method": "UMLS Match"
+    },
+    "Unclear vision": {
+      "standard_name": "Monocular Vision",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "abdomen pain": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "tingling in hands and feet": {
+      "standard_name": "Abnormal Sensation In Eye",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Mood changes": {
+      "standard_name": "Mood Altered",
+      "method": "UMLS Match"
+    },
+    "lethargic episodes": {
+      "standard_name": "Learning Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Urinary Tract Infection (UTI)": {
+      "standard_name": "Urinary Tract Infection",
+      "method": "UMLS Match"
+    },
+    "Increased hunger": {
+      "standard_name": "Increased Appetite",
+      "method": "UMLS Match"
+    },
+    "food getting stuck in stomach and throat": {
+      "standard_name": "Pharyngitis Streptococcal",
+      "method": "UMLS Match"
+    },
+    "heart palpitations": {
+      "standard_name": "Palpitations",
+      "method": "UMLS Match"
+    },
+    "stool becoming infrequent": {
+      "standard_name": "Infrequent Bowel Movements",
+      "method": "Fallback Fuzzy Match"
+    },
+    "joint/muscle pain and aching/twitching": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "Nausea or sickness": {
+      "standard_name": "Nausea",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Gasy": {
+      "standard_name": "Gaze Palsy",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Bowel disturbance": {
+      "standard_name": "Gait Disturbance",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Pancreatic cancer": {
+      "standard_name": "Neoplasm Malignant",
+      "method": "UMLS Match"
+    },
+    "Increased heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Puking": {
+      "standard_name": "Posturing",
+      "method": "Fallback Fuzzy Match"
+    },
+    "exhausted": {
+      "standard_name": "Heat Exhaustion",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduced hunger and appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "Bad breath": {
+      "standard_name": "Breath Odour",
+      "method": "UMLS Match"
+    },
+    "Severe anxiety": {
+      "standard_name": "Anxiety",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Burping": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Medication spillage": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "hive/rash": {
+      "standard_name": "Urticaria",
+      "method": "UMLS Match"
+    },
+    "bowel color change to clay": {
+      "standard_name": "Change Of Bowel Habit",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Less interest in snacking": {
+      "standard_name": "Decreased Interest",
+      "method": "Fallback Fuzzy Match"
+    },
+    "swollen tongue": {
+      "standard_name": "Swollen Tongue",
+      "method": "Direct Match"
+    },
+    "less energy than normal": {
+      "standard_name": "Menstruation Normal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "irregular bowel movements": {
+      "standard_name": "Bowel Movement Irregularity",
+      "method": "UMLS Match"
+    },
+    "Overdose": {
+      "standard_name": "Overdose",
+      "method": "Direct Match"
+    },
+    "blurry vision": {
+      "standard_name": "Vision Blurred",
+      "method": "UMLS Match"
+    },
+    "Sick through the night": {
+      "standard_name": "Negative Thoughts",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Allergic reaction at injection site": {
+      "standard_name": "Injection Site Reaction",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Mood swings": {
+      "standard_name": "Mood Swings",
+      "method": "Direct Match"
+    },
+    "vomiting": {
+      "standard_name": "Vomiting",
+      "method": "Direct Match"
+    },
+    "Muscle and joint pain": {
+      "standard_name": "Arthralgia",
+      "method": "UMLS Match"
+    },
+    "Extreme exhaustion": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Gallbladder problems": {
+      "standard_name": "Gallbladder Polyp",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "back pains": {
+      "standard_name": "Back Pain",
+      "method": "UMLS Match"
+    },
+    "Constant Belching": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "sleep disturbance due to GERD": {
+      "standard_name": "Gait Disturbance",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Irritable bowel syndrome (IBS)": {
+      "standard_name": "Irritable Bowel Syndrome",
+      "method": "UMLS Match"
+    },
+    "bad side effects": {
+      "standard_name": "Drug Ineffective",
+      "method": "Fallback Fuzzy Match"
+    },
+    "dehydration": {
+      "standard_name": "Dehydration",
+      "method": "Direct Match"
+    },
+    "Low blood sugar (hypoglycemia)": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "Loose bowel movements": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Uneasy stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Tummy upsets": {
+      "standard_name": "Night Sweats",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "lack of interest in food": {
+      "standard_name": "Food Interaction",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Injection site lump": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Weight change": {
+      "standard_name": "Weight Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain": {
+      "standard_name": "Pain",
+      "method": "Direct Match"
+    },
+    "Difficulty understanding device operation": {
+      "standard_name": "Eye Operation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Feeling of fullness after consuming very little": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "PCOS symptoms slowing down": {
+      "standard_name": "Depressive Symptom",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "heart problems": {
+      "standard_name": "Legal Problem",
+      "method": "Fallback Fuzzy Match"
+    },
+    "achiness": {
+      "standard_name": "Laziness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sickness after eating greasy or fried foods": {
+      "standard_name": "Motion Sickness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "belching of foul sulfurous tasting gas": {
+      "standard_name": "Loss Of Control Of Legs",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Gastric issues": {
+      "standard_name": "Gastric Ileus",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "liver pain": {
+      "standard_name": "Hepatic Pain",
+      "method": "UMLS Match"
+    },
+    "back pain": {
+      "standard_name": "Back Pain",
+      "method": "Direct Match"
+    },
+    "Headache": {
+      "standard_name": "Headache",
+      "method": "Direct Match"
+    },
+    "Sulfur burps": {
+      "standard_name": "Vascular Purpura",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Diarrhoea": {
+      "standard_name": "Diarrhoea",
+      "method": "Direct Match"
+    },
+    "Difficulty using injection": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "mild side effects": {
+      "standard_name": "Visual Field Defect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "burps": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Decreased libido": {
+      "standard_name": "Decreased Interest",
+      "method": "UMLS Match"
+    },
+    "projectile vomiting": {
+      "standard_name": "Vomiting Projectile",
+      "method": "UMLS Match"
+    },
+    "Saggy skin": {
+      "standard_name": "Fuchs' Syndrome",
+      "method": "UMLS Match"
+    },
+    "sulphur burps": {
+      "standard_name": "Vascular Purpura",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Stomach rumbling": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "kidney stones": {
+      "standard_name": "Nephrolithiasis",
+      "method": "UMLS Match"
+    },
+    "Defective syringes": {
+      "standard_name": "Device Defective",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Change in vision": {
+      "standard_name": "Hypertensive Crisis",
+      "method": "UMLS Match"
+    },
+    "throwing up": {
+      "standard_name": "Vomiting",
+      "method": "UMLS Match"
+    },
+    "Hoarseness": {
+      "standard_name": "Restlessness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach tenderness": {
+      "standard_name": "Tenderness",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Sensitivity in feet": {
+      "standard_name": "Rubber Sensitivity",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Difficulty swallowing": {
+      "standard_name": "Dysphagia",
+      "method": "UMLS Match"
+    },
+    "Stomach aches": {
+      "standard_name": "Stomach Mass",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Acid reflux tore up my throat": {
+      "standard_name": "Dry Throat",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Intestinal pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Heartburn": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "lump at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "ringing of the ears": {
+      "standard_name": "Fear Of Weight Gain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "urinary tract infection": {
+      "standard_name": "Urinary Tract Infection",
+      "method": "Direct Match"
+    },
+    "Cramping": {
+      "standard_name": "Abdominal Discomfort",
+      "method": "UMLS Match"
+    },
+    "Bitter or nasty taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reflux": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "feeling very sick": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fullness at the beginning of treatment": {
+      "standard_name": "Treatment Failure",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Febrile but hypothermic": {
+      "standard_name": "Febrile Neutropenia",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Blood glucose levels not controlled": {
+      "standard_name": "Blood Glucose Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "pain in lower legs": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "abdominal cramping": {
+      "standard_name": "Abdominal Discomfort",
+      "method": "UMLS Match"
+    },
+    "watery stools": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Taste buds change": {
+      "standard_name": "Rectal Discharge",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Problems moving around": {
+      "standard_name": "Economic Problem",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Anxiety attacks": {
+      "standard_name": "Anxiety",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "bloat": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Major Fatigue": {
+      "standard_name": "Fatigue",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "fuzzy mind": {
+      "standard_name": "Fumbling",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Joint pains": {
+      "standard_name": "Arthralgia",
+      "method": "UMLS Match"
+    },
+    "puking": {
+      "standard_name": "Posturing",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain in right side of back under ribs": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Horrible heartburn": {
+      "standard_name": "Heart Rate",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "splatter flatulence": {
+      "standard_name": "Flatulence",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Hot flushes": {
+      "standard_name": "Menopausal Symptoms",
+      "method": "UMLS Match"
+    },
+    "can't sleep at night": {
+      "standard_name": "Sleep Talking",
+      "method": "Fallback Fuzzy Match"
+    },
+    "No neck/thyroid issues": {
+      "standard_name": "Thyroid Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Itchy redness at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Yeast infection": {
+      "standard_name": "Oral Infection",
+      "method": "UMLS Match"
+    },
+    "GERD": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "Numbness in left hand": {
+      "standard_name": "Heat Illness",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "fullness": {
+      "standard_name": "Epigastric Discomfort",
+      "method": "UMLS Match"
+    },
+    "Bad taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loose stools": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "High cost": {
+      "standard_name": "Non-High-Density Lipoprotein Cholesterol Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Side effects warnings": {
+      "standard_name": "Injection Site Swelling",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "problems swallowing food": {
+      "standard_name": "Food Poisoning",
+      "method": "Fallback Fuzzy Match"
+    },
+    "no energy": {
+      "standard_name": "Listless",
+      "method": "UMLS Match"
+    },
+    "distention": {
+      "standard_name": "Urinary Retention",
+      "method": "UMLS Match"
+    },
+    "Tiredness and Sleepiness": {
+      "standard_name": "Somnolence",
+      "method": "UMLS Match"
+    },
+    "Inconsistent blood sugars": {
+      "standard_name": "Blood Urea Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gas burps": {
+      "standard_name": "Gastric Bypass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "other little things": {
+      "standard_name": "Teeth Brittle",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling of stomach and esophagus shrinking": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Insufficient medication supply": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Pain at injection site": {
+      "standard_name": "Injection Site Pain",
+      "method": "UMLS Match"
+    },
+    "Nasty belching": {
+      "standard_name": "Choking Sensation",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Needle phobia": {
+      "standard_name": "Fear Of Injection",
+      "method": "UMLS Match"
+    },
+    "Sulphur burps": {
+      "standard_name": "Vascular Purpura",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "HSV 1 reactivation": {
+      "standard_name": "Epstein-Barr Virus Infection Reactivation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Brick on sternum": {
+      "standard_name": "Brain Stem Infarction",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "interest in daily tasks": {
+      "standard_name": "Decreased Interest",
+      "method": "Fallback Fuzzy Match"
+    },
+    "extreme bloating": {
+      "standard_name": "Stressed Eating",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hair softening": {
+      "standard_name": "Ear Swelling",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Drop in consumption of root beer and transition to water": {
+      "standard_name": "Oxygen Consumption",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Heavy legs": {
+      "standard_name": "Heavy Menstrual Bleeding",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cravings not controlled": {
+      "standard_name": "Blood Pressure Inadequately Controlled",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bad urine smell": {
+      "standard_name": "Red Blood Cells Urine",
+      "method": "Fallback Fuzzy Match"
+    },
+    "No abdominal pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Trouble sleeping": {
+      "standard_name": "Feeling Cold",
+      "method": "UMLS Match"
+    },
+    "Upset tummy": {
+      "standard_name": "Muscle Injury",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "passing of gas": {
+      "standard_name": "Flatulence",
+      "method": "UMLS Match"
+    },
+    "feeling sick": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Sense of dying": {
+      "standard_name": "Loss Of Dreaming",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Discomfort from injection needle": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Chest pain": {
+      "standard_name": "Chest Pain",
+      "method": "Direct Match"
+    },
+    "skin pain": {
+      "standard_name": "Pain Of Skin",
+      "method": "UMLS Match"
+    },
+    "Miserable when overeating": {
+      "standard_name": "Muscle Operation",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Eggy burps": {
+      "standard_name": "Bulbar Palsy",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Elevated Liver Function levels": {
+      "standard_name": "Liver Function Test Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Difficulty administering injection": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "stomach and intestinal tract": {
+      "standard_name": "Neoplasm Malignant",
+      "method": "UMLS Match"
+    },
+    "Dehydration": {
+      "standard_name": "Dehydration",
+      "method": "Direct Match"
+    },
+    "Severe fatigue": {
+      "standard_name": "Respiratory Fatigue",
+      "method": "UMLS Match"
+    },
+    "itchy swelling red at injection site": {
+      "standard_name": "Injection Site Swelling",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Impacted colon": {
+      "standard_name": "Colon Cancer",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach problems": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hurt (needle pain)": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match on Part"
+    },
+    "stomach distress": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nervousness": {
+      "standard_name": "Nervousness",
+      "method": "Direct Match"
+    },
+    "severe, uncomfortableness in upper diaphragm": {
+      "standard_name": "Pre-Eclampsia",
+      "method": "UMLS Match"
+    },
+    "Hanger": {
+      "standard_name": "Anger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Gastric emptying delay": {
+      "standard_name": "Gastric Atony",
+      "method": "UMLS Match"
+    },
+    "Mood increase": {
+      "standard_name": "Pco2 Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Queasy stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "body aches": {
+      "standard_name": "Wound Abscess",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Bloating": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Cost/Expense": {
+      "standard_name": "Osteopenia",
+      "method": "Fallback Fuzzy Match"
+    },
+    "metallic taste": {
+      "standard_name": "Metabolic Surgery",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Heavy transit": {
+      "standard_name": "Intestinal Transit Time Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach pain": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "acid reflux": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "Visual changes": {
+      "standard_name": "Visual Brightness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Heaviness and fullness": {
+      "standard_name": "Epigastric Discomfort",
+      "method": "UMLS Match"
+    },
+    "Liver problems": {
+      "standard_name": "Legal Problem",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Constipation": {
+      "standard_name": "Constipation",
+      "method": "Direct Match"
+    },
+    "Redness of skin": {
+      "standard_name": "Injection",
+      "method": "UMLS Match"
+    },
+    "Sick to stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nausea after eating": {
+      "standard_name": "Nausea",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "rash": {
+      "standard_name": "Rash",
+      "method": "Direct Match"
+    },
+    "Bruising at injection sites": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "insomnia": {
+      "standard_name": "Insomnia",
+      "method": "Direct Match"
+    },
+    "bad diarrhea for three days": {
+      "standard_name": "Large For Dates Baby",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach bug-like symptoms": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hard to give myself a shot": {
+      "standard_name": "Faeces Hard",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "burning sensation in stomach": {
+      "standard_name": "Burning Sensation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Significant reduction in appetite": {
+      "standard_name": "Appetite Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Small bumps under skin": {
+      "standard_name": "Dry Skin",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bad gas": {
+      "standard_name": "Gastric Banding",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sleep disturbances": {
+      "standard_name": "Sleep Disorder",
+      "method": "UMLS Match"
+    },
+    "loose stools": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Confusion": {
+      "standard_name": "Confusional State",
+      "method": "UMLS Match"
+    },
+    "Hives/Rash": {
+      "standard_name": "Urticaria",
+      "method": "UMLS Match"
+    },
+    "Blood level reduction": {
+      "standard_name": "Red Blood Cells Urine",
+      "method": "Fallback Fuzzy Match"
+    },
+    "no appetite at all": {
+      "standard_name": "Appetite Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "surfer burps": {
+      "standard_name": "Bursa Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gurgling noises": {
+      "standard_name": "Joint Noise",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bloody diarrhea": {
+      "standard_name": "Diarrhoea Haemorrhagic",
+      "method": "UMLS Match"
+    },
+    "change in taste of foods": {
+      "standard_name": "Feeling Of Body Temperature Change",
+      "method": "Fallback Fuzzy Match"
+    },
+    "mood deterioration": {
+      "standard_name": "General Physical Health Deterioration",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "ringing/buzzing in ears": {
+      "standard_name": "Tinnitus",
+      "method": "UMLS Match"
+    },
+    "Horrible diarrhea": {
+      "standard_name": "Diarrhoea Haemorrhagic",
+      "method": "Fallback Fuzzy Match"
+    },
+    "extreme diarrhea": {
+      "standard_name": "Viral Diarrhoea",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Vomiting/Diarrhea": {
+      "standard_name": "Vomiting",
+      "method": "UMLS Match"
+    },
+    "Profuse SI diarrhea": {
+      "standard_name": "Diarrhoea Infectious",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomachaches": {
+      "standard_name": "Toothache",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Achiness": {
+      "standard_name": "Laziness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nerve irritation in feet": {
+      "standard_name": "Eye Irritation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Feeling run down": {
+      "standard_name": "Feeling Drunk",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Body hurts when touched": {
+      "standard_name": "Body Tinea",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Bathroom urgency": {
+      "standard_name": "Arthroscopic Surgery",
+      "method": "Fallback Fuzzy Match"
+    },
+    "taste of medication": {
+      "standard_name": "Circumstance Or Information Capable Of Leading To Medication Error",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Loss of appetite, early satiety, severe belching": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "loss of appetite": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "feeling like rocks in stomach": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Blood sugar control worsening": {
+      "standard_name": "Weight Control",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Injection device malfunction": {
+      "standard_name": "Device Malfunction",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Stomach sickness": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "food intolerance": {
+      "standard_name": "Food Intolerance",
+      "method": "Direct Match"
+    },
+    "inflammation and swelling problems": {
+      "standard_name": "Inflammation",
+      "method": "UMLS Match"
+    },
+    "Fainting": {
+      "standard_name": "Loss Of Consciousness",
+      "method": "UMLS Match"
+    },
+    "Appetite change": {
+      "standard_name": "Decreased Appetite",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fluctuating weight (seesaw pattern)": {
+      "standard_name": "Weight Fluctuation",
+      "method": "UMLS Match"
+    },
+    "Inflammation in body": {
+      "standard_name": "Inflammation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "blurriness": {
+      "standard_name": "Vision Blurred",
+      "method": "UMLS Match"
+    },
+    "general feelings of yuckiness": {
+      "standard_name": "Feelings Of Worthlessness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Soreness at site of injection": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Blackouts": {
+      "standard_name": "Loss Of Consciousness",
+      "method": "UMLS Match"
+    },
+    "Digestive discomfort after dairy and greasy foods": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match on Part"
+    },
+    "Burping of rotten egg gas": {
+      "standard_name": "Refusal Of Treatment By Patient",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "not able to eat": {
+      "standard_name": "Allergy To Plants",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Intolerable side effects": {
+      "standard_name": "Fat Intolerance",
+      "method": "Fallback Fuzzy Match"
+    },
+    "weight loss": {
+      "standard_name": "Weight Decreased",
+      "method": "UMLS Match"
+    },
+    "vision blurry": {
+      "standard_name": "Vision Blurred",
+      "method": "UMLS Match"
+    },
+    "little side effects": {
+      "standard_name": "Affective Disorder",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "neck pain": {
+      "standard_name": "Neck Pain",
+      "method": "Direct Match"
+    },
+    "lightheadedness": {
+      "standard_name": "Dizziness Postural",
+      "method": "UMLS Match"
+    },
+    "Stomach issues after gallbladder removal (gas, trips to bathroom, constipation)": {
+      "standard_name": "Constipation",
+      "method": "Fuzzy Match on Part"
+    },
+    "nervous": {
+      "standard_name": "Feeling Jittery",
+      "method": "UMLS Match"
+    },
+    "Pain in hands": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Blurred vision": {
+      "standard_name": "Vision Blurred",
+      "method": "UMLS Match"
+    },
+    "going": {
+      "standard_name": "Hanging",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling colder than normal": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Food tasting foamy, pasty, and gross": {
+      "standard_name": "Loss Of Consciousness",
+      "method": "UMLS Match"
+    },
+    "heartburn and acid reflux": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "Feeling like throwing up": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "vision issues": {
+      "standard_name": "Skin Fissures",
+      "method": "Fallback Fuzzy Match"
+    },
+    "belching": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Gradual behavioral change": {
+      "standard_name": "Medical Device Change",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Deterioration of liver function": {
+      "standard_name": "Liver Function Test Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "cravings": {
+      "standard_name": "Salt Craving",
+      "method": "UMLS Match"
+    },
+    "Difficulty drinking water": {
+      "standard_name": "Weight Bearing Difficulty",
+      "method": "Fallback Fuzzy Match"
+    },
+    "foul smelling belching": {
+      "standard_name": "Swelling Of Eyelid",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Constant diarrhea": {
+      "standard_name": "Contrast Media Reaction",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fatigue": {
+      "standard_name": "Fatigue",
+      "method": "Direct Match"
+    },
+    "Dehydration / Ended up in hospital with fluid IV": {
+      "standard_name": "Dehydration",
+      "method": "UMLS Match"
+    },
+    "Low potassium": {
+      "standard_name": "Hypokalaemia",
+      "method": "UMLS Match"
+    },
+    "Weakness/Fatigue": {
+      "standard_name": "Asthenia",
+      "method": "UMLS Match"
+    },
+    "High blood pressure behind eyes": {
+      "standard_name": "Labile Blood Pressure",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Blood levels rising": {
+      "standard_name": "Blood Insulin Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Rotten egg burps": {
+      "standard_name": "Biopsy Prostate",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Change in food cravings": {
+      "standard_name": "Food Craving",
+      "method": "Fallback Fuzzy Match"
+    },
+    "jittery": {
+      "standard_name": "Feeling Jittery",
+      "method": "UMLS Match"
+    },
+    "Low blood pressure": {
+      "standard_name": "Blood Pressure Decreased",
+      "method": "UMLS Match"
+    },
+    "Gas pain": {
+      "standard_name": "Abdominal Pain",
+      "method": "UMLS Match"
+    },
+    "being constantly cold": {
+      "standard_name": "Coital Bleeding",
+      "method": "Fallback Fuzzy Match"
+    },
+    "upset tummy": {
+      "standard_name": "Muscle Injury",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Lower left quadrant pain": {
+      "standard_name": "Abdominal Pain Lower",
+      "method": "UMLS Match"
+    },
+    "Difficulty falling asleep": {
+      "standard_name": "Initial Insomnia",
+      "method": "UMLS Match"
+    },
+    "Intolerance to red meat or ham": {
+      "standard_name": "Fat Intolerance",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Urge for late night snacking": {
+      "standard_name": "Night Sweats",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "softening of stools": {
+      "standard_name": "Mucous Stools",
+      "method": "Fallback Fuzzy Match"
+    },
+    "hive-like itching": {
+      "standard_name": "Itching Scar",
+      "method": "Fallback Fuzzy Match"
+    },
+    "discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Direct Match"
+    },
+    "yeast infection": {
+      "standard_name": "Oral Infection",
+      "method": "UMLS Match"
+    },
+    "Gastrointestinal symptoms": {
+      "standard_name": "Symptom Recurrence",
+      "method": "UMLS Match"
+    },
+    "Feeling full quickly": {
+      "standard_name": "Early Satiety",
+      "method": "UMLS Match"
+    },
+    "Feeling fuller longer": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling the need to burp": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gut ache": {
+      "standard_name": "Face Lift",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Rotten taste and smell in burps": {
+      "standard_name": "Prostate Cancer Stage Iv",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Post nasal drip": {
+      "standard_name": "Rhinorrhoea",
+      "method": "UMLS Match"
+    },
+    "Couldn't keep dinner down": {
+      "standard_name": "Injection Site Coldness",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "racing heart": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "loss of cravings": {
+      "standard_name": "Loss Of Dreaming",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Migraines": {
+      "standard_name": "Migraine",
+      "method": "UMLS Match"
+    },
+    "rotten eggs burping": {
+      "standard_name": "Burning Sensation",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach soreness": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "allergic reaction": {
+      "standard_name": "Hypersensitivity",
+      "method": "UMLS Match"
+    },
+    "Queasiness": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "Hunger between meals": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Stomach sounds like a washing machine": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gastric issues": {
+      "standard_name": "Gastric Ileus",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Bruising": {
+      "standard_name": "Contusion",
+      "method": "UMLS Match"
+    },
+    "heaviness on stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "thirst": {
+      "standard_name": "Thirst",
+      "method": "Direct Match"
+    },
+    "stomach cramp": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Rapid health decline": {
+      "standard_name": "Heart Rate Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Illness": {
+      "standard_name": "Illness",
+      "method": "Direct Match"
+    },
+    "Light sensitivity": {
+      "standard_name": "Photophobia",
+      "method": "UMLS Match"
+    },
+    "hunger": {
+      "standard_name": "Hunger",
+      "method": "Direct Match"
+    },
+    "Gut pain": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Aching legs and butt": {
+      "standard_name": "Drug Level Changed",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Hemorrhoids": {
+      "standard_name": "Haemorrhoids",
+      "method": "UMLS Match"
+    },
+    "muscle weakness": {
+      "standard_name": "Muscular Weakness",
+      "method": "UMLS Match"
+    },
+    "Slowing down on the stomach to empty": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "afraid of any food": {
+      "standard_name": "Food Craving",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Foggy thought process": {
+      "standard_name": "Obsessive Thoughts",
+      "method": "Fallback Fuzzy Match"
+    },
+    "GER": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "blood in vomit": {
+      "standard_name": "Heavy Menstrual Bleeding",
+      "method": "UMLS Match"
+    },
+    "stinging at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Bruising at injection site": {
+      "standard_name": "Injection Site Bruising",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Leg shaking or movement": {
+      "standard_name": "Movement Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Zero appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Skin irritation with spots that feel burny and rubbed": {
+      "standard_name": "Skin Irritation",
+      "method": "UMLS Match"
+    },
+    "weight gain": {
+      "standard_name": "Weight Increased",
+      "method": "UMLS Match"
+    },
+    "Cost/Price issue": {
+      "standard_name": "Product Coating Issue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach soreness": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Access issues to medication": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Lump at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Intestinal problems": {
+      "standard_name": "Intestinal Polyp",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "physical side effects listed as common": {
+      "standard_name": "Physical Assault",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Having very little appetite": {
+      "standard_name": "Appetite Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Side effects were so bad I had to go to the hospital": {
+      "standard_name": "Urine Alcohol Test Positive",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Twitchiness": {
+      "standard_name": "Trichiniasis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "horrible taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "worse constipation": {
+      "standard_name": "Constipation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "increased burping": {
+      "standard_name": "Renin Increased",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Strange steely/sweet taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling pretty bad": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bruising": {
+      "standard_name": "Contusion",
+      "method": "UMLS Match"
+    },
+    "exhaustion": {
+      "standard_name": "Heat Exhaustion",
+      "method": "UMLS Match"
+    },
+    "Joint pain": {
+      "standard_name": "Arthralgia",
+      "method": "UMLS Match"
+    },
+    "horrible side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "aches and pains": {
+      "standard_name": "Back Pain",
+      "method": "UMLS Match"
+    },
+    "cold intolerance": {
+      "standard_name": "Temperature Intolerance",
+      "method": "UMLS Match"
+    },
+    "Acute kidney disease": {
+      "standard_name": "Tonsillitis Bacterial",
+      "method": "UMLS Match"
+    },
+    "Gastroenteritis": {
+      "standard_name": "Gastroenteritis",
+      "method": "Direct Match"
+    },
+    "Sleep disruption": {
+      "standard_name": "Sleep Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "IBS symptoms": {
+      "standard_name": "Drug Reaction With Eosinophilia And Systemic Symptoms",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Sickness/Feeling unwell": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "gastroparesis": {
+      "standard_name": "Gastric Atony",
+      "method": "UMLS Match"
+    },
+    "sore upper arms": {
+      "standard_name": "Upper-Airway Cough Syndrome",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Skin sensitivity": {
+      "standard_name": "Sensitive Skin",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "palpitations": {
+      "standard_name": "Palpitations",
+      "method": "Direct Match"
+    },
+    "super tired": {
+      "standard_name": "Tendon Rupture",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Vaginal odor": {
+      "standard_name": "Vaginal Odour",
+      "method": "UMLS Match"
+    },
+    "Severe bloating": {
+      "standard_name": "Stressed Eating",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Horrid side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Lethargy": {
+      "standard_name": "Lethargy",
+      "method": "Direct Match"
+    },
+    "Passing clots": {
+      "standard_name": "Chest Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "diarrhoea": {
+      "standard_name": "Diarrhoea",
+      "method": "Direct Match"
+    },
+    "GI issues": {
+      "standard_name": "Device Issue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "mouth odor": {
+      "standard_name": "Dry Mouth",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Throat issue": {
+      "standard_name": "Dry Throat",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Uncertainty about medication administration": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "blurred vision": {
+      "standard_name": "Vision Blurred",
+      "method": "UMLS Match"
+    },
+    "Sinus congestion": {
+      "standard_name": "Sinus Congestion",
+      "method": "Direct Match"
+    },
+    "Breathing reaction": {
+      "standard_name": "Skin Reaction",
+      "method": "Fallback Fuzzy Match"
+    },
+    "shakiness": {
+      "standard_name": "Feeling Of Relaxation",
+      "method": "UMLS Match"
+    },
+    "appetite surge": {
+      "standard_name": "Appetite Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling freezing cold": {
+      "standard_name": "Feeling Cold",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "sore throat from acid": {
+      "standard_name": "Dry Throat",
+      "method": "Fallback Fuzzy Match"
+    },
+    "No energy": {
+      "standard_name": "Listless",
+      "method": "UMLS Match"
+    },
+    "heart burn": {
+      "standard_name": "Thermal Burn",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Exhaustion": {
+      "standard_name": "Heat Exhaustion",
+      "method": "UMLS Match"
+    },
+    "sleep disruption/insomnia": {
+      "standard_name": "Insomnia",
+      "method": "UMLS Match"
+    },
+    "itchiness at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "No appetite": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "Gastrointestinal discomfort (hard belly)": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match on Part"
+    },
+    "Acid Reflux": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "irritation": {
+      "standard_name": "Irritability",
+      "method": "UMLS Match"
+    },
+    "Sugar cravings": {
+      "standard_name": "Salt Craving",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Increased heartbeat": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "difficulty eating more than 600 calories": {
+      "standard_name": "Binge Eating",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gastrointestinal issues": {
+      "standard_name": "Gastrointestinal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "High heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Disgusting taste in food": {
+      "standard_name": "Taste Disorder",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Reduced effectiveness of medication due to freezing": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "unusual symptoms": {
+      "standard_name": "Cyanosis",
+      "method": "UMLS Match"
+    },
+    "High blood glucose (hyperglycemia)": {
+      "standard_name": "Hyperglycaemia",
+      "method": "UMLS Match"
+    },
+    "weight regain": {
+      "standard_name": "Weight Gain Poor",
+      "method": "Fallback Fuzzy Match"
+    },
+    "None explicitly mentioned": {
+      "standard_name": "Reaction To Excipient",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "illness": {
+      "standard_name": "Illness",
+      "method": "Direct Match"
+    },
+    "Gas and Burping": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "feeling extremely tired": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Unpleasant taste": {
+      "standard_name": "Tenoplasty",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hypoglycemic shock": {
+      "standard_name": "Shock Hypoglycaemic",
+      "method": "UMLS Match"
+    },
+    "loss of energy": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Stomach discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Atrial fibrillation (A-FIB)": {
+      "standard_name": "Atrial Fibrillation",
+      "method": "UMLS Match"
+    },
+    "feeling just plain off": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Muscle loss": {
+      "standard_name": "Muscle Atrophy",
+      "method": "UMLS Match"
+    },
+    "vision changes": {
+      "standard_name": "Halo Vision",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Suicidal thoughts": {
+      "standard_name": "Suicidal Ideation",
+      "method": "UMLS Match"
+    },
+    "weird taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "reduced urination": {
+      "standard_name": "Regurgitation",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Low energy for exercise": {
+      "standard_name": "Exercise Lack Of",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Insomnia": {
+      "standard_name": "Insomnia",
+      "method": "Direct Match"
+    },
+    "face numbness": {
+      "standard_name": "Humerus Fracture",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Violent vomiting": {
+      "standard_name": "Vomiting",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Terrible acid reflux": {
+      "standard_name": "Reflux Gastritis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Defective syringe": {
+      "standard_name": "Device Defective",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loss of appetite and gag reflex": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "Blood sugar spikes after eating sugar": {
+      "standard_name": "Binge Eating",
+      "method": "Fallback Fuzzy Match"
+    },
+    "curbed appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Incontinence": {
+      "standard_name": "Incontinence",
+      "method": "Direct Match"
+    },
+    "Thyroid issues": {
+      "standard_name": "Thyroid Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain in knees and feet": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match on Part"
+    },
+    "room spinning": {
+      "standard_name": "Food Poisoning",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Body pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Gastrointestinal upset": {
+      "standard_name": "Gastrointestinal Tract Irritation",
+      "method": "UMLS Match"
+    },
+    "Discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Direct Match"
+    },
+    "Sweets too sweet": {
+      "standard_name": "Tooth Abscess",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Feeling full after a few bites of food": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Eggs smelling funny": {
+      "standard_name": "Eye Swelling",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Dizziness": {
+      "standard_name": "Dizziness",
+      "method": "Direct Match"
+    },
+    "Arm/leg pain": {
+      "standard_name": "Scar",
+      "method": "UMLS Match"
+    },
+    "Nausea and vomiting": {
+      "standard_name": "Vomiting",
+      "method": "UMLS Match"
+    },
+    "Medicine leakage": {
+      "standard_name": "Device Leakage",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Altered taste": {
+      "standard_name": "Taste Disorder",
+      "method": "UMLS Match"
+    },
+    "Feeling more energetic": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Tiredness and fatigue": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Stomach rolling": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "heart rate fluctuations": {
+      "standard_name": "Heart Rate",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "extreme acrid reflux": {
+      "standard_name": "Reflux Gastritis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "less energy": {
+      "standard_name": "Energy Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Injection pen malfunction": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "heartburn": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "extreme fatigue": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Elevated WBC": {
+      "standard_name": "White Blood Cell Count Increased",
+      "method": "UMLS Match"
+    },
+    "Increased resting heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Apathetic mood": {
+      "standard_name": "Euphoric Mood",
+      "method": "Fallback Fuzzy Match"
+    },
+    "decreased appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "Direct Match"
+    },
+    "lingual thyroid": {
+      "standard_name": "Thyroid Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Altered menstrual cycle": {
+      "standard_name": "Menstrual Clots",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Personality change": {
+      "standard_name": "Personality Change",
+      "method": "Direct Match"
+    },
+    "gas bloat": {
+      "standard_name": "Breast Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "light headaches": {
+      "standard_name": "Headache",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Acid reflux": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "Gassy": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "gastrointestinal cramps": {
+      "standard_name": "Gastrointestinal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Bowel control loss": {
+      "standard_name": "Anal Incontinence",
+      "method": "UMLS Match"
+    },
+    "Liquefied stomach contents": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "lower intestinal revenge": {
+      "standard_name": "Intestinal Mass",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Gas and Bloating": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "bad taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Inability to hold food down": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "lower back pain": {
+      "standard_name": "Back Pain",
+      "method": "UMLS Match"
+    },
+    "itching": {
+      "standard_name": "Pruritus",
+      "method": "UMLS Match"
+    },
+    "Heaviness in chest": {
+      "standard_name": "Chest Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "liquid diarrhea": {
+      "standard_name": "Diarrhoea",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Blood pressure change": {
+      "standard_name": "Labile Blood Pressure",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "feeling awful": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "queasiness": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "Lack of efficacy": {
+      "standard_name": "Lack Of Satiety",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Altered sense of taste (e.g., apple tasting like poison)": {
+      "standard_name": "Taste Disorder",
+      "method": "UMLS Match"
+    },
+    "Inability to eat": {
+      "standard_name": "Inability To Afford Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Redness at injection sites": {
+      "standard_name": "Injection Site Pain",
+      "method": "UMLS Match"
+    },
+    "leg pain (especially calves)": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match on Part"
+    },
+    "loose bowel": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Weakness": {
+      "standard_name": "Asthenia",
+      "method": "UMLS Match"
+    },
+    "Chills": {
+      "standard_name": "Chills",
+      "method": "Direct Match"
+    },
+    "lack of energy": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Loss of natural curl": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "possible colostomy": {
+      "standard_name": "Colostomy",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Needle detachment/dispersal": {
+      "standard_name": "Retinal Detachment",
+      "method": "Fallback Fuzzy Match"
+    },
+    "light headedness": {
+      "standard_name": "Night Blindness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "heaviness on chest": {
+      "standard_name": "Chest Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "effected sleep": {
+      "standard_name": "Sleep Deficit",
+      "method": "Fallback Fuzzy Match"
+    },
+    "hair loss": {
+      "standard_name": "Alopecia Areata",
+      "method": "UMLS Match"
+    },
+    "Stress incontinence": {
+      "standard_name": "Urinary Incontinence",
+      "method": "UMLS Match"
+    },
+    "joint pain": {
+      "standard_name": "Arthralgia",
+      "method": "UMLS Match"
+    },
+    "feeling full right away": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fullness / Feeling like vomiting": {
+      "standard_name": "Epigastric Discomfort",
+      "method": "UMLS Match"
+    },
+    "orthostatic hypotension": {
+      "standard_name": "Orthostatic Hypotension",
+      "method": "Direct Match"
+    },
+    "Lack of energy": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Pancreas problems": {
+      "standard_name": "Biopsy Pancreas",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Twisting to inject": {
+      "standard_name": "Injection Site Streaking",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Irregular heart beats": {
+      "standard_name": "Heart Rate Irregular",
+      "method": "UMLS Match"
+    },
+    "difficulty to take a deep breath": {
+      "standard_name": "Breath Odour",
+      "method": "Fallback Fuzzy Match"
+    },
+    "hypoglycemia shock": {
+      "standard_name": "Shock Hypoglycaemic",
+      "method": "UMLS Match"
+    },
+    "Sleep pattern disturbance": {
+      "standard_name": "Gait Disturbance",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Indigestion": {
+      "standard_name": "Dyspepsia",
+      "method": "UMLS Match"
+    },
+    "Gastrointestinal discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Symptoms (related to gallbladder issues)": {
+      "standard_name": "Neurological Symptom",
+      "method": "UMLS Match"
+    },
+    "Nausea": {
+      "standard_name": "Nausea",
+      "method": "Direct Match"
+    },
+    "bowel movement issues": {
+      "standard_name": "Bowel Movement Irregularity",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "heavy chest": {
+      "standard_name": "Chemotherapy",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Irritability": {
+      "standard_name": "Irritability",
+      "method": "Direct Match"
+    },
+    "severe stomach cramps": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach upset": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Upsetting dreams": {
+      "standard_name": "Breast Swelling",
+      "method": "Fallback Fuzzy Match"
+    },
+    "itching at the site": {
+      "standard_name": "Itching Scar",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Aches all over body": {
+      "standard_name": "Gallbladder Abscess",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Soreness at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "stomach spasms": {
+      "standard_name": "Stomach Mass",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Heart racing": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Hunger increase after weight loss": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "tummy cramps": {
+      "standard_name": "Sputum Increased",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "vomiting at night": {
+      "standard_name": "Vomiting",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Paradoxical reaction": {
+      "standard_name": "Paradoxical Drug Reaction",
+      "method": "UMLS Match"
+    },
+    "Inability to work properly": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach sickness": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "No significant side effects": {
+      "standard_name": "Acanthosis Nigricans",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Loss of enjoyment of food": {
+      "standard_name": "Loss Of Employment",
+      "method": "Fallback Fuzzy Match"
+    },
+    "not really being hungry": {
+      "standard_name": "Heavy Menstrual Bleeding",
+      "method": "Fallback Fuzzy Match"
+    },
+    "low blood pressure": {
+      "standard_name": "Blood Pressure Decreased",
+      "method": "UMLS Match"
+    },
+    "weight change": {
+      "standard_name": "Weight Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gastrointestinal effects": {
+      "standard_name": "Gastrointestinal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "blood sugar crashing": {
+      "standard_name": "Blood Urea Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "loose bowel movements": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Back pains": {
+      "standard_name": "Back Pain",
+      "method": "UMLS Match"
+    },
+    "Gastrointestinal issues": {
+      "standard_name": "Gastrointestinal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "tummy pains": {
+      "standard_name": "Pulmonary Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sensitivity to touch": {
+      "standard_name": "Hyperaesthesia",
+      "method": "UMLS Match"
+    },
+    "Bleeding hemorrhoids": {
+      "standard_name": "Haemorrhoidal Haemorrhage",
+      "method": "UMLS Match"
+    },
+    "abdominal discomfort": {
+      "standard_name": "Abdominal Discomfort",
+      "method": "Direct Match"
+    },
+    "Bad dreams": {
+      "standard_name": "Abnormal Dreams",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Difficulty with injection device": {
+      "standard_name": "Injection",
+      "method": "UMLS Match"
+    },
+    "Fullness in upper chest": {
+      "standard_name": "Chest Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sulphur burping": {
+      "standard_name": "Vascular Pain",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Feeling less hungry": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gastro issues": {
+      "standard_name": "Gastric Ileus",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Skin aches": {
+      "standard_name": "Skin Cancer",
+      "method": "Fallback Fuzzy Match"
+    },
+    "ocular episodes": {
+      "standard_name": "Follicular Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "malaise": {
+      "standard_name": "Malaise",
+      "method": "Direct Match"
+    },
+    "Morning sickness": {
+      "standard_name": "Morning Sickness",
+      "method": "Direct Match"
+    },
+    "gallstones": {
+      "standard_name": "Biliary Tract Disorder",
+      "method": "UMLS Match"
+    },
+    "Intestinal pain with diarrhea and bleeding": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "mild stomach pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Inability to keep food or water down": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sweats": {
+      "standard_name": "Night Sweats",
+      "method": "UMLS Match"
+    },
+    "feeling lightheaded or passing out": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Belly ache": {
+      "standard_name": "Swelling Face",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Shakiness": {
+      "standard_name": "Feeling Of Relaxation",
+      "method": "UMLS Match"
+    },
+    "decrease in appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "Anorexia": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "Needle pain/dull needle": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match on Part"
+    },
+    "boil at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Abdominal Pain": {
+      "standard_name": "Abdominal Pain",
+      "method": "Direct Match"
+    },
+    "Sulphur belches": {
+      "standard_name": "Abscess Rupture",
+      "method": "Fallback Fuzzy Match"
+    },
+    "taste buds change": {
+      "standard_name": "Rectal Discharge",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Queasy": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "Nutrient deficiency / getting sick": {
+      "standard_name": "Iron Deficiency",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Muscle tightness": {
+      "standard_name": "Muscle Tightness",
+      "method": "Direct Match"
+    },
+    "Stomach distension": {
+      "standard_name": "Gastric Dilatation",
+      "method": "UMLS Match"
+    },
+    "Soreness": {
+      "standard_name": "Tenderness",
+      "method": "UMLS Match"
+    },
+    "low potassium levels": {
+      "standard_name": "Hypokalaemia",
+      "method": "UMLS Match"
+    },
+    "Frozen shoulder": {
+      "standard_name": "Shoulder Fracture",
+      "method": "Fallback Fuzzy Match"
+    },
+    "potential infection": {
+      "standard_name": "Infection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "itchy dry patches": {
+      "standard_name": "Lip Dry",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pen issues (stuck plunger, stopped working)": {
+      "standard_name": "Drug Dispensed To Wrong Patient",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "rash around the injection site": {
+      "standard_name": "Injection Site Rash",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "High blood sugar": {
+      "standard_name": "Hyperglycaemia",
+      "method": "UMLS Match"
+    },
+    "Pain in stomach": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "minor side effects": {
+      "standard_name": "Inappropriate Affect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Black stool": {
+      "standard_name": "Melaena",
+      "method": "UMLS Match"
+    },
+    "Vaginal bleeding": {
+      "standard_name": "Vaginal Haemorrhage",
+      "method": "UMLS Match"
+    },
+    "extreme moodiness": {
+      "standard_name": "Extremity Necrosis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "epigastric pain": {
+      "standard_name": "Abdominal Pain Upper",
+      "method": "UMLS Match"
+    },
+    "feeling unwell/feverish": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Muscle spasms": {
+      "standard_name": "Muscle Spasms",
+      "method": "Direct Match"
+    },
+    "GI tract abnormality": {
+      "standard_name": "X-Ray Gastrointestinal Tract Abnormal",
+      "method": "UMLS Match"
+    },
+    "Throat burn": {
+      "standard_name": "Thermal Burn",
+      "method": "Fallback Fuzzy Match"
+    },
+    "not feeling great": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Stomach pains and cramps": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Throat cancer": {
+      "standard_name": "Throat Cancer",
+      "method": "Direct Match"
+    },
+    "freezing cold hands": {
+      "standard_name": "Feeling Cold",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hot flashes": {
+      "standard_name": "Menopausal Symptoms",
+      "method": "UMLS Match"
+    },
+    "Backache": {
+      "standard_name": "Back Pain",
+      "method": "UMLS Match"
+    },
+    "Sweating": {
+      "standard_name": "Sweating Fever",
+      "method": "UMLS Match"
+    },
+    "feeling not myself": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hunger pangs": {
+      "standard_name": "Hunger",
+      "method": "UMLS Match"
+    },
+    "Ringing in ears": {
+      "standard_name": "Tinnitus",
+      "method": "UMLS Match"
+    },
+    "Feeling freezing and exhausted after exercise": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gas bloating": {
+      "standard_name": "Gastric Banding",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gall stones": {
+      "standard_name": "Gallbladder Disorder",
+      "method": "UMLS Match"
+    },
+    "general uneasiness": {
+      "standard_name": "General Anaesthesia",
+      "method": "Fallback Fuzzy Match"
+    },
+    "rotten egg burps": {
+      "standard_name": "Biopsy Prostate",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Abnormal EKG": {
+      "standard_name": "Electrocardiogram Abnormal",
+      "method": "UMLS Match"
+    },
+    "Pain in arms": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "pressure in upper abdomen": {
+      "standard_name": "Acute Abdomen",
+      "method": "Fallback Fuzzy Match"
+    },
+    "brain fog": {
+      "standard_name": "Brain Fog",
+      "method": "Direct Match"
+    },
+    "Feeling unwell": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Missed doses due to device issues": {
+      "standard_name": "Device Issue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "fever": {
+      "standard_name": "Body Temperature Increased",
+      "method": "UMLS Match"
+    },
+    "Blood pressure changes": {
+      "standard_name": "Respiratory Rate Increased",
+      "method": "UMLS Match"
+    },
+    "flu-like symptoms": {
+      "standard_name": "Influenza Like Illness",
+      "method": "UMLS Match"
+    },
+    "loss of appetite (not explicitly mentioned but implied by": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "High blood sugar levels": {
+      "standard_name": "Hyperglycaemia",
+      "method": "UMLS Match"
+    },
+    "disturbed sleep": {
+      "standard_name": "Sleep Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loss of appetite suppression": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Diet change to junk food": {
+      "standard_name": "Therapy Change",
+      "method": "Fallback Fuzzy Match"
+    },
+    "PVCs (premature ventricular contractions)": {
+      "standard_name": "Ventricular Extrasystoles",
+      "method": "UMLS Match"
+    },
+    "sour stomachs": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "vivid dreams": {
+      "standard_name": "Abnormal Dreams",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Medication leakage at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Low back spasms": {
+      "standard_name": "Anal Spasm",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling unwell": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Inflamed left elbow": {
+      "standard_name": "Left Atrial Enlargement",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "enlarged thyroid": {
+      "standard_name": "Goitre",
+      "method": "UMLS Match"
+    },
+    "stomach cramping": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "panic attacks": {
+      "standard_name": "Panic Attack",
+      "method": "UMLS Match"
+    },
+    "No back pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Burning bile backs up": {
+      "standard_name": "Burning Sensation",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "tired": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "No appetite or hunger signals": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Frequent bowel movements / urgency": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "UMLS Match"
+    },
+    "Erectile Dysfunction (ED)": {
+      "standard_name": "Erectile Dysfunction",
+      "method": "UMLS Match"
+    },
+    "Tiredness": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "mildly queasy": {
+      "standard_name": "Axillary Mass",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "belching like darth Vader": {
+      "standard_name": "Live Birth",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Vomiting": {
+      "standard_name": "Vomiting",
+      "method": "Direct Match"
+    },
+    "miserable": {
+      "standard_name": "Depressed Mood",
+      "method": "UMLS Match"
+    },
+    "reflux": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "Short temper": {
+      "standard_name": "Product Tampering",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Diarrhea/Gas": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Chronic constipation": {
+      "standard_name": "Infrequent Bowel Movements",
+      "method": "UMLS Match"
+    },
+    "Hair loss": {
+      "standard_name": "Alopecia Areata",
+      "method": "UMLS Match"
+    },
+    "Sour stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Injection site pain": {
+      "standard_name": "Injection Site Pain",
+      "method": "Direct Match"
+    },
+    "Low energy": {
+      "standard_name": "Energy Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "loss of taste for alcohol": {
+      "standard_name": "Alcohol Use",
+      "method": "Fallback Fuzzy Match"
+    },
+    "leg and foot aches and pains": {
+      "standard_name": "Pain",
+      "method": "UMLS Match"
+    },
+    "feeling of being blah": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "trapped wind": {
+      "standard_name": "Chapped Lips",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Acid": {
+      "standard_name": "Bile Acid Malabsorption",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Sleep improvement": {
+      "standard_name": "Visual Impairment",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Weight loss has stopped": {
+      "standard_name": "Weight Loss Poor",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Nausea/Vomiting": {
+      "standard_name": "Vomiting",
+      "method": "UMLS Match"
+    },
+    "burping a lot": {
+      "standard_name": "Throat Clearing",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Feeling awful all day and every day": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Blood vessel rupture in face": {
+      "standard_name": "Cyst Rupture",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Extreme nausea": {
+      "standard_name": "Nausea",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Taste issues": {
+      "standard_name": "Taste Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Low Testosterone Levels": {
+      "standard_name": "Blood Testosterone Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "digestive problems": {
+      "standard_name": "Peyronie's Disease",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Constipation pain": {
+      "standard_name": "Urinary Tract Pain",
+      "method": "UMLS Match"
+    },
+    "Muscle pains": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "slowed bowel movements": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Wakefulness disturbance": {
+      "standard_name": "Circadian Rhythm Sleep Disorder",
+      "method": "UMLS Match"
+    },
+    "Loss of desire to cook": {
+      "standard_name": "Loss Of Control Of Legs",
+      "method": "Fallback Fuzzy Match"
+    },
+    "digestive matters": {
+      "standard_name": "Meniere's Disease",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Hurts to hug my 5 yo": {
+      "standard_name": "Tolosa-Hunt Syndrome",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Digestive issues": {
+      "standard_name": "Device Issue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Watery diarrhea": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "hemorrhoids": {
+      "standard_name": "Haemorrhoids",
+      "method": "UMLS Match"
+    },
+    "ED": {
+      "standard_name": "Erectile Dysfunction",
+      "method": "UMLS Match"
+    },
+    "Side effects when starting medication": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Pens quitting": {
+      "standard_name": "Resuscitation",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Black stools": {
+      "standard_name": "Melaena",
+      "method": "UMLS Match"
+    },
+    "arthritis inflammation": {
+      "standard_name": "Inflammation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Feeling very tired": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling sick to stomach": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Discomfort from injection": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Gallbladder effects": {
+      "standard_name": "Gallbladder Polyp",
+      "method": "Fallback Fuzzy Match"
+    },
+    "lump in throat": {
+      "standard_name": "Foreign Body In Throat",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach off": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fibromyalgia flares": {
+      "standard_name": "Fibromyalgia",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Can't get out of bed": {
+      "standard_name": "Change Of Bowel Habit",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Injection site irritation": {
+      "standard_name": "Injection Site Irritation",
+      "method": "Direct Match"
+    },
+    "appetite suppression failure": {
+      "standard_name": "Renal Failure",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sulfuric belching": {
+      "standard_name": "Surgical Stapling",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Serious side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Severe sweating": {
+      "standard_name": "Hypertensive Crisis",
+      "method": "UMLS Match"
+    },
+    "Muscle aches": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "Sulfuric burps": {
+      "standard_name": "Gastric Bypass",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Cravings reduction": {
+      "standard_name": "Coronavirus Infection",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling of undigested food in stomach": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "cramping": {
+      "standard_name": "Abdominal Discomfort",
+      "method": "UMLS Match"
+    },
+    "Stomach queasiness": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling fuller sooner": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Faintness": {
+      "standard_name": "Loss Of Consciousness",
+      "method": "UMLS Match"
+    },
+    "Food in stomach after fasting": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Egg tasting/repeating": {
+      "standard_name": "Intestinal Gangrene",
+      "method": "Fallback Fuzzy Match"
+    },
+    "explosive diarrhea": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Manic episode": {
+      "standard_name": "Mania",
+      "method": "UMLS Match"
+    },
+    "eye pain": {
+      "standard_name": "Eye Pain",
+      "method": "Direct Match"
+    },
+    "general malaise": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "pain in right kidney": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Lightheadedness": {
+      "standard_name": "Dizziness Postural",
+      "method": "UMLS Match"
+    },
+    "Gastrointestinal issues (diarrhea, nausea)": {
+      "standard_name": "Nausea",
+      "method": "Fuzzy Match on Part"
+    },
+    "bruising at injection sites": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Climbing blood sugar levels": {
+      "standard_name": "Labile Blood Pressure",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Weight loss stagnation": {
+      "standard_name": "Weight Loss Poor",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "increased thirst": {
+      "standard_name": "Thirst",
+      "method": "UMLS Match"
+    },
+    "Thyroid level changes": {
+      "standard_name": "Thyroid Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "cold and chills": {
+      "standard_name": "Chills",
+      "method": "UMLS Match"
+    },
+    "Gastroesophageal reflux disease (GERD)": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "slight side effects": {
+      "standard_name": "Affect Lability",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Frequent bathroom trips": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "Fallback Fuzzy Match"
+    },
+    "constipated": {
+      "standard_name": "Constipation",
+      "method": "UMLS Match"
+    },
+    "Burning tongue": {
+      "standard_name": "Tongue Erythema",
+      "method": "UMLS Match"
+    },
+    "Nasty burps": {
+      "standard_name": "Bulbar Palsy",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Depression": {
+      "standard_name": "Depression",
+      "method": "Direct Match"
+    },
+    "Sleep disturbance": {
+      "standard_name": "Sleep Disorder",
+      "method": "UMLS Match"
+    },
+    "hunger pains": {
+      "standard_name": "Hunger",
+      "method": "UMLS Match"
+    },
+    "gag reflex leading to vomiting": {
+      "standard_name": "Vomiting",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Nose Bleeds": {
+      "standard_name": "Haemorrhage",
+      "method": "UMLS Match"
+    },
+    "Throat closing feeling (threatening)": {
+      "standard_name": "Abortion",
+      "method": "UMLS Match"
+    },
+    "IBS attacks": {
+      "standard_name": "Panic Attack",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Burning sensation in body": {
+      "standard_name": "Burning Sensation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "joint pains": {
+      "standard_name": "Arthralgia",
+      "method": "UMLS Match"
+    },
+    "Head feeling funny, lightheadedness": {
+      "standard_name": "Dizziness Postural",
+      "method": "UMLS Match"
+    },
+    "mild headache": {
+      "standard_name": "Headache",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Severe tiredness": {
+      "standard_name": "Breast Tenderness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Inability to hold food or liquid down": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "severe diarrhea": {
+      "standard_name": "Viral Diarrhoea",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gallbladder issues": {
+      "standard_name": "Gallbladder Abscess",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Severe reaction (hot flashes, dizziness, sweats, passing out)": {
+      "standard_name": "Severe Cutaneous Adverse Reaction",
+      "method": "UMLS Match"
+    },
+    "multiple lumps": {
+      "standard_name": "Multiple Fractures",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cost": {
+      "standard_name": "Cyst",
+      "method": "Fallback Fuzzy Match"
+    },
+    "weakness": {
+      "standard_name": "Asthenia",
+      "method": "UMLS Match"
+    },
+    "cold": {
+      "standard_name": "Nasopharyngitis",
+      "method": "UMLS Match"
+    },
+    "Harder stools": {
+      "standard_name": "Mucous Stools",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loss of desire for sugars and junk food": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "terrible side effects": {
+      "standard_name": "Therapeutic Product Effect Variable",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduced hunger sensation": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Severe diarrhea": {
+      "standard_name": "Viral Diarrhoea",
+      "method": "Fallback Fuzzy Match"
+    },
+    "symptoms returning after re-taking medication": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "No cravings for sweet foods": {
+      "standard_name": "Food Craving",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Burning in throat": {
+      "standard_name": "Dry Throat",
+      "method": "Fallback Fuzzy Match"
+    },
+    "change in stool consistency": {
+      "standard_name": "Therapy Change",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Acute gallbladder disease": {
+      "standard_name": "Gallbladder Polyp",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Muscle aches/pain": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "Sleep disturbances (waking up multiple times in the night)": {
+      "standard_name": "Sleep Disorder",
+      "method": "UMLS Match"
+    },
+    "breathing problems": {
+      "standard_name": "Respiration Abnormal",
+      "method": "UMLS Match"
+    },
+    "freezing cold nose": {
+      "standard_name": "Feeling Cold",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Panic attack": {
+      "standard_name": "Panic Attack",
+      "method": "Direct Match"
+    },
+    "Pukie (nausea)": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "Profuse sweating": {
+      "standard_name": "Sweating Fever",
+      "method": "Fallback Fuzzy Match"
+    },
+    "No allergy symptoms": {
+      "standard_name": "Eye Allergy",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling poorly": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "allergic dermatitis": {
+      "standard_name": "Dermatitis Allergic",
+      "method": "UMLS Match"
+    },
+    "loss of weight": {
+      "standard_name": "Weight Decreased",
+      "method": "UMLS Match"
+    },
+    "Severe stomach cramping": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "throw up tendency": {
+      "standard_name": "Increased Tendency To Bruise",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Brittle hair and hair breaking off": {
+      "standard_name": "Teeth Brittle",
+      "method": "Fallback Fuzzy Match"
+    },
+    "No cravings": {
+      "standard_name": "Food Craving",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fast heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Discouragement": {
+      "standard_name": "Discouragement",
+      "method": "Direct Match"
+    },
+    "Rapid palpitations": {
+      "standard_name": "Palpitations",
+      "method": "UMLS Match"
+    },
+    "muscle mass decrease": {
+      "standard_name": "Muscle Mass",
+      "method": "UMLS Match"
+    },
+    "Excess skin after weight loss": {
+      "standard_name": "Weight Loss Poor",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "GI upset": {
+      "standard_name": "Gastrointestinal Tract Irritation",
+      "method": "UMLS Match"
+    },
+    "diarrhea like water": {
+      "standard_name": "Viral Diarrhoea",
+      "method": "Fallback Fuzzy Match"
+    },
+    "craving junk food": {
+      "standard_name": "Food Craving",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "increased pulse rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Breast tenderness": {
+      "standard_name": "Breast Tenderness",
+      "method": "Direct Match"
+    },
+    "Unpleasant smell passing wind": {
+      "standard_name": "Pharyngeal Ulceration",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Feeling ill after eating": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sour stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gallbladder removal": {
+      "standard_name": "Cholecystectomy",
+      "method": "UMLS Match"
+    },
+    "Extreme stomach pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "abdominal pain radiating to back": {
+      "standard_name": "Abdominal Pain Upper",
+      "method": "UMLS Match"
+    },
+    "muscle cramps": {
+      "standard_name": "Muscle Spasms",
+      "method": "UMLS Match"
+    },
+    "Candida yeast infection": {
+      "standard_name": "Infection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Reduced eyesight and increased eyeglass prescription": {
+      "standard_name": "Pco2 Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sickness": {
+      "standard_name": "Motion Sickness",
+      "method": "UMLS Match"
+    },
+    "Feeling hungover": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling like bowling balls in stomach": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Dairy intolerance (limit dairy, no yellow cheese, small amounts of white cheese)": {
+      "standard_name": "Dairy Intolerance",
+      "method": "UMLS Match"
+    },
+    "Bedridden state": {
+      "standard_name": "Bedridden",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "metallic flavour": {
+      "standard_name": "Metabolic Alkalosis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sleep may have not been as before": {
+      "standard_name": "Sleep Terror",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Weird feeling in gut": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Appetite decrease": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "tingling in hands": {
+      "standard_name": "Skin Wrinkling",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Plateaued weight loss": {
+      "standard_name": "Weight Loss Poor",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "diabetic ketoacidosis (DKA)": {
+      "standard_name": "Diabetic Ketoacidosis",
+      "method": "UMLS Match"
+    },
+    "burping": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Increased blood glucose levels": {
+      "standard_name": "Blood Glucose Increased",
+      "method": "UMLS Match"
+    },
+    "Increased pulse rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Bad taste": {
+      "standard_name": "Taste Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sickness/Nausea from alcohol": {
+      "standard_name": "Motion Sickness",
+      "method": "UMLS Match"
+    },
+    "Heartbeat": {
+      "standard_name": "Cardiac Disorder",
+      "method": "UMLS Match"
+    },
+    "constipation": {
+      "standard_name": "Constipation",
+      "method": "Direct Match"
+    },
+    "Confusion about dose counter display": {
+      "standard_name": "Product Dose Confusion",
+      "method": "Fallback Fuzzy Match"
+    },
+    "lethargic": {
+      "standard_name": "Lethargy",
+      "method": "UMLS Match"
+    },
+    "swelling": {
+      "standard_name": "Swelling",
+      "method": "Direct Match"
+    },
+    "High blood pressure": {
+      "standard_name": "Arterial Disorder",
+      "method": "UMLS Match"
+    },
+    "Projectile vomiting": {
+      "standard_name": "Vomiting Projectile",
+      "method": "UMLS Match"
+    },
+    "Stomach pains": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Injection pain": {
+      "standard_name": "Injection Site Pain",
+      "method": "UMLS Match"
+    },
+    "Acne": {
+      "standard_name": "Acne",
+      "method": "Direct Match"
+    },
+    "Severe stomach cramps": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nausea from fatty foods": {
+      "standard_name": "Nausea",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Tightness in the chest": {
+      "standard_name": "Skin Tightness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Ineffectiveness of medication": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Back pain": {
+      "standard_name": "Back Pain",
+      "method": "Direct Match"
+    },
+    "Drowsiness": {
+      "standard_name": "Somnolence",
+      "method": "UMLS Match"
+    },
+    "Few side effects in first week": {
+      "standard_name": "Infusion Site Infection",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Edema": {
+      "standard_name": "Swelling",
+      "method": "UMLS Match"
+    },
+    "Feeling unwell / malaise": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Gassiness": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Pain or discomfort at injection site": {
+      "standard_name": "Injection Site Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Exhaustion and fatigue": {
+      "standard_name": "Heat Exhaustion",
+      "method": "UMLS Match"
+    },
+    "Burning diarrhea": {
+      "standard_name": "Diarrhoea",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loss of enjoyment of eating": {
+      "standard_name": "Fear Of Eating",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gas and burping": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Stomach pain and cramping": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "feeling weird like something is wrong with me": {
+      "standard_name": "Chronic Fatigue Syndrome",
+      "method": "UMLS Match"
+    },
+    "nauseous": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "Minimal side effects": {
+      "standard_name": "Injection Site Macule",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "gassiness": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Dry reaching": {
+      "standard_name": "Retching",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Abdominal cramping": {
+      "standard_name": "Abdominal Discomfort",
+      "method": "UMLS Match"
+    },
+    "disagree with me": {
+      "standard_name": "Chronic Fatigue Syndrome",
+      "method": "UMLS Match"
+    },
+    "Feeling full": {
+      "standard_name": "Early Satiety",
+      "method": "UMLS Match"
+    },
+    "fainting": {
+      "standard_name": "Loss Of Consciousness",
+      "method": "UMLS Match"
+    },
+    "Inflammation": {
+      "standard_name": "Inflammation",
+      "method": "Direct Match"
+    },
+    "Heart pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "burning": {
+      "standard_name": "Burning Sensation",
+      "method": "UMLS Match"
+    },
+    "dumping syndrome": {
+      "standard_name": "Dumping Syndrome",
+      "method": "Direct Match"
+    },
+    "Throat feeling swollen": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sleepiness": {
+      "standard_name": "Somnolence",
+      "method": "UMLS Match"
+    },
+    "Shakiness from hypoglycemia": {
+      "standard_name": "Hypoglycaemia Unawareness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "flushing": {
+      "standard_name": "Flushing",
+      "method": "Direct Match"
+    },
+    "Stomach gurgles": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "irritability": {
+      "standard_name": "Irritability",
+      "method": "Direct Match"
+    },
+    "Gastric problems": {
+      "standard_name": "Gastric Polyps",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "sleep disturbance (feeling like being on a high and crashing)": {
+      "standard_name": "Sleep Disorder",
+      "method": "UMLS Match"
+    },
+    "Decreased appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "Direct Match"
+    },
+    "Thyroid cancer": {
+      "standard_name": "Thyroid Cancer",
+      "method": "Direct Match"
+    },
+    "Slight hunger": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Extreme hunger": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Poor blood sugar control": {
+      "standard_name": "Weight Control",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Almost life threatening condition": {
+      "standard_name": "Condition Aggravated",
+      "method": "Fallback Fuzzy Match"
+    },
+    "mild constipation": {
+      "standard_name": "Constipation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "taste side effect": {
+      "standard_name": "Rebound Effect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "overall feeling of sickness": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "cramping in intestines": {
+      "standard_name": "Intestinal Congestion",
+      "method": "Fallback Fuzzy Match"
+    },
+    "injection site soreness": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "ucky feeling": {
+      "standard_name": "Feeling Drunk",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "bleeding sores from backside": {
+      "standard_name": "Coital Bleeding",
+      "method": "Fallback Fuzzy Match"
+    },
+    "IBS episodes": {
+      "standard_name": "Sinus Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Body aches": {
+      "standard_name": "Wound Abscess",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Vision loss": {
+      "standard_name": "Blindness",
+      "method": "UMLS Match"
+    },
+    "High white blood cell count": {
+      "standard_name": "White Blood Cell Count Increased",
+      "method": "UMLS Match"
+    },
+    "bladderfulness": {
+      "standard_name": "Urinary Incontinence",
+      "method": "UMLS Match"
+    },
+    "Decreased energy": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "dry mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Direct Match"
+    },
+    "Severe illness": {
+      "standard_name": "Respiratory Fatigue",
+      "method": "UMLS Match"
+    },
+    "Uneasy stomach feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Vision issues": {
+      "standard_name": "Skin Fissures",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Deterioration of kidney function": {
+      "standard_name": "Kidney Small",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cravings for sugar": {
+      "standard_name": "Food Craving",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Delirium": {
+      "standard_name": "Delirium",
+      "method": "Direct Match"
+    },
+    "faint": {
+      "standard_name": "Loss Of Consciousness",
+      "method": "UMLS Match"
+    },
+    "Pain in legs and feet": {
+      "standard_name": "Radicular Pain",
+      "method": "UMLS Match"
+    },
+    "feeling bloated": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sweats": {
+      "standard_name": "Night Sweats",
+      "method": "UMLS Match"
+    },
+    "Bone chilling cold": {
+      "standard_name": "Feeling Cold",
+      "method": "Fallback Fuzzy Match"
+    },
+    "vertigo": {
+      "standard_name": "Vertigo",
+      "method": "Direct Match"
+    },
+    "Decreased breakfast intake": {
+      "standard_name": "Pco2 Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stabbing pain in middle left side": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "vomiting sensation at night": {
+      "standard_name": "Vomiting",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "heart racing with palpitations": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "vomit": {
+      "standard_name": "Vomiting",
+      "method": "UMLS Match"
+    },
+    "Ongoing stomach bug": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Ketoacidosis": {
+      "standard_name": "Ketoacidosis",
+      "method": "Direct Match"
+    },
+    "sick stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Dry sore throat": {
+      "standard_name": "Dry Throat",
+      "method": "UMLS Match"
+    },
+    "Rapid heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Muscle cramps in back": {
+      "standard_name": "Muscle Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hair shedding": {
+      "standard_name": "Ear Swelling",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gassy/bloating": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Red rash on left forearm": {
+      "standard_name": "Rash",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "bad taste": {
+      "standard_name": "Taste Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Crying/Emotional disturbance": {
+      "standard_name": "Crying",
+      "method": "UMLS Match"
+    },
+    "stomach bloating": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Clothing hurts": {
+      "standard_name": "Throat Clearing",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain when Eating even bland foods in small quantities": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Increased physical health": {
+      "standard_name": "Pco2 Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sulphuric burps": {
+      "standard_name": "Gastric Bypass",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Gastric uneasiness": {
+      "standard_name": "Gastric Pneumatosis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loss of appetite or digestion issues": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduced desire to drink alcohol": {
+      "standard_name": "Alcohol Use",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduced appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "Dry hair": {
+      "standard_name": "Lip Dry",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Heat burn": {
+      "standard_name": "Thermal Burn",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Burping (egg taste/smell)": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "blotchy purple skin from dehydration": {
+      "standard_name": "Dehydration",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Gastrointestinal side effects": {
+      "standard_name": "Gastrointestinal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Dry mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Direct Match"
+    },
+    "No side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "terrible GI reaction": {
+      "standard_name": "Skin Reaction",
+      "method": "Fallback Fuzzy Match"
+    },
+    "High blood glucose symptoms (e.g., feet tingling)": {
+      "standard_name": "Blood Glucose Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Lower blood sugar level": {
+      "standard_name": "Blood Urine",
+      "method": "Fallback Fuzzy Match"
+    },
+    "distinct metallic taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "craving": {
+      "standard_name": "Salt Craving",
+      "method": "UMLS Match"
+    },
+    "Gall bladder disease": {
+      "standard_name": "Gallbladder Disorder",
+      "method": "UMLS Match"
+    },
+    "BPPV (Benign Paroxysmal Positional Vertigo)": {
+      "standard_name": "Vertigo Positional",
+      "method": "UMLS Match"
+    },
+    "Hypoglycemia": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "Heart problems": {
+      "standard_name": "Legal Problem",
+      "method": "Fallback Fuzzy Match"
+    },
+    "craving sugar": {
+      "standard_name": "Salt Craving",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "upper abdominal pain": {
+      "standard_name": "Abdominal Pain Upper",
+      "method": "UMLS Match"
+    },
+    "IBS cramping": {
+      "standard_name": "Screaming",
+      "method": "Fallback Fuzzy Match"
+    },
+    "IBS": {
+      "standard_name": "Irritable Bowel Syndrome",
+      "method": "UMLS Match"
+    },
+    "Blood glucose fluctuations": {
+      "standard_name": "Blood Glucose Fluctuation",
+      "method": "UMLS Match"
+    },
+    "Inability to handle water": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "constant hunger feeling": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Chest pains": {
+      "standard_name": "Chest Discomfort",
+      "method": "UMLS Match"
+    },
+    "Side effects from Byetta": {
+      "standard_name": "Middle Ear Effusion",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Inability to stomach pills": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Increased energy and ability to exercise": {
+      "standard_name": "Exercise Tolerance Decreased",
+      "method": "UMLS Match"
+    },
+    "Increased urination at night": {
+      "standard_name": "Pco2 Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bruising around the needle site": {
+      "standard_name": "Implant Site Bruising",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Increased thirst": {
+      "standard_name": "Thirst",
+      "method": "UMLS Match"
+    },
+    "Craving sweets": {
+      "standard_name": "Salt Craving",
+      "method": "Fallback Fuzzy Match"
+    },
+    "appetite suppression": {
+      "standard_name": "Appetite Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Aching": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "Less appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Allergic reaction": {
+      "standard_name": "Hypersensitivity",
+      "method": "UMLS Match"
+    },
+    "Moodiness": {
+      "standard_name": "Acute Abdomen",
+      "method": "UMLS Match"
+    },
+    "Kidney problems": {
+      "standard_name": "Diabetic Nephropathy",
+      "method": "UMLS Match"
+    },
+    "Low blood sugar": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "hypoglycaemic symptoms (low blood sugar)": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "Nauseated": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "Fullness experienced in esophagus": {
+      "standard_name": "Near Death Experience",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "weird sensations in legs and feet": {
+      "standard_name": "Foreign Body Sensation In Eyes",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Blood sugar not low yet": {
+      "standard_name": "Blood Urine",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nightmares": {
+      "standard_name": "Nightmare",
+      "method": "UMLS Match"
+    },
+    "sleep disturbance": {
+      "standard_name": "Sleep Disorder",
+      "method": "UMLS Match"
+    },
+    "Stomach ulcer": {
+      "standard_name": "Gastric Ulcer",
+      "method": "UMLS Match"
+    },
+    "soiling in sleep": {
+      "standard_name": "Sleep Talking",
+      "method": "Fallback Fuzzy Match"
+    },
+    "extreme body pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Cramps": {
+      "standard_name": "Rash",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling full all the time": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "nervousness": {
+      "standard_name": "Nervousness",
+      "method": "Direct Match"
+    },
+    "itchy, red blotch at injection site": {
+      "standard_name": "Pruritus",
+      "method": "UMLS Match"
+    },
+    "Shivering and shaking": {
+      "standard_name": "Tremor",
+      "method": "UMLS Match"
+    },
+    "Pain in shoulder blades": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Suppressed appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach knots": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nervous feelings": {
+      "standard_name": "Feeling Jittery",
+      "method": "UMLS Match"
+    },
+    "Severe depression": {
+      "standard_name": "Major Depression",
+      "method": "UMLS Match"
+    },
+    "Nose bleed": {
+      "standard_name": "Haemorrhage",
+      "method": "UMLS Match"
+    },
+    "hard to have bowel movements": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "Fallback Fuzzy Match"
+    },
+    "headache": {
+      "standard_name": "Headache",
+      "method": "Direct Match"
+    },
+    "stiff neck": {
+      "standard_name": "Stiff Person Syndrome",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gastric paralysis": {
+      "standard_name": "Gastric Atony",
+      "method": "UMLS Match"
+    },
+    "Flu-like symptoms": {
+      "standard_name": "Influenza Like Illness",
+      "method": "UMLS Match"
+    },
+    "extremely warm sensation": {
+      "standard_name": "Burning Sensation",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sickness": {
+      "standard_name": "Motion Sickness",
+      "method": "UMLS Match"
+    },
+    "attacks when drinking milk": {
+      "standard_name": "Impaired Driving Ability",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "sick": {
+      "standard_name": "Illness",
+      "method": "UMLS Match"
+    },
+    "small bumps on the body": {
+      "standard_name": "Kidney Small",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Hemorrhoid bleeding": {
+      "standard_name": "Haemorrhoidal Haemorrhage",
+      "method": "UMLS Match"
+    },
+    "Loss of sleep due to gurgling": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "excessive fatigue": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Pain in back": {
+      "standard_name": "Back Pain",
+      "method": "UMLS Match"
+    },
+    "Fecal incontinence": {
+      "standard_name": "Anal Incontinence",
+      "method": "UMLS Match"
+    },
+    "digestive upset": {
+      "standard_name": "Cardiac Failure Congestive",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Full water feeling in stomach": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hunger suppression": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Fullness/Feeling full": {
+      "standard_name": "Early Satiety",
+      "method": "UMLS Match"
+    },
+    "Gastrointestinal discomfort (related to wheat/inflammation)": {
+      "standard_name": "Inflammation",
+      "method": "Fuzzy Match on Part"
+    },
+    "Egg burps": {
+      "standard_name": "Bursa Removal",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Stomach upset": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Odor in urine": {
+      "standard_name": "Urine Odour Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach bloating": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feet hurting": {
+      "standard_name": "Sweating Fever",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gas": {
+      "standard_name": "Flatulence",
+      "method": "UMLS Match"
+    },
+    "Slow bowel movements": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Feeling full very quickly": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "nauseousness": {
+      "standard_name": "Nervousness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Insurance denial": {
+      "standard_name": "Insurance Issue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nerve pain in left foot": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "stomach cramps": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cold sweats": {
+      "standard_name": "Cold Sweat",
+      "method": "UMLS Match"
+    },
+    "Projectile vomiting of food and liquids": {
+      "standard_name": "Pneumonia Aspiration",
+      "method": "UMLS Match"
+    },
+    "Feeling drained": {
+      "standard_name": "Feeling Drunk",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Horrible taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nausea/vomiting urge": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "runny stools": {
+      "standard_name": "Mucous Stools",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Body cramps": {
+      "standard_name": "Biopsy Pancreas",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gallbladder stone": {
+      "standard_name": "Biliary Tract Disorder",
+      "method": "UMLS Match"
+    },
+    "Loss of appetite": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "painful bloating": {
+      "standard_name": "Painful Respiration",
+      "method": "Fallback Fuzzy Match"
+    },
+    "anemia": {
+      "standard_name": "Anaemia",
+      "method": "UMLS Match"
+    },
+    "abdominal swelling": {
+      "standard_name": "Abdominal Distension",
+      "method": "UMLS Match"
+    },
+    "Sense of smell off": {
+      "standard_name": "Off Label Use Of Device",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Light headedness": {
+      "standard_name": "Night Blindness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Diarrhea": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Explosive diarrhea": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "Needle not breaking skin": {
+      "standard_name": "Dry Skin",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hiccups": {
+      "standard_name": "Hiccups",
+      "method": "Direct Match"
+    },
+    "Blood sugar crash": {
+      "standard_name": "Blood Urea Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Weight gain": {
+      "standard_name": "Weight Increased",
+      "method": "UMLS Match"
+    },
+    "Feeling very sick after greasy food": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Skin Sensitivity": {
+      "standard_name": "Sensitive Skin",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "dry heeves": {
+      "standard_name": "Dry Eye",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hypoglycemic attack": {
+      "standard_name": "Hypoglycaemic Coma",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduced appetite/hunger": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "Weight loss (initial)": {
+      "standard_name": "Initial Insomnia",
+      "method": "UMLS Match"
+    },
+    "sore back": {
+      "standard_name": "Back Injury",
+      "method": "UMLS Match"
+    },
+    "Stomach hurting": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Slower digestion": {
+      "standard_name": "Ear Congestion",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hunger and overeating": {
+      "standard_name": "Hyperphagia",
+      "method": "UMLS Match"
+    },
+    "crazy dreams": {
+      "standard_name": "Abnormal Dreams",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Financial hardship": {
+      "standard_name": "Intentional Underdose",
+      "method": "UMLS Match"
+    },
+    "Not sleeping": {
+      "standard_name": "Sleep Deficit",
+      "method": "UMLS Match"
+    },
+    "Taste change": {
+      "standard_name": "Taste Disorder",
+      "method": "UMLS Match"
+    },
+    "severe hair loss": {
+      "standard_name": "Sudden Hearing Loss",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sore shoulders": {
+      "standard_name": "Bladder Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Kidney issues": {
+      "standard_name": "Skin Fissures",
+      "method": "Fallback Fuzzy Match"
+    },
+    "lump on tongue": {
+      "standard_name": "Tongue Eruption",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Muscle dryness": {
+      "standard_name": "Mucosal Dryness",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Diarrhea or constipation": {
+      "standard_name": "Constipation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "migraine": {
+      "standard_name": "Migraine",
+      "method": "Direct Match"
+    },
+    "Injection site discomfort": {
+      "standard_name": "Injection Site Discomfort",
+      "method": "Direct Match"
+    },
+    "Heart palpitations": {
+      "standard_name": "Palpitations",
+      "method": "UMLS Match"
+    },
+    "feeling “off”": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Excessive fatigue": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Stomach discomfort/feeling like filled with rocks": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match on Part"
+    },
+    "Pain in knees": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "sulfur burps": {
+      "standard_name": "Vascular Purpura",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Aches everywhere": {
+      "standard_name": "Liver Abscess",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Nauseous": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "cold sensitivity": {
+      "standard_name": "Sensory Processing Sensitivity",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Tachycardia": {
+      "standard_name": "Tachycardia",
+      "method": "Direct Match"
+    },
+    "Acid buildup": {
+      "standard_name": "Starvation Ketoacidosis",
+      "method": "UMLS Match"
+    },
+    "Loss of libido": {
+      "standard_name": "Loss Of Libido",
+      "method": "Direct Match"
+    },
+    "leg cramps": {
+      "standard_name": "Pre-Eclampsia",
+      "method": "Fallback Fuzzy Match"
+    },
+    "metallic taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "tummy pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "sensitive skin": {
+      "standard_name": "Sensitive Skin",
+      "method": "Direct Match"
+    },
+    "hot flashes": {
+      "standard_name": "Menopausal Symptoms",
+      "method": "UMLS Match"
+    },
+    "Poor appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "disgusted by food": {
+      "standard_name": "Blood Blister",
+      "method": "Fallback Fuzzy Match"
+    },
+    "foggy feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Severe abdominal pain": {
+      "standard_name": "Abdominal Rigidity",
+      "method": "UMLS Match"
+    },
+    "BP off the charts": {
+      "standard_name": "Coarctation Of The Aorta",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Few side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "White tongue": {
+      "standard_name": "Tongue Coated",
+      "method": "UMLS Match"
+    },
+    "not being hungry at all": {
+      "standard_name": "Axillary Nerve Injury",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "stomachache": {
+      "standard_name": "Toothache",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Breathing problems": {
+      "standard_name": "Respiration Abnormal",
+      "method": "UMLS Match"
+    },
+    "strange taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Weight gain (after dose increase)": {
+      "standard_name": "Weight Increased",
+      "method": "UMLS Match"
+    },
+    "high blood pressure": {
+      "standard_name": "Arterial Disorder",
+      "method": "UMLS Match"
+    },
+    "Skin irritation": {
+      "standard_name": "Skin Irritation",
+      "method": "Direct Match"
+    },
+    "Constipation (use of prune juice)": {
+      "standard_name": "Constipation",
+      "method": "UMLS Match"
+    },
+    "Stomach knots": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Tiredness (potentially reversed)": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "shaking": {
+      "standard_name": "Tremor",
+      "method": "UMLS Match"
+    },
+    "Increase in A1c levels": {
+      "standard_name": "Histamine Level Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Extreme constipation": {
+      "standard_name": "Constipation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "light sensitivity": {
+      "standard_name": "Photophobia",
+      "method": "UMLS Match"
+    },
+    "low blood sugar episodes that do not resolve with eating or drinking": {
+      "standard_name": "Binge Eating",
+      "method": "Fallback Fuzzy Match"
+    },
+    "tingling skin": {
+      "standard_name": "Skin Wrinkling",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Feeling over full": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "reduced feeling of fullness": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "appendicitis": {
+      "standard_name": "Appendicitis",
+      "method": "Direct Match"
+    },
+    "Appetite control issues": {
+      "standard_name": "Weight Control",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bathroom problems": {
+      "standard_name": "Alcohol Problem",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sharp abdominal pains": {
+      "standard_name": "Abdominal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "stomach gas build up": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "depressed": {
+      "standard_name": "Depressed Mood",
+      "method": "UMLS Match"
+    },
+    "itching scalp, legs, arms and body": {
+      "standard_name": "Restless Legs Syndrome",
+      "method": "UMLS Match"
+    },
+    "overall body discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "gallbladder failure": {
+      "standard_name": "Gallbladder Injury",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Needle bending easily": {
+      "standard_name": "Needle Issue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "fecal incontinence": {
+      "standard_name": "Anal Incontinence",
+      "method": "UMLS Match"
+    },
+    "Rash on cheeks": {
+      "standard_name": "Rash",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Extreme fatigue": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "No weight loss": {
+      "standard_name": "Weight Loss Poor",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "inability to eat": {
+      "standard_name": "Inability To Afford Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "No hunger": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Inability to continue medication due to access issues": {
+      "standard_name": "Inability To Afford Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "loose stool": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "More energy": {
+      "standard_name": "Energy Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Night sweats": {
+      "standard_name": "Night Sweats",
+      "method": "Direct Match"
+    },
+    "Kidney dysfunction": {
+      "standard_name": "Motor Dysfunction",
+      "method": "Fallback Fuzzy Match"
+    },
+    "GI side effects": {
+      "standard_name": "Affective Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "inability to keep down": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sleepless nights": {
+      "standard_name": "Night Sweats",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cold sensitivity": {
+      "standard_name": "Sensory Processing Sensitivity",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Sever stomach pains": {
+      "standard_name": "Stoma Site Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pancreatic reaction": {
+      "standard_name": "Pancreatic Operation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Blood sugar fluctuation": {
+      "standard_name": "Blood Pressure Fluctuation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "allergies": {
+      "standard_name": "Hypersensitivity",
+      "method": "UMLS Match"
+    },
+    "Rebound diarrhea": {
+      "standard_name": "Diarrhoea Infectious",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Side effects (general)": {
+      "standard_name": "Paralysis",
+      "method": "UMLS Match"
+    },
+    "Increased insulin requirement": {
+      "standard_name": "Increased Insulin Requirement",
+      "method": "Direct Match"
+    },
+    "cranky": {
+      "standard_name": "Screaming",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "hives": {
+      "standard_name": "Urticaria",
+      "method": "UMLS Match"
+    },
+    "Fullness/Bloating": {
+      "standard_name": "Epigastric Discomfort",
+      "method": "UMLS Match"
+    },
+    "Shaking": {
+      "standard_name": "Tremor",
+      "method": "UMLS Match"
+    },
+    "change in taste and smell of food": {
+      "standard_name": "Feeling Of Body Temperature Change",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Disgust with food": {
+      "standard_name": "Food Aversion",
+      "method": "UMLS Match"
+    },
+    "Loose stool": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "sinus issues": {
+      "standard_name": "Skin Fissures",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Shortness of breath": {
+      "standard_name": "Dyspnoea",
+      "method": "UMLS Match"
+    },
+    "Projectile diarrhea": {
+      "standard_name": "Vomiting Projectile",
+      "method": "Fallback Fuzzy Match"
+    },
+    "hiccups": {
+      "standard_name": "Hiccups",
+      "method": "Direct Match"
+    },
+    "discomfort after eating": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "severe vertigo": {
+      "standard_name": "Vertigo",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "very smell makes me want to vomit": {
+      "standard_name": "Allergy To Metals",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Burps that tasted like bad ham": {
+      "standard_name": "Metastases To Adrenals",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "nausea": {
+      "standard_name": "Nausea",
+      "method": "Direct Match"
+    },
+    "desire to eat": {
+      "standard_name": "Fear Of Disease",
+      "method": "Fallback Fuzzy Match"
+    },
+    "confusion": {
+      "standard_name": "Confusional State",
+      "method": "UMLS Match"
+    },
+    "freezing cold toes": {
+      "standard_name": "Feeling Cold",
+      "method": "Fallback Fuzzy Match"
+    },
+    "cramping pains": {
+      "standard_name": "Groin Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Severe pancreatitis": {
+      "standard_name": "Pancreatitis",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Sleep disturbance due to stomach pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Itching": {
+      "standard_name": "Pruritus",
+      "method": "UMLS Match"
+    },
+    "Extreme pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "cold and sweating": {
+      "standard_name": "Sweating Fever",
+      "method": "UMLS Match"
+    },
+    "weird sense of fullness": {
+      "standard_name": "Thermal Burns Of Eye",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "headaches": {
+      "standard_name": "Headache",
+      "method": "UMLS Match"
+    },
+    "Hangover-like symptoms": {
+      "standard_name": "Hangover",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "swelling in legs, ankles, and feet": {
+      "standard_name": "Swelling Face",
+      "method": "UMLS Match"
+    },
+    "Hunger pains": {
+      "standard_name": "Hunger",
+      "method": "UMLS Match"
+    },
+    "stomach discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Excessive burping": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Tummy ache": {
+      "standard_name": "Caecectomy",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gallstones": {
+      "standard_name": "Biliary Tract Disorder",
+      "method": "UMLS Match"
+    },
+    "Decrease in appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "Severe loss of appetite": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain in pancreas": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "ER visit": {
+      "standard_name": "Cervicitis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Thyroid dysfunction (including thyroid failure, increased TSH, weight loss, muscle loss, fatigue, difficulty climbing stairs, swallowing problems)": {
+      "standard_name": "Fatigue",
+      "method": "Fuzzy Match on Part"
+    },
+    "Loss of taste buds": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "nighttime blood glucose fluctuations": {
+      "standard_name": "Blood Glucose Fluctuation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Tender stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "food interest fluctuation": {
+      "standard_name": "Weight Fluctuation",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Dehydration (implied from water intake and illness)": {
+      "standard_name": "Dehydration",
+      "method": "UMLS Match"
+    },
+    "feeling suicidal": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Palpitations": {
+      "standard_name": "Palpitations",
+      "method": "Direct Match"
+    },
+    "Headaches": {
+      "standard_name": "Headache",
+      "method": "UMLS Match"
+    },
+    "Troublesome controlling temper or tantrums": {
+      "standard_name": "Impulse-Control Disorder",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "stinky sulphur burps": {
+      "standard_name": "Aortic Aneurysm Rupture",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "cravings for alcohol": {
+      "standard_name": "Alcohol Use",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Full after drinking water": {
+      "standard_name": "Product After Taste",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "pain": {
+      "standard_name": "Pain",
+      "method": "Direct Match"
+    },
+    "Not feeling well": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Feeling wrong after eating pork": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loss of energy": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Severe pain": {
+      "standard_name": "Eye Pain",
+      "method": "UMLS Match"
+    },
+    "Blood sugar fluctuations": {
+      "standard_name": "Blood Pressure Fluctuation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "migraines": {
+      "standard_name": "Migraine",
+      "method": "UMLS Match"
+    },
+    "Lasting aftereffects": {
+      "standard_name": "Flat Affect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Thirst": {
+      "standard_name": "Thirst",
+      "method": "Direct Match"
+    },
+    "Sleepless nights due to painful burping": {
+      "standard_name": "Painful Erection",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling of overeating": {
+      "standard_name": "Feeling Of Relaxation",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Slower metabolism": {
+      "standard_name": "Carbohydrate Metabolism Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Elevated blood glucose levels": {
+      "standard_name": "Blood Glucose Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fever": {
+      "standard_name": "Body Temperature Increased",
+      "method": "UMLS Match"
+    },
+    "Swollen Tonsils": {
+      "standard_name": "Swollen Tongue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Tremors": {
+      "standard_name": "Tremor",
+      "method": "UMLS Match"
+    },
+    "pain relief with omeprazole": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match on Part"
+    },
+    "Muscle cramps": {
+      "standard_name": "Muscle Spasms",
+      "method": "UMLS Match"
+    },
+    "irritable bowel": {
+      "standard_name": "Irritable Bowel Syndrome",
+      "method": "UMLS Match"
+    },
+    "Upset stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "depression": {
+      "standard_name": "Depression",
+      "method": "Direct Match"
+    },
+    "throat burning": {
+      "standard_name": "Throat Clearing",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Indifference": {
+      "standard_name": "Indifference",
+      "method": "Direct Match"
+    },
+    "Bowel issues": {
+      "standard_name": "Bone Fissure",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduction in belly fat": {
+      "standard_name": "Eye Infection Fungal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Decreased willingness to listen": {
+      "standard_name": "Pco2 Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Injection site reaction": {
+      "standard_name": "Injection Site Reaction",
+      "method": "Direct Match"
+    },
+    "Extreme pain on right side": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "acid feeling": {
+      "standard_name": "Feeling Cold",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Farting": {
+      "standard_name": "Flatulence",
+      "method": "UMLS Match"
+    },
+    "sleep issues": {
+      "standard_name": "Sleep Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stools smell severely bad": {
+      "standard_name": "Mucous Stools",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sulfur smell in nose": {
+      "standard_name": "Small Intestine Neuroendocrine Tumour",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Pains on right and left sides of stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach ache": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Distended abdomen": {
+      "standard_name": "Abdominal Distension",
+      "method": "UMLS Match"
+    },
+    "None": {
+      "standard_name": "Nodule",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Injection difficulty": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "hot, flushed face": {
+      "standard_name": "Hot Flush",
+      "method": "UMLS Match"
+    },
+    "dry skin": {
+      "standard_name": "Dry Skin",
+      "method": "Direct Match"
+    },
+    "Pen stoppage or blockage": {
+      "standard_name": "Renal Cancer Stage Iv",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Gastrointestinal problems": {
+      "standard_name": "Gastrointestinal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "rash on arms": {
+      "standard_name": "Rash Papular",
+      "method": "UMLS Match"
+    },
+    "Gassy noises": {
+      "standard_name": "Gastric Stenosis",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Feeling away with the fairies": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hunger": {
+      "standard_name": "Hunger",
+      "method": "Direct Match"
+    },
+    "tiredness": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Horrible sulfur tasting belching": {
+      "standard_name": "Feeling Of Relaxation",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Feeling full faster": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "gas and bloating": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "considerable intestinal discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "heart flutters": {
+      "standard_name": "Palpitations",
+      "method": "UMLS Match"
+    },
+    "Slowed metabolic rate": {
+      "standard_name": "Metabolic Surgery",
+      "method": "Fallback Fuzzy Match"
+    },
+    "light-headedness": {
+      "standard_name": "Night Blindness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "no side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Horrible heart burn": {
+      "standard_name": "Heart Rate",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Esophagitis": {
+      "standard_name": "Oesophagitis",
+      "method": "UMLS Match"
+    },
+    "Vomiting sensation": {
+      "standard_name": "Vomiting",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Difficulty keeping high blood pressure meds in": {
+      "standard_name": "Labile Blood Pressure",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Fogginess": {
+      "standard_name": "Vision Blurred",
+      "method": "UMLS Match"
+    },
+    "Sticky saliva": {
+      "standard_name": "Saliva Altered",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cotton mouth": {
+      "standard_name": "Mouth Cyst",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling off": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "low blood sugar": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "Lips burning and tingling": {
+      "standard_name": "Burning Sensation",
+      "method": "UMLS Match"
+    },
+    "Feelings of being very very weak": {
+      "standard_name": "Feelings Of Worthlessness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "shortness of breath": {
+      "standard_name": "Dyspnoea",
+      "method": "UMLS Match"
+    },
+    "Calf cramps": {
+      "standard_name": "Anal Prolapse",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Urine passage issues": {
+      "standard_name": "Syringe Issue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Loss of weight": {
+      "standard_name": "Weight Decreased",
+      "method": "UMLS Match"
+    },
+    "Fried food intolerance": {
+      "standard_name": "Food Intolerance",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Stomach discomfort (GERD)": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "Horrible side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Sore behind": {
+      "standard_name": "Behaviour Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "frequent bathroom visits": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "Fallback Fuzzy Match"
+    },
+    "rapid heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "slowed digestion": {
+      "standard_name": "Localised Infection",
+      "method": "Fallback Fuzzy Match"
+    },
+    "flatulence": {
+      "standard_name": "Flatulence",
+      "method": "Direct Match"
+    },
+    "bad headache": {
+      "standard_name": "Headache",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "bloating": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "feeling sick all over": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Itching or burning at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "body pains": {
+      "standard_name": "Bone Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "muscle aches": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "Undernourishment-related symptoms (feeling poorly, no energy, blacking out)": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "food taste changes": {
+      "standard_name": "Hair Colour Changes",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Unpleasant side effects": {
+      "standard_name": "Seasonal Affective Disorder",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "water retention": {
+      "standard_name": "Fluid Retention",
+      "method": "UMLS Match"
+    },
+    "wind": {
+      "standard_name": "Flatulence",
+      "method": "UMLS Match"
+    },
+    "Gallbladder pain": {
+      "standard_name": "Biliary Colic",
+      "method": "UMLS Match"
+    },
+    "Gas": {
+      "standard_name": "Flatulence",
+      "method": "UMLS Match"
+    },
+    "Racing heart": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Throat pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "weight loss not achieved": {
+      "standard_name": "Weight Loss Poor",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "extreme labor/mistral pains": {
+      "standard_name": "Abdominal Pain",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Difficulty drinking beer (possible side effect or behavioral change)": {
+      "standard_name": "Therapy Change",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Taste disturbance": {
+      "standard_name": "Taste Disorder",
+      "method": "UMLS Match"
+    },
+    "Cost-related issues": {
+      "standard_name": "Violence-Related Symptom",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Functioning decline": {
+      "standard_name": "Device Malfunction",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach issues": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hyperkalemia": {
+      "standard_name": "Hyperkalaemia",
+      "method": "UMLS Match"
+    },
+    "Weight regain": {
+      "standard_name": "Weight Gain Poor",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Kidney pain": {
+      "standard_name": "Renal Pain",
+      "method": "UMLS Match"
+    },
+    "Loose bowels": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "joint pain in knee": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "body pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "weird tummy feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "increased hunger": {
+      "standard_name": "Increased Appetite",
+      "method": "UMLS Match"
+    },
+    "nauseated feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Reduced cravings": {
+      "standard_name": "Visual Acuity Reduced",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Yucky feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "rotten egg smell": {
+      "standard_name": "Restless Legs Syndrome",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "bile in vomit": {
+      "standard_name": "Coital Bleeding",
+      "method": "Fallback Fuzzy Match"
+    },
+    "nauseous feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Labored breathing": {
+      "standard_name": "Respiratory Distress",
+      "method": "UMLS Match"
+    },
+    "pain in the whole insides": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Sleepiness": {
+      "standard_name": "Somnolence",
+      "method": "UMLS Match"
+    },
+    "Injection anxiety": {
+      "standard_name": "Anxiety",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Exacerbation of rosacea": {
+      "standard_name": "Rosacea",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "swelling of feet and ankles": {
+      "standard_name": "Swelling",
+      "method": "UMLS Match"
+    },
+    "ear ringing": {
+      "standard_name": "Tinnitus",
+      "method": "UMLS Match"
+    },
+    "Vision problems": {
+      "standard_name": "Visual Impairment",
+      "method": "UMLS Match"
+    },
+    "Increased appetite": {
+      "standard_name": "Increased Appetite",
+      "method": "Direct Match"
+    },
+    "Appetite suppression": {
+      "standard_name": "Appetite Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "attacks when drinking protein shakes": {
+      "standard_name": "Protein Urine",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hives": {
+      "standard_name": "Urticaria",
+      "method": "UMLS Match"
+    },
+    "Bruises at injection sites": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "cold sweats": {
+      "standard_name": "Cold Sweat",
+      "method": "UMLS Match"
+    },
+    "Stomach cramping": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain radiating up to jaw": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Belching": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Refusal to continue medication": {
+      "standard_name": "Self-Medication",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Drop in blood pressure": {
+      "standard_name": "Blood Pressure Decreased",
+      "method": "UMLS Match"
+    },
+    "Bowel movements (unusual number)": {
+      "standard_name": "Number of Cases",
+      "method": "UMLS Match"
+    },
+    "Stomach full of food for 11 hours and then vomiting": {
+      "standard_name": "Vomiting",
+      "method": "Fuzzy Match on Part"
+    },
+    "stomach aches": {
+      "standard_name": "Stomach Mass",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Gout in knee": {
+      "standard_name": "Gout",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "dizziness": {
+      "standard_name": "Dizziness",
+      "method": "Direct Match"
+    },
+    "Increased urge to snack in late evening": {
+      "standard_name": "Pco2 Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "fast heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "numbness in mouth and tongue": {
+      "standard_name": "Tongue Disorder",
+      "method": "UMLS Match"
+    },
+    "not good for diabetic": {
+      "standard_name": "Diabetic Coma",
+      "method": "Fallback Fuzzy Match"
+    },
+    "dry heaving": {
+      "standard_name": "Retching",
+      "method": "UMLS Match"
+    },
+    "Feeling very low": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "low iron": {
+      "standard_name": "Blood Iron Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gagging": {
+      "standard_name": "Hanging",
+      "method": "Fallback Fuzzy Match"
+    },
+    "hard stool and crampy bowel movements": {
+      "standard_name": "Faeces Hard",
+      "method": "UMLS Match"
+    },
+    "Injection site itching": {
+      "standard_name": "Injection Site Pruritus",
+      "method": "UMLS Match"
+    },
+    "Blurred near vision": {
+      "standard_name": "Vision Blurred",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Violent illness": {
+      "standard_name": "Illness",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "taste disturbance": {
+      "standard_name": "Taste Disorder",
+      "method": "UMLS Match"
+    },
+    "Dry skin": {
+      "standard_name": "Dry Skin",
+      "method": "Direct Match"
+    },
+    "tummy aches": {
+      "standard_name": "Chest Injury",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Increased energy": {
+      "standard_name": "Energy Increased",
+      "method": "UMLS Match"
+    },
+    "Sulphur burping": {
+      "standard_name": "Vascular Pain",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Low sex drive": {
+      "standard_name": "Libido Decreased",
+      "method": "UMLS Match"
+    },
+    "joint aches": {
+      "standard_name": "Arthralgia",
+      "method": "UMLS Match"
+    },
+    "Swelling in legs": {
+      "standard_name": "Swelling Face",
+      "method": "UMLS Match"
+    },
+    "ear problem": {
+      "standard_name": "Ear Disorder",
+      "method": "UMLS Match"
+    },
+    "Pancreatitis": {
+      "standard_name": "Pancreatitis",
+      "method": "Direct Match"
+    },
+    "muscle soreness": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "muscle spasms": {
+      "standard_name": "Muscle Spasms",
+      "method": "Direct Match"
+    },
+    "Gastric slowdown": {
+      "standard_name": "Gastric Ulcer",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling sick": {
+      "standard_name": "Malaise",
+      "method": "UMLS Match"
+    },
+    "Stomach issues": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Flushing": {
+      "standard_name": "Flushing",
+      "method": "Direct Match"
+    },
+    "Nasty belches": {
+      "standard_name": "Breast Abscess",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "abdominal pains": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Horrible taste": {
+      "standard_name": "Taste Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "laxative": {
+      "standard_name": "Fatigue",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Gassy stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "chills": {
+      "standard_name": "Chills",
+      "method": "Direct Match"
+    },
+    "Gained weight": {
+      "standard_name": "Weight Increased",
+      "method": "UMLS Match"
+    },
+    "anxiety": {
+      "standard_name": "Anxiety",
+      "method": "Direct Match"
+    },
+    "Low blood sugars": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "Heavy menstrual bleeding with clots": {
+      "standard_name": "Heavy Menstrual Bleeding",
+      "method": "UMLS Match"
+    },
+    "feeling quizzy": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "increased heart rate": {
+      "standard_name": "Heart Rate Increased",
+      "method": "UMLS Match"
+    },
+    "Gastrointestinal discomfort (burping, sour stomach, feeling full, nausea)": {
+      "standard_name": "Nausea",
+      "method": "Fuzzy Match on Part"
+    },
+    "Disappearance of pain in hands and feet": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match on Part"
+    },
+    "Malnutrition (implied from not eating for 22 days)": {
+      "standard_name": "Malnutrition",
+      "method": "UMLS Match"
+    },
+    "Pen injection issue": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "no sleep": {
+      "standard_name": "Sleep Deficit",
+      "method": "Fallback Fuzzy Match"
+    },
+    "cramps": {
+      "standard_name": "Rash",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Migraine": {
+      "standard_name": "Migraine",
+      "method": "Direct Match"
+    },
+    "stress and anxiety": {
+      "standard_name": "Anxiety",
+      "method": "UMLS Match"
+    },
+    "sleeplessness": {
+      "standard_name": "Insomnia",
+      "method": "UMLS Match"
+    },
+    "Severe sickness at 1.0 dose": {
+      "standard_name": "Motion Sickness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Crying": {
+      "standard_name": "Crying",
+      "method": "Direct Match"
+    },
+    "Kidney failure": {
+      "standard_name": "Renal Failure",
+      "method": "UMLS Match"
+    },
+    "Pain swallowing": {
+      "standard_name": "Odynophagia",
+      "method": "UMLS Match"
+    },
+    "bad egg taste in mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "loss of appetite due to sick feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "frequent urination": {
+      "standard_name": "Pollakiuria",
+      "method": "UMLS Match"
+    },
+    "Illness when overeating and drinking": {
+      "standard_name": "Alcohol Use",
+      "method": "UMLS Match"
+    },
+    "Gall Bladder damage": {
+      "standard_name": "Bladder Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Inflamed hiatal hernia": {
+      "standard_name": "Hernia",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Dry heaving": {
+      "standard_name": "Retching",
+      "method": "UMLS Match"
+    },
+    "Cravings": {
+      "standard_name": "Salt Craving",
+      "method": "UMLS Match"
+    },
+    "Stomach problems (gastroparesis)": {
+      "standard_name": "Gastric Atony",
+      "method": "UMLS Match"
+    },
+    "stomach pain": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Fear of noted side effects": {
+      "standard_name": "Fear",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "constipation or diarrhea": {
+      "standard_name": "Constipation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "urinary tract issues": {
+      "standard_name": "Urinary Tract Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "inability to hold down food or liquids": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Rash and welts": {
+      "standard_name": "Urticaria",
+      "method": "UMLS Match"
+    },
+    "short temper": {
+      "standard_name": "Product Tampering",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "diarrhea": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "tightness in throat": {
+      "standard_name": "Throat Tightness",
+      "method": "UMLS Match"
+    },
+    "Headache (HA)": {
+      "standard_name": "Headache",
+      "method": "UMLS Match"
+    },
+    "Brain fog": {
+      "standard_name": "Brain Fog",
+      "method": "Direct Match"
+    },
+    "Burping (Sulfer smell)": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "Abdominal cramps": {
+      "standard_name": "Abdominal Mass",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "stomach feels off": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Chest tingling": {
+      "standard_name": "Chest Pain",
+      "method": "Fallback Fuzzy Match"
+    },
+    "reduced enjoyment of food": {
+      "standard_name": "Loss Of Employment",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Inability to eat or drink": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sluggishness": {
+      "standard_name": "Sluggishness",
+      "method": "Direct Match"
+    },
+    "morning sickness": {
+      "standard_name": "Morning Sickness",
+      "method": "Direct Match"
+    },
+    "Allergy to semiglutide": {
+      "standard_name": "Eye Allergy",
+      "method": "Fallback Fuzzy Match"
+    },
+    "upset stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "bad breath": {
+      "standard_name": "Breath Odour",
+      "method": "UMLS Match"
+    },
+    "Muscle pain": {
+      "standard_name": "Muscle Discomfort",
+      "method": "UMLS Match"
+    },
+    "Malaise": {
+      "standard_name": "Malaise",
+      "method": "Direct Match"
+    },
+    "nighttime acid reflux": {
+      "standard_name": "Reflux Laryngitis",
+      "method": "Fallback Fuzzy Match"
+    },
+    "difficulty urinating": {
+      "standard_name": "Dysuria",
+      "method": "UMLS Match"
+    },
+    "Heavy bleeding": {
+      "standard_name": "Intermenstrual Bleeding",
+      "method": "UMLS Match"
+    },
+    "Inability to eat non-clear liquids": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "restless sleep": {
+      "standard_name": "Sleep Disorder",
+      "method": "UMLS Match"
+    },
+    "Hard to wake up": {
+      "standard_name": "Heart Rate",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "hypoglycemia": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "Thinning hair loss": {
+      "standard_name": "Thinking Abnormal",
+      "method": "Fallback Fuzzy Match"
+    },
+    "inability to keep fluids down": {
+      "standard_name": "Gait Inability",
+      "method": "Fallback Fuzzy Match"
+    },
+    "body ache": {
+      "standard_name": "Body Tinea",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pens failure": {
+      "standard_name": "Renal Failure",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Low GFR readings": {
+      "standard_name": "Sweating Fever",
+      "method": "Fallback Fuzzy Match"
+    },
+    "achy": {
+      "standard_name": "Apathy",
+      "method": "Fallback Fuzzy Match"
+    },
+    "watery diarrhoea": {
+      "standard_name": "Diarrhoea",
+      "method": "UMLS Match"
+    },
+    "none": {
+      "standard_name": "Nodule",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Uncertainty about dose": {
+      "standard_name": "Mouth Ulceration",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "stomach ache": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gastroparesis": {
+      "standard_name": "Gastric Atony",
+      "method": "UMLS Match"
+    },
+    "Slower bowel movements": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "stomach problems": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Fullness": {
+      "standard_name": "Epigastric Discomfort",
+      "method": "UMLS Match"
+    },
+    "Sluggishness": {
+      "standard_name": "Sluggishness",
+      "method": "Direct Match"
+    },
+    "vision problems": {
+      "standard_name": "Visual Impairment",
+      "method": "UMLS Match"
+    },
+    "Dry Mouth": {
+      "standard_name": "Dry Mouth",
+      "method": "Direct Match"
+    },
+    "Thyroid gland issues": {
+      "standard_name": "Biopsy Thyroid Gland",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "lack of appetite": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "No decrease in hunger": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "irritation at injection site": {
+      "standard_name": "Injection Site Irritation",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Blood sugar improvement": {
+      "standard_name": "Blood Urine Present",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling a little bit \"super full\"": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Feeling sick to stomach": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Whole-body weakness": {
+      "standard_name": "Muscular Weakness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "None reported": {
+      "standard_name": "Therapy Non-Responder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Hunger fluctuations": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "vision blurriness": {
+      "standard_name": "Vision Blurred",
+      "method": "UMLS Match"
+    },
+    "Full body sweat": {
+      "standard_name": "Cold Sweat",
+      "method": "Fallback Fuzzy Match"
+    },
+    "acid stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach burning": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "trouble waking after sleep": {
+      "standard_name": "Sleep Talking",
+      "method": "Fallback Fuzzy Match"
+    },
+    "redness around injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "reduced appetite": {
+      "standard_name": "Decreased Appetite",
+      "method": "UMLS Match"
+    },
+    "Gas and sulphur burps": {
+      "standard_name": "Flatulence",
+      "method": "UMLS Match"
+    },
+    "ringing in ears": {
+      "standard_name": "Tinnitus",
+      "method": "UMLS Match"
+    },
+    "fidgety": {
+      "standard_name": "Fatigue",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Gerd": {
+      "standard_name": "Gastrooesophageal Reflux Disease",
+      "method": "UMLS Match"
+    },
+    "wooziness": {
+      "standard_name": "Dizziness",
+      "method": "UMLS Match"
+    },
+    "abdominal pain": {
+      "standard_name": "Abdominal Pain",
+      "method": "Direct Match"
+    },
+    "Increased cravings for carbohydrate": {
+      "standard_name": "Carbohydrate Antigen 125 Increased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Stomach cramps": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "side effect": {
+      "standard_name": "Therapeutic Product Effect Decreased",
+      "method": "Fallback Fuzzy Match"
+    },
+    "upper stomach pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Vertigo": {
+      "standard_name": "Vertigo",
+      "method": "Direct Match"
+    },
+    "Fuzzy vision": {
+      "standard_name": "Halo Vision",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Lower back pain": {
+      "standard_name": "Back Pain",
+      "method": "UMLS Match"
+    },
+    "Improved muscle tone in stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain and swelling in legs/feet": {
+      "standard_name": "Swelling Face",
+      "method": "UMLS Match"
+    },
+    "diarreha": {
+      "standard_name": "Diarrhoea",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "Hunger returning": {
+      "standard_name": "Hunger",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "hip pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Red splotches on face": {
+      "standard_name": "Face Lift",
+      "method": "Fallback Fuzzy Match"
+    },
+    "foul burping": {
+      "standard_name": "Brain Fog",
+      "method": "Fallback Fuzzy Match"
+    },
+    "sinus stuffiness": {
+      "standard_name": "Joint Stiffness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nauseousness": {
+      "standard_name": "Nervousness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cramping in stomach": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Tired": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Cravings for salty and sweet foods": {
+      "standard_name": "Increased Need For Sleep",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Gastrointestinal issues (stomach problems)": {
+      "standard_name": "Gastrointestinal Pain",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "sulfer burps": {
+      "standard_name": "Bursa Disorder",
+      "method": "Fallback Fuzzy Match"
+    },
+    "None mentioned": {
+      "standard_name": "Tongue Eruption",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Abdominal pain": {
+      "standard_name": "Abdominal Pain",
+      "method": "Direct Match"
+    },
+    "Intestinal blockage": {
+      "standard_name": "Intestinal Obstruction",
+      "method": "UMLS Match"
+    },
+    "eggy burps": {
+      "standard_name": "Bulbar Palsy",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Anxiety": {
+      "standard_name": "Anxiety",
+      "method": "Direct Match"
+    },
+    "burping indigestion": {
+      "standard_name": "Burning Sensation",
+      "method": "Fallback Fuzzy Match"
+    },
+    "feeling so down": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Frequent bowel movements": {
+      "standard_name": "Frequent Bowel Movements",
+      "method": "Direct Match"
+    },
+    "eye floaters": {
+      "standard_name": "Vitreous Floaters",
+      "method": "UMLS Match"
+    },
+    "Nausea and Vomiting": {
+      "standard_name": "Vomiting",
+      "method": "UMLS Match"
+    },
+    "Hyperactivity": {
+      "standard_name": "Attention Deficit Hyperactivity Disorder",
+      "method": "UMLS Match"
+    },
+    "Crankiness": {
+      "standard_name": "Laziness",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Difficulty swallowing pills due to taste": {
+      "standard_name": "Product Packaging Difficult To Open",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "bowel movement frequency change": {
+      "standard_name": "Infrequent Bowel Movements",
+      "method": "Fuzzy Match (Medium Confidence)"
+    },
+    "no appetite": {
+      "standard_name": "Anorexia Nervosa",
+      "method": "UMLS Match"
+    },
+    "itchy welt at injection site": {
+      "standard_name": "Injection",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Altered bowel movement": {
+      "standard_name": "Bowel Movement Irregularity",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Sleep schedule off": {
+      "standard_name": "Wrong Schedule",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Gastric mobility issues (e.g., burping, throwing up)": {
+      "standard_name": "Gastric Ulcer",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Bladder infection": {
+      "standard_name": "Cystitis",
+      "method": "UMLS Match"
+    },
+    "Feelings of hopelessness and worthlessness": {
+      "standard_name": "Feelings Of Worthlessness",
+      "method": "UMLS Match"
+    },
+    "abscess at injection site": {
+      "standard_name": "Injection Site Abscess",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "teeth brittleness": {
+      "standard_name": "Teeth Brittle",
+      "method": "UMLS Match"
+    },
+    "Itchiness behind arms": {
+      "standard_name": "Skin Tightness",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Lack of transparency": {
+      "standard_name": "Lack Of Satiety",
+      "method": "Fallback Fuzzy Match"
+    },
+    "jittery feeling": {
+      "standard_name": "Feeling Jittery",
+      "method": "UMLS Match"
+    },
+    "loss of taste for foods": {
+      "standard_name": "Loss Of Libido",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Pain episodes": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "low blood sugar (hypos)": {
+      "standard_name": "Hypoglycaemia",
+      "method": "UMLS Match"
+    },
+    "Rash": {
+      "standard_name": "Rash",
+      "method": "Direct Match"
+    },
+    "Burps": {
+      "standard_name": "Eructation",
+      "method": "UMLS Match"
+    },
+    "bitter taste": {
+      "standard_name": "Taste Disorder",
+      "method": "UMLS Match"
+    },
+    "medullary thyroid cancer": {
+      "standard_name": "Medullary Thyroid Cancer",
+      "method": "Direct Match"
+    },
+    "Loss of taste": {
+      "standard_name": "Ageusia",
+      "method": "UMLS Match"
+    },
+    "bowel movement changes": {
+      "standard_name": "Bowel Movement Irregularity",
+      "method": "Fallback Fuzzy Match"
+    },
+    "dry feeling in hair": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Illness when smelling food": {
+      "standard_name": "Illness",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "tired all the time": {
+      "standard_name": "Fatigue",
+      "method": "UMLS Match"
+    },
+    "Side effects": {
+      "standard_name": "Rebound Effect",
+      "method": "Fallback Fuzzy Match"
+    },
+    "horrible sulfur belching": {
+      "standard_name": "Irregular Breathing",
+      "method": "Fallback Fuzzy Match"
+    },
+    "rash on injection site": {
+      "standard_name": "Injection Site Rash",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "appetite change": {
+      "standard_name": "Decreased Appetite",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Throat discomfort (burning, tingling, funny feeling)": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match on Part"
+    },
+    "indigestion": {
+      "standard_name": "Dyspepsia",
+      "method": "UMLS Match"
+    },
+    "Weight loss": {
+      "standard_name": "Weight Decreased",
+      "method": "UMLS Match"
+    },
+    "stomach and GI tract upset": {
+      "standard_name": "Neoplasm Malignant",
+      "method": "UMLS Match"
+    },
+    "loose or runny stool": {
+      "standard_name": "Loose Tooth",
+      "method": "Fallback Fuzzy Match"
+    },
+    "violent vomiting": {
+      "standard_name": "Vomiting",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Severe cramping": {
+      "standard_name": "Salt Craving",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "stomach pains": {
+      "standard_name": "Abdominal Symptom",
+      "method": "UMLS Match"
+    },
+    "Injection site rashes": {
+      "standard_name": "Injection Site Dermatitis",
+      "method": "UMLS Match"
+    },
+    "feeling like food sits in stomach for hours": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Severe stomach pain": {
+      "standard_name": "Pain",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "Trouble swallowing": {
+      "standard_name": "Swollen Tongue",
+      "method": "Fallback Fuzzy Match"
+    },
+    "stomach gurgling": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Nausea (again)": {
+      "standard_name": "Nausea",
+      "method": "UMLS Match"
+    },
+    "Upper stomach discomfort": {
+      "standard_name": "Discomfort",
+      "method": "Fuzzy Match (High Confidence)"
+    },
+    "pancreatic infection": {
+      "standard_name": "Pancreas Infection",
+      "method": "UMLS Match"
+    },
+    "Stomach ache after eating carbs like potatoes and bread": {
+      "standard_name": "Stomach Mass",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Wind": {
+      "standard_name": "Flatulence",
+      "method": "UMLS Match"
+    },
+    "Lack of effectiveness": {
+      "standard_name": "Drug Ineffective",
+      "method": "UMLS Match"
+    },
+    "light side effects": {
+      "standard_name": "Affective Disorder",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "Difficulty getting up in the morning": {
+      "standard_name": "Weight Bearing Difficulty",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Difficulty concentrating": {
+      "standard_name": "Weight Bearing Difficulty",
+      "method": "Fallback Fuzzy Match"
+    },
+    "crappy feeling": {
+      "standard_name": "Feeling Hot",
+      "method": "Fallback Fuzzy Match"
+    },
+    "Throwing up bile": {
+      "standard_name": "Binge Eating",
+      "method": "Best Effort Fuzzy Match"
+    },
+    "lethargy": {
+      "standard_name": "Lethargy",
+      "method": "Direct Match"
+    },
+    "minimal side effects": {
+      "standard_name": "Injection Site Macule",
+      "method": "Best Effort Fuzzy Match"
+    }
+  },
+  "unmapped_list": []
+}

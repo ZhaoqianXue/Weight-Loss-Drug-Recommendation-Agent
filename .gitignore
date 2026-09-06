@@ -1,0 +1,15 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+.cursor/
+.ipynb_checkpoints/
+.slide-build/
+outputs/
+*.pptx
+# Regenerable experiment caches exceed GitHub's normal file-size limit.
+data_standardized/biobert_embeddings_v5.json
+data_standardized/embeddings_cache_v6.pkl
