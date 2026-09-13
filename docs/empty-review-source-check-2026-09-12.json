@@ -1,0 +1,338 @@
+{
+  "checked_at_utc": "2026-09-12T23:34:40.208996+00:00",
+  "checked_pages": 25,
+  "checked_records": 41,
+  "all_found": true,
+  "all_source_text_empty": true,
+  "all_ratings_present": true,
+  "records": [
+    {
+      "review_id": "586981",
+      "url": "https://reviews.webmd.com/drugs/drugreview-trulicity-dulaglutide",
+      "page": 11,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "575676",
+      "url": "https://reviews.webmd.com/drugs/drugreview-trulicity-dulaglutide",
+      "page": 12,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "2176646",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 1,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "584599",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 1,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "322136",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 2,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "302126",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 2,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "292410",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 2,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "259937",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 3,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "189407",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 4,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "178655",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 5,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "177847",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 5,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "157392",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 6,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "136090",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 8,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "135871",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 8,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "130350",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 9,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "123919",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 9,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "115437",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 10,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "104128",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 11,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "100839",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 11,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "87212",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 12,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "76553",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 13,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "64178",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 14,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "58002",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 15,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "55168",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 15,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "53112",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 15,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "49411",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 16,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "37364",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 18,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "34585",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 18,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "31239",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 19,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "28273",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 19,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "18715",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 20,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "18650",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 20,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "16452",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 20,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "6585",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 21,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "4972",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 21,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "4257",
+      "url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "page": 21,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "549615",
+      "url": "https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide",
+      "page": 4,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "520473",
+      "url": "https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide",
+      "page": 5,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "445947",
+      "url": "https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide",
+      "page": 6,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "361923",
+      "url": "https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide",
+      "page": 8,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    },
+    {
+      "review_id": "355468",
+      "url": "https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide",
+      "page": 8,
+      "found": true,
+      "source_text_empty": true,
+      "ratings_present": true
+    }
+  ]
+}

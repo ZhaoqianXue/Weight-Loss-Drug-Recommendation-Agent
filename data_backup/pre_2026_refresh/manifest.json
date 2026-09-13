@@ -1,0 +1,8 @@
+{
+  "description": "Immutable pre-refresh canonical CSVs; original snapshot of 2,373 records. Retained for annotation matching and historical reproducibility.",
+  "files": {
+    "standardized_reviews_all.csv": "78a02d0bf195960a295ecaf98d56c21e0900eeadca0847cc104c5fabd9f74ad5",
+    "webmd_all_reviews.csv": "59810e957b277351a08bb164597a17367519b0f375207e908348923734ef7ea1",
+    "extracted_reviews_all.csv": "ca53c571675aa02ff2024fdcd6e287df1e74b4e76f090043eac518a52eec8b52"
+  }
+}

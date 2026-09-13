@@ -1,0 +1,94 @@
+{
+  "collection_completed_at": "2026-09-12T05:32:49.141428+00:00",
+  "total_reviews": 2727,
+  "generics": 4,
+  "brands": [
+    {
+      "generic": "Semaglutide",
+      "brand": "Wegovy",
+      "reviews": 491,
+      "text_reviews": 491,
+      "extraction_status": {
+        "pending": 14,
+        "historical_reused": 477
+      }
+    },
+    {
+      "generic": "Semaglutide",
+      "brand": "Ozempic",
+      "reviews": 512,
+      "text_reviews": 511,
+      "extraction_status": {
+        "pending": 15,
+        "historical_reused": 497
+      }
+    },
+    {
+      "generic": "Semaglutide",
+      "brand": "Rybelsus",
+      "reviews": 81,
+      "text_reviews": 81,
+      "extraction_status": {
+        "pending": 6,
+        "historical_reused": 75
+      }
+    },
+    {
+      "generic": "Tirzepatide",
+      "brand": "Mounjaro",
+      "reviews": 662,
+      "text_reviews": 662,
+      "extraction_status": {
+        "pending": 39,
+        "historical_reused": 623
+      }
+    },
+    {
+      "generic": "Tirzepatide",
+      "brand": "Zepbound",
+      "reviews": 48,
+      "text_reviews": 48,
+      "extraction_status": {
+        "pending": 26,
+        "historical_reused": 22
+      }
+    },
+    {
+      "generic": "Liraglutide",
+      "brand": "Victoza",
+      "reviews": 440,
+      "text_reviews": 398,
+      "extraction_status": {
+        "pending": 9,
+        "historical_reused": 431
+      }
+    },
+    {
+      "generic": "Liraglutide",
+      "brand": "Saxenda",
+      "reviews": 222,
+      "text_reviews": 221,
+      "extraction_status": {
+        "historical_reused": 219,
+        "pending": 3
+      }
+    },
+    {
+      "generic": "Dulaglutide",
+      "brand": "Trulicity",
+      "reviews": 271,
+      "text_reviews": 269,
+      "extraction_status": {
+        "pending": 271
+      }
+    }
+  ],
+  "raw_csv_sha256": "7c77d5708009e2a9837dc7f9c03ebb4b931667ddbcd1381dea1522a5315e4d0d",
+  "standardized_csv_sha256": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+  "limitations": [
+    "Pending extraction is unknown, not an absence of adverse effects.",
+    "Historical annotations are retained without clinical revalidation.",
+    "Wegovy pages may combine formulations; brand alone does not establish dosage form.",
+    "Historical FDA classifications are not current regulatory evidence."
+  ]
+}

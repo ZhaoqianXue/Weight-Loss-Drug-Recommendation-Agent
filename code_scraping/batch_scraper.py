@@ -1,32 +1,36 @@
-# code_scraping/batch_scraper.py
+"""Collect every catalog brand; publish only after all brands validate."""
+from concurrent.futures import ThreadPoolExecutor
+import argparse
+import hashlib
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from drug_catalog import DRUGS, ROOT
+from code_scraping.scraper import collect, write_csv
 
-import os
-import scraper
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--run-dir',type=Path,default=ROOT / '.cache/webmd' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
+    parser.add_argument('--output-dir',type=Path,default=ROOT / 'data_webmd')
+    args = parser.parse_args()
+    batches, summaries = [], []
+    # Three independent brand streams; pagination remains sequential within a brand.
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        futures = [pool.submit(collect, drug, args.run_dir) for drug in DRUGS]
+        for future in futures:
+            rows, summary = future.result()
+            batches.append(rows); summaries.append(summary)
+    all_rows = [r for batch in batches for r in batch]
+    if len({r['Review ID'] for r in all_rows}) != len(all_rows):
+        raise ValueError('Cross-brand duplicate IDs: investigate shared review pages before publishing')
+    for drug, rows in zip(DRUGS,batches):
+        write_csv(args.output_dir / ('webmd_' + drug['brand'].lower() + '_reviews.csv'),rows)
+    target = args.output_dir / 'webmd_all_reviews.csv'
+    write_csv(target,all_rows)
+    manifest = {'completed_at':datetime.now(timezone.utc).isoformat(),'total_reviews':len(all_rows),'brands':summaries,'csv_sha256':hashlib.sha256(target.read_bytes()).hexdigest(),'rendered_records':sum(r['Source Visibility']=='rendered' for r in all_rows),'embedded_only_records':sum(r['Source Visibility']=='embedded_only' for r in all_rows),'text_records':sum(bool(r['Textual Review']) for r in all_rows),'count_unit':'Unique WebMD review ID, including rating-only records; aliases are not added separately.'}
+    (args.output_dir / 'collection_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    print('Published %d validated reviews' % len(all_rows),flush=True)
 
-# Create save directory
-save_dir = 'data_webmd'
-os.makedirs(save_dir, exist_ok=True)
-
-# Drug generic name, brand name, and WebMD review URL
-url_list = [
-    ("Semaglutide", "Wegovy", "https://reviews.webmd.com/drugs/drugreview-181658-wegovy-subcutaneous"),
-    ("Semaglutide", "Ozempic", "https://reviews.webmd.com/drugs/drugreview-174491-ozempic-subcutaneous"),
-    ("Semaglutide", "Rybelsus", "https://reviews.webmd.com/drugs/drugreview-178019-rybelsus-oral"),
-    ("Tirzepatide", "Zepbound", "https://reviews.webmd.com/drugs/drugreview-187794-zepbound-subcutaneous"),
-    ("Tirzepatide", "Mounjaro", "https://reviews.webmd.com/drugs/drugreview-184168-mounjaro-subcutaneous"),
-    ("Liraglutide", "Victoza", "https://reviews.webmd.com/drugs/drugreview-153566-liraglutide-subcutaneous"),
-    ("Liraglutide", "Saxenda", "https://reviews.webmd.com/drugs/drugreview-168195-saxenda-subcutaneous"),
-]
-
-for drug_name, brand_name, url in url_list:
-    # Auto-complete first page parameter
-    base_url = url
-    if "page=" not in base_url:
-        if "?" in base_url:
-            base_url = base_url + "&page=1&next_page=true"
-        else:
-            base_url = base_url + "?page=1&next_page=true"
-    csv_file = os.path.join(save_dir, f"webmd_{brand_name.lower()}_reviews.csv")
-    print(f"\n==== Scraping: {brand_name} ({drug_name}) ====")
-    scraper.scrape_all_reviews_from_url(base_url, csv_file, drug_name, brand_name)
-    print(f"==== {brand_name} Finished ====") 
+if __name__ == '__main__': main()

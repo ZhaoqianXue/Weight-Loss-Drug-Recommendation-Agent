@@ -1,0 +1,209 @@
+{
+  "checked_date_local": "2026-09-11",
+  "timezone": "America/Phoenix",
+  "recorded_at_utc": "2026-09-12T05:03:50Z",
+  "scope": "Previously discussed eight ingredients and two related fixed-dose insulin combinations; current WebMD pages, not worldwide exhaustive brand history.",
+  "records": [
+    {
+      "generic_name": "Semaglutide",
+      "brand_name": "Ozempic",
+      "displayed_review_count": 512,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-ozempic-semaglutide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Semaglutide",
+      "brand_name": "Wegovy / Wegovy HD",
+      "displayed_review_count": 491,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-wegovy-semaglutide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Semaglutide",
+      "brand_name": "Rybelsus",
+      "displayed_review_count": 81,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-rybelsus-semaglutide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Tirzepatide",
+      "brand_name": "Mounjaro",
+      "displayed_review_count": 662,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-mounjaro-tirzepatide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Tirzepatide",
+      "brand_name": "Zepbound",
+      "displayed_review_count": 48,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-zepbound-tirzepatide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Liraglutide",
+      "brand_name": "Victoza",
+      "displayed_review_count": 440,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-liraglutide-victoza",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Liraglutide",
+      "brand_name": "Saxenda",
+      "displayed_review_count": 222,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-saxenda-liraglutide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Orforglipron",
+      "brand_name": "Foundayo",
+      "displayed_review_count": 0,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-foundayo-orforglipron",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": "Be the first to share your experience with this treatment"
+    },
+    {
+      "generic_name": "Dulaglutide",
+      "brand_name": "Trulicity",
+      "displayed_review_count": 271,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-trulicity-dulaglutide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Exenatide",
+      "brand_name": "Byetta",
+      "displayed_review_count": 421,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Exenatide",
+      "brand_name": "Bydureon / Bydureon BCise",
+      "displayed_review_count": 170,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide",
+      "verification": "live_browser",
+      "scope": "single_ingredient",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Insulin glargine + lixisenatide",
+      "brand_name": "Soliqua",
+      "displayed_review_count": 6,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-soliqua-insulin-glargine-lixisenatide",
+      "verification": "live_browser",
+      "scope": "combination",
+      "zero_evidence": null
+    },
+    {
+      "generic_name": "Insulin degludec + liraglutide",
+      "brand_name": "Xultophy",
+      "displayed_review_count": 0,
+      "review_url": "https://reviews.webmd.com/drugs/drugreview-xultophy-insulin-degludec-liraglutide",
+      "verification": "live_browser",
+      "scope": "combination",
+      "zero_evidence": "Be the first to share your experience with this treatment"
+    }
+  ],
+  "unconfirmed": [
+    {
+      "generic_name": "Lixisenatide",
+      "brand_name": "Adlyxin",
+      "displayed_review_count": null,
+      "status": "not_found_in_current_directory_or_search; not_zero",
+      "directory_url": "https://www.webmd.com/drugs/2/alpha/a/ad"
+    },
+    {
+      "generic_name": "Lixisenatide",
+      "brand_name": "Lyxumia",
+      "displayed_review_count": null,
+      "status": "not_found_in_current_directory_or_search; not_zero",
+      "directory_url": "https://www.webmd.com/drugs/2/alpha/l/ly"
+    },
+    {
+      "generic_name": "Albiglutide",
+      "brand_name": "Tanzeum",
+      "displayed_review_count": null,
+      "status": "not_found_in_current_directory_or_search; not_zero",
+      "directory_url": "https://www.webmd.com/drugs/2/alpha/t/ta"
+    },
+    {
+      "generic_name": "Albiglutide",
+      "brand_name": "Eperzan",
+      "displayed_review_count": null,
+      "status": "not_found_in_current_directory_or_search; not_zero",
+      "directory_url": "https://www.webmd.com/drugs/2/alpha/e/ep"
+    }
+  ],
+  "redirects": [
+    {
+      "legacy_name": "Victoza 2-Pak",
+      "legacy_id": 163054,
+      "historical_webmdrx_count": 51,
+      "requested_url": "https://www.webmd.com/drugs/drugreview-163054-Victoza-2-Pak",
+      "observed_destination": "https://reviews.webmd.com/drugs/drugreview-liraglutide-victoza",
+      "add_to_total": false
+    },
+    {
+      "legacy_name": "Exenatide",
+      "legacy_id": 93223,
+      "historical_webmdrx_count": 4,
+      "requested_url": "https://www.webmd.com/drugs/drugreview-93223-Exenatide",
+      "observed_destination": "https://reviews.webmd.com/drugs/drugreview-exenatide-byetta",
+      "add_to_total": false
+    },
+    {
+      "legacy_name": "Semaglutide",
+      "legacy_id": 178018,
+      "historical_webmdrx_count": 4,
+      "requested_url": "https://www.webmd.com/drugs/drugreview-178018-Semaglutide",
+      "observed_destination": "https://reviews.webmd.com/drugs/drugreview-rybelsus-semaglutide",
+      "add_to_total": false
+    },
+    {
+      "legacy_name": "Ozempic 1 Mg Dose",
+      "legacy_id": 181644,
+      "historical_webmdrx_count": 4,
+      "requested_url": "https://www.webmd.com/drugs/drugreview-181644-Ozempic-1-Mg-Dose",
+      "observed_destination": "https://reviews.webmd.com/drugs/drugreview-wegovy-semaglutide",
+      "add_to_total": false
+    },
+    {
+      "legacy_name": "Bydureon",
+      "legacy_id": 159405,
+      "historical_webmdrx_count": null,
+      "requested_url": "https://reviews.webmd.com/drugs/drugreview-159405-bydureon-subcutaneous",
+      "observed_destination": "https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide",
+      "add_to_total": false
+    }
+  ],
+  "totals": {
+    "single_ingredient_displayed_records": 3318,
+    "including_combinations_displayed_records": 3324
+  },
+  "limitations": [
+    "Page totals count ratings/reviews, not verified unique patients or nonempty textual reviews.",
+    "No complete pagination extraction or text deduplication performed.",
+    "Missing directory entries are not proof of zero reviews or historical absence.",
+    "Mounjaro shows 662 overall, but visible condition counts 333+328=661.",
+    "Legacy Ozempic 1 Mg Dose ID 181644 redirects to Wegovy; website routing is not evidence of clinical brand equivalence.",
+    "Shared URLs do not establish which historical reviews were retained or whether every record has the correct brand/formulation."
+  ]
+}

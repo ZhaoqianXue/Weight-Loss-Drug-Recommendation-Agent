@@ -9,6 +9,10 @@ import json
 import logging
 from typing import Dict, List, Any, Optional
 from neo4j import GraphDatabase
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from dataset_provenance import dataset_digest
 import os
 from datetime import datetime
 
@@ -123,6 +127,8 @@ class Neo4jGraphLoader:
             start_label = relation['start']['label']
             end_label = relation['end']['label']
             relation_type = relation['relation'].upper()
+            if relation_type not in {'TREATS','CAUSES','REVIEWED_FOR'}:
+                raise ValueError('Unsupported relation type in snapshot')
             # Map standardized_relations labels to our three node types
             label_mapping = {
                 'Medication': 'Drug',
@@ -149,7 +155,7 @@ class Neo4jGraphLoader:
                            end_name=relation['end']['properties']['name'],
                            properties=relation.get('properties', {}))
             except Exception as e:
-                logger.warning(f"Failed to create relationship: {e}")
+                raise RuntimeError("Failed to create relationship") from e
     def load_csv_data(self, csv_file_path: str):
         """Main method to load CSV data into Neo4j - creates only Drug, Condition, SideEffect nodes"""
         logger.info(f"Loading data from {csv_file_path}")
@@ -160,6 +166,11 @@ class Neo4jGraphLoader:
         except Exception as e:
             logger.error(f"Failed to read CSV file: {e}")
             return
+        # Fresh imports avoid mixing removed reviews or old relations into a new snapshot.
+        with self.driver.session() as session:
+            existing = session.run("MATCH (n) RETURN count(n) AS n").single()['n']
+            if existing:
+                raise ValueError("Use an empty Neo4j database for a complete snapshot import; existing data was not changed.")
         # Create constraints and indexes
         self.create_constraints_and_indexes()
         # Process each row to extract nodes and relationships from standardized columns
@@ -195,6 +206,10 @@ class Neo4jGraphLoader:
                     logger.error(f"Error processing row {index}: {e}")
                     error_count += 1
                     continue
+        if error_count:
+            raise RuntimeError("Incomplete graph import; no dataset provenance was published")
+        with self.driver.session() as session:
+            session.run("MERGE (s:ReviewDataset {name: 'webmd'}) SET s.sha256 = $sha256, s.review_count = $count", sha256=dataset_digest(csv_file_path), count=len(df))
         logger.info(f"Data loading completed: {processed_count} rows processed, {error_count} errors")
     def get_database_stats(self):
         """Get statistics about the loaded data - only three node types"""
@@ -220,7 +235,7 @@ class Neo4jGraphLoader:
 def main():
     """Main execution function"""
     # Configuration - Update these values according to your Neo4j setup
-    NEO4J_URI = "bolt://localhost:7687"
+    NEO4J_URI = os.environ.get("NEO4J_URI", "bolt://localhost:7687")
     NEO4J_USERNAME = "neo4j"
     NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD", "")
     CSV_FILE_PATH = "data_standardized/standardized_reviews_all.csv"
@@ -247,6 +262,7 @@ def main():
         logger.info(f"Total processing time: {end_time - start_time}")
     except Exception as e:
         logger.error(f"Application error: {e}")
+        raise
     finally:
         if loader:
             loader.close()

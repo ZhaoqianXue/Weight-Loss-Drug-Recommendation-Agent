@@ -17,3 +17,10 @@ The initial diff check found two trailing-whitespace lines carried into the inte
 
 ## Publication
 The remote main branch has four subsequent commits deleting .DS_Store files. Incorporate them before a normal push, without force-pushing.
+
+## Scope update — 2026-09-12
+1. Inspect catalog, raw and derived schema, tests and docs (complete).
+2. Archive the two excluded brand files and rebuild the eight-brand snapshot offline (complete).
+3. Synchronize active code, tests and scope documentation (complete).
+4. Run Python, JavaScript, data integrity and preservation checks; record results (complete; literal grep/hash exceptions documented in project scope).
+No scraping, model calls, index/database changes, or commits. Existing historical planning files stay unchanged.

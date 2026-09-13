@@ -30,21 +30,11 @@ class DrugInfo(BaseModel):
     """Drug information extraction model"""
     name: str = Field(..., description="Drug brand name from CSV Brand Name column")
     dosage: Optional[str] = Field(None, description="Extracted dosage with units (e.g., '5mg', '10 mg')")
-    dosage_form: Optional[str] = Field(None, description="Dosage form based on drug type")
+    dosage_form: Optional[str] = Field(None, description="Dosage form explicitly supported by review text; otherwise null")
     duration: Optional[str] = Field(None, description="Medication duration from CSV Medication Duration column")
     continued_use: Optional[str] = Field(None, description="Whether patient continues use (yes/no)")
     alternative_drug_considered: Optional[str] = Field(None, description="Whether alternative drugs were considered (yes/no)")
     
-    @field_validator('dosage_form', mode='before')
-    @classmethod
-    def set_dosage_form(cls, v, values):
-        drug_name = values.data.get('name')
-        if drug_name:
-            if drug_name.lower() in ['mounjaro', 'ozempic', 'wegovy', 'zepbound', 'victoza', 'saxenda']:
-                return 'subcutaneous injection'
-            elif drug_name.lower() == 'rybelsus':
-                return 'oral'
-        return None
 
 class ConditionInfo(BaseModel):
     """Disease/condition information model"""
@@ -106,7 +96,7 @@ The primary drug name "{drug_name}", condition "{condition_from_csv}", and medic
 1. **Medication Information** (primary drug is pre-provided):
    - Use the provided primary drug name: {drug_name}
    - dosage: Extract dosage with units only if mentioned in text (e.g., '5mg', '10 mg')
-   - dosage_form: Will be automatically set based on drug name
+   - dosage_form: Extract only when the review explicitly identifies the form; otherwise null. Never infer form from brand alone, including Wegovy.
    - duration: Will be automatically set from CSV Medication Duration - DO NOT extract from text
    - continued_use: Extract whether patient continues use (yes/no) if mentioned
    - alternative_drug_considered: Set to "yes" only if:
@@ -135,10 +125,10 @@ The primary drug name "{drug_name}", condition "{condition_from_csv}", and medic
 
 ### Processing Rules:
 1. Focus on identifying which specific drug causes each side effect
-2. Use the primary drug "{drug_name}" as default for side effects when attribution is unclear
+2. Include only effects attributed to the primary drug "{drug_name}"; omit symptoms attributed to other medications.
 3. Follow the condition logic strictly based on whether CSV condition is "Other" or not
 4. Extract only explicit information - no inference or assumptions
-5. Be conservative - if unsure about drug attribution, default to primary drug "{drug_name}"
+5. If attribution is unclear, omit the effect. Do not turn negated symptoms, existing conditions, hypothetical risks, or missing narrative into adverse effects.
 6. Pay special attention to comparative statements and drug switching scenarios"""),
     ("human", """Analyze this patient review text and extract structured information (drug name is pre-provided as {drug_name}, condition from CSV is {condition_from_csv}, medication duration from CSV is {medication_duration}):
 

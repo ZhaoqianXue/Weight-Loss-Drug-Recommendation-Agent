@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "reviews": 3318,
+  "generics": 5,
+  "brands": 10,
+  "pages": 172,
+  "text_reviews": 3233,
+  "source_visibility": {
+    "rendered": 3317,
+    "embedded_only": 1
+  },
+  "extraction_status": {
+    "pending": 974,
+    "historical_reused": 2344
+  },
+  "pending_with_text": 933,
+  "files": {
+    "data_extracted/extracted_reviews_all.csv": {
+      "rows": 3318,
+      "sha256": "c672b092436588b1ce49ff3b9fc427f5fc086b401dee8c38bfa0b32b6802184f"
+    },
+    "data_standardized/standardized_reviews_all.csv": {
+      "rows": 3318,
+      "sha256": "83a0cd0d6795f3064bbe8259a24abed5f6cb939a58e9ebf7c108f595f170d4b3"
+    },
+    "code_website/data/standardized_reviews_all.csv": {
+      "rows": 3318,
+      "sha256": "83a0cd0d6795f3064bbe8259a24abed5f6cb939a58e9ebf7c108f595f170d4b3"
+    },
+    "code_website/static/standardized_reviews_all.csv": {
+      "rows": 3318,
+      "sha256": "83a0cd0d6795f3064bbe8259a24abed5f6cb939a58e9ebf7c108f595f170d4b3"
+    }
+  }
+}

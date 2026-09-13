@@ -1,5 +1,9 @@
 # build_webmd_db_simple_embed.py
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from dataset_provenance import index_metadata
 import os
 import pandas as pd
 from typing import Optional, List, Any
@@ -100,7 +104,10 @@ class Retriever:
         safe_table_id = "".join(c for c in table_id if c.isalnum() or c in ('_', '-')).rstrip()
         db_path = os.path.join(self.db_dir, f'{data_type}_db_{safe_table_id}')
 
-        if os.path.exists(db_path):
+        expected = index_metadata(self.embed_model_name, CONFIG['data_path'])
+        manifest = Path(db_path) / 'dataset_manifest.json'
+        current = json.loads(manifest.read_text()) if manifest.exists() else None
+        if os.path.exists(db_path) and current == expected:
             if self.verbose: print(f'Loading {data_type} database from {db_path}...')
             try:
                 db = FAISS.load_local(db_path, self.embedder, allow_dangerous_deserialization=True)
@@ -126,6 +133,7 @@ class Retriever:
             db.save_local(db_path)
             print(f"FAISS database saved to {db_path}.")
 
+        manifest.write_text(json.dumps(expected, indent=2) + '\n')
         embed_retriever = db.as_retriever(search_kwargs={'k': self.top_k})
         return embed_retriever
 

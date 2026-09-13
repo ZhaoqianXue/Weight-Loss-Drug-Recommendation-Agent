@@ -7,3 +7,10 @@ Created external backup, moved original .git to the root, removed the nested wor
 Verification: Git fsck passed. All Python files parse. Both notebook outputs are empty. Twelve PDF text layers and 82 text files plus five pickle string streams have no Chinese. All 60 data hashes are unchanged except the intentionally regenerated English chart. Static preview HTML and CSV requests passed. Slide preview server stopped. Imported raw data whitespace is preserved through Git attributes; source whitespace was normalized only in newly integrated files. An initial warning-summary command hit a Unicode decoding error on an unclassified binary index; explicit binary Git attributes address this.
 
 The user authorized committing and pushing the consolidated version. Fetched origin/main and identified four remote cleanup commits to retain.
+
+## Scope update — 2026-09-12
+Read the eight required files before edits. Saved targeted pre-edit files and historical/per-brand hashes outside the repository. Historical planning directories and existing backups remain untouched.
+
+Offline snapshot rebuilt: 2,727 records; 2,344 reused annotations, 383 pending (381 with text, 2 rating-only). Python: 15 tests passed. Initial JS run exposed unsupported existing Victoza pack aliases; both intent matchers now accept the catalog aliases, with direct and comparison regression coverage. Data validation now also checks retained raw fields, catalog copies and manifest copies.
+
+Final validation: 15 Python tests, 3,963 JavaScript assertions, 8 brands and 28 pairs passed. Data validator, Python syntax parsing, JS syntax checks and git diff --check passed. Checked the 50-file preservation baseline (allowing the rebuilt combined raw CSV and verifying moved files at their archive destinations); protected history, eight per-brand raw files and Reddit source documentation are unchanged. Original dated refresh report is unchanged below its addendum. No scraping, model API calls, database/index updates or commit.

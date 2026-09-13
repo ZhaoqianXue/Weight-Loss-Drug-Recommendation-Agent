@@ -1,0 +1,10 @@
+[
+  {"generic":"Semaglutide","brand":"Wegovy","slug":"wegovy-semaglutide","aliases":["Wegovy HD"]},
+  {"generic":"Semaglutide","brand":"Ozempic","slug":"ozempic-semaglutide","aliases":[]},
+  {"generic":"Semaglutide","brand":"Rybelsus","slug":"rybelsus-semaglutide","aliases":[]},
+  {"generic":"Tirzepatide","brand":"Mounjaro","slug":"mounjaro-tirzepatide","aliases":[]},
+  {"generic":"Tirzepatide","brand":"Zepbound","slug":"zepbound-tirzepatide","aliases":[]},
+  {"generic":"Liraglutide","brand":"Victoza","slug":"liraglutide-victoza","aliases":["Victoza 2-Pak","Victoza 3-Pak"]},
+  {"generic":"Liraglutide","brand":"Saxenda","slug":"saxenda-liraglutide","aliases":[]},
+  {"generic":"Dulaglutide","brand":"Trulicity","slug":"trulicity-dulaglutide","aliases":[]}
+]

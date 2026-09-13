@@ -1,133 +1,100 @@
-# code_scraping/scraper.py
-
-from lxml import etree
+"""Validated WebMD collector using embedded page data and visible demographics."""
 import csv
-import requests
-import time
+import json
+import math
 import re
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+import requests
+from lxml import html
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
-def scrape_all_reviews_from_url(base_url, csv_file_path, drug_name=None, brand_name=None):
-    """
-    Automatically scrape all reviews by paging until no new reviews are found.
-    drug_name: generic name, brand_name: brand name, both as the first two columns of each row.
-    """
-    try:
-        header = ['Drug Name', 'Brand Name', 'Date', 'User', 'Age', 'Gender', 'Patient Type', 'Medication Duration', 
-                  'Condition', 'Overall Rating', 'Effectiveness', 'Ease of Use', 
-                  'Satisfaction', 'Likes', 'Dislikes', 'Textual Review']
-        all_data = []
-        page = 1
-        while True:
-            url = base_url.replace('page=1', f'page={page}')
-            print(f"Scraping page {page}: {url}")
-            response = requests.get(url, timeout=20)
-            response.raise_for_status()
-            html_content = response.content
-            parser = etree.HTMLParser()
-            tree = etree.fromstring(html_content, parser)
-            review_elements = tree.xpath("//div[contains(@class, 'review-details-holder')]")
-            if not review_elements:
-                print(f"No reviews found on page {page}, scraping finished.")
-                break
-            page_data = []
-            for review_element in review_elements:
-                def get_text(element, xpath):
-                    result = element.xpath(xpath)
-                    return result[0].strip() if result and result[0].strip() else None
-                def get_attribute_value(element, xpath, attribute_name):
-                    result = element.xpath(xpath)
-                    return result[0].get(attribute_name) if result else None
-                date = get_text(review_element, ".//div[@class='date']/text()")
-                details_spans = review_element.xpath(".//div[@class='details']/span/text()")
-                details_text = [span.strip() for span in details_spans if span.strip()]
-                user = None
-                age = None
-                gender = None
-                patient_type = None
-                medication_duration_text = get_text(review_element, ".//div[@class='details']/text()[normalize-space()]")
-                if len(details_text) > 0: user = details_text[0].replace('|','').strip() if details_text[0] != '|' else None
-                if len(details_text) > 1: age = details_text[1].replace('|','').strip() if details_text[1] != '|' else None
-                if len(details_text) > 2: gender = details_text[2].replace('|','').strip() if details_text[2] != '|' else None
-                med_duration_raw = review_element.xpath(".//div[@class='details']/text()")
-                medication_duration = None
-                for text_node in med_duration_raw:
-                    cleaned_text = text_node.strip()
-                    if cleaned_text and cleaned_text != '|':
-                        medication_duration = cleaned_text.replace("On medication for", "").replace("|","").strip()
-                        break
-                if details_text and "Patient" in details_text[-1]:
-                    patient_type = details_text[-1]
-                condition = get_text(review_element, ".//strong[@class='condition']/text()")
-                if condition:
-                    condition = condition.replace("Condition: ", "").strip()
-                overall_rating_val = get_attribute_value(review_element, ".//div[@class='overall-rating']/div[contains(@class, 'webmd-rate')]", "aria-valuenow")
-                effectiveness_val = get_attribute_value(review_element, ".//div[@class='categories']/section[1]/div[contains(@class, 'webmd-rate')]", "aria-valuenow")
-                ease_of_use_val = get_attribute_value(review_element, ".//div[@class='categories']/section[2]/div[contains(@class, 'webmd-rate')]", "aria-valuenow")
-                satisfaction_val = get_attribute_value(review_element, ".//div[@class='categories']/section[3]/div[contains(@class, 'webmd-rate')]", "aria-valuenow")
-                likes = get_text(review_element, ".//div[contains(@class, 'like-dislikes')]//div[@class='helpful']/span[@class='likes']/text()")
-                dislikes_element = review_element.xpath(".//div[contains(@class, 'like-dislikes')]//div[@class='not-helpful']/span[@class='dislikes']/text()")
-                dislikes = dislikes_element[0].strip() if dislikes_element and dislikes_element[0].strip() else "0"
-                # Prefer to concatenate showSec and hiddenSec for long reviews
-                show_sec = review_element.xpath(".//div[@class='description']/p[@class='description-text']/span[contains(@class, 'showSec')]/text()")
-                hidden_sec = review_element.xpath(".//div[@class='description']/p[@class='description-text']/span[contains(@class, 'hiddenSec')]/text()")
-                if show_sec or hidden_sec:
-                    textual_review = "".join([s.strip() for s in show_sec + hidden_sec if s.strip()])
-                else:
-                    # Compatible with short reviews
-                    textual_review_parts = review_element.xpath(".//div[@class='description']/p[@class='description-text']/text()")
-                    textual_review = " ".join([part.strip() for part in textual_review_parts if part.strip()])
-                    if not textual_review:
-                        desc_div = review_element.xpath(".//div[@class='description']")
-                        if desc_div:
-                            for node in desc_div[0].itertext():
-                                t = node.strip()
-                                if t:
-                                    textual_review = t
-                                    break
-                # Remove extra quotes and spaces at the beginning and end
-                if textual_review:
-                    textual_review = textual_review.strip().strip('"')
-                full_details_str = "".join(review_element.xpath(".//div[@class='details']//text()") ).strip()
-                parts = [p.strip() for p in full_details_str.split('|') if p.strip()]
-                if not user and len(parts) > 0: user = parts[0].replace('|','').strip()
-                if not age and len(parts) > 1: age = parts[1].replace('|','').strip()
-                if not gender and len(parts) > 2: gender = parts[2].replace('|','').strip()
-                if not medication_duration and len(parts) > 3 and "On medication for" in parts[3]:
-                    medication_duration = parts[3].replace("On medication for", "").strip()
-                if not patient_type and len(parts) > 4: patient_type = parts[4]
-                data = [drug_name, brand_name, date, user, age, gender, patient_type, medication_duration, 
-                        condition, overall_rating_val, effectiveness_val, ease_of_use_val, 
-                        satisfaction_val, likes, dislikes, textual_review]
-                page_data.append(data)
-            # If the data on this page is the same as the previous page, stop (prevent infinite loop)
-            if page_data and page_data == all_data[-len(page_data):]:
-                print(f"Page {page} content is the same as the previous page, scraping finished.")
-                break
-            all_data.extend(page_data)
-            page += 1
-            time.sleep(1)  # Avoid being blocked by sending requests too quickly
-        # Write to CSV
-        with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow(header)
-            csvwriter.writerows(all_data)
-        print(f"Successfully scraped all reviews from all pages and saved to {csv_file_path}")
-        print(f"Total reviews: {len(all_data)}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        import traceback
-        traceback.print_exc()
+HEADER = ['Drug Name','Brand Name','Date','User','Age','Gender','Patient Type','Medication Duration','Condition','Overall Rating','Effectiveness','Ease of Use','Satisfaction','Likes','Dislikes','Textual Review','Review ID','Source URL','Source Page','Collected At','Source Visibility']
 
-if __name__ == "__main__":
-    # By default, scrape Zepbound. You need to manually specify drug_name and brand_name
-    base_url = "https://reviews.webmd.com/drugs/drugreview-187794-zepbound-subcutaneous"
-    drug_name = "Tirzepatide"
-    brand_name = "Zepbound"
-    # Auto-complete first page parameter
-    if "page=" not in base_url:
-        if "?" in base_url:
-            base_url = base_url + "&page=1&next_page=true"
+def parse_page(content, drug, page, collected_at):
+    state = json.JSONDecoder().raw_decode(content.split('window.__INITIAL_STATE__=', 1)[1])[0]['all_reviews']
+    title = state['drug_name'].lower()
+    if drug['brand'].lower() not in title or drug['generic'].lower() not in title:
+        raise ValueError('Unexpected drug page: ' + title)
+    total = int(state['total_review'])
+    records = [r for group in state['drug_review_nimvs'] for r in group.get('review_nimvs', [])]
+    cards = html.fromstring(content).xpath('//div[contains(@class,"review-details-holder")]')
+    if not records:
+        raise ValueError('Missing embedded reviews')
+    rows = []
+    remaining = list(cards)
+    for record in records:
+        date = record['DatePosted'].split()[0]
+        author = (record.get('DisplayName') or 'Anonymous').strip() or 'Anonymous'
+        if '@' in author: author = '[email protected]'
+        candidates = [card for card in remaining
+                      if card.xpath('.//div[@class="date"]')[0].text_content().strip() == date
+                      and card.xpath('.//div[@class="details"]')[0].text_content().split('|')[0].strip().replace('\xa0',' ') == author]
+        card = candidates[0] if candidates else None
+        parts = []
+        if card is not None:
+            remaining.remove(card)
+            parts = [p.strip() for p in card.xpath('.//div[@class="details"]')[0].text_content().split('|')]
+            ratings = card.xpath('.//div[@class="overall-rating"]//*[@role="slider"]/@aria-valuenow')
+            if not ratings or abs(float(ratings[0])-float(record['OverAll_UserReviewRating'])) > .11:
+                raise ValueError('DOM/state rating mismatch')
+        row = dict.fromkeys(HEADER, '')
+        row.update({'Drug Name':drug['generic'], 'Brand Name':drug['brand'], 'Date':date,
+                    'User':author if author != 'Anonymous' else '', 'Condition':record.get('SecondaryName_s',''),
+                    'Overall Rating':record.get('OverAll_UserReviewRating',''),
+                    'Effectiveness':record.get('RatingCriteria1',''), 'Ease of Use':record.get('RatingCriteria2',''),
+                    'Satisfaction':record.get('RatingCriteria3',''), 'Likes':record.get('FoundHelpfulCount',0),
+                    'Dislikes':record.get('FoundHarmfulCount',0), 'Textual Review':record.get('UserExperience','').strip(),
+                    'Review ID':str(record['userReviewId']), 'Source URL':drug['url'], 'Source Page':page,
+                    'Collected At':collected_at, 'Source Visibility':'rendered' if card is not None else 'embedded_only'})
+        # Embedded enum labels are inconsistent with the displayed page. Use visible labels.
+        for part in parts[1:]:
+            if re.fullmatch(r'\d{1,3}[-–]\d{1,3}|\d{1,3}\+|\d{1,3} (?:and|or) over',part): row['Age'] = part
+            elif part in ('Male','Female','Transgender','Non-binary'): row['Gender'] = part
+            elif part in ('Patient','Caregiver'): row['Patient Type'] = part
+            elif re.match(r'On (medication|supplement) for ',part): row['Medication Duration'] = re.sub(r'^On (medication|supplement) for ','',part)
+        rows.append(row)
+    if remaining: raise ValueError("Unmatched rendered review cards")
+    return total, rows
+
+def write_csv(path, rows):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + '.tmp')
+    with temporary.open('w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=HEADER)
+        writer.writeheader(); writer.writerows(rows)
+    temporary.replace(path)
+
+def collect(drug, cache_dir, delay=.4):
+    cache_dir = Path(cache_dir); cache_dir.mkdir(parents=True,exist_ok=True)
+    session = requests.Session()
+    session.mount('https://', HTTPAdapter(max_retries=Retry(total=4, backoff_factor=1, status_forcelist=[429,500,502,503,504])))
+    rows, seen, expected, page = [], set(), None, 1
+    while expected is None or len(rows) < expected:
+        cached = cache_dir / ('%s-%03d.json' % (drug['brand'],page))
+        if cached.exists():
+            data = json.loads(cached.read_text()); total, batch = data['total'], data['rows']
+            for row in batch: row.setdefault('Source Visibility','rendered')
         else:
-            base_url = base_url + "?page=1&next_page=true"
-    csv_file = f"webmd_{brand_name.lower()}_reviews.csv"
-    scrape_all_reviews_from_url(base_url, csv_file, drug_name, brand_name)
+            response = session.get(drug['url'], params={'conditionid':'','sortval':1,'page':page,'next_page':'true'},timeout=60)
+            response.raise_for_status()
+            total, batch = parse_page(response.content.decode('utf-8'),drug,page,datetime.now(timezone.utc).isoformat())
+            cached.write_text(json.dumps({'total':total,'rows':batch}, ensure_ascii=False),encoding='utf-8')
+            time.sleep(delay)
+        if expected is None: expected = total
+        if total != expected: raise ValueError('Review count changed during collection; use a fresh run directory')
+        for row in batch:
+            if row['Review ID'] in seen: raise ValueError('Duplicate review ID/page: ' + row['Review ID'])
+            seen.add(row['Review ID']); rows.append(row)
+        if page > math.ceil(expected / 20) + 1: raise ValueError('Pagination exceeded expected limit')
+        print('%s page %d: %d/%d' % (drug['brand'],page,len(rows),expected),flush=True)
+        page += 1
+    if len(rows) != expected: raise ValueError('Final count mismatch')
+    return rows, {'brand':drug['brand'],'generic':drug['generic'],'url':drug['url'],'headline_count':expected,'collected_count':len(rows),'pages':page-1,'unique_review_ids':len(seen)}
+
+def scrape_all_reviews_from_url(base_url,csv_file_path,drug_name=None,brand_name=None):
+    rows, _ = collect({'url':base_url.split('?')[0],'generic':drug_name,'brand':brand_name},Path(csv_file_path).parent / '.page-cache')
+    write_csv(csv_file_path,rows)

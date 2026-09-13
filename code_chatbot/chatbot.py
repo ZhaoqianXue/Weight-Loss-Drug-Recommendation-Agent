@@ -1,4 +1,9 @@
 # chatbot.py
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from drug_catalog import BRANDS, ALIASES, GENERIC_TO_BRANDS
+from dataset_provenance import verify_index, dataset_digest
 import os
 import json
 import warnings
@@ -91,7 +96,7 @@ CELL_DB_PATH = os.path.join("database_table", "cell_db_standardized_reviews_all"
 # TableRAG conceptual table ID and CSV data path
 TABLE_ID = "standardized_reviews_all"
 TABLE_CSV_PATH = os.path.join("data_standardized", "standardized_reviews_all.csv") # Path to the main data CSV for the solver
-TABLE_CAPTION = "WebMD Drug Reviews for Wegovy, Ozempic, Rybelsus, Zepbound, Mounjaro, Victoza, Saxenda" # Descriptive caption
+TABLE_CAPTION = "WebMD Drug Reviews for " + ", ".join(BRANDS) # Descriptive caption
 
 # TableRAG parameters
 TABLE_RAG_TOP_K = 5
@@ -422,7 +427,8 @@ Final Answer: The answer to the user's question.
 - Base your answer ONLY on the observations from the `python_repl_ast`. Do not make up information.
 - If you cannot answer the question with the provided data and tools after several attempts, state that in the Final Answer.
 - If you need to filter by age (e.g., 'over 60'), use the numeric columns 'Age_Lower' and 'Age_Upper' for comparison. For example, to select users over 60, use: df[df['Age_Lower'] >= 60].
-- **CRITICAL**: When filtering by drug names (like Ozempic, Wegovy, Zepbound, etc.), ALWAYS use the 'Brand Name' column, NOT the 'Drug Name' column. The 'Drug Name' column contains generic names (like Semaglutide, Tirzepatide), while 'Brand Name' contains the actual brand names that users refer to.
+- Reviews with pending or failed extraction have unknown side effects. Never interpret missing annotations as no adverse effects. Historical approval fields are not current regulatory evidence.
+- **CRITICAL**: When filtering by drug names (like Ozempic, Wegovy, Zepbound, etc.), use 'Brand Name' for brands and 'Drug Name' for generic names. A generic query must include all its brands, without counting separate generic-page copies. The 'Drug Name' column contains generic names (like Semaglutide, Tirzepatide), while 'Brand Name' contains the actual brand names that users refer to.
 - **CRITICAL**: For age-related filtering (e.g., 'over 60', 'under 50'), ALWAYS use the 'Age_Lower' and 'Age_Upper' columns, NOT the 'Age' column. The 'Age' column contains string ranges like '65-74', but 'Age_Lower' and 'Age_Upper' are numeric columns specifically for filtering. Use 'Age_Lower >= 60' for 'over 60', 'Age_Upper < 50' for 'under 50', etc.
 
 **FEW-SHOT EXAMPLES:**
@@ -565,6 +571,7 @@ class TableRAGRetriever:
         self.cell_retriever = self._load_faiss_retriever(self.cell_db_path, "cell")
 
     def _load_faiss_retriever(self, db_path: str, db_type: str):
+        verify_index(db_path, self.embed_model_name, TABLE_CSV_PATH)
         if not os.path.exists(db_path) or not os.path.isdir(db_path): # Ensure it's a directory
             logger.error(f"{db_type} FAISS database directory not found at {db_path}.")
             raise FileNotFoundError(f"{db_type} database directory not found at {db_path}. Please ensure it's pre-built and the path is correct.")
@@ -833,7 +840,12 @@ class GraphRAGModule:
     def _connect(self):
         try:
             self._driver = GraphDatabase.driver(self.uri, auth=(self.user, self.password))
-            self._driver.verify_connectivity() # Check if connection is valid
+            self._driver.verify_connectivity()
+            with self._driver.session() as session:
+                provenance = session.run("MATCH (s:ReviewDataset {name: 'webmd'}) RETURN s.sha256 AS sha256").single()
+                if not provenance or provenance['sha256'] != dataset_digest():
+                    self._driver.close()
+                    raise ValueError("Neo4j snapshot is stale or unverified. Import the current CSV into a fresh database.")
             if self.verbose: logger.info("Successfully connected to Neo4j.")
         except ServiceUnavailable as e:
             logger.error(f"Neo4j connection failed (ServiceUnavailable): {e}. GraphRAG will be unavailable.", exc_info=True)
@@ -888,8 +900,14 @@ class GraphRAGModule:
     * `severity`: String (Can be null, inherited from SideEffect node or specific to relation)
     * `dosage`: String (The dosage of the drug when the side effect occurred. Can be null)
 
+3. **(Drug)-[:REVIEWED_FOR]->(Condition)**: The source review page condition field; not an extracted treatment or approval claim.
+    * `source`: "WebMD condition field"
+
 **IMPORTANT NOTES FOR CYPHER GENERATION:**
-* Node labels (`Drug`, `Condition`, `SideEffect`) and Relationship types (`TREATS`, `CAUSES`) are case-sensitive as defined here (PascalCase for Nodes, UPPERCASE for Relationships).
+* Generic queries use `d.generic_name`, including all matching brands. Wegovy HD maps to Wegovy; Victoza 2-Pak maps to Victoza.
+* Missing CAUSES relations can mean extraction is pending. Never state that a drug has no side effects from an empty graph result.
+* Historical approval properties are not current regulatory evidence.
+* Node labels (`Drug`, `Condition`, `SideEffect`) and Relationship types (`TREATS`, `REVIEWED_FOR`, `CAUSES`) are case-sensitive as defined here (PascalCase for Nodes, UPPERCASE for Relationships).
 * When matching nodes, primarily use their `name` property as it's marked UNIQUE. E.g., `MATCH (d:Drug {name: 'Ozempic'})`.
 * String property values in Cypher queries should be enclosed in single or double quotes.
 * Pay close attention to property names and their potential for being null when writing WHERE clauses.
@@ -1182,7 +1200,7 @@ class MedicalChatBot:
         ]
         
         # Drug names that should be present in summary queries
-        drug_names = ["wegovy", "ozempic", "rybelsus", "zepbound", "mounjaro", "victoza", "saxenda"]
+        drug_names = list(ALIASES) + [g.lower() for g in GENERIC_TO_BRANDS]
         
         # Check if query contains both pros/cons keywords and drug names
         has_summary_keyword = any(keyword in query_lower for keyword in pros_cons_keywords)
@@ -1201,15 +1219,7 @@ class MedicalChatBot:
         query_lower = user_query.lower()
         
         # Drug name mapping (lowercase -> proper case)
-        drug_mapping = {
-            "wegovy": "Wegovy",
-            "ozempic": "Ozempic", 
-            "rybelsus": "Rybelsus",
-            "zepbound": "Zepbound",
-            "mounjaro": "Mounjaro",
-            "victoza": "Victoza",
-            "saxenda": "Saxenda"
-        }
+        drug_mapping = {**ALIASES, **{g.lower(): g for g in GENERIC_TO_BRANDS}}
         
         for drug_lower, drug_proper in drug_mapping.items():
             if drug_lower in query_lower:
@@ -1312,7 +1322,7 @@ class MedicalChatBot:
         in a structured format.
         """
         system_message = """You are an assistant. Your task is to analyze a user's question about medical drugs.
-1. Determine if it is a comparison question (comparing two or more drugs from the list: Wegovy, Ozempic, Rybelsus, Zepbound, Mounjaro, Victoza, Saxenda).
+1. Determine if it is a comparison question (comparing two or more drugs from the list: Wegovy, Ozempic, Rybelsus, Zepbound, Mounjaro, Victoza, Saxenda, Trulicity; or their generic names).
 2. If it is, identify the drugs being compared.
 3. Generate *separate*, *non-comparative* sub-questions for *each* drug, based on the original query's intent.
 4. Output ONLY in JSON format like this:
@@ -1481,7 +1491,7 @@ You *do not* have access to raw user review texts. Frame your answer accordingly
                 return final_answer
             else:
                 logger.warning("Summary/Pro/Con query detected, but couldn't extract drug name.")
-                return "I detected that you're asking for pros and cons information, but I couldn't identify which specific drug you're asking about. Please mention one of the following drugs clearly: Wegovy, Ozempic, Rybelsus, Zepbound, Mounjaro, Victoza, or Saxenda."
+                return "I detected that you're asking for pros and cons information, but I couldn't identify which specific drug you're asking about. Please mention one of the following drugs clearly: Wegovy, Ozempic, Rybelsus, Zepbound, Mounjaro, Victoza, Saxenda, or Trulicity."
 
         # --- Standard existing logic for other query types ---
         decomposition = self._decompose_query(user_query)

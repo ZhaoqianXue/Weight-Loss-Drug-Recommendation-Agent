@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, jsonify, send_from_directory
 # Make sure your chatbot.py is in the same directory or accessible in PYTHONPATH
-from chatbot import MedicalChatBot # Assuming your chatbot logic is in chatbot.py
+
 
 app = Flask(__name__)
 
@@ -19,6 +19,9 @@ app = Flask(__name__)
 # relative to where this Flask app is run, or are absolute paths.
 chatbot_instance = None
 try:
+    if not os.environ.get("OPENAI_API_KEY"):
+        raise RuntimeError("OPENAI_API_KEY is not configured; static graph remains available")
+    from chatbot import MedicalChatBot
     print("Initializing MedicalChatBot...")
     # You might need to pass configurations like API keys to your chatbot constructor
     # if you modify chatbot.py to accept them instead of using hardcoded values.

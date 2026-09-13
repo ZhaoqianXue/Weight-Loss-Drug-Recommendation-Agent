@@ -13,3 +13,5 @@ outputs/
 # Regenerable experiment caches exceed GitHub's normal file-size limit.
 data_standardized/biobert_embeddings_v5.json
 data_standardized/embeddings_cache_v6.pkl
+
+.cache/

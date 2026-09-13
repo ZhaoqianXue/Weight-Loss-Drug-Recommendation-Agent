@@ -1,0 +1,85 @@
+{
+  "completed_at": "2026-09-12T05:32:49.141428+00:00",
+  "total_reviews": 2727,
+  "brands": [
+    {
+      "brand": "Wegovy",
+      "generic": "Semaglutide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-wegovy-semaglutide",
+      "headline_count": 491,
+      "collected_count": 491,
+      "pages": 25,
+      "unique_review_ids": 491
+    },
+    {
+      "brand": "Ozempic",
+      "generic": "Semaglutide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-ozempic-semaglutide",
+      "headline_count": 512,
+      "collected_count": 512,
+      "pages": 26,
+      "unique_review_ids": 512
+    },
+    {
+      "brand": "Rybelsus",
+      "generic": "Semaglutide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-rybelsus-semaglutide",
+      "headline_count": 81,
+      "collected_count": 81,
+      "pages": 5,
+      "unique_review_ids": 81
+    },
+    {
+      "brand": "Mounjaro",
+      "generic": "Tirzepatide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-mounjaro-tirzepatide",
+      "headline_count": 662,
+      "collected_count": 662,
+      "pages": 34,
+      "unique_review_ids": 662
+    },
+    {
+      "brand": "Zepbound",
+      "generic": "Tirzepatide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-zepbound-tirzepatide",
+      "headline_count": 48,
+      "collected_count": 48,
+      "pages": 3,
+      "unique_review_ids": 48
+    },
+    {
+      "brand": "Victoza",
+      "generic": "Liraglutide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-liraglutide-victoza",
+      "headline_count": 440,
+      "collected_count": 440,
+      "pages": 22,
+      "unique_review_ids": 440
+    },
+    {
+      "brand": "Saxenda",
+      "generic": "Liraglutide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-saxenda-liraglutide",
+      "headline_count": 222,
+      "collected_count": 222,
+      "pages": 12,
+      "unique_review_ids": 222
+    },
+    {
+      "brand": "Trulicity",
+      "generic": "Dulaglutide",
+      "url": "https://reviews.webmd.com/drugs/drugreview-trulicity-dulaglutide",
+      "headline_count": 271,
+      "collected_count": 271,
+      "pages": 14,
+      "unique_review_ids": 271
+    }
+  ],
+  "csv_sha256": "7c77d5708009e2a9837dc7f9c03ebb4b931667ddbcd1381dea1522a5315e4d0d",
+  "rendered_records": 2726,
+  "embedded_only_records": 1,
+  "text_records": 2681,
+  "count_unit": "Unique WebMD review ID, including rating-only records; aliases are not added separately.",
+  "scope_updated_on": "2026-09-12",
+  "scope_update_method": "Rebuilt offline from the eight retained per-brand CSVs; source collection timestamps and validated headline counts preserved."
+}

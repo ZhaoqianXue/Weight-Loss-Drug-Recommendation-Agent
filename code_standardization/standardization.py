@@ -223,8 +223,7 @@ def gpt_resolve_match(side_effect: str, ae_candidates: List[str]) -> Optional[st
         # Validate that the result is actually one of the candidates
         return result if result and result in ae_candidates else None
     except Exception as e:
-        print(f"Error in GPT resolution for '{side_effect}': {e}")
-        return None
+        raise RuntimeError('Standardization model call failed; keep the review pending') from e
 
 def classify_fda_approval(medication: str, disease: str) -> str:
     """
@@ -235,34 +234,9 @@ def classify_fda_approval(medication: str, disease: str) -> str:
     Returns:
         str: 'approval' if FDA approved, 'off_label' if not approved for this indication
     """
-    # Normalize medication name for lookup
-    med_key = medication.lower().strip()
-    
-    # Get FDA information for this medication
-    fda_info = FDA_PRESCRIBING_INFO.get(med_key, "No FDA prescribing information available for this medication.")
-    
-    # Format the prompt
-    formatted_prompt = GPT_FDA_APPROVAL_PROMPT.format(
-        medication=medication,
-        disease=disease,
-        fda_info=fda_info
-    )
-    
-    try:
-        response = openai_client.chat.completions.create(
-            model=OPENAI_LLM_MODEL,
-            messages=[{"role": "user", "content": formatted_prompt}],
-            temperature=OPENAI_LLM_TEMPERATURE
-        )
-        result = response.choices[0].message.content.strip().lower()
-        # Ensure we return either 'approval' or 'off_label'
-        if 'approval' in result:
-            return 'approval'
-        else:
-            return 'off_label'
-    except Exception as e:
-        print(f"Error in FDA classification for '{medication}' and '{disease}': {e}")
-        return 'off_label'  # Default to off_label if there's an error
+    # The checked-in prescribing summaries are historical, not a maintained
+    # regulatory source. Unknown must not be converted into off-label use.
+    return 'unknown'
 
 ################################################################################################################
 # 5. Data Update and Standardization Functions
@@ -327,9 +301,12 @@ def update_relations_with_fda_classification(relations_str: str, replacements: D
                     if approval_status == "approval":
                         rel["properties"]["approval"] = "yes"
                         rel["properties"]["off_label"] = "no"
-                    else:
+                    elif approval_status == "off_label":
                         rel["properties"]["approval"] = "no"
                         rel["properties"]["off_label"] = "yes"
+                    else:
+                        rel["properties"]["approval"] = None
+                        rel["properties"]["off_label"] = None
         
         return json.dumps(relations, ensure_ascii=False)
     except Exception as e:

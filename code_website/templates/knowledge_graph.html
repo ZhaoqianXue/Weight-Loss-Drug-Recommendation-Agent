@@ -31,8 +31,8 @@
             /* Chatbot specific colors */
             --chatbot-header-bg: #e9ecef;
             --chatbot-bg: #fff;
-            --chatbot-user-msg-bg: #d1e7dd;
-            --chatbot-bot-msg-bg: #f8f9fa;
+            --chatbot-user-msg-bg: #4a6fa5;
+            --chatbot-bot-msg-bg: #e6e8eb;
             --chatbot-input-bg: #fff;
         }
 
@@ -59,8 +59,8 @@
             /* Chatbot dark theme colors */
             --chatbot-header-bg: #383838;
             --chatbot-bg: #2a2a2a;
-            --chatbot-user-msg-bg: #2c3e50;
-            --chatbot-bot-msg-bg: #343a40;
+            --chatbot-user-msg-bg: #3f5e86;
+            --chatbot-bot-msg-bg: #30343a;
             --chatbot-input-bg: #383838;
         }
 
@@ -648,6 +648,26 @@
             background-color: var(--control-bg);
         }
 
+        #chat-graph-scope { position: absolute; top: 12px; left: 85px; right: 12px; pointer-events: none; font-size: 12px; color: var(--text-color); }
+        .chatbot-container-wrapper { min-width: 0; }
+        .chatbot-messages { min-height: 0; position: relative; }
+        .chatbot-message.bot { max-width: 100%; box-sizing: border-box; width: 100%; }
+        .chatbot-message p { margin: 8px 0; }
+        .chat-choices { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+        .chat-choice { border: 1px solid var(--border-color); border-radius: 14px; padding: 7px 10px; background: var(--chatbot-bg); color: var(--text-color); cursor: pointer; font: inherit; font-size: 12px; text-align: left; }
+        .chat-choice:hover { border-color: #4c70a5; }
+        .chat-choice:focus-visible { outline: 2px solid #4c70a5; outline-offset: 2px; }
+        .chat-table-scroll { overflow-x: auto; margin: 10px 0; }
+        .chat-table-scroll table { border-collapse: collapse; font-size: 12px; width: 100%; }
+        .chat-table-scroll th, .chat-table-scroll td { padding: 7px; border-bottom: 1px solid var(--border-color); text-align: left; min-width: 85px; }
+        .chat-source { font-size: 11px; opacity: 0.85; }
+        .chat-notes, .chat-more { margin-top: 10px; font-size: 12px; }
+        .chat-notes summary, .chat-more summary { cursor: pointer; font-weight: 600; }
+        .chat-review { padding: 8px 0; border-bottom: 1px solid var(--border-color); }
+        .chat-review summary { cursor: pointer; font-size: 12px; }
+        .chat-review blockquote { margin: 10px 0; white-space: pre-wrap; }
+        .chat-excerpt { font-size: 12px; }
+        #chatbot-input { min-width: 0; width: 0; }
         /* ChatBot Styles */
         .chatbot-container-wrapper { /* Wrapper for the chatbot */
             flex: 1; /* Takes 1 part of the space */
@@ -691,14 +711,15 @@
         }
         .chatbot-message.user {
             background-color: var(--chatbot-user-msg-bg);
-            color: var(--text-color); /* Ensure text is readable on user message bg */
+            color: #fff; /* Match the page’s blue buttons. */
             align-self: flex-end;
             border-bottom-right-radius: 3px;
         }
         .dark-theme .chatbot-message.user {
-             color: #e0e0e0; /* Adjust if needed for dark theme user messages */
+             color: #fff; /* Adjust if needed for dark theme user messages */
         }
         .chatbot-message.bot {
+            max-width: 100%;
             background-color: var(--chatbot-bot-msg-bg);
             color: var(--text-color); /* Ensure text is readable on bot message bg */
             align-self: flex-start;
@@ -726,6 +747,8 @@
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
         .chatbot-input-area button {
+            width: auto;
+            flex: 0 0 auto;
             padding: 8px 15px;
             font-size: 15px;
             /* Uses general button styles */
@@ -914,6 +937,7 @@
                             <div class="tooltip-title"></div>
                             <div class="tooltip-content"></div>
                         </div>
+                        <div id="chat-graph-scope" aria-live="polite"></div>
                         <div class="zoom-controls">
                             <button class="zoom-btn" id="zoom-in">+</button>
                             <div class="zoom-level" id="zoom-level">100%</div>
@@ -936,13 +960,13 @@
 
                 <div class="chatbot-container-wrapper">
                     <div class="chatbot-container">
-                        <div class="chatbot-header">Weight Loss Drug Chatbot</div>
-                        <div class="chatbot-messages" id="chatbot-messages">
-                            <div class="chatbot-message bot">How can I help you with weight loss drugs?</div>
+                        <div class="chatbot-header">Medication Experience Assistant</div>
+                        <div class="chatbot-messages" id="chatbot-messages" role="log" aria-live="polite" aria-label="Conversation">
+                            <div class="chatbot-message bot">Loading review evidence…</div>
                         </div>
                         <div class="chatbot-input-area">
-                            <input type="text" id="chatbot-input" placeholder="Ask about drugs...">
-                            <button id="chatbot-send-btn" class="button">Send</button>
+                            <input type="text" id="chatbot-input" placeholder="Ask about ratings or reported effects…" aria-label="Ask about medication experiences" disabled>
+                            <button id="chatbot-send-btn" class="button" disabled>Send</button>
                         </div>
                     </div>
                 </div>
@@ -1012,6 +1036,7 @@
         </div>
     </div>
 
+    <script src="../static/review-assistant.js"></script>
     <script>
         // DOM element references (existing)
         const brandNameFilter = document.getElementById('brand-name-filter');
@@ -1091,6 +1116,8 @@
             conditionsForAutocompleteStats: [], sideEffectsForAutocompleteStats: []
         };
 
+        let chatGraphBrands = null;
+        let chatGraphEffect = null;
         let simulation = null;
         let zoomBehavior;
         let zoomLevel = 1;
@@ -1107,6 +1134,7 @@
         const drugColorMapping = {
             "Wegovy": "#EFC29E", "Ozempic": "#6D7EA2", "Rybelsus": "#9DB8A9",
             "Zepbound": "#FFB347", "Mounjaro": "#B28DFF", "Victoza": "#77DD77",
+            "Trulicity": "#8056A6",
             "Saxenda": "#FF6961", "DefaultDrug": "#D36F66"
         };
         const conditionNodeColor = "#FFDA66";
@@ -1168,12 +1196,16 @@
         });
 
         genericNameFilter.addEventListener('change', function() {
+            chatGraphBrands = null;
+            chatGraphEffect = null;
             currentSelectedGeneric = this.value;
             updateDependentFilters();
             createGraph();
         });
 
         brandNameFilter.addEventListener('change', function() {
+            chatGraphBrands = null;
+            chatGraphEffect = null;
             currentSelectedBrand = this.value;
             updateDependentFilters();
             createGraph();
@@ -1405,33 +1437,8 @@
 
 
         function getAvailableGenericNames() {
-            let available = new Set(graphData.allGenericNames);
-
-            if (currentSelectedBrand !== "all") {
-                const genericForBrand = graphData.brandToGenericMap.get(currentSelectedBrand);
-                available = genericForBrand ? new Set([genericForBrand]) : new Set();
-            }
-            if (currentSelectedConditions.size > 0) {
-                let genericsForConditions = new Set();
-                currentSelectedConditions.forEach(condition => {
-                    (graphData.conditionToBrandMap.get(condition) || new Set()).forEach(brand => {
-                        const generic = graphData.brandToGenericMap.get(brand);
-                        if (generic) genericsForConditions.add(generic);
-                    });
-                });
-                available = getIntersection(available, genericsForConditions);
-            }
-            if (currentSelectedSideEffects.size > 0) {
-                let genericsForSideEffects = new Set();
-                currentSelectedSideEffects.forEach(se => {
-                    (graphData.sideEffectToBrandMap.get(se) || new Set()).forEach(brand => {
-                         const generic = graphData.brandToGenericMap.get(brand);
-                         if (generic) genericsForSideEffects.add(generic);
-                    });
-                });
-                available = getIntersection(available, genericsForSideEffects);
-            }
-            return Array.from(available).sort();
+            // Missing extraction must not remove a medication from the catalog.
+            return Array.from(graphData.allGenericNames).sort();
         }
 
         function populateGenericNameFilterOptions() {
@@ -1452,29 +1459,7 @@
         }
 
         function getAvailableBrandNames() {
-            let available = new Set();
-            if (currentSelectedGeneric !== "all") {
-                available = new Set(graphData.genericToBrandMap.get(currentSelectedGeneric) || []);
-            } else {
-                available = new Set(graphData.allBrandNames);
-            }
-
-            if (currentSelectedConditions.size > 0) {
-                let brandsForConditions = new Set();
-                currentSelectedConditions.forEach(condition => {
-                    const brands = graphData.conditionToBrandMap.get(condition) || new Set();
-                    brands.forEach(b => brandsForConditions.add(b));
-                });
-                available = getIntersection(available, brandsForConditions);
-            }
-            if (currentSelectedSideEffects.size > 0) {
-                let brandsForSideEffects = new Set();
-                 currentSelectedSideEffects.forEach(se => {
-                    (graphData.sideEffectToBrandMap.get(se) || new Set()).forEach(brand => brandsForSideEffects.add(brand));
-                });
-                available = getIntersection(available, brandsForSideEffects);
-            }
-            return Array.from(available).sort();
+            return Array.from(currentSelectedGeneric === 'all' ? graphData.allBrandNames : (graphData.genericToBrandMap.get(currentSelectedGeneric) || [])).sort();
         }
 
         function populateBrandNameFilterOptions() {
@@ -1519,7 +1504,7 @@
                 available = getIntersection(available, conditionsForActiveBrands);
             }
 
-            if (currentSelectedSideEffects.size > 0) {
+            if (currentSelectedSideEffects.size > 0 && currentSelectedSideEffects.size < graphData.allSideEffects.size) {
                 let conditionsRelatedToActiveSideEffects = new Set();
                 activeBrands.forEach(brand => {
                     const sideEffectsOfThisBrand = graphData.brandToSideEffectsMap.get(brand) || new Set();
@@ -1528,7 +1513,7 @@
                         (graphData.brandToConditionsMap.get(brand) || new Set()).forEach(cond => conditionsRelatedToActiveSideEffects.add(cond));
                     }
                 });
-                if (currentSelectedSideEffects.size > 0) {
+                if (currentSelectedSideEffects.size > 0 && currentSelectedSideEffects.size < graphData.allSideEffects.size) {
                      available = getIntersection(available, conditionsRelatedToActiveSideEffects);
                 }
             }
@@ -1654,8 +1639,17 @@
                 complete: function(results) {
                     try {
                         processRawData(results.data);
+                        const reviewRows = results.data.filter(row => row['Brand Name']);
+                        const processed = reviewRows.filter(row => !['pending','failed'].includes(row['Extraction Status'])).length;
+                        const coverage = document.createElement('p');
+                        coverage.id = 'dataset-coverage';
+                        coverage.style.cssText = 'margin:8px 16px;font-size:13px;line-height:1.5';
+                        coverage.textContent = `${reviewRows.length.toLocaleString()} reviews · ${graphData.allGenericNames.size} generic names · ${graphData.allBrandNames.size} brands. Side-effect extraction: ${processed.toLocaleString()}/${reviewRows.length.toLocaleString()}. Unprocessed reviews have unknown side effects; fewer graph connections do not mean fewer risks.`;
+                        document.querySelector('.graph-container').before(coverage);
+                        initializeReviewAssistant(results.data);
                     } catch (error) {
                         console.error("Error processing data:", error);
+                        chatbotMessagesContainer.textContent = "Review data could not be processed. Reload to retry.";
                         const graphContainer = document.querySelector('.graph-container');
                         if (graphContainer) {
                             graphContainer.innerHTML = `<p style="color: red; text-align: center; padding: 20px;">Error processing data. Please check the console for details.</p>`;
@@ -1666,6 +1660,7 @@
                 },
                 error: function(error) {
                     console.error("Error loading CSV:", error);
+                    chatbotMessagesContainer.textContent = "Review data could not be loaded. Check the connection and reload to retry.";
                      const graphContainer = document.querySelector('.graph-container');
                     if (graphContainer) {
                         graphContainer.innerHTML = `<p style="color: red; text-align: center; padding: 20px;">Error loading CSV data: ${error.message}. Please ensure the file is accessible.</p>`;
@@ -1721,7 +1716,7 @@
                     if (!localNodeMap.has(brandNameFromCSV)) {
                         localNodeMap.set(brandNameFromCSV, {
                             id: brandNameFromCSV, type: 'Medication',
-                            properties: standardizedInfo.drug || {},
+                            properties: {},
                             genericName: genericNameFromCSV || 'N/A', reviewCount: 0,
                         });
                     }
@@ -1775,7 +1770,7 @@
                         linkObject.weight += 1;
                         linkObject.properties_aggregation.push(relation.properties);
 
-                        if (relType === 'treats' && relation.start.label === 'Medication' && relation.end.label === 'Disease') {
+                        if (['treats','reviewed_for'].includes(relType) && relation.start.label === 'Medication' && relation.end.label === 'Disease') {
                             if (!graphData.brandToConditionsMap.has(sourceName)) graphData.brandToConditionsMap.set(sourceName, new Set());
                             graphData.brandToConditionsMap.get(sourceName).add(targetName);
                             if (!graphData.conditionToBrandMap.has(targetName)) graphData.conditionToBrandMap.set(targetName, new Set());
@@ -1870,6 +1865,7 @@
 
         function createGraph() {
             if (!graphData || !graphData.nodes) return;
+            if (simulation) simulation.stop();
 
             const svg = d3.select('#graph-svg');
             svg.selectAll("*").remove();
@@ -1894,6 +1890,8 @@
                 relevantBrands = new Set(graphData.allBrandNames);
             }
 
+            if (chatGraphBrands) relevantBrands = new Set(chatGraphBrands);
+
             filteredLinks = filteredLinks.filter(link => {
                 const sourceNode = graphData.nodes.find(n => n.id === (link.source.id || link.source));
                 const targetNode = graphData.nodes.find(n => n.id === (link.target.id || link.target));
@@ -1905,7 +1903,7 @@
                 let conditionMatch = true;
                 if (currentSelectedConditions.size > 0) {
                     let linkMatchesAnySelectedCondition = false;
-                    if (sourceNode.type === 'Medication' && targetNode.type === 'Disease' && link.relation === 'treats') {
+                    if (sourceNode.type === 'Medication' && targetNode.type === 'Disease' && ['treats','reviewed_for'].includes(link.relation)) {
                         if (currentSelectedConditions.has(targetNode.id)) linkMatchesAnySelectedCondition = true;
                     } else if (sourceNode.type === 'Medication' && targetNode.type === 'SideEffect' && link.relation === 'causes') {
                         const conditionsTreatedBySource = graphData.brandToConditionsMap.get(sourceNode.id) || new Set();
@@ -1926,6 +1924,10 @@
                  return true;
             });
 
+            if (chatGraphEffect) {
+                filteredLinks = filteredLinks.filter(link => link.relation === 'causes' &&
+                    String(link.target.id || link.target).toLowerCase() === chatGraphEffect);
+            }
             sideEffectOccurrenceCounts = [];
             if (filteredLinks.length > 0) {
                 const effectCounterInCurrentLinks = {};
@@ -1958,13 +1960,15 @@
                 activeNodesSet.add(link.target.id || link.target);
             });
             if (currentSelectedBrand !== "all" && relevantBrands.has(currentSelectedBrand)) activeNodesSet.add(currentSelectedBrand);
-            currentSelectedConditions.forEach(cond => activeNodesSet.add(cond));
+            // Selected conditions are shown when they have a matching review relation.
             if (currentSelectedGeneric !== "all") {
                  (graphData.genericToBrandMap.get(currentSelectedGeneric) || []).forEach(brand => {
                      if(relevantBrands.has(brand)) activeNodesSet.add(brand);
                  });
             }
 
+            // Keep selected medications visible even when extraction is pending.
+            relevantBrands.forEach(brand => activeNodesSet.add(brand));
             let currentNodes = graphData.nodes.filter(node => activeNodesSet.has(node.id));
 
             console.log(`Graph render: ${currentNodes.length} nodes, ${filteredLinks.length} links`);
@@ -1972,11 +1976,35 @@
             const container = document.querySelector('.graph-container');
             const { width, height } = container.getBoundingClientRect();
 
+            // Keep the canvas spread, with stable offsets that break up straight rows and columns.
+            const columns = Math.max(1, Math.ceil(Math.sqrt(currentNodes.length * width / height)));
+            const rows = Math.max(1, Math.ceil(currentNodes.length / columns));
+            const leftPadding = Math.min(150, width * 0.18);
+            const cellWidth = (width - leftPadding - 30) / columns;
+            const cellHeight = (height - 80) / rows;
+            currentNodes.forEach((d, i) => {
+                const row = Math.floor(i * rows / currentNodes.length);
+                const rowStart = Math.ceil(row * currentNodes.length / rows);
+                const rowCount = Math.ceil((row + 1) * currentNodes.length / rows) - rowStart;
+                let seed = 2166136261;
+                for (const character of d.id) seed = Math.imul(seed ^ character.charCodeAt(0), 16777619);
+                const offsetX = ((seed & 0xffff) / 0xffff - 0.5) * cellWidth * 0.85;
+                const offsetY = ((seed >>> 16) / 0xffff - 0.5) * cellHeight * 0.65;
+                d.layoutX = leftPadding + (i - rowStart + 0.5) * (width - leftPadding - 30) / rowCount + offsetX;
+                d.layoutY = 30 + (row + 0.5) * cellHeight + offsetY;
+                d.x = d.fx == null ? d.layoutX : d.fx;
+                d.y = d.fy == null ? d.layoutY : d.fy;
+                d.vx = d.vy = 0;
+            });
+
             simulation = d3.forceSimulation(currentNodes)
-                .force("link", d3.forceLink(filteredLinks).id(d => d.id).distance(120).strength(0.6))
-                .force("charge", d3.forceManyBody().strength(-450))
-                .force("center", d3.forceCenter(width / 2, height / 2))
-                .force("collision", d3.forceCollide().radius(d => getNodeRadius(d) + 10));
+                .force("link", d3.forceLink(filteredLinks).id(d => d.id).distance(Math.min(cellWidth, cellHeight)).strength(0.035))
+                .force("charge", d3.forceManyBody().strength(-180))
+                .force("x", d3.forceX(d => d.layoutX).strength(0.25))
+                .force("y", d3.forceY(d => d.layoutY).strength(0.25))
+                .force("collision", d3.forceCollide().radius(d => getNodeRadius(d) + 15))
+                .stop();
+            simulation.tick(120);
 
             const root = svg.append("g");
             zoomBehavior = d3.zoom().scaleExtent([0.1, 5]).on("zoom", (event) => {
@@ -1985,6 +2013,7 @@
                 zoomLevelDisplay.textContent = `${Math.round(zoomLevel * 100)}%`;
             });
             svg.call(zoomBehavior);
+            svg.call(zoomBehavior.transform, d3.zoomIdentity);
 
             const link = root.append("g").selectAll("line")
                 .data(filteredLinks).enter().append("line")
@@ -2023,21 +2052,39 @@
 
             const label = root.append("g").selectAll("text")
                 .data(currentNodes).enter().append("text")
-                .attr("dx", d => getNodeRadius(d) + 6)
-                .attr("dy", ".35em")
-                .text(d => d.id)
+                .attr("text-anchor", "middle")
                 .style("font-size", d => d.type === 'Medication' ? '16px' : (d.type === 'Disease' ? '14px' : '13px'))
                 .style("font-weight", d => d.type === 'Medication' ? 'bold' : 'normal')
                 .style("fill", currentTheme === 'dark' ? '#e0e0e0' : '#333')
                 .style("pointer-events", "none");
 
-            simulation.on("tick", () => {
-                link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
-                    .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+            label.each(function(d) {
+                const text = d3.select(this);
+                const maxWidth = Math.max(80, Math.min(180, cellWidth - 16));
+                let line = '';
+                let span = text.append('tspan').attr('x', 0).attr('dy', getNodeRadius(d) + 18);
+                d.id.split(/\s+/).forEach(word => {
+                    const next = line ? `${line} ${word}` : word;
+                    span.text(next);
+                    if (line && span.node().getComputedTextLength() > maxWidth) {
+                        span.text(line);
+                        span = text.append('tspan').attr('x', 0).attr('dy', '1.15em').text(word);
+                        line = word;
+                    } else {
+                        line = next;
+                    }
+                });
+            });
+
+            function renderPositions() {
                 node.attr("cx", d => d.x = Math.max(getNodeRadius(d), Math.min(width - getNodeRadius(d), d.x)))
                     .attr("cy", d => d.y = Math.max(getNodeRadius(d), Math.min(height - getNodeRadius(d), d.y)));
-                label.attr("x", d => d.x).attr("y", d => d.y);
-            });
+                link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+                label.attr("transform", d => `translate(${d.x},${d.y})`);
+            }
+            simulation.on("tick", renderPositions);
+            renderPositions();
 
             zoomInButton.onclick = () => svg.transition().duration(300).call(zoomBehavior.scaleBy, 1.3);
             zoomOutButton.onclick = () => svg.transition().duration(300).call(zoomBehavior.scaleBy, 0.7);
@@ -2144,69 +2191,105 @@
 
         function hideTooltip() { tooltip.style.opacity = 0; }
 
-        // --- ChatBot Functionality ---
+        // --- Dataset-backed conversational interface ---
+        let reviewAssistant = null;
+        function chatElement(tag, text, className) {
+            const element = document.createElement(tag);
+            if (text != null) element.textContent = text;
+            if (className) element.className = className;
+            return element;
+        }
         function addMessageToChat(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('chatbot-message', sender); // sender is 'user' or 'bot'
-            messageDiv.textContent = text;
-            chatbotMessagesContainer.appendChild(messageDiv);
-            chatbotMessagesContainer.scrollTop = chatbotMessagesContainer.scrollHeight; // Auto-scroll
+            const message = chatElement('div', text, `chatbot-message ${sender}`);
+            chatbotMessagesContainer.appendChild(message);
+            chatbotMessagesContainer.scrollTop = chatbotMessagesContainer.scrollHeight;
+            return message;
         }
-
-        async function handleSendMessage() {
-            const userInput = chatbotInput.value.trim();
-            if (userInput === "") return;
-
-            addMessageToChat(userInput, 'user');
-            chatbotInput.value = ""; // Clear input
-
-            // Placeholder for getting bot response
-            // In a real application, this would involve an API call to your Python backend
-            // where the MedicalChatBot class and its methods are running.
-
-            // Simulate a thinking delay
-            addMessageToChat("Thinking...", 'bot');
-
-            try {
-                // This is where you would integrate with your Python backend.
-                // For now, we'll use a placeholder.
-                // const botResponse = await getActualBotResponse(userInput); // Imaginary function
-
-                // Placeholder response logic:
-                let botResponseText = "I am a demo bot. I received: '" + userInput + "'. ";
-                if (userInput.toLowerCase().includes("ozempic side effects")) {
-                    botResponseText += "Common side effects of Ozempic can include nausea, vomiting, diarrhea, abdominal pain, and constipation. For more detailed information, please consult a healthcare professional or the graph data.";
-                } else if (userInput.toLowerCase().includes("compare wegovy and ozempic")) {
-                     botResponseText += "Wegovy and Ozempic both contain semaglutide. Wegovy is typically prescribed at higher doses for weight management, while Ozempic is primarily for type 2 diabetes, though it also aids in weight loss. Consult the graph or a doctor for specifics.";
-                } else {
-                    botResponseText += "You can ask me about drug side effects, comparisons, or effectiveness."
-                }
-
-                // Remove "Thinking..." message
-                const thinkingMessage = chatbotMessagesContainer.querySelector('.chatbot-message.bot:last-child');
-                if (thinkingMessage && thinkingMessage.textContent === "Thinking...") {
-                    thinkingMessage.remove();
-                }
-
-                addMessageToChat(botResponseText, 'bot');
-
-            } catch (error) {
-                console.error("Error getting bot response:", error);
-                const thinkingMessage = chatbotMessagesContainer.querySelector('.chatbot-message.bot:last-child');
-                if (thinkingMessage && thinkingMessage.textContent === "Thinking...") {
-                    thinkingMessage.remove();
-                }
-                addMessageToChat("Sorry, I encountered an error trying to respond.", 'bot');
-            }
+        function showChatGraph(request) {
+            const reset = request.type === 'reset-graph';
+            chatGraphBrands = reset ? null : request.brands;
+            chatGraphEffect = reset ? null : request.effect;
+            currentSelectedGeneric = 'all';
+            currentSelectedBrand = !reset && request.brands.length === 1 ? request.brands[0] : 'all';
+            currentSelectedConditions.clear();
+            currentSelectedSideEffects = new Set([...graphData.allSideEffects].filter(e => reset || !request.effect || e.toLowerCase() === request.effect));
+            if (reset) topPercentSlider.value = 1;
+            if (request.effect) topPercentSlider.value = 100;
+            updateDependentFilters();
+            createGraph();
+            const scope = document.getElementById('chat-graph-scope');
+            scope.textContent = reset ? '' : `Chat view: ${request.brands.join(' + ')}${request.effect ? ' · ' + request.effect : ''}`;
         }
-
-        // Event listeners for chatbot
-        chatbotSendBtn.addEventListener('click', handleSendMessage);
-        chatbotInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                handleSendMessage();
+        function renderChatAnswer(answer) {
+            if (answer.graph) showChatGraph(answer.graph);
+            const message = addMessageToChat('', 'bot');
+            message.appendChild(chatElement('strong', answer.title));
+            const paragraphs = answer.paragraphs || [];
+            for (const paragraph of answer.table || answer.source ? paragraphs.slice(0,1) : paragraphs) message.appendChild(chatElement('p', paragraph));
+            if (answer.table) {
+                const scroll = chatElement('div', null, 'chat-table-scroll');
+                scroll.tabIndex = 0;
+                scroll.setAttribute('role', 'region');
+                scroll.setAttribute('aria-label', answer.title + ' statistics');
+                const table = chatElement('table');
+                const head = table.createTHead().insertRow();
+                const headers = answer.headers.length > 3 ? ['Medication', ...answer.table.map(row=>row[0])] : answer.headers;
+                const rows = answer.headers.length > 3 ? answer.headers.slice(1).map((brand,index)=>[brand,...answer.table.map(row=>row[index+1])]) : answer.table;
+                headers.forEach(h => { const cell=chatElement('th',h); cell.scope='col'; head.appendChild(cell); });
+                const body = table.createTBody();
+                rows.forEach(row => {const tr=body.insertRow(); row.forEach((value,i)=>{const cell=chatElement(i?'td':'th',value); if (!i) cell.scope='row'; tr.appendChild(cell);});});
+                scroll.appendChild(table); message.appendChild(scroll);
             }
-        });
+            if (answer.table && answer.table.some(row => row.some(cell => String(cell).includes('%')))) message.appendChild(chatElement('p', 'Review mentions, not clinical risk.', 'chat-source'));
+            const notes = chatElement('details', null, 'chat-notes');
+            notes.appendChild(chatElement('summary', 'Sources & counting details'));
+            if (answer.table || answer.source) for (const paragraph of paragraphs.slice(1)) notes.appendChild(chatElement('p', paragraph));
+            for (const review of answer.reviews || []) {
+                const details = chatElement('details', null, 'chat-review');
+                details.appendChild(chatElement('summary', `${review.id} · ${review.brand} · ${review.date}`));
+                details.appendChild(chatElement('blockquote', review.text));
+                message.appendChild(chatElement('p', review.text.length > 200 ? review.text.slice(0,200) + '…' : review.text, 'chat-excerpt'));
+                message.appendChild(details);
+            }
+            if (answer.source) {
+                notes.appendChild(chatElement('p',answer.source,'chat-source'));
+                const link=chatElement('a','Open source CSV');
+                link.href='../static/standardized_reviews_all.csv'; link.setAttribute('download','standardized_reviews_all.csv');
+                notes.appendChild(link);
+            }
+            if (notes.children.length > 1) message.appendChild(notes);
+            const choices=chatElement('div',null,'chat-choices');
+            const more = chatElement('details', null, 'chat-more');
+            more.appendChild(chatElement('summary', 'More options'));
+            const extraChoices = chatElement('div', null, 'chat-choices');
+            for (const [index, choice] of (answer.actions || []).entries()) {
+                const button=chatElement('button',choice.label,'chat-choice'); button.type='button';
+                button.onclick=()=>{addMessageToChat(choice.message,'user'); renderChatAnswer(reviewAssistant.run(choice));};
+                (index < 4 ? choices : extraChoices).appendChild(button);
+            }
+            message.appendChild(choices);
+            if (extraChoices.children.length) {more.appendChild(extraChoices); message.appendChild(more);}
+            // Keep the start of a long answer visible rather than jumping past its evidence.
+            chatbotMessagesContainer.scrollTop = message.offsetTop - 12;
+        }
+        function initializeReviewAssistant(rows) {
+            reviewAssistant = new ReviewAssistant(rows);
+            chatbotMessagesContainer.replaceChildren();
+            chatbotInput.disabled = false; chatbotSendBtn.disabled = false;
+            renderChatAnswer(reviewAssistant.menu());
+        }
+        function handleSendMessage() {
+            const input=chatbotInput.value.trim();
+            if (!input || !reviewAssistant) return;
+            addMessageToChat(input,'user'); chatbotInput.value='';
+            renderChatAnswer(reviewAssistant.ask(input));
+        }
+        chatbotSendBtn.addEventListener('click',handleSendMessage);
+        chatbotInput.addEventListener('keydown',event=>{if(event.key==='Enter' && !event.isComposing) {event.preventDefault();handleSendMessage();}});
+        [sideEffectOptions, selectAllEffects, conditionOptionsFilterContainer, selectAllConditionsCheckbox].forEach(control=>control.addEventListener('change',()=>{
+            chatGraphBrands=null; chatGraphEffect=null; document.getElementById('chat-graph-scope').textContent='';
+        },true));
+        [genericNameFilter,brandNameFilter].forEach(select=>select.addEventListener('change',()=>{document.getElementById('chat-graph-scope').textContent='';}));
 
     </script>
 </body>
