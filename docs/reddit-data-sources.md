@@ -5,7 +5,7 @@ Decision date: 2026-09-12. Scope: 4 generic names, 8 brands (see [project scope]
 ## How these numbers were produced
 
 - Counts come from the Arctic Shift Reddit archive API (`https://arctic-shift.photon-reddit.com`), queried on 2026-09-12 with monthly `created_utc` aggregations summed by year. Subscriber counts come from the same archive's subreddit metadata and are refreshed infrequently.
-- "Posts" and "comments" for a subreddit are the archived volume of that subreddit. "Keyword" counts are posts whose title or body contain the brand name, or comments whose body contains it; they are not filtered for self-reported use. Sehgal et al. (Nature Health, 2026) found that about 42% of GLP-1 posts indicate personal use, so self-report volume is roughly 0.4 x the keyword count.
+- "Posts" and "comments" for a subreddit are the archived volume of that subreddit. "Keyword" counts are posts whose title or body contain the brand name, or comments whose body contains it; they are not filtered for self-reported use.
 - Many queries on very active subreddits (r/Mounjaro, r/Ozempic, r/Zepbound, r/WegovyWeightLoss, r/diabetes, r/mounjarouk, r/Retatrutide) timed out for some years. Every number marked `>=` is a lower bound. The archive lags the live site by roughly four to six weeks, and 2026 is partial.
 - Rybelsus has no exact-name subreddit; its community is r/RybelsusPill, found by prefix enumeration. Byetta, Bydureon, dulaglutide, and exenatide have no subreddit with 200 or more subscribers under any name prefix (checked 2026-09-12), which is the basis for excluding the exenatide brands.
 
@@ -13,7 +13,7 @@ Decision date: 2026-09-12. Scope: 4 generic names, 8 brands (see [project scope]
 
 1. Bulk history: Academic Torrents per-subreddit dumps (Pushshift/Watchful1 lineage, currently through 2025-12) for every subreddit listed below. Do not pull large subreddits through the Arctic Shift API; it times out.
 2. Recent months: Arctic Shift API or its monthly Parquet releases for 2026.
-3. In parallel, apply to the Reddit for Researchers program (BigQuery access, IRB letter and institutional sponsor required, one-year access, no redistribution). Reddit states that research through the Data API or third-party tools is not authorized; the PRAW route used in the AMIA 2025 paper should not be reused. The Nature Health 2026 paper's data statement (Pushshift and Arctic Shift, raw data not shared) is the precedent to follow in the ethics section.
+3. In parallel, apply to the Reddit for Researchers program (BigQuery access, IRB letter and institutional sponsor required, one-year access, no redistribution). Reddit states that research through the Data API or third-party tools is not authorized.
 4. Keep only hashed author IDs, never redistribute raw text, paraphrase any quoted passage, and exclude content from quarantined or private communities.
 
 ## Community types

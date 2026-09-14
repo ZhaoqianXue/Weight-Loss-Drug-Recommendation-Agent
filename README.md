@@ -23,11 +23,29 @@ This root directory is the canonical repository. It combines the later outer wor
 | `data_literature/` | Reference papers |
 | `data_backup/` | Earlier data and graph artifacts retained for reference |
 
-The current raw, extraction, baseline standardized, and website datasets each contain **2,727 review records**, covering **4 generic names and 8 brands**. Of these, 2,681 contain review text. Historical annotations were reused for 2,344 matching records; **383 records carry the pending status: 381 have a nonempty text field, while 2 are rating-only records with no text to extract**. The reused historical outputs also include 44 empty-text records; see [the historical empty-text audit](docs/empty-review-audit-2026-09-12.md). Pending annotations are unknown, not evidence of no side effects. See [the current scope and counts](docs/project-scope.md), [the dataset manifest](data_standardized/dataset_manifest.json) for per-brand coverage, and [the historical refresh report](docs/data-refresh-2026-09-11.md) for provenance and outstanding model/index work.
+The current raw, extraction, baseline standardized, and website datasets each contain **2,727 review records**, covering **4 generic names and 8 brands**. Of these, 2,681 contain review text. Historical annotations were reused for 2,344 matching records; **383 records carry the pending status: 381 have a nonempty text field, while 2 are rating-only records with no text to extract**. The reused historical outputs also include 44 empty-text records; see [the historical empty-text audit](docs/history/empty-review-audit-2026-09-12.md). Pending annotations are unknown, not evidence of no side effects. See [the current scope and counts](docs/project-scope.md), [the dataset manifest](data_standardized/dataset_manifest.json) for per-brand coverage, and [the historical refresh report](docs/history/data-refresh-2026-09-11.md) for provenance and outstanding model/index work.
 
 Wegovy HD is an alias of **Wegovy**; Victoza 2-Pak and Victoza 3-Pak are aliases of **Victoza**, not extra datasets. Generic names are represented in `Drug Name`; brands are represented in `Brand Name`. Shared generic/brand review pages are collected once. The maintained catalog is [config/drugs.json](config/drugs.json). **Combination products are excluded regardless of review availability**, including Soliqua (insulin glargine + lixisenatide) and Xultophy (insulin degludec + liraglutide). See [the project scope](docs/project-scope.md) for exclusions and [Reddit data sources](docs/reddit-data-sources.md) for the eight retained brands.
 
 UMLS versions, top-10 samples, embeddings, prescribing-information documents, notebooks, and previous evaluation reports remain historical experiments. They were not relabeled as current results. The pre-refresh canonical CSVs are preserved in `data_backup/pre_2026_refresh/`.
+
+## Documentation
+
+Current-facing documents describe the active project; dated reports describe the snapshot in which they were written. Detailed proposals in TODO are not implemented features or automatically approved decisions.
+
+| Document | Responsibility |
+| --- | --- |
+| [Project scope](docs/project-scope.md) | Included brands, exclusions, current counts and preservation rules |
+| [Reddit sources](docs/reddit-data-sources.md) | Community inventory, dated size estimates and collection routes |
+| [TODO and decision status](TODO.md) | Confirmed scope, recorded problems and proposals awaiting a decision |
+| [Assistant validation](docs/chatbot-validation.md) | Implemented behavior, counting rules, test evidence and limitations |
+| [Consolidation decisions](docs/history/consolidation.md) | Historical code choices and recovery location |
+| [WebMD source audit](docs/history/webmd-review-audit-2026-09-11.md) | Historical page inventory and redirect checks |
+| [Data refresh](docs/history/data-refresh-2026-09-11.md) | Historical collection, annotation reuse and validation |
+| [Empty-text audit](docs/history/empty-review-audit-2026-09-12.md) | Historical missing-text handling and its interpretation |
+| [Execution records](docs/history/execution-records.md) | Consolidated process logs, original snapshots and migration map |
+
+The three audit JSON files remain in `docs/`; dataset and collection manifests remain with their datasets. Reference PDFs and historical prescribing-information PDFs remain in their original directories. Git-ignored `outputs/chatbot-qa/task_plan.md` is a preserved local QA note, outside the maintained document set.
 
 ## View the interactive graph
 
@@ -76,6 +94,6 @@ Prescribing-information processing scripts and FDA-related standardization promp
 
 ## Version and data policy
 
-The outer working copy takes precedence for conflicting files. In particular, extraction assigns side-effect relations to the primary review drug; the older associated-drug implementation remains available in Git history. See `docs/consolidation.md` for the migration decisions.
+The outer working copy takes precedence for conflicting files. In particular, extraction assigns side-effect relations to the primary review drug; the older associated-drug implementation remains available in Git history. See [historical consolidation decisions](docs/history/consolidation.md) for the migration decisions.
 
 Notebook outputs are cleared. Slides and presentation build files are excluded. Large regenerable embedding caches are ignored, while versioned data and reports are retained. API credentials are read from environment variables. Original Git history is preserved without rewriting historical source or credentials.

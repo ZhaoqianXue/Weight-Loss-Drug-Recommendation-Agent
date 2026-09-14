@@ -1,3 +1,5 @@
+> **Historical record — archived 2026-09-14.** Migration and publication status below describe the original consolidation, not current pending actions. See [current README](../../README.md) and [execution records](execution-records.md).
+
 # Consolidation decisions
 
 The outer WeightLoss working directory is now the single repository root. The original Git metadata, commit history, branch, remote, and index were preserved. The initial migration was local; the user subsequently authorized publishing the consolidated version to GitHub.

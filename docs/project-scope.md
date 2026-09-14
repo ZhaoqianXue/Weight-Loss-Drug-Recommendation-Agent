@@ -35,7 +35,7 @@ These findings were supplied with the scope decision; no new Reddit collection o
 
 The **421 Byetta reviews and 170 Bydureon reviews (591 total)** were moved, not deleted, to [`data_backup/excluded_exenatide_2026-09-12/`](../data_backup/excluded_exenatide_2026-09-12/). The eight retained per-brand WebMD files are unchanged. The combined raw dataset and its collection manifest were rebuilt offline, retaining original collection timestamps; extracted and standardized data and website copies were then regenerated without scraping or model API calls.
 
-Scope exclusion applies to the primary `Brand Name` and `Drug Name` fields, catalog entries, and active medication lists. It does not erase mentions of previous or alternative treatments from source narratives: 38 retained-brand reviews mention Byetta or Bydureon. Historical UMLS datasets, mapping/cache files, audits, planning records and existing backups are also preserved. Consequently, an unrestricted text search can still find these names in source narratives and historical artifacts.
+Scope exclusion applies to the primary `Brand Name` and `Drug Name` fields, catalog entries, and active medication lists. It does not erase mentions of previous or alternative treatments from source narratives: 38 retained-brand reviews mention Byetta or Bydureon. Historical UMLS datasets, mapping/cache files, audits and existing backups are preserved; planning records are consolidated in the [execution archive](history/execution-records.md). Consequently, an unrestricted text search can still find these names in source narratives and historical artifacts.
 
 Raw, extracted and standardized CSVs have different schemas (and standardized dates are normalized). All five canonical CSVs share the same ordered review IDs and source content; the three standardized copies have identical SHA-256 hashes. Raw and extracted byte hashes differ by design. Catalog copies and dataset-manifest copies are byte-identical within each pair.
 
@@ -53,13 +53,5 @@ Raw, extracted and standardized CSVs have different schemas (and standardized da
 | Pending with text | 933 | 381 |
 | Pending without text | 41 | 2 |
 
-Files touched:
 
-- Catalog: `config/drugs.json` and its generated copy `code_website/static/drugs.json`; `drug_catalog.py` continues to derive brands and aliases without modification.
-- Raw data: the two archived per-brand files, `data_webmd/webmd_all_reviews.csv`, and `data_webmd/collection_manifest.json`.
-- Derived data: `data_extracted/extracted_reviews_all.csv`, `data_standardized/standardized_reviews_all.csv`, both website CSV copies, and both dataset manifests.
-- Active code: `code_chatbot/chatbot.py`, `code_extraction/schema_extraction.py`, `code_pipeline/refresh_data.py`, `code_pipeline/validate_data.py`, `code_website/templates/knowledge_graph.html`, and `code_website/static/review-assistant.js`. The existing Victoza pack aliases now work in direct and comparison questions. Model, FAISS and Neo4j paths otherwise remain unchanged.
-- Tests: `tests/test_refresh.py` and `tests/review-assistant.test.js`.
-- Documentation: `README.md`, this scope document, `docs/chatbot-validation.md`, and a dated addendum to `docs/data-refresh-2026-09-11.md`; root `task_plan.md`, `findings.md`, and `progress.md` record execution. Historical `.planning/` records and `docs/reddit-data-sources.md` are unchanged.
-
-Validation: 15 Python tests passed; 3,963 JavaScript assertions passed across 8 brands and 28 pairs; the data validator passed. No commit was made.
+Detailed changed-file lists and execution checks are preserved in the [original scope snapshot](history/execution-records.md#original-13) and the [eight-brand execution history](history/execution-records.md#eight-brand-scope-change). They are historical implementation records, not additional scope requirements.
