@@ -1,4 +1,4 @@
-> **Historical record — archived 2026-09-14.** Migration and publication status below describe the original consolidation, not current pending actions. See [current README](../../README.md) and [execution records](execution-records.md).
+> **Historical record — archived 2026-09-14.** Migration and publication status below describe the original consolidation, not current pending actions. See [current README](../../../README.md) and [execution records](execution-records.md).
 
 # Consolidation decisions
 

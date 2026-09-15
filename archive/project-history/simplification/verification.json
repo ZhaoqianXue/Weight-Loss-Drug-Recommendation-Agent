@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "top_level_directories": [
+    "apps",
+    "archive",
+    "configs",
+    "data",
+    "docs",
+    "requirements",
+    "results",
+    "src",
+    "tests"
+  ],
+  "mapped_files": 193,
+  "immutable_files_verified": 111,
+  "original_mappings_verified": 114,
+  "original_immutable_files_verified": 91,
+  "local_caches_absent": [],
+  "current_run_configs": [
+    "configs/pipeline.json"
+  ],
+  "extras": [
+    "demo",
+    "dev",
+    "research"
+  ],
+  "issues": [],
+  "verified_at": "2026-09-15T00:35:15.715373+00:00",
+  "baseline_commit": "54158410d864491552c85f43134604d53bb195ae",
+  "tests": {
+    "offline_python": 33,
+    "research_mocked": 5,
+    "frontend_assertions": 3963,
+    "http_resources": 7,
+    "synthetic_reproduce": "passed",
+    "local_markdown_files": 28
+  },
+  "environments": {
+    "python": "3.11.4",
+    "platform": "macOS 14.1 x86_64",
+    "node": "22.15.0",
+    "offline_installed_packages": 17,
+    "research_installed_packages": 91,
+    "fresh_installations": "passed",
+    "canonical_research_environment_synced": true
+  },
+  "scope": {
+    "online_collection": false,
+    "live_model_calls": false,
+    "neo4j_writes": false,
+    "remote_ci_executed": false
+  },
+  "source_sha256": {
+    "src/weightloss/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "src/weightloss/__main__.py": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+    "src/weightloss/catalog.py": "61ecb0345441f7bb39c5d864824cd515d18c11f172efa9829a1f06ba09a17d43",
+    "src/weightloss/cli.py": "ba77ffa72bc00bcba81b6e5e80ad93715234279948ea73d9181d13435ec6dd0f",
+    "src/weightloss/evaluation/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "src/weightloss/evaluation/standardization_stat.py": "0020941a6784ce02efe4f4c481c20b25ea861f3ec7e249b1e7d8d4a1702b35e3",
+    "src/weightloss/extraction/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "src/weightloss/extraction/extract_all.py": "e7cbd9009f1843dd302cc573135802a291ff06631f324dca4351747eb65e0356",
+    "src/weightloss/extraction/schema_extraction.py": "0631d63db424d26f5d1f7712731434b4b91854166a73a15e62defaf0e7e59297",
+    "src/weightloss/ingestion/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "src/weightloss/ingestion/batch_scraper.py": "9c755573b3c5de6a68f89c4949b14231e9f130346af298e69850c79781973672",
+    "src/weightloss/ingestion/scraper.py": "0ccbdc95e1de03fc3209b9183d44f9b86c56a5a3e91551058a2d4a35503a517d",
+    "src/weightloss/pipeline/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "src/weightloss/pipeline/build_web.py": "a601eea4e0fb73cc7585841e6ebc0b036b01b92f82a33ba6f701d89802260706",
+    "src/weightloss/pipeline/fixture.py": "e14af5eb594b27994582cfc4a5c5b2081e3b48153f33ac099473e45c039fe02a",
+    "src/weightloss/pipeline/refresh_data.py": "5b483d485f2e37d1df8e94a60b9816a8afaac2bf14bbbcc480f7a3131074e856",
+    "src/weightloss/pipeline/validate_data.py": "894a1686a702db3e1233d19e280d58a1d2a7ed0dd2758a3620fb1d8717fdb3ab",
+    "src/weightloss/provenance.py": "07483a92b3e95fb4227b0cd0e0a6bad4f9af938fa8d176fdb24b91f73210252b",
+    "src/weightloss/retrieval/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "src/weightloss/retrieval/chatbot.py": "26cac49601b814d7a7e0cea1ea0eb696a85bc85623d0cf0dc047b3ec6d551ea1",
+    "src/weightloss/retrieval/graph_loader.py": "045ce8feaa2c6c925a9c33a85a7e3ac1eef62dd13f122a9f14306a674af244c6",
+    "src/weightloss/retrieval/table_loader.py": "80d45e5065aa8ad7cb75ec430b8be89676c3e359e114744b3b0c53436e5dc45c",
+    "src/weightloss/runs.py": "0eeca7e9d4681df4c21ab74514c20612a48ae23862324a76c97bc459c0d73aee",
+    "src/weightloss/settings.py": "5598b921b27e5e1748b1042affffa0ac0f61d8dbd4f6b3ae0867a52eafefc6f5",
+    "src/weightloss/standardization/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "src/weightloss/standardization/baseline.py": "b526a11c576da1334ec480bf7554810a2037adbf714038d5689b7c992313d885",
+    "src/weightloss/standardization/standardize_all.py": "cfd24f9c76b29edc37c5765a81cbf2ae133c6a8fc0d4790a8de49fc053f964af"
+  },
+  "lock_sha256": {
+    "requirements/research-macos-x86_64-py311.lock": "eefc2ff8db6ce2796ee1013fd446752d199720592cca3687ac596711d89f4b24",
+    "requirements/offline.lock": "98ac80bf0a181532ab4e7bfd98384fa1adfc21cb300a6bdd587cd851f2e69f7b"
+  }
+}

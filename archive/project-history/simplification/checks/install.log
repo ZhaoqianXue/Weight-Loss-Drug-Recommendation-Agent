@@ -1,0 +1,30 @@
+uv venv --python 3.11 .venv
+Using CPython 3.11.4 interpreter at: /Users/zhaoqianxue/anaconda3/bin/python3.11
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+uv pip sync requirements/offline.lock --python .venv/bin/python
+Resolved 16 packages in 52ms
+Installed 16 packages in 26ms
+ + blinker==1.9.0
+ + build==1.2.2.post1
+ + certifi==2026.7.22
+ + charset-normalizer==3.5.1
+ + click==8.5.0
+ + flask==3.1.1
+ + idna==3.19
+ + itsdangerous==2.2.0
+ + jinja2==3.1.6
+ + lxml==5.4.0
+ + markupsafe==3.0.3
+ + packaging==26.3
+ + pyproject-hooks==1.2.0
+ + requests==2.32.3
+ + urllib3==2.7.0
+ + werkzeug==3.1.8
+uv pip install --python .venv/bin/python --no-deps -e .
+Resolved 1 package in 32ms
+   Building weightloss-research @ file:///Users/zhaoqianxue/Desktop/UPenn/WeightLoss
+      Built weightloss-research @ file:///Users/zhaoqianxue/Desktop/UPenn/WeightLoss
+Prepared 1 package in 2.39s
+Installed 1 package in 8ms
+ + weightloss-research==0.1.0 (from file:///Users/zhaoqianxue/Desktop/UPenn/WeightLoss)

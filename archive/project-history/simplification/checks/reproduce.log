@@ -1,0 +1,89 @@
+.venv/bin/python -m weightloss reproduce-fixture --output-dir .cache/simplification/reproduced
+{
+  "collection_completed_at": "2000-01-01T00:00:00+00:00",
+  "total_reviews": 8,
+  "generics": 4,
+  "brands": [
+    {
+      "generic": "Semaglutide",
+      "brand": "Wegovy",
+      "reviews": 1,
+      "text_reviews": 1,
+      "extraction_status": {
+        "historical_reused": 1
+      }
+    },
+    {
+      "generic": "Semaglutide",
+      "brand": "Ozempic",
+      "reviews": 1,
+      "text_reviews": 1,
+      "extraction_status": {
+        "historical_reused": 1
+      }
+    },
+    {
+      "generic": "Semaglutide",
+      "brand": "Rybelsus",
+      "reviews": 1,
+      "text_reviews": 1,
+      "extraction_status": {
+        "pending": 1
+      }
+    },
+    {
+      "generic": "Tirzepatide",
+      "brand": "Mounjaro",
+      "reviews": 1,
+      "text_reviews": 1,
+      "extraction_status": {
+        "pending": 1
+      }
+    },
+    {
+      "generic": "Tirzepatide",
+      "brand": "Zepbound",
+      "reviews": 1,
+      "text_reviews": 1,
+      "extraction_status": {
+        "pending": 1
+      }
+    },
+    {
+      "generic": "Liraglutide",
+      "brand": "Victoza",
+      "reviews": 1,
+      "text_reviews": 1,
+      "extraction_status": {
+        "pending": 1
+      }
+    },
+    {
+      "generic": "Liraglutide",
+      "brand": "Saxenda",
+      "reviews": 1,
+      "text_reviews": 1,
+      "extraction_status": {
+        "pending": 1
+      }
+    },
+    {
+      "generic": "Dulaglutide",
+      "brand": "Trulicity",
+      "reviews": 1,
+      "text_reviews": 0,
+      "extraction_status": {
+        "pending": 1
+      }
+    }
+  ],
+  "raw_csv_sha256": "715c23052f67e7087c1c0ed0cd925f7ce2ccd2bb77d5ec0f9b49c843b3207af3",
+  "standardized_csv_sha256": "933ba00c33dabc791719700e7c5063299f435290516b8539009cdbca80198154",
+  "limitations": [
+    "Pending extraction is unknown, not an absence of adverse effects.",
+    "Historical annotations are retained without clinical revalidation.",
+    "Wegovy pages may combine formulations; brand alone does not establish dosage form.",
+    "Historical FDA classifications are not current regulatory evidence."
+  ]
+}
+/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/.cache/simplification/reproduced/results/fixture

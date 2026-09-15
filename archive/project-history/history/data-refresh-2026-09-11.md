@@ -1,6 +1,6 @@
-> **Historical snapshot — archived 2026-09-14.** References to “current” below describe the original audit/refresh, including the former five-molecule, ten-brand scope. The active snapshot has **4 molecules, 8 brands and 2,727 records**; see [current scope](../project-scope.md). Historical counts and findings are preserved.
+> **Historical snapshot — archived 2026-09-14.** References to “current” below describe the original audit/refresh, including the former five-molecule, ten-brand scope. The active snapshot has **4 molecules, 8 brands and 2,727 records**; see [current scope](../../../docs/project-scope.md). Historical counts and findings are preserved.
 
-> **Addendum — 2026-09-12:** The project now includes **4 generic names, 8 brands and 2,727 records**. See [the scope decision and current counts](../project-scope.md#explicit-exclusion-exenatide-products). The report below preserves the original collection and validation results as a historical record.
+> **Addendum — 2026-09-12:** The project now includes **4 generic names, 8 brands and 2,727 records**. See [the scope decision and current counts](../../../docs/project-scope.md#explicit-exclusion-exenatide-products). The report below preserves the original collection and validation results as a historical record.
 
 # Five-generic WebMD dataset refresh — 2026-09-11 (America/Phoenix)
 
@@ -23,7 +23,7 @@ The current dataset contains **3,318 unique WebMD review IDs**, across **172 rev
 | Exenatide | [Byetta](https://reviews.webmd.com/drugs/drugreview-exenatide-byetta) | 421 | 387 | 0 | 421 |
 | Exenatide | [Bydureon](https://reviews.webmd.com/drugs/drugreview-bydureon-bcise-exenatide) | 170 | 165 | 0 | 170 |
 
-Wegovy HD is represented as **Wegovy**; Bydureon BCise is represented as **Bydureon**. These are naming aliases for shared review pages. Different formulations are not split into new brands, and formulation must not be inferred from the brand name alone. The generic/brand catalog is `config/drugs.json`; Foundayo/orforglipron and other generics are outside this requested scope. Combination products are explicitly excluded regardless of review availability, including Soliqua (insulin glargine + lixisenatide) and Xultophy (insulin degludec + liraglutide); see [the project scope](../project-scope.md).
+Wegovy HD is represented as **Wegovy**; Bydureon BCise is represented as **Bydureon**. These are naming aliases for shared review pages. Different formulations are not split into new brands, and formulation must not be inferred from the brand name alone. The generic/brand catalog is `config/drugs.json`; Foundayo/orforglipron and other generics are outside this requested scope. Combination products are explicitly excluded regardless of review availability, including Soliqua (insulin glargine + lixisenatide) and Xultophy (insulin degludec + liraglutide); see [the project scope](../../../docs/project-scope.md).
 
 ## Collection and provenance
 
@@ -78,4 +78,4 @@ Start a new default collection run directory for a fresh crawl. To resume only a
 - Independent CSV validation passed with the bundled Python runtime. All canonical outputs share the 3,318 review IDs; the three standardized website/backend CSV copies have identical hashes. Numeric ratings are in [1,5] and review narratives contain no replacement-character decoding artifacts.
 - Browser checks verified all five generic filters and their corresponding brand lists; Dulaglutide shows Trulicity, Exenatide shows Byetta/Bydureon, and Trulicity nausea reports “Not available” with 0/271 processed. Source condition relations remain visible without implying extracted side effects.
 
-Machine-readable integrity results: [`data-refresh-validation.json`](../data-refresh-validation.json). Current annotation coverage and dataset hash: `data_standardized/dataset_manifest.json`.
+Machine-readable integrity results: [`data-refresh-validation.json`](../../../docs/data-refresh-validation.json). Current annotation coverage and dataset hash: `data_standardized/dataset_manifest.json`.

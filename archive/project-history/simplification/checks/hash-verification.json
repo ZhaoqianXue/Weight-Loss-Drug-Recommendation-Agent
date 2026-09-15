@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "top_level_directories": [
+    "apps",
+    "archive",
+    "configs",
+    "data",
+    "docs",
+    "requirements",
+    "results",
+    "src",
+    "tests"
+  ],
+  "mapped_files": 193,
+  "immutable_files_verified": 111,
+  "original_mappings_verified": 114,
+  "original_immutable_files_verified": 91,
+  "local_caches_absent": [],
+  "current_run_configs": [
+    "configs/pipeline.json"
+  ],
+  "extras": [
+    "demo",
+    "dev",
+    "research"
+  ],
+  "issues": []
+}

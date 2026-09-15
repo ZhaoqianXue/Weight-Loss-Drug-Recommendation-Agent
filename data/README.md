@@ -30,10 +30,12 @@ Raw, extracted and standardized files have different schemas and hashes. They pr
 - `external/annotation_seeds/pre_2026_refresh/`: historical files and their original manifest. The two annotation CSVs are active refresh inputs; the original raw snapshot is retained for provenance.
 - `external/terminology/ae.csv`: baseline terminology input; source/version completeness remains historical, see the embedding provenance record.
 - `external/prescribing_information/`: historical PDFs, not an updated regulatory corpus.
-- `../artifacts/embeddings/legacy/embedded_ae.csv`: required baseline embedding input retained because full original reproduction metadata are incomplete.
+- `external/terminology/embedded_ae.csv`: required baseline embedding input retained because full original reproduction metadata are incomplete.
 
-No new source permissions are granted by moving these files. Review-text publication and terminology licensing remain separate decisions recorded in TODO. Do not delete tracked inputs or historical artifacts solely because a directory is now conventionally considered a cache.
+No new source permissions are granted by moving these files. Review-text publication and terminology licensing remain separate decisions recorded in [the roadmap](../docs/roadmap.md). Do not delete tracked inputs or historical artifacts solely because a directory is now conventionally considered a cache.
 
 ## Manifests
 
-`collection_manifest.json` validates raw hashes and collection coverage. `dataset_manifest.json` validates standardized output and its raw source. `results/<run>/operations/*/manifest.json` adds code, environment and execution provenance. Original historical manifests are retained byte-for-byte even when they mention old paths; use `docs/refactoring/migration-map.json` to resolve them.
+`collection_manifest.json` validates raw hashes and collection coverage. `dataset_manifest.json` validates standardized output and its raw source. `results/<run>/operations/*/manifest.json` adds code, environment and execution provenance. Original historical manifests are retained byte-for-byte even when they mention old paths; use the [current migration map](../archive/project-history/simplification/migration-map.json), chained with the [original map](../archive/project-history/refactoring/migration-map.json) to resolve them.
+
+`indexes/<run_id>/` stores generated retrieval indexes, guarded by dataset and model fingerprints and ignored by Git. The selected run's generated CSV copy lives in `results/<run_id>/demo/static/`.

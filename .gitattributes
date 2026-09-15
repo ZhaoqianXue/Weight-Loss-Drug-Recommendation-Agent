@@ -1,9 +1,6 @@
 # Preserve scientific data and captured pages byte-for-byte.
 data/** -whitespace -text
-results/legacy/** -whitespace -text
 archive/** -whitespace -text
-artifacts/embeddings/** -whitespace -text
-notebooks/legacy/** -whitespace -text
 *.faiss binary
 *.pkl binary
 *.pdf binary

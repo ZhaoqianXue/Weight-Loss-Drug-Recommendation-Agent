@@ -1,0 +1,27 @@
+Using Python 3.11.4 environment at: .venv-research
+Resolved 90 packages in 114ms
+Uninstalled 14 packages in 147ms
+ - camelot-py==1.0.0
+ - cffi==2.1.1
+ - chardet==5.2.0
+ - cryptography==48.0.1
+ - et-xmlfile==2.0.0
+ - opencv-python-headless==4.11.0.86
+ - openpyxl==3.1.5
+ - pdfminer-six==20250327
+ - pdfplumber==0.11.6
+ - pycparser==3.0
+ - pypdf==3.17.4
+ - pypdfium2==5.13.0
+ - tabulate==0.10.0
+ - weightloss-research==0.1.0 (from file:///Users/zhaoqianxue/Desktop/UPenn/WeightLoss)
+Using Python 3.11.4 environment at: .venv-research
+Resolved 1 package in 35ms
+   Building weightloss-research @ file:///Users/zhaoqianxue/Desktop/UPenn/WeightLoss
+      Built weightloss-research @ file:///Users/zhaoqianxue/Desktop/UPenn/WeightLoss
+Prepared 1 package in 1.03s
+Installed 1 package in 5ms
+ + weightloss-research==0.1.0 (from file:///Users/zhaoqianxue/Desktop/UPenn/WeightLoss)
+Using Python 3.11.4 environment at: .venv-research
+Checked 91 packages in 10ms
+All installed packages are compatible

@@ -18,3 +18,13 @@
 上述缺口已按批准方案处理。当前 canonical 路径见 configs/pipeline.json；完整映射、基线和最终检查位于 docs/refactoring/。历史 LICENSE/作者元数据未提供，保留为独立发布决定，不代填。
 
 目录收尾纠正：过渡 code_* 已移除，测试已按 unit/integration 分层；工作记录迁入 docs/refactoring/planning。目录合规现在由 scripts/audit_structure.py 显式验证。
+
+## 适度简化方案依据
+- 当前有 13 个可见一级职责目录；experiments 与 notebooks 目前只有历史内容，迁移审计作为日常 make check 的步骤长期保留。
+- 推荐保留 src 包、核心配置、数据分层、现有测试和依赖锁，合并历史材料及生成产物边界，目标为 9 个可见一级目录。
+- 官方 WWW2027 Research Track 强调研究贡献与可复现性；Demo Track 要求已实现、已测试并能展示的系统。官方页面未规定仓库目录模板。本方案不预设用户已选择 Demo Track。
+- 已核对配置、运行记录和网页构建实现。网页构建输出不能直接移入 apps/web 源码目录，建议 results/<run_id>/demo；术语嵌入是当前有效输入，不能当旧缓存删除。
+
+## 已批准简化的实际结果
+
+九目录方案完成；历史包环境和操作日志归档，当前运行配置仅 configs/pipeline.json，已全部更新。研究锁解析为 90 个依赖包（安装后含项目共 91 个），退出 14 个 PI/PDF 实验依赖。维持 macOS Intel 的 torch 2.2.2 和 FAISS 1.11。未改变 TableRAG/GraphRAG、词表选择或数据范围。

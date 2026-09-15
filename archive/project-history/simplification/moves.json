@@ -1,0 +1,22 @@
+{
+  "experiments/legacy": "archive/experiments",
+  "experiments/README.md": "archive/experiments/README.md",
+  "notebooks/legacy": "archive/notebooks",
+  "notebooks/README.md": "archive/notebooks/README.md",
+  "results/legacy": "archive/results",
+  "requirements/legacy": "archive/environments",
+  "docs/refactoring": "archive/project-history/refactoring",
+  "docs/history": "archive/project-history/history",
+  "docs/architecture-refactoring-plan.md": "archive/project-history/architecture-refactoring-plan.md",
+  "artifacts/embeddings/legacy/embedded_ae.csv": "data/external/terminology/embedded_ae.csv",
+  "artifacts/embeddings/legacy/provenance.json": "data/external/terminology/provenance.json",
+  "artifacts/embeddings/legacy/biobert_embeddings_v5.json": ".cache/legacy/biobert_embeddings_v5.json",
+  "artifacts/embeddings/legacy/embeddings_cache_v6.pkl": ".cache/legacy/embeddings_cache_v6.pkl",
+  "artifacts/indexes": "data/indexes",
+  "artifacts/web": "results/migrated-2026-09-14/demo",
+  "scripts": "archive/project-history/refactoring/tools",
+  "src/weightloss/embeddings": "archive/experiments/prescribing_information",
+  "src/weightloss/standardization/environment_standardization.txt": "archive/environments/standardization.txt",
+  "TODO.md": "docs/roadmap.md",
+  "results/migrated-2026-09-14/operations": "archive/project-history/operations/migrated-2026-09-14"
+}

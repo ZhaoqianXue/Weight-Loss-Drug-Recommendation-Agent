@@ -9,9 +9,9 @@
   "annotation_seed_dir": "data/external/annotation_seeds/pre_2026_refresh",
   "catalog": "configs/drugs.json",
   "terminology": "data/external/terminology/ae.csv",
-  "terminology_embeddings": "artifacts/embeddings/legacy/embedded_ae.csv",
-  "indexes": "artifacts/indexes/migrated-2026-09-14",
+  "terminology_embeddings": "data/external/terminology/embedded_ae.csv",
+  "indexes": "data/indexes/migrated-2026-09-14",
   "web_source": "apps/web",
-  "web_build": "artifacts/web",
+  "web_build": "results/migrated-2026-09-14/demo",
   "results": "results/migrated-2026-09-14"
 }

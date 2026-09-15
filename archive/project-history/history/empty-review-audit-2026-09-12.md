@@ -1,4 +1,4 @@
-> **Historical snapshot — archived 2026-09-14.** References to “current” below describe the original audit/refresh, including the former five-molecule, ten-brand scope. The active snapshot has **4 molecules, 8 brands and 2,727 records**; see [current scope](../project-scope.md). Historical counts and findings are preserved.
+> **Historical snapshot — archived 2026-09-14.** References to “current” below describe the original audit/refresh, including the former five-molecule, ten-brand scope. The active snapshot has **4 molecules, 8 brands and 2,727 records**; see [current scope](../../../docs/project-scope.md). Historical counts and findings are preserved.
 
 > The active snapshot has **46 empty-text records: 44 reused historical outputs and 2 pending rating-only records**. The 85/41/974/933 figures below belong to the earlier ten-brand snapshot; they are not current totals.
 
@@ -31,11 +31,11 @@ Thus there are **85 empty-text records in the whole dataset**. Forty-four alread
 
 These records have numerical ratings and may also have a review date, reviewer display name, age group, medication duration and condition, but the collected public source has no narrative text. They are retained as rating records so that per-brand counts and rating summaries reflect the source dataset. An empty narrative is not a statement that no adverse effects occurred.
 
-The live recheck of the 41 newly added empty records is recorded in [`empty-review-source-check-2026-09-12.json`](../empty-review-source-check-2026-09-12.json). It checks the original WebMD review IDs, public embedded `UserExperience` field and three rating fields across their source pages. The recheck found all 41 IDs across 25 pages: every source `UserExperience` was empty and all three numeric rating fields were present. It does not establish whether a person originally left the text blank, or whether text became unavailable later through the platform.
+The live recheck of the 41 newly added empty records is recorded in [`empty-review-source-check-2026-09-12.json`](../../../docs/empty-review-source-check-2026-09-12.json). It checks the original WebMD review IDs, public embedded `UserExperience` field and three rating fields across their source pages. The recheck found all 41 IDs across 25 pages: every source `UserExperience` was empty and all three numeric rating fields were present. It does not establish whether a person originally left the text blank, or whether text became unavailable later through the platform.
 
 ## What did the old code do?
 
-The implementation inspected is Git revision `f1e5e50dfc330c98317a29f5c0e6a1286584800e`. The corresponding pre-refresh raw/extracted/standardized CSVs are preserved in [`data_backup/pre_2026_refresh/`](../../data/external/annotation_seeds/pre_2026_refresh).
+The implementation inspected is Git revision `f1e5e50dfc330c98317a29f5c0e6a1286584800e`. The corresponding pre-refresh raw/extracted/standardized CSVs are preserved in [`data_backup/pre_2026_refresh/`](../../../data/external/annotation_seeds/pre_2026_refresh).
 
 1. **Collection retained the row.** `code_scraping/scraper.py` attempted the long-review spans, short-review text and a description fallback. If no text was found, the text remained empty, but `page_data.append(data)` still added the complete rating record. There was no “skip empty narrative” condition.
 2. **CSV loading converted blanks to missing values.** `code_extraction/extract_all.py` used default `pandas.read_csv`. Reading the archived CSV reproduces 44 missing (`NaN`) `Textual Review` values.

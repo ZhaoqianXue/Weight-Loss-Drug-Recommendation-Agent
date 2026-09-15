@@ -23,8 +23,6 @@ with patch.object(pandas, 'read_csv', side_effect=AssertionError('CSV at import'
  import weightloss.retrieval.table_loader
  import weightloss.retrieval.graph_loader
  import weightloss.retrieval.chatbot
- import weightloss.embeddings.embedding_pi_light
- import weightloss.embeddings.embedding_pi_heavy
 '''
         result=subprocess.run([sys.executable,'-c',script],capture_output=True,text=True,timeout=300)
         self.assertEqual(result.returncode,0,result.stderr)

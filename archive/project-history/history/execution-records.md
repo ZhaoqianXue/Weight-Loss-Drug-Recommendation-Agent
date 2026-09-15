@@ -1,6 +1,6 @@
 # Historical execution records
 
-Consolidated on 2026-09-14. This is an archive, not an active task list. The original records below contain intermediate states, proposals and superseded instructions; they must not be executed as current directions. Current scope is in [project scope](../project-scope.md), current implementation and commands in [README](../../README.md), and decision status in [TODO](../../TODO.md).
+Consolidated on 2026-09-14. This is an archive, not an active task list. The original records below contain intermediate states, proposals and superseded instructions; they must not be executed as current directions. Current scope is in [project scope](../../../docs/project-scope.md), current implementation and commands in [README](../../../README.md), and decision status in [TODO](../../../docs/roadmap.md).
 
 ## Migration plan and preservation policy
 
@@ -20,7 +20,7 @@ The [refresh report](data-refresh-2026-09-11.md) describes the historical ten-br
 
 ## Eight-brand scope change
 
-The [scope document](../project-scope.md) governs four molecules and eight brands. The removed task prompt is retained verbatim for provenance, with two explicit corrections: different CSV schemas need matching ordered IDs and source content, not identical byte hashes; excluded-brand mentions in retained narratives and historical artifacts remain valid. Exact hashes are required only among equivalent copies. The original prompt's broad grep/hash criteria were superseded by these distinctions. Its instruction to leave history untouched applied to that earlier task; this documentation migration was separately approved.
+The [scope document](../../../docs/project-scope.md) governs four molecules and eight brands. The removed task prompt is retained verbatim for provenance, with two explicit corrections: different CSV schemas need matching ordered IDs and source content, not identical byte hashes; excluded-brand mentions in retained narratives and historical artifacts remain valid. Exact hashes are required only among equivalent copies. The original prompt's broad grep/hash criteria were superseded by these distinctions. Its instruction to leave history untouched applied to that earlier task; this documentation migration was separately approved.
 
 The detailed changed-file list and validation results remain in the pre-migration scope snapshot below. The root logs retain the 50-file preservation check and Victoza pack-alias regression fix.
 
@@ -46,7 +46,7 @@ The detailed changed-file list and validation results remain in the pre-migratio
 | `docs/webmd-review-audit-2026-09-11.md` | [webmd-review-audit-2026-09-11.md](webmd-review-audit-2026-09-11.md) (notice + rebased links) | `c017032bf87e0a7fcc946b8717c143375691c9ad176a2b8fed8b32bc8ccc4603` |
 | `docs/data-refresh-2026-09-11.md` | [data-refresh-2026-09-11.md](data-refresh-2026-09-11.md) (notice + rebased links) | `d98f50e7053636f2f31f73de80595895ef6c6015fe64a2c494a83c5e81386120` |
 | `docs/empty-review-audit-2026-09-12.md` | [empty-review-audit-2026-09-12.md](empty-review-audit-2026-09-12.md) (notice + rebased links) | `782be01e892e5bfb2c798d3c859c9d9fc17c14296c0ca0dd460854068ee393f2` |
-| `docs/reddit-data-sources.md` | [Edited 2026-09-14](../reddit-data-sources.md) | `d7f8c6bda5c65bbf7dc0fd1bc22b75e0458df2fa9044597df47a597292f4d90a` |
+| `docs/reddit-data-sources.md` | [Edited 2026-09-14](../../../docs/reddit-data-sources.md) | `d7f8c6bda5c65bbf7dc0fd1bc22b75e0458df2fa9044597df47a597292f4d90a` |
 
 ## Archived records
 
@@ -342,9 +342,9 @@ This root directory is the canonical repository. It combines the later outer wor
 | `data_literature/` | Reference papers |
 | `data_backup/` | Earlier data and graph artifacts retained for reference |
 
-The current raw, extraction, baseline standardized, and website datasets each contain **2,727 review records**, covering **4 generic names and 8 brands**. Of these, 2,681 contain review text. Historical annotations were reused for 2,344 matching records; **383 records carry the pending status: 381 have a nonempty text field, while 2 are rating-only records with no text to extract**. The reused historical outputs also include 44 empty-text records; see [the historical empty-text audit](empty-review-audit-2026-09-12.md). Pending annotations are unknown, not evidence of no side effects. See [the current scope and counts](../project-scope.md), [the dataset manifest](../../data/processed/migrated-2026-09-14/dataset_manifest.json) for per-brand coverage, and [the historical refresh report](data-refresh-2026-09-11.md) for provenance and outstanding model/index work.
+The current raw, extraction, baseline standardized, and website datasets each contain **2,727 review records**, covering **4 generic names and 8 brands**. Of these, 2,681 contain review text. Historical annotations were reused for 2,344 matching records; **383 records carry the pending status: 381 have a nonempty text field, while 2 are rating-only records with no text to extract**. The reused historical outputs also include 44 empty-text records; see [the historical empty-text audit](empty-review-audit-2026-09-12.md). Pending annotations are unknown, not evidence of no side effects. See [the current scope and counts](../../../docs/project-scope.md), [the dataset manifest](../../../data/processed/migrated-2026-09-14/dataset_manifest.json) for per-brand coverage, and [the historical refresh report](data-refresh-2026-09-11.md) for provenance and outstanding model/index work.
 
-Wegovy HD is an alias of **Wegovy**; Victoza 2-Pak and Victoza 3-Pak are aliases of **Victoza**, not extra datasets. Generic names are represented in `Drug Name`; brands are represented in `Brand Name`. Shared generic/brand review pages are collected once. The maintained catalog is [config/drugs.json](../../configs/drugs.json). **Combination products are excluded regardless of review availability**, including Soliqua (insulin glargine + lixisenatide) and Xultophy (insulin degludec + liraglutide). See [the project scope](../project-scope.md) for exclusions and [Reddit data sources](../reddit-data-sources.md) for the eight retained brands.
+Wegovy HD is an alias of **Wegovy**; Victoza 2-Pak and Victoza 3-Pak are aliases of **Victoza**, not extra datasets. Generic names are represented in `Drug Name`; brands are represented in `Brand Name`. Shared generic/brand review pages are collected once. The maintained catalog is [config/drugs.json](../../../configs/drugs.json). **Combination products are excluded regardless of review availability**, including Soliqua (insulin glargine + lixisenatide) and Xultophy (insulin degludec + liraglutide). See [the project scope](../../../docs/project-scope.md) for exclusions and [Reddit data sources](../../../docs/reddit-data-sources.md) for the eight retained brands.
 
 UMLS versions, top-10 samples, embeddings, prescribing-information documents, notebooks, and previous evaluation reports remain historical experiments. They were not relabeled as current results. The pre-refresh canonical CSVs are preserved in `data_backup/pre_2026_refresh/`.
 
@@ -452,7 +452,7 @@ Original bytes: 5623; SHA-256: `9fe36023289b2832850458da943222a0405a691267905fea
 
 ## Included medications
 
-The maintained catalog is [`config/drugs.json`](../../configs/drugs.json). The current project includes these four generic names and their eight brands:
+The maintained catalog is [`config/drugs.json`](../../../configs/drugs.json). The current project includes these four generic names and their eight brands:
 
 | Generic name | Canonical brands |
 | --- | --- |
@@ -461,7 +461,7 @@ The maintained catalog is [`config/drugs.json`](../../configs/drugs.json). The c
 | Liraglutide | Victoza, Saxenda |
 | Dulaglutide | Trulicity |
 
-Wegovy HD is an alias of Wegovy; Victoza 2-Pak and Victoza 3-Pak are aliases of Victoza. Aliases do not create additional datasets. The per-brand Reddit sources are documented in [Reddit data sources](../reddit-data-sources.md).
+Wegovy HD is an alias of Wegovy; Victoza 2-Pak and Victoza 3-Pak are aliases of Victoza. Aliases do not create additional datasets. The per-brand Reddit sources are documented in [Reddit data sources](../../../docs/reddit-data-sources.md).
 
 ## Explicit exclusion: combination products
 
@@ -481,9 +481,9 @@ Decision date: **2026-09-12**. **Byetta and Bydureon (alias Bydureon BCise), bot
 - Reddit coverage is insufficient for the intended brand-level analysis: neither brand has a subreddit with 200 or more subscribers. Across 18 diabetes/GLP-1 subreddits during 2018–2026, there are about 70–95 posts and about 280 comments per brand (approximately 70 posts/281 comments for Byetta and 95 posts/285 comments for Bydureon).
 - AstraZeneca discontinued Byetta in the United States on **2024-10-25** and Bydureon BCise on **2024-10-28**.
 
-These findings were supplied with the scope decision; no new Reddit collection or source investigation was performed in this update. The remaining eight brands' sources and the recorded exclusion evidence are in [Reddit data sources](../reddit-data-sources.md); that document is retained unchanged.
+These findings were supplied with the scope decision; no new Reddit collection or source investigation was performed in this update. The remaining eight brands' sources and the recorded exclusion evidence are in [Reddit data sources](../../../docs/reddit-data-sources.md); that document is retained unchanged.
 
-The **421 Byetta reviews and 170 Bydureon reviews (591 total)** were moved, not deleted, to [`data_backup/excluded_exenatide_2026-09-12/`](../../archive/data_backup/excluded_exenatide_2026-09-12/). The eight retained per-brand WebMD files are unchanged. The combined raw dataset and its collection manifest were rebuilt offline, retaining original collection timestamps; extracted and standardized data and website copies were then regenerated without scraping or model API calls.
+The **421 Byetta reviews and 170 Bydureon reviews (591 total)** were moved, not deleted, to [`data_backup/excluded_exenatide_2026-09-12/`](../../data_backup/excluded_exenatide_2026-09-12). The eight retained per-brand WebMD files are unchanged. The combined raw dataset and its collection manifest were rebuilt offline, retaining original collection timestamps; extracted and standardized data and website copies were then regenerated without scraping or model API calls.
 
 Scope exclusion applies to the primary `Brand Name` and `Drug Name` fields, catalog entries, and active medication lists. It does not erase mentions of previous or alternative treatments from source narratives: 38 retained-brand reviews mention Byetta or Bydureon. Historical UMLS datasets, mapping/cache files, audits, planning records and existing backups are also preserved. Consequently, an unrestricted text search can still find these names in source narratives and historical artifacts.
 
@@ -540,7 +540,7 @@ Current automated validation: 2026-09-12; original interface validation: 2026-09
 
 ## Source and counting rules
 
-The current website and assistant use `code_website/static/standardized_reviews_all.csv`, **2,727 rows covering eight brands and four generic names**. SHA-256: `e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8`. The September refresh reused 2,344 historical annotations and explicitly marks 383 rows pending (381 with text and 2 rating-only). See [the current project scope](../project-scope.md) and machine-readable manifests for the current snapshot; [the original refresh report](data-refresh-2026-09-11.md) is historical.
+The current website and assistant use `code_website/static/standardized_reviews_all.csv`, **2,727 rows covering eight brands and four generic names**. SHA-256: `e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8`. The September refresh reused 2,344 historical annotations and explicitly marks 383 rows pending (381 with text and 2 rating-only). See [the current project scope](../../../docs/project-scope.md) and machine-readable manifests for the current snapshot; [the original refresh report](data-refresh-2026-09-11.md) is historical.
 
 Review IDs R0001 onward refer to original data-row order, excluding the CSV header. They are stable for this snapshot, not globally stable identifiers. 46 records lack review text; they remain in statistical denominators but are excluded from readable evidence. Of these, 44 have reused historical empty-side-effect outputs and 2 carry the pending status. The historical reuse count therefore is not a count of analyzed narratives; see [the historical empty-text audit](empty-review-audit-2026-09-12.md). WebMD source IDs are additionally preserved in the CSV Review ID column. Structured side-effect terms are trimmed and case-folded; each term is counted once per review. Synonyms are not automatically merged. Percentages divide by all records for the medication. Invalid extraction is treated as unknown, not evidence that no symptom occurred; coverage is displayed. Ratings use finite numeric values in [1, 5], excluding blank or invalid values.
 

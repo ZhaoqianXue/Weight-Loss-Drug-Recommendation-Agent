@@ -14,12 +14,10 @@ dist/
 .slide-build/
 *.pptx
 .cache/
-artifacts/web/
-artifacts/web-runs/
-artifacts/indexes/*
-!artifacts/indexes/README.md
-artifacts/embeddings/legacy/biobert_embeddings_v5.json
-artifacts/embeddings/legacy/embeddings_cache_v6.pkl
+data/indexes/*
+!data/indexes/README.md
+results/*/demo/
 # Provider event payloads may contain review text; keep manifests tracked separately.
 results/**/events.jsonl
 results/**/.operation.lock
+archive/**/events.jsonl

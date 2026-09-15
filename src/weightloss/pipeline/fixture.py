@@ -32,7 +32,7 @@ def reproduce(destination):
     catalog = destination/'configs/drugs.json'
     catalog.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(origin.path('catalog'),catalog)
-    config = dict(origin.config,project_root=str(destination),run_id='fixture',snapshot_id='synthetic',frozen=False,raw_dir='data/raw/synthetic',annotation_seed_dir='data/external/annotation_seeds',extracted='data/interim/fixture/extracted_reviews_all.csv',standardized='data/processed/fixture/standardized_reviews_all.csv',catalog='configs/drugs.json',web_source=str(origin.path('web_source')),web_build='artifacts/web',results='results/fixture',indexes='artifacts/indexes',terminology='data/external/unused.csv',terminology_embeddings='data/external/unused-embeddings.csv')
+    config = dict(origin.config,project_root=str(destination),run_id='fixture',snapshot_id='synthetic',frozen=False,raw_dir='data/raw/synthetic',annotation_seed_dir='data/external/annotation_seeds',extracted='data/interim/fixture/extracted_reviews_all.csv',standardized='data/processed/fixture/standardized_reviews_all.csv',catalog='configs/drugs.json',web_source=str(origin.path('web_source')),web_build='results/fixture/demo',results='results/fixture',indexes='data/indexes/fixture',terminology='data/external/unused.csv',terminology_embeddings='data/external/unused-embeddings.csv')
     config_path=destination/'configs/pipeline.json'
     atomic_json(config_path,config)
     old = {key:os.environ.get(key) for key in ('WEIGHTLOSS_ROOT','WEIGHTLOSS_CONFIG')}
@@ -50,11 +50,11 @@ def reproduce(destination):
             if metrics != payload['expected_metrics']:
                 raise ValueError('Synthetic fixture differs from hand-specified expected metrics')
             atomic_json(destination/'results/fixture/metrics.json',metrics)
-            build_web()
-            validate(include_web=True)
             report['validation']=check
             report['models']={'mode':'offline replay; no model called'}
             freeze()
+            build_web()
+            validate(include_web=True)
         return destination/'results/fixture'
     finally:
         for key,value in old.items():

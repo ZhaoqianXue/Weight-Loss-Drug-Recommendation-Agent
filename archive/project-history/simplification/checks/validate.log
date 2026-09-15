@@ -1,0 +1,22 @@
+.venv/bin/python -m weightloss validate
+{
+  "status": "passed",
+  "reviews": 2727,
+  "generics": 4,
+  "brands": 8,
+  "text_reviews": 2681,
+  "extraction_status": {
+    "pending": 383,
+    "historical_reused": 2344
+  },
+  "files": {
+    "extracted": {
+      "rows": 2727,
+      "sha256": "bb068b33664648edd795a3b5e66bfc42fb4540fe1a1431b1acba893e3cfec10e"
+    },
+    "standardized": {
+      "rows": 2727,
+      "sha256": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8"
+    }
+  }
+}

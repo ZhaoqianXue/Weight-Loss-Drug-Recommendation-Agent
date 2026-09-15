@@ -49,6 +49,10 @@ def dispatch(args):
         from .pipeline.validate_data import main
         main()
         return 0
+    if command == 'build-web':
+        from .pipeline.build_web import build_web
+        print(build_web())
+        return 0
     if command == 'serve':
         paths = get_settings()
         if not (paths.path('web_build')/'index.html').exists():
@@ -73,12 +77,7 @@ def dispatch(args):
             raise ValueError('OPENAI_API_KEY is required; no data changed.')
     from .runs import operation, hashes
     with operation(command,{k:v for k,v in vars(args).items() if k not in ('root','config')}) as report:
-        if command == 'build-web':
-            from .pipeline.build_web import build_web
-            destination = build_web()
-            report["artifacts_sha256"] = hashes(p for p in destination.rglob("*") if p.is_file())
-            print(destination)
-        elif command == 'freeze':
+        if command == 'freeze':
             from .runs import freeze
             freeze()
         elif command == 'collect':

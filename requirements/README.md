@@ -1,10 +1,18 @@
 # Environments
 
-The core package uses the Python standard library. Optional groups in `pyproject.toml` separate collection, web, extraction, standardization, retrieval, embeddings and development. Historical requirements are preserved byte-for-byte under `legacy/`; they are evidence of earlier environments, not an installation recipe.
+The core package uses the Python standard library. Three extras are exposed:
+
+| Extra | Purpose |
+| --- | --- |
+| `demo` | Collection parsing, website and Flask; no Torch, FAISS or PDF stack |
+| `research` | Demo plus extraction, standardization, TableRAG and GraphRAG |
+| `dev` | Demo plus build tools and offline checks |
+
+[Historical environments](../archive/environments/) and the previous two locks are archived. The unused PI scripts and PDF dependencies are outside the maintained research install.
 
 ## Offline environment
 
-`offline.lock` is generated from the `dev` group (collection, web and build tools), with exact versions and distribution hashes. Local checks use Python 3.11.4 and Node.js 22.15.0. CI also declares Python 3.11 / Node 22 for Ubuntu and macOS; CI execution is separate from local verification.
+`offline.lock` is generated from the `dev` group (demo and build tools), with exact versions and distribution hashes. Local checks use Python 3.11.4 and Node.js 22.15.0. CI also declares Python 3.11 / Node 22 for Ubuntu and macOS; CI execution is separate from local verification.
 
 ```sh
 uv venv --python 3.11 .venv
@@ -36,7 +44,7 @@ The explicit macOS target avoids old Anaconda/uv reporting this macOS 14 host as
 Regeneration command:
 
 ```sh
-MACOSX_DEPLOYMENT_TARGET=14.0 uv pip compile pyproject.toml --extra dev --extra extraction --extra standardization --extra retrieval --extra embeddings --generate-hashes --only-binary :all: --python-version 3.11 --python-platform x86_64-apple-darwin -o requirements/research-macos-x86_64-py311.lock
+MACOSX_DEPLOYMENT_TARGET=14.0 uv pip compile pyproject.toml --extra dev --extra research --generate-hashes --only-binary :all: --python-version 3.11 --python-platform x86_64-apple-darwin -o requirements/research-macos-x86_64-py311.lock
 ```
 
 Other platforms should resolve their own lock from the same extras and run the checks before claiming support. Research adapter tests mock clients; live OpenAI calls, model weight downloads, full FAISS rebuilds and Neo4j integration remain explicitly separate. Legacy UMLS experiments may need dependencies such as nltk/fuzzywuzzy from their original environments; they are not part of the maintained execution pipeline.

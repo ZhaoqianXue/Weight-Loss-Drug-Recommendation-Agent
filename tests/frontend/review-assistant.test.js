@@ -5,7 +5,7 @@ const {execFileSync}=require('node:child_process');
 const ReviewAssistant=require('../../apps/web/static/review-assistant.js');
 const fixture=JSON.parse(execFileSync(process.env.PYTHON || 'python3',['-c',`
 import csv,json,collections,statistics
-rows=list(csv.DictReader(open('artifacts/web/static/standardized_reviews_all.csv')))
+rows=list(csv.DictReader(open('results/migrated-2026-09-14/demo/static/standardized_reviews_all.csv')))
 expected={}
 for brand in sorted({r['Brand Name'] for r in rows}):
  group=[r for r in rows if r['Brand Name']==brand]; counts=collections.Counter()

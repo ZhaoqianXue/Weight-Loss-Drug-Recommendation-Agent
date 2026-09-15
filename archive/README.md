@@ -1,7 +1,17 @@
 # Historical archive
 
-These materials are preserved for provenance. `indexes/root/` and `indexes/website/` contain the old FAISS indexes; they lack current valid fingerprint metadata and are not loaded by the maintained pipeline. Rebuild into the selected `artifacts/indexes/<run_id>/` before retrieval.
+| Directory | Preserved material |
+| --- | --- |
+| [experiments](experiments/README.md) | Legacy extraction, UMLS, evaluation and PI embedding scripts |
+| [notebooks](notebooks/README.md) | Two historical exploratory notebooks |
+| [results](results/) | Original experiment samples, reports and catalog hashes |
+| [environments](environments/) | Historical requirements and pre-simplification locks |
+| [project-history](project-history/) | Dated notes, prior architecture plans, migration maps and old operation logs |
+| `indexes/root/`, `indexes/website/` | Stale historical FAISS indexes |
+| `data_backup/`, `website/data/`, `collection/` | Earlier data, excluded reviews, duplicated site data and captured pages |
 
-`data_backup/` retains earlier data and excluded exenatide reviews; these are not added back into current scope. `website/data/` preserves the old extra website CSV. `collection/` contains historical captured HTML, including a page outside current drug scope.
+These files are historical evidence. They do not become current experiments when moved. Rebuild retrieval indexes under `data/indexes/<run_id>/`; old indexes remain rejected by fingerprint checks. Active annotation seeds and terminology embeddings live under `data/external/`.
 
-The active annotation seed was moved to `data/external/annotation_seeds/`, not this archive. Directory relocation does not update the scientific status of any historical output. The migration map records original paths and hashes.
+The [simplification migration map](project-history/simplification/migration-map.json) maps the previous layout to the current one and records immutable hashes. Chain it with [the original migration map](project-history/refactoring/migration-map.json) for earlier paths. Frozen JSON manifests retain their original bytes. Historical Markdown links were repaired, while dated descriptions and scientific claims retain their original scope.
+
+Archived [audit tools](project-history/refactoring/tools/) apply to the pre-simplification checkout; they are not daily CI commands. The new one-time verification is described in [the implementation report](../docs/simplification.md). Local historical model caches remain under `.cache/legacy/` and are not added to Git.

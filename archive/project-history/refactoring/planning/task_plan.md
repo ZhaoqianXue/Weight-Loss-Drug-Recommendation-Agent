@@ -30,3 +30,13 @@ Context7 工具不可用，使用官方 Python Packaging 与 uv 文档。
 
 ## Next Step
 目录收尾与全部验收已完成，无剩余实施步骤。
+
+## P6 适度简化实施
+
+- [完成] 用户批准，迁移前审计与哈希基线。
+- [完成] 九目录迁移、配置和入口、日志共享与依赖组收敛。
+- [完成] 新锁安装验证、33 项 Python 回归、5 项研究适配器、3963 前端断言、复现和 HTTP 演示验证。
+- [完成] 文档和哈希验收：九目录、193 映射、111 受保护文件及原 91 冻结文件通过。
+
+## Next Step
+全部实施及验收完成，无剩余迁移步骤。证据见 archive/project-history/simplification/verification.json。

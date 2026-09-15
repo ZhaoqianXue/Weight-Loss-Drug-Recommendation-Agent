@@ -1,4 +1,4 @@
-> **Historical snapshot — archived 2026-09-14.** References to “current” below describe the original audit/refresh, including the former five-molecule, ten-brand scope. The active snapshot has **4 molecules, 8 brands and 2,727 records**; see [current scope](../project-scope.md). Historical counts and findings are preserved.
+> **Historical snapshot — archived 2026-09-14.** References to “current” below describe the original audit/refresh, including the former five-molecule, ten-brand scope. The active snapshot has **4 molecules, 8 brands and 2,727 records**; see [current scope](../../../docs/project-scope.md). Historical counts and findings are preserved.
 
 # WebMD review inventory audit
 

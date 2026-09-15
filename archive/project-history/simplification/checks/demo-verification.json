@@ -1,0 +1,1 @@
+{"status": "passed", "entry": "make demo", "resources": ["index.html", "templates/knowledge_graph.html", "static/review-assistant.js", "static/standardized_reviews_all.csv", "static/drugs.json", "static/dataset_manifest.json", "build_manifest.json"]}

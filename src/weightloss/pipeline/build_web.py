@@ -5,9 +5,15 @@ import shutil
 import tempfile
 from weightloss.settings import get_settings
 from weightloss.provenance import dataset_digest
+from weightloss.runs import run_lock, hashes
 from .validate_data import validate
 
 def build_web():
+    with run_lock():
+        return _build_web()
+
+
+def _build_web():
     paths = get_settings()
     validate()
     source, destination = paths.path('web_source'), paths.path('web_build')
@@ -23,7 +29,24 @@ def build_web():
             shutil.copyfile(original, staging/'static'/name)
         # A root landing page redirects to the unchanged template, preserving relative URLs.
         (staging/'index.html').write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=templates/knowledge_graph.html"><a href="templates/knowledge_graph.html">Medication Experience Assistant</a>\n')
-        (staging/'build_manifest.json').write_text(json.dumps({'run_id':paths.config['run_id'],'dataset_sha256':dataset_digest(),'source_sha256':{str(p.relative_to(source)):dataset_digest(p) for p in sorted(source.rglob('*')) if p.is_file() and p.suffix in ('.html','.js')}},indent=2)+'\n')
+        manifest = {
+            'schema_version': 2,
+            'run_id': paths.config['run_id'],
+            'run_results': str(paths.path('results')),
+            'run_provenance_sha256': hashes([
+                paths.path('results')/'manifest.json', paths.path('results')/'frozen.json',
+            ]),
+            'config': paths.config,
+            'config_sha256': dataset_digest(paths.config_path),
+            'dataset_path': str(paths.path('standardized')),
+            'dataset_sha256': dataset_digest(),
+            'source_sha256': {
+                str(p.relative_to(source)): dataset_digest(p)
+                for p in sorted(source.rglob('*'))
+                if p.is_file() and p.suffix in ('.html', '.js')
+            },
+        }
+        (staging/'build_manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')
         old = Path(tmp)/'previous'
         if destination.exists():
             destination.rename(old)

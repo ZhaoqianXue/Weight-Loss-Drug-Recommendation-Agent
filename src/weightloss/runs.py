@@ -11,10 +11,12 @@ import re
 import shutil
 import subprocess
 import uuid
+import threading
 from .settings import get_settings
 from .provenance import dataset_digest
 
 _ACTIVE_EVENTS = None
+_LOCKS = threading.local()
 
 def now():
     return datetime.now(timezone.utc).isoformat()
@@ -41,23 +43,68 @@ def record_event(kind, **fields):
             stream.write(json.dumps({'at':now(),'kind':kind,**fields},ensure_ascii=False)+'\n')
 
 @contextmanager
+def run_lock():
+    """One writer per run, including nested builds in a workflow on this thread."""
+    lock = get_settings().path('results')/'.operation.lock'
+    lock = lock.resolve()
+    held = getattr(_LOCKS, 'held', set())
+    if lock in held:
+        yield
+        return
+    lock.parent.mkdir(parents=True, exist_ok=True)
+    fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
+    try:
+        os.write(fd, str(os.getpid()).encode())
+    finally:
+        os.close(fd)
+    _LOCKS.held = held | {lock}
+    try:
+        yield
+    finally:
+        _LOCKS.held = held
+        lock.unlink()
+
+
+def environment_reference(settings):
+    """Store the installed environment once for each content fingerprint in a run."""
+    payload = {
+        'schema_version': 1,
+        'python': platform.python_version(),
+        'platform': platform.platform(),
+        'packages': {d.metadata['Name']: d.version for d in distributions() if d.metadata['Name']},
+        'lock_sha256': hashes((settings.root/'requirements').glob('*.lock')),
+    }
+    fingerprint = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+    path = settings.path('results')/'environments'/f'{fingerprint}.json'
+    if path.exists():
+        if json.loads(path.read_text()) != payload:
+            raise ValueError('Stored environment does not match its fingerprint')
+    else:
+        atomic_json(path, payload)
+    return {'path': str(path.relative_to(settings.path('results'))), 'fingerprint': fingerprint, 'sha256': dataset_digest(path)}
+
+
+@contextmanager
 def operation(name, parameters=None):
+    with run_lock():
+        with _operation(name, parameters) as report:
+            yield report
+
+
+@contextmanager
+def _operation(name, parameters=None):
     global _ACTIVE_EVENTS
     settings = get_settings()
     folder = settings.path('results')/'operations'/(datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S')+'-'+uuid.uuid4().hex[:8])
     folder.mkdir(parents=True)
-    # One writer per selected run. Never silently remove another process's lock.
-    lock = settings.path('results')/'.operation.lock'
-    fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-    os.write(fd, str(os.getpid()).encode()); os.close(fd)
     previous = _ACTIVE_EVENTS
     _ACTIVE_EVENTS = folder/'events.jsonl'
-    report = {'schema_version':1,'run_id':settings.config['run_id'],'operation':name,'started_at':now(),'status':'running'}
+    report = {'schema_version':2,'run_id':settings.config['run_id'],'operation':name,'started_at':now(),'status':'running'}
     try:
         inputs = [settings.raw,settings.collection_manifest,settings.path('extracted'),settings.path('standardized'),settings.path('catalog'),settings.path('terminology'),settings.path('terminology_embeddings')]
         inputs.extend(settings.path('annotation_seed_dir').glob('*'))
         sources = list((settings.root/'src/weightloss').rglob('*.py'))
-        report = {'schema_version':1,'run_id':settings.config['run_id'],'operation':name,'started_at':now(),'status':'running','code':git_state(settings.root),'source_sha256':hashes(sources),'environment':{'python':platform.python_version(),'platform':platform.platform(),'packages':{d.metadata['Name']:d.version for d in distributions() if d.metadata['Name']}},'lock_sha256':hashes((settings.root/'requirements').glob('*.lock')),'config':settings.config,'config_sha256':dataset_digest(settings.config_path),'parameters':parameters or {},'input_sha256':hashes(inputs),'models':{'extraction':'gpt-4.1-nano','standardization':'gpt-4.1-nano','embedding':'pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb','revision':'unknown; record provider response metadata when available','temperature':0.2,'seed':None,'retry_policy':'Provider client defaults; individual retry count is unavailable'},'limitations':['Model calls are not guaranteed to be byte-identical on repeat. Historical annotations have unknown original model revisions.']}
+        report = {'schema_version':2,'run_id':settings.config['run_id'],'operation':name,'started_at':now(),'status':'running','code':git_state(settings.root),'source_sha256':hashes(sources),'environment':environment_reference(settings),'config':settings.config,'config_sha256':dataset_digest(settings.config_path),'parameters':parameters or {},'input_sha256':hashes(inputs),'models':{'extraction':'gpt-4.1-nano','standardization':'gpt-4.1-nano','embedding':'pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb','revision':'unknown; record provider response metadata when available','temperature':0.2,'seed':None,'retry_policy':'Provider client defaults; individual retry count is unavailable'},'limitations':['Model calls are not guaranteed to be byte-identical on repeat. Historical annotations have unknown original model revisions.']}
         if name not in ('extract','standardize','build-index','import-graph','chatbot'):
             report['models'] = {'mode':'no model called by this operation'}
         atomic_json(folder/'manifest.json',report)
@@ -85,7 +132,6 @@ def operation(name, parameters=None):
             atomic_json(folder/'manifest.json',report)
         finally:
             _ACTIVE_EVENTS = previous
-            lock.unlink()
 
 def new_run(run_id, raw_dir=None):
     settings = get_settings()
@@ -97,7 +143,7 @@ def new_run(run_id, raw_dir=None):
     if config_path.exists() or any(p.exists() for p in targets):
         raise ValueError('Run already exists; select a new ID.')
     config = dict(settings.config)
-    config.update(run_id=run_id, frozen=False, extracted=f'data/interim/{run_id}/extracted_reviews_all.csv', standardized=f'data/processed/{run_id}/standardized_reviews_all.csv', results=f'results/{run_id}', indexes=f'artifacts/indexes/{run_id}', web_build=f'artifacts/web-runs/{run_id}')
+    config.update(run_id=run_id, frozen=False, extracted=f'data/interim/{run_id}/extracted_reviews_all.csv', standardized=f'data/processed/{run_id}/standardized_reviews_all.csv', results=f'results/{run_id}', indexes=f'data/indexes/{run_id}', web_build=f'results/{run_id}/demo')
     if raw_dir:
         raw = Path(raw_dir).expanduser().resolve()
         collection = json.loads((raw/'collection_manifest.json').read_text())

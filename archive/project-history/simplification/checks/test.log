@@ -1,0 +1,11 @@
+.venv/bin/python -m weightloss build-web
+/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/results/migrated-2026-09-14/demo
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py'
+..............................Trulicity page 1: 1/2
+...
+----------------------------------------------------------------------
+Ran 33 tests in 15.422s
+
+OK
+PYTHON="$(command -v .venv/bin/python)" node tests/frontend/review-assistant.test.js
+{"checks":3963,"pairs":28,"brands":8,"records":2727,"status":"passed"}

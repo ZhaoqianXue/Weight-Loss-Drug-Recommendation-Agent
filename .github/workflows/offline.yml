@@ -26,6 +26,4 @@ jobs:
       - run: python -m weightloss build-web
       - run: python -m unittest discover -s tests -p 'test_*.py'
       - run: node tests/frontend/review-assistant.test.js
-      - run: python scripts/audit_migration.py
-      - run: python scripts/audit_structure.py
       - run: python -m weightloss reproduce-fixture --output-dir .cache/ci-fixture

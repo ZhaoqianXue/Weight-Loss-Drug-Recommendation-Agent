@@ -30,7 +30,7 @@ def isolated_run():
         config=dict(original.config, frozen=False, run_id='test')
         for key in ('raw_dir','annotation_seed_dir','catalog','terminology','terminology_embeddings','web_source'):
             config[key]=str(original.path(key))
-        config.update(extracted='data/interim/test/extracted_reviews_all.csv',standardized='data/processed/test/standardized_reviews_all.csv',web_build='artifacts/web',results='results/test',indexes='artifacts/indexes/test')
+        config.update(extracted='data/interim/test/extracted_reviews_all.csv',standardized='data/processed/test/standardized_reviews_all.csv',web_build='results/test/demo',results='results/test',indexes='data/indexes/test')
         for key in ('extracted','standardized'):
             dest=root/config[key];dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(original.path(key),dest)
         shutil.copyfile(original.dataset_manifest,(root/config['standardized']).parent/'dataset_manifest.json')
@@ -80,6 +80,8 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             conf=new_run('next-run')
             payload=json.loads(conf.read_text())
             self.assertFalse(payload['frozen'])
+            self.assertEqual(payload['web_build'],'results/next-run/demo')
+            self.assertEqual(payload['indexes'],'data/indexes/next-run')
             self.assertEqual(dataset_digest(paths.root/payload['standardized']),before)
             self.assertNotEqual(paths.root/payload['standardized'],paths.path('standardized'))
             with self.assertRaises(ValueError):new_run('next-run')
@@ -115,9 +117,12 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             a,b=Path(tmp)/'first',Path(tmp)/'second'
             with contextlib.redirect_stdout(io.StringIO()):
                 reproduce(a);reproduce(b)
-            for relative in ('data/processed/fixture/standardized_reviews_all.csv','results/fixture/metrics.json','artifacts/web/static/standardized_reviews_all.csv'):
+            for relative in ('data/processed/fixture/standardized_reviews_all.csv','results/fixture/metrics.json','results/fixture/demo/static/standardized_reviews_all.csv'):
                 self.assertEqual((a/relative).read_bytes(),(b/relative).read_bytes())
             self.assertTrue(json.loads((a/'configs/pipeline.json').read_text())['frozen'])
+            build=json.loads((a/'results/fixture/demo/build_manifest.json').read_text())
+            self.assertTrue(build['config']['frozen'])
+            self.assertEqual(build['run_provenance_sha256'][str((a/'results/fixture/frozen.json').resolve())],dataset_digest(a/'results/fixture/frozen.json'))
             with self.assertRaises(ValueError):reproduce(a)
 
     def test_http_preview_resources(self):
@@ -156,5 +161,81 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             with patch.object(batch_scraper,'collect',side_effect=ValueError('failed page')):
                 with self.assertRaises(ValueError):batch_scraper.main(['--output-dir',str(destination)])
             self.assertFalse(destination.exists())
+
+    def test_stages_share_environment_and_new_environment_gets_new_file(self):
+        from weightloss.runs import environment_reference
+        from types import SimpleNamespace
+        with isolated_run() as paths:
+            with operation('first') as first:
+                reference = dict(first['environment'])
+            environment = paths.path('results')/reference['path']
+            before = environment.stat().st_mtime_ns
+            with operation('second') as second:
+                self.assertEqual(second['environment'], reference)
+            self.assertEqual(environment.stat().st_mtime_ns, before)
+            self.assertEqual(dataset_digest(environment),reference['sha256'])
+            with patch('weightloss.runs.distributions',return_value=[SimpleNamespace(metadata={'Name':'synthetic'},version='1')]):
+                changed = environment_reference(paths)
+            self.assertNotEqual(changed['fingerprint'],reference['fingerprint'])
+            self.assertEqual(len(list(environment.parent.glob('*.json'))),2)
+
+    def test_corrupt_environment_is_rejected_and_lock_released(self):
+        with isolated_run() as paths:
+            with operation('first') as report:
+                environment=paths.path('results')/report['environment']['path']
+            environment.write_text('{}')
+            with self.assertRaisesRegex(ValueError,'fingerprint'):
+                with operation('second'):pass
+            self.assertFalse((paths.path('results')/'.operation.lock').exists())
+            self.assertEqual(environment.read_text(),'{}')
+
+    def test_web_build_has_only_current_manifest_and_run_reference(self):
+        with isolated_run() as paths:
+            from weightloss.cli import main
+            atomic_json(paths.path('results')/'manifest.json',{'run_id':'test'})
+            with contextlib.redirect_stdout(io.StringIO()):
+                main(['build-web']);main(['build-web'])
+            report=json.loads((paths.path('web_build')/'build_manifest.json').read_text())
+            self.assertEqual(report['run_id'],'test')
+            self.assertEqual(report['dataset_sha256'],dataset_digest())
+            self.assertEqual(report['config'],paths.config)
+            self.assertIn(str(paths.path('results')/'manifest.json'),report['run_provenance_sha256'])
+            self.assertFalse((paths.path('results')/'operations').exists())
+            self.assertFalse((paths.path('results')/'environments').exists())
+
+    def test_web_and_operation_share_cross_process_write_lock(self):
+        from weightloss.pipeline.build_web import build_web
+        with isolated_run() as paths:
+            with operation('outer'):
+                # A nested build on the owning thread is valid, but a second writer is not.
+                build_web()
+                before=dataset_digest(paths.path('web_build')/'build_manifest.json')
+                result=subprocess.run([sys.executable,'-m','weightloss','build-web'],capture_output=True,text=True)
+                self.assertEqual(result.returncode,2,result.stderr)
+                self.assertTrue((paths.path('results')/'.operation.lock').exists())
+                self.assertEqual(dataset_digest(paths.path('web_build')/'build_manifest.json'),before)
+            self.assertFalse((paths.path('results')/'.operation.lock').exists())
+
+    def test_extraction_resumes_after_interruption_without_repeating_completed_row(self):
+        from types import SimpleNamespace
+        from weightloss.extraction.extract_all import main
+        from weightloss.pipeline.refresh_data import read
+        from unittest.mock import Mock
+        with isolated_run() as paths:
+            pending=[r for r in read(paths.path('extracted')) if r['Extraction Status']=='pending' and r['Textual Review'].strip()]
+            response={'structured_info':{'side_effects':[]},'relations':[]}
+            extractor=Mock(side_effect=[response,RuntimeError('synthetic interruption')])
+            stub=SimpleNamespace(safe_extract_structured=extractor)
+            with patch.dict(sys.modules,{'weightloss.extraction.schema_extraction':stub}), patch.dict(os.environ,{'OPENAI_API_KEY':'synthetic'}), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaises(RuntimeError):
+                    with operation('extract'):main(['--limit','2'])
+                rows={r['Review ID']:r for r in read(paths.path('extracted'))}
+                self.assertEqual(rows[pending[0]['Review ID']]['Extraction Status'],'completed')
+                self.assertEqual(rows[pending[1]['Review ID']]['Extraction Status'],'pending')
+                extractor.reset_mock(side_effect=True);extractor.return_value=response
+                with operation('extract'):main(['--limit','1'])
+                self.assertEqual(extractor.call_count,1)
+                self.assertEqual(extractor.call_args.kwargs['text'],pending[1]['Textual Review'])
+                self.assertFalse((paths.path('results')/'.operation.lock').exists())
 
 if __name__=='__main__':unittest.main()
