@@ -1,6 +1,6 @@
 # Medication Experience Assistant validation
 
-Current automated validation: 2026-09-12; original interface validation: 2026-09-09. Status: implemented and tested dataset-backed interactive assistant; no conference acceptance or independent human answer-quality certification is claimed.
+Latest automated regression: 2026-09-14 (architecture cleanup); prior scope validation: 2026-09-12; original interface validation: 2026-09-09. Status: implemented and tested dataset-backed interactive assistant; no conference acceptance or independent human answer-quality certification is claimed.
 
 ## Implemented scope
 
@@ -22,7 +22,7 @@ Graph relation weights count extracted relation occurrences. Chat counts dedupli
 
 ## Automated validation
 
-Command: `node tests/frontend/review-assistant.test.js`.
+Build the selected website dataset first with `.venv/bin/weightloss build-web`, then run `node tests/frontend/review-assistant.test.js`. `make test` performs both steps and the Python regressions.
 
 Current result: **3,963 checks passed** over all eight medications, all 28 medication pairs, and the 2,727-record source. All four generic mappings, retained brands and canonical aliases are covered. Python independently calculates expected group counts, mean ratings, and review-level side-effect counts. Node tests exercise the shipped JavaScript against those expectations, verify every available source review against its original row, and cover pagination, context retention, English and Chinese follow-ups, unsupported questions, sample-size explanations, graph action payloads, duplicate terms, malformed/missing extraction, empty ratings, out-of-range ratings, no matches, and empty datasets.
 

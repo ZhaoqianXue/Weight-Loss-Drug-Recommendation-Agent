@@ -19,7 +19,7 @@ The active dataset is identified by configuration plus digest. The migrated run 
 
 ## Provenance records
 
-Each CLI operation records start/end time, status, run ID, Git commit and dirty flag, Python source hashes, installed package versions, lockfile hashes, configuration, input/output hashes, annotation coverage, model identifiers and parameters. Source hashes supplement Git commit when the checkout has uncommitted changes. Historical model revisions are unknown; they are never reconstructed from filenames. Synthetic replay explicitly records that no model was used.
+Processing, collection, build, evaluation, retrieval and freeze commands record start/end time, status, run ID, Git commit and dirty flag, Python source hashes, installed package versions, lockfile hashes, configuration, input/output hashes, annotation coverage, model identifiers and parameters. `new-run` writes an initialization manifest; `reproduce-fixture` records its synthetic replay. The read-only `validate` command prints its check result, and `serve` starts the local server; neither creates an operation manifest. Source hashes supplement Git commit when the checkout has uncommitted changes. Historical model revisions are unknown; they are never reconstructed from filenames. Synthetic replay explicitly records that no model was used.
 
 Operations use an exclusive per-run lock. If a process is forcibly killed, verify that its recorded PID is no longer running before removing `.operation.lock`. Reuse the working run to recover checkpoints; do not clear another process's lock. An operation marked completed means the command completed, not that all pending annotations were processed.
 

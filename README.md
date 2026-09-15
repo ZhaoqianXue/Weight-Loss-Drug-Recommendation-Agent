@@ -85,7 +85,7 @@ Install the [research environment](requirements/README.md), then explicitly invo
 
 Set `OPENAI_API_KEY` in the environment before model calls. `.env.example` documents variable names; `.env` is not automatically loaded. `WEIGHTLOSS_CONFIG` can select a configuration for the CLI; set `WEIGHTLOSS_ROOT` as well when using an external configuration without `project_root`.
 
-Each explicit operation writes a manifest under its run's `results/.../operations/`, including code and input hashes, configuration, installed packages, status and coverage. Provider event payloads are kept locally and ignored by Git. A failed model step retains its checkpoint; refresh the manifest after recovery by completing standardization. Validation rejects an inconsistent checkpoint before web publication. Frozen configurations reject refresh, extraction and standardization.
+Processing, collection, build, evaluation, retrieval and freeze commands write manifests under the selected run's `results/.../operations/`, including code and input hashes, configuration, installed packages, status and coverage. `new-run` records initialization separately; `validate` and `serve` do not create operation manifests. Provider event payloads are kept locally and ignored by Git. A failed model step retains its checkpoint; refresh the manifest after recovery by completing standardization. Validation rejects an inconsistent checkpoint before web publication. Frozen configurations reject refresh, extraction and standardization.
 
 The historical annotation seed is an active input under `data/external/annotation_seeds/pre_2026_refresh/`; do not remove it as a backup. See [data dictionary and lifecycle](data/README.md).
 

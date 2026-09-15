@@ -26,7 +26,7 @@ Proposal: retrieval-constrained LLM normalization. Retrieve candidate terms from
 
 ### Neo4j-only retrieval and TableRAG removal — undecided
 
-Recorded problem: src/weightloss/retrieval/chatbot.py runs a TableRAG ReAct loop over pandas backed by FAISS schema and cell indexes (archive/indexes/root/, src/weightloss/retrieval/table_loader.py) alongside a separate GraphRAG module. The FAISS indexes are already stale and fingerprint-guarded.
+Recorded problem: src/weightloss/retrieval/chatbot.py runs a TableRAG ReAct loop over pandas alongside a separate GraphRAG module. Runtime FAISS schema and cell indexes are selected by the `indexes` field in configs/pipeline.json (currently artifacts/indexes/migrated-2026-09-14/) and built by src/weightloss/retrieval/table_loader.py. The old indexes in archive/indexes/root/ and archive/indexes/website/ are historical and are not loaded by the current configuration; current indexes must be rebuilt and pass dataset/model fingerprint checks.
 
 Proposal: a single Neo4j database. Structured questions (counts, comparisons, time windows, per-platform estimates) run as parameterised Cypher aggregation templates over the evidence graph; evidence snippets are retrieved through a Neo4j vector index. The agent keeps four tools: graph aggregate, evidence search, conflict check between platform-level estimates, and coverage check. If this architecture is selected, remove table_loader.py, the TableRAG prompts and the FAISS loading paths only after the graph tools cover the validated question set in docs/chatbot-validation.md; update apps/web/flask_app.py and the tests accordingly.
 
