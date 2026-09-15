@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "2026-09-12",
+  "run_id": "migrated-2026-09-14",
+  "frozen": true,
+  "raw_dir": "data/raw/webmd/2026-09-12",
+  "extracted": "data/interim/migrated-2026-09-14/extracted_reviews_all.csv",
+  "standardized": "data/processed/migrated-2026-09-14/standardized_reviews_all.csv",
+  "annotation_seed_dir": "data/external/annotation_seeds/pre_2026_refresh",
+  "catalog": "configs/drugs.json",
+  "terminology": "data/external/terminology/ae.csv",
+  "terminology_embeddings": "artifacts/embeddings/legacy/embedded_ae.csv",
+  "indexes": "artifacts/indexes/migrated-2026-09-14",
+  "web_source": "apps/web",
+  "web_build": "artifacts/web",
+  "results": "results/migrated-2026-09-14"
+}

@@ -14,7 +14,7 @@ Current automated validation: 2026-09-12; original interface validation: 2026-09
 
 ## Source and counting rules
 
-The current website and assistant use `code_website/static/standardized_reviews_all.csv`, **2,727 rows covering eight brands and four generic names**. SHA-256: `e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8`. The September refresh reused 2,344 historical annotations and explicitly marks 383 rows pending (381 with text and 2 rating-only). See [the current project scope](project-scope.md) and machine-readable manifests for the current snapshot; [the original refresh report](history/data-refresh-2026-09-11.md) is historical.
+The current website and assistant use `artifacts/web/static/standardized_reviews_all.csv`, **2,727 rows covering eight brands and four generic names**. SHA-256: `e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8`. The September refresh reused 2,344 historical annotations and explicitly marks 383 rows pending (381 with text and 2 rating-only). See [the current project scope](project-scope.md) and machine-readable manifests for the current snapshot; [the original refresh report](history/data-refresh-2026-09-11.md) is historical.
 
 Review IDs R0001 onward refer to original data-row order, excluding the CSV header. They are stable for this snapshot, not globally stable identifiers. 46 records lack review text; they remain in statistical denominators but are excluded from readable evidence. Of these, 44 have reused historical empty-side-effect outputs and 2 carry the pending status. The historical reuse count therefore is not a count of analyzed narratives; see [the historical empty-text audit](history/empty-review-audit-2026-09-12.md). WebMD source IDs are additionally preserved in the CSV Review ID column. Structured side-effect terms are trimmed and case-folded; each term is counted once per review. Synonyms are not automatically merged. Percentages divide by all records for the medication. Invalid extraction is treated as unknown, not evidence that no symptom occurred; coverage is displayed. Ratings use finite numeric values in [1, 5], excluding blank or invalid values.
 
@@ -22,7 +22,7 @@ Graph relation weights count extracted relation occurrences. Chat counts dedupli
 
 ## Automated validation
 
-Command: `node tests/review-assistant.test.js`.
+Command: `node tests/frontend/review-assistant.test.js`.
 
 Current result: **3,963 checks passed** over all eight medications, all 28 medication pairs, and the 2,727-record source. All four generic mappings, retained brands and canonical aliases are covered. Python independently calculates expected group counts, mean ratings, and review-level side-effect counts. Node tests exercise the shipped JavaScript against those expectations, verify every available source review against its original row, and cover pagination, context retention, English and Chinese follow-ups, unsupported questions, sample-size explanations, graph action payloads, duplicate terms, malformed/missing extraction, empty ratings, out-of-range ratings, no matches, and empty datasets.
 
@@ -41,3 +41,7 @@ Iterations corrected: the evidence test initially assumed every record had text;
 The [official WWW2027 Demo call](https://www2027.thewebconf.org/demos/) requires an implemented and tested system and describes review criteria of originality, significance, quality, and clarity. It does not define a per-answer pass score. This work provides a functioning, inspectable demonstration and repeatable tests. It does not establish research novelty, clinical validity, unbiased comparative inference, broad natural-language coverage, user-study effectiveness, or acceptance-level quality. A paper-level evaluation would need a separately annotated question set, independent answer assessment, baseline comparisons, and appropriate evaluation of the research contribution. No such results have been fabricated.
 
 The frontend intentionally uses deterministic calculations and routing; the repository's separate LLM/TableRAG/GraphRAG backend has not been activated or evaluated in this task. No new clinical recommendations, dose advice, current approval claims, or external medical facts are generated from the review data.
+
+## Structural migration — 2026-09-14
+
+Maintained frontend source now lives in `apps/web/static/`; the selected CSV is copied into `artifacts/web/static/` by `weightloss build-web`. The backend adapter lives in `apps/web/flask_app.py`. Use the installed environment and `weightloss serve` for static preview, or `weightloss serve --backend` for Flask. Historical dated validation statements above retain their original scope; current migration checks are recorded in [the implementation report](refactoring/implementation.md).

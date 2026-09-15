@@ -1,0 +1,690 @@
+{
+  "code_chatbot/chatbot.py": {
+    "new_path": "src/weightloss/retrieval/chatbot.py",
+    "sha256_before": "a19582ef37136f578461ccdbc6cffe4aafa147dd7de9d958365d19e33d29bb7b",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_chatbot/graph_loader.py": {
+    "new_path": "src/weightloss/retrieval/graph_loader.py",
+    "sha256_before": "a0f8943b9227c49ee09d73ab144d2f8ec2571cd49d93c26ee349dd7b8afe0bdc",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_chatbot/table_loader.py": {
+    "new_path": "src/weightloss/retrieval/table_loader.py",
+    "sha256_before": "03f081da49e832764ff72411816fb7993e5e8abf7c2f540d7ef0ba2ba378a5da",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_embedding/embedding_ae.ipynb": {
+    "new_path": "notebooks/legacy/embedding_ae.ipynb",
+    "sha256_before": "3e5cbed7b0756a163062023b49f13cb81f9b4b12542925bbbb9ea8372e20c976",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_embedding/embedding_pi_heavy.py": {
+    "new_path": "src/weightloss/embeddings/embedding_pi_heavy.py",
+    "sha256_before": "5a7bcc5da4b63b9ae783549e2d9447013c65701302b9e44c311c6e4694140913",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_embedding/embedding_pi_light.py": {
+    "new_path": "src/weightloss/embeddings/embedding_pi_light.py",
+    "sha256_before": "4208323c694b2e06b3b7f6e06385ba6b1f7b5fbd869839dd7f23898e4cb6bbba",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_extraction/extract_all.py": {
+    "new_path": "src/weightloss/extraction/extract_all.py",
+    "sha256_before": "e5dc618f2c38b91253c905f101f7bfd808cc2514b760f36e3cdf21e08f98f2ed",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_extraction/prompt_extraction.py": {
+    "new_path": "experiments/legacy/extraction/prompt_extraction.py",
+    "sha256_before": "71231cff00754615c7d93e2ab2f8c877a2fd291ba8463c3023c9ba4443ed4d67",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_extraction/schema_extraction.py": {
+    "new_path": "src/weightloss/extraction/schema_extraction.py",
+    "sha256_before": "d0ecd4dfb9c074764f58004235327ccfa4ca90513af94fb963a9aa43461baa46",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_pipeline/refresh_data.py": {
+    "new_path": "src/weightloss/pipeline/refresh_data.py",
+    "sha256_before": "c0bceabb4604cc1fcf001a67ff555541d99640b30da68195d80a774c3770967d",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_pipeline/validate_data.py": {
+    "new_path": "src/weightloss/pipeline/validate_data.py",
+    "sha256_before": "6199fb92f9870a17b8c87c99c748757e3d76a872117a323df9f0992605939c6c",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_scraping/batch_scraper.py": {
+    "new_path": "src/weightloss/ingestion/batch_scraper.py",
+    "sha256_before": "1a0a3dd3589926697ec0243cddc217293589cc3ef90cffd96894672847977729",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_scraping/requirements.txt": {
+    "new_path": "requirements/legacy/scraping.txt",
+    "sha256_before": "e94d7c84718261b31a322f15a79d11ee9453172dd6bc425f66f41e7267842daf",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_scraping/scraper.py": {
+    "new_path": "src/weightloss/ingestion/scraper.py",
+    "sha256_before": "0ccbdc95e1de03fc3209b9183d44f9b86c56a5a3e91551058a2d4a35503a517d",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_scraping/webmd_praluent_reviews.html": {
+    "new_path": "archive/collection/webmd_praluent_reviews.html",
+    "sha256_before": "5d8cce5f8c911bea0fce3c0b22b01960572fd80a5a3289bbf5c2271b16993eca",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "code_standardization/environment_standardization.txt": {
+    "new_path": "src/weightloss/standardization/environment_standardization.txt",
+    "sha256_before": "a72173843c552f1cdbd00200512534e22e51fa26297879218aab2d643d55bf7f",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "code_standardization/evaluate_standardization.py": {
+    "new_path": "experiments/legacy/evaluation/evaluate_standardization.py",
+    "sha256_before": "df53456bffa07324f3bf722614eac652de832fc45be0bfd4dc146a1e32d7df3d",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_standardization/requirements_biobert.txt": {
+    "new_path": "requirements/legacy/biobert.txt",
+    "sha256_before": "aa374cf858ac7297fcc10896e0d07252961352ee5ec0273c18340b1eb22b69ae",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_standardization/side_effects_comparison.py": {
+    "new_path": "experiments/legacy/evaluation/side_effects_comparison.py",
+    "sha256_before": "b0240c7fdd374905d5a088dd6240dfbd87d1268b7b28a942a47d38ae627e976d",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_standardization/standardization.py": {
+    "new_path": "src/weightloss/standardization/baseline.py",
+    "sha256_before": "7b1c08c911667dc426dbab3924aa8c207f4f35e444910338b4f08c60fb794c21",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_standardization/standardization_new.py": {
+    "new_path": "experiments/legacy/standardization/standardization_new.py",
+    "sha256_before": "ff4458753b17e1087a5f549ab21ab950a3e28728aa48d9c4b27f155e2a823cf0",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_standardization/standardization_raw.ipynb": {
+    "new_path": "notebooks/legacy/standardization_raw.ipynb",
+    "sha256_before": "0bec6e361c17ba1b2442816d9b35c7734d492f2de6f812dfd81ed5caadbf4ef2",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_standardization/standardization_stat.py": {
+    "new_path": "src/weightloss/evaluation/standardization_stat.py",
+    "sha256_before": "9c35b94cdbb310d93747a97cfc29fa0178437eb06b9154239ef3ef96a206aa27",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_standardization/standardization_umls.py": {
+    "new_path": "experiments/legacy/standardization/standardization_umls.py",
+    "sha256_before": "a37cc488974587c92e5f33de56815ca9da8c6319a5780f621614b7b0cfca0198",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_standardization/standardize_all.py": {
+    "new_path": "src/weightloss/standardization/standardize_all.py",
+    "sha256_before": "f77cb658e307afdb3f3f05b9a980c8bd6214fe54e314791fbdbcf11f283bcea3",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_website/chatbot.py": {
+    "new_path": "apps/web/chatbot.py",
+    "sha256_before": "aa86389e0b29ab382ebd3ae348387f5656cb007b972e35b19c33bf803ef22154",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_website/data/database_table/cell_db_standardized_reviews_all/index.faiss": {
+    "new_path": "archive/indexes/website/cell_db_standardized_reviews_all/index.faiss",
+    "sha256_before": "c5dc8ef378cf9d64f577e08cc0b93317930f0078d12fbbe743abe71515177cae",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_website/data/database_table/cell_db_standardized_reviews_all/index.pkl": {
+    "new_path": "archive/indexes/website/cell_db_standardized_reviews_all/index.pkl",
+    "sha256_before": "798e9484490b94f36a338c5384193c2d23c6fff5d9d147eea16da87c80cb893c",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_website/data/database_table/schema_db_standardized_reviews_all/index.faiss": {
+    "new_path": "archive/indexes/website/schema_db_standardized_reviews_all/index.faiss",
+    "sha256_before": "8aae796cca560b98dc10e1aa34ccfad186e77de0cadfd2207ef45aa42da9384b",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_website/data/database_table/schema_db_standardized_reviews_all/index.pkl": {
+    "new_path": "archive/indexes/website/schema_db_standardized_reviews_all/index.pkl",
+    "sha256_before": "e958af6f38cca56f2af0d83f06878592a28cf19ae6d3138ff21ace7d4d51d826",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_website/data/standardized_reviews_all.csv": {
+    "new_path": "archive/website/data/standardized_reviews_all.csv",
+    "sha256_before": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_website/flask_app.py": {
+    "new_path": "apps/web/flask_app.py",
+    "sha256_before": "75c0d8f298d933ed2b1601f0f6f3aada02fa846d5cac76fe5c38eb7790caacb8",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_website/requirements.txt": {
+    "new_path": "requirements/legacy/website.txt",
+    "sha256_before": "5a255e6cac699726d0468444d22373426b96bcacd73733e6faf15a329675088b",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "code_website/static/dataset_manifest.json": {
+    "new_path": "artifacts/web/static/dataset_manifest.json",
+    "sha256_before": "38c5085f1f289b978cdf476db727ea4c10268c88834d7acd4de0efa65e9326e1",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "code_website/static/drugs.json": {
+    "new_path": "artifacts/web/static/drugs.json",
+    "sha256_before": "6cb44ea6afa37877ea21a4e71d6f70a66ac21128c1f071e4dee17959a8613987",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "code_website/static/review-assistant.js": {
+    "new_path": "apps/web/static/review-assistant.js",
+    "sha256_before": "ccc44d6363a457cf8caec08ef8c586dbcac3688e59976413923d1f25db3ae6b0",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "code_website/static/standardized_reviews_all.csv": {
+    "new_path": "artifacts/web/static/standardized_reviews_all.csv",
+    "sha256_before": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "code_website/templates/knowledge_graph.html": {
+    "new_path": "apps/web/templates/knowledge_graph.html",
+    "sha256_before": "a2a7704fc31c3168ec1c48ae062e74f9a8800dfe8c2140cce54a06fbeedb4993",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "config/drugs.json": {
+    "new_path": "configs/drugs.json",
+    "sha256_before": "6cb44ea6afa37877ea21a4e71d6f70a66ac21128c1f071e4dee17959a8613987",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_backup/excluded_exenatide_2026-09-12/webmd_bydureon_reviews.csv": {
+    "new_path": "archive/data_backup/excluded_exenatide_2026-09-12/webmd_bydureon_reviews.csv",
+    "sha256_before": "bdbf9021c9c1c6fd147c13dba9bfeec10b445083430eb82ce3a272007b73432c",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_backup/excluded_exenatide_2026-09-12/webmd_byetta_reviews.csv": {
+    "new_path": "archive/data_backup/excluded_exenatide_2026-09-12/webmd_byetta_reviews.csv",
+    "sha256_before": "21743933114407012d4d2b60ec7877ae4ea3b7933271adc0f6596712978c2c6d",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_backup/extracted_reviews_all.csv": {
+    "new_path": "archive/data_backup/extracted_reviews_all.csv",
+    "sha256_before": "ca53c571675aa02ff2024fdcd6e287df1e74b4e76f090043eac518a52eec8b52",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_backup/knowledge_graph.html": {
+    "new_path": "archive/data_backup/knowledge_graph.html",
+    "sha256_before": "9c86021817d33c006a116bfadd43de4313d5b0333693b7edd16759da20e627bf",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_backup/pre_2026_refresh/extracted_reviews_all.csv": {
+    "new_path": "data/external/annotation_seeds/pre_2026_refresh/extracted_reviews_all.csv",
+    "sha256_before": "ca53c571675aa02ff2024fdcd6e287df1e74b4e76f090043eac518a52eec8b52",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_backup/pre_2026_refresh/manifest.json": {
+    "new_path": "data/external/annotation_seeds/pre_2026_refresh/manifest.json",
+    "sha256_before": "6ee6d85ba8123e0e4410a6ecde953f8e619ac7e16a90adba1a7be5b0b72d5438",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_backup/pre_2026_refresh/standardized_reviews_all.csv": {
+    "new_path": "data/external/annotation_seeds/pre_2026_refresh/standardized_reviews_all.csv",
+    "sha256_before": "78a02d0bf195960a295ecaf98d56c21e0900eeadca0847cc104c5fabd9f74ad5",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_backup/pre_2026_refresh/webmd_all_reviews.csv": {
+    "new_path": "data/external/annotation_seeds/pre_2026_refresh/webmd_all_reviews.csv",
+    "sha256_before": "59810e957b277351a08bb164597a17367519b0f375207e908348923734ef7ea1",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_backup/standardized_reviews_all.csv": {
+    "new_path": "archive/data_backup/standardized_reviews_all.csv",
+    "sha256_before": "78a02d0bf195960a295ecaf98d56c21e0900eeadca0847cc104c5fabd9f74ad5",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_embedded/ae.csv": {
+    "new_path": "data/external/terminology/ae.csv",
+    "sha256_before": "07eb812b95a76a5fe7221ed62e70b80d3a73ceb4cebdedf1e9c47f0556686a97",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_embedded/embedded_ae.csv": {
+    "new_path": "artifacts/embeddings/legacy/embedded_ae.csv",
+    "sha256_before": "193c94c3e00ca8b3d662211cae8db7d93c3157e9860ea9faf02ea8e94df2c862",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_extracted/extracted_reviews_all.csv": {
+    "new_path": "data/interim/migrated-2026-09-14/extracted_reviews_all.csv",
+    "sha256_before": "bb068b33664648edd795a3b5e66bfc42fb4540fe1a1431b1acba893e3cfec10e",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_extracted/extracted_reviews_raw10.csv": {
+    "new_path": "results/legacy/extraction/extracted_reviews_raw10.csv",
+    "sha256_before": "8f7637abfcc458e5f658876a52d4381d84d0843151c5e5c5d58430e75174c143",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_extracted/extracted_reviews_top10.csv": {
+    "new_path": "results/legacy/extraction/extracted_reviews_top10.csv",
+    "sha256_before": "aef936703e2ffba905529a55b541a05940b3c2460271422b2f26b3528ffc9164",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_literature/ACL2023.pdf": {
+    "new_path": "docs/references/ACL2023.pdf",
+    "sha256_before": "d6a31a4f5652f3313cc50641e57c6cf0113b05037a7ae40a2aea9ce5c21ea568",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_literature/ReAct.pdf": {
+    "new_path": "docs/references/ReAct.pdf",
+    "sha256_before": "f285b0971ae4a790e402fb93966bed3adde2cf0a04977d08b2b40d6ab0cace69",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_literature/TableRAG.pdf": {
+    "new_path": "docs/references/TableRAG.pdf",
+    "sha256_before": "d44ef4b2fb64a63380a1518673bb2e15d80733d69b8234431a3d7f34a0d625e6",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_literature/ao-58-4-948.pdf": {
+    "new_path": "docs/references/ao-58-4-948.pdf",
+    "sha256_before": "c372c544eebe759cbac24d9d48cd5f8ac75a5992f27f8219fb9742c1bc75610b",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_literature/ao-64-15-4324.pdf": {
+    "new_path": "docs/references/ao-64-15-4324.pdf",
+    "sha256_before": "87528398093ae77d59d1d9b1c8062660ac0433c0cd6f91457f91f7d574704802",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_prescribing_information/Prescribing Information Mounjaro.pdf": {
+    "new_path": "data/external/prescribing_information/Prescribing Information Mounjaro.pdf",
+    "sha256_before": "15677ffe498bf3740e623a9018d85b523116316f687dcedb3216c526fa302e9c",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_prescribing_information/Prescribing Information Ozempic.pdf": {
+    "new_path": "data/external/prescribing_information/Prescribing Information Ozempic.pdf",
+    "sha256_before": "6c5b755acee5d9691adf31d941049e899902e5ecde01d4942305f99b2507adca",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_prescribing_information/Prescribing Information Rybelsus.pdf": {
+    "new_path": "data/external/prescribing_information/Prescribing Information Rybelsus.pdf",
+    "sha256_before": "9d1e05d87537544de5d203447827801ac14249535a5ad0ec76009c13276564d4",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_prescribing_information/Prescribing Information Saxenda.pdf": {
+    "new_path": "data/external/prescribing_information/Prescribing Information Saxenda.pdf",
+    "sha256_before": "2aba3f8dd719d50b6032d82a5c59eeecec3ed275d84f822ef93cb6390042c69b",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_prescribing_information/Prescribing Information Victoza.pdf": {
+    "new_path": "data/external/prescribing_information/Prescribing Information Victoza.pdf",
+    "sha256_before": "1a5ad6fc6de7c5190f502ad77e8c8e838542077c93dc1e01316cab35f3bedd03",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_prescribing_information/Prescribing Information Wegovy.pdf": {
+    "new_path": "data/external/prescribing_information/Prescribing Information Wegovy.pdf",
+    "sha256_before": "b2380bf15154eaabf3de68c2a167ecec5fa398289308399924347d6d6c179f03",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_prescribing_information/Prescribing Information Zepbound.pdf": {
+    "new_path": "data/external/prescribing_information/Prescribing Information Zepbound.pdf",
+    "sha256_before": "ea226a087a2aa19411b550c8d187af9a14e1d279109bbe94e079037df3095c5e",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_standardized/cui_atom_mappings_v4.json": {
+    "new_path": "results/legacy/standardization/cui_atom_mappings_v4.json",
+    "sha256_before": "febe17dd4493f8c3497db02f6811ee2073bda0031bfc93b7aae1a7c8d7800317",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_atom_mappings_v5.json": {
+    "new_path": "results/legacy/standardization/cui_atom_mappings_v5.json",
+    "sha256_before": "f46a19e47cfd94f8003ae80ba885a70e91904621636b759907d564dfdc503e35",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_atom_mappings_v6.json": {
+    "new_path": "results/legacy/standardization/cui_atom_mappings_v6.json",
+    "sha256_before": "d5cac996a316f5feb2ba7f103759cd59738d7e2752086fd34fc7d469378a4e34",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_mappings.json": {
+    "new_path": "results/legacy/standardization/cui_mappings.json",
+    "sha256_before": "54edfed0e7e2d7d39e28549e3da0b9a66c809563abee9dfdd1f2aead21c1751c",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_mappings_umls.json": {
+    "new_path": "results/legacy/standardization/cui_mappings_umls.json",
+    "sha256_before": "9a6e1145f9f28d98ff4c18b700927b1879616a5f9f94e992fc28cce12dd98a09",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_mappings_umls_v2.json": {
+    "new_path": "results/legacy/standardization/cui_mappings_umls_v2.json",
+    "sha256_before": "b0514d40cb232d63a41b097bfbbe1110542e97993c506c080d8efd724bf1f97e",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_mappings_umls_v3.json": {
+    "new_path": "results/legacy/standardization/cui_mappings_umls_v3.json",
+    "sha256_before": "3a2f542c097026838265f17ddf506e2f311fa2cb4cfa655ce4576fe3888dd4a4",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_mappings_umls_v4.json": {
+    "new_path": "results/legacy/standardization/cui_mappings_umls_v4.json",
+    "sha256_before": "6e8377592bd836a209a7ff21c9e645844f66915c424101e757b67a65b7746928",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_mappings_umls_v5.json": {
+    "new_path": "results/legacy/standardization/cui_mappings_umls_v5.json",
+    "sha256_before": "eb5a0254be0de26d0ccfd3fb39b4e4805196bb9ead49fce3028bbd4475d9d065",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/cui_mappings_umls_v6.json": {
+    "new_path": "results/legacy/standardization/cui_mappings_umls_v6.json",
+    "sha256_before": "ed5dd4dbdfea302c9e4802d2d65f35b50bd3dcb92b686132e0e34c584538ecb2",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/dataset_manifest.json": {
+    "new_path": "data/processed/migrated-2026-09-14/dataset_manifest.json",
+    "sha256_before": "38c5085f1f289b978cdf476db727ea4c10268c88834d7acd4de0efa65e9326e1",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_standardized/detailed_analysis.json": {
+    "new_path": "results/legacy/standardization/detailed_analysis.json",
+    "sha256_before": "4bd0c670f4be67f65ac692737e9461925ef92bd03fd4157390d34e2dbaf80c30",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/detailed_side_effects_comparison.csv": {
+    "new_path": "results/legacy/standardization/detailed_side_effects_comparison.csv",
+    "sha256_before": "f7154f1129b0b655634496a5e65a31f139e8de9aababdad62b72e86a78979019",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/llm_mappings_cache_v6.json": {
+    "new_path": "results/legacy/standardization/llm_mappings_cache_v6.json",
+    "sha256_before": "23de1ab4f12986504b334fe33177759c2439f6abda42df57ece1b4e3e45128a4",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardization_analysis.png": {
+    "new_path": "results/legacy/standardization/standardization_analysis.png",
+    "sha256_before": "b606a0ae7dd99c953dc45c9dd16838ae6b69df8785fc492ee49cc052a4c36492",
+    "preserve_bytes": false,
+    "role": "historical"
+  },
+  "data_standardized/standardization_comparison.csv": {
+    "new_path": "results/legacy/standardization/standardization_comparison.csv",
+    "sha256_before": "f85ed196d3da4ac39a7616b8e0787b92e43c9642293218700604ad51de74379c",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardization_report_umls.json": {
+    "new_path": "results/legacy/standardization/standardization_report_umls.json",
+    "sha256_before": "bf24b4a291914a932857f341363b425e1911a4a3ff6ccf89c895841b243a07c2",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardization_report_umls_v2.json": {
+    "new_path": "results/legacy/standardization/standardization_report_umls_v2.json",
+    "sha256_before": "8d1a58fa3289cd295e99fef68dab6a08b78fe9d83bebc1bf5dbe8ce71a1065ae",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardization_report_umls_v3.json": {
+    "new_path": "results/legacy/standardization/standardization_report_umls_v3.json",
+    "sha256_before": "89e4bea7025afcc13d9a48928916d172b201eafdffa203021915a34f585816a8",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardization_report_umls_v4.json": {
+    "new_path": "results/legacy/standardization/standardization_report_umls_v4.json",
+    "sha256_before": "875c4b13ec94171c78d46fe426563546fceeda8b1093acb528fea679fab4df08",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardization_report_umls_v5.json": {
+    "new_path": "results/legacy/standardization/standardization_report_umls_v5.json",
+    "sha256_before": "608ca9b903db91ca12cef0bfd095fb83cc31a84d5f00a0cd1fd12144e2378a02",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardization_report_umls_v6.json": {
+    "new_path": "results/legacy/standardization/standardization_report_umls_v6.json",
+    "sha256_before": "ffd32037e667cad5c8988a2de06a2e155823790a734315093d17c28cdb046509",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews.csv",
+    "sha256_before": "7cee73733bcce29eaa60b4c2a4021610bcea4590c9ecf29ae5755d49f4fcc69d",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews_all.csv": {
+    "new_path": "data/processed/migrated-2026-09-14/standardized_reviews_all.csv",
+    "sha256_before": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_standardized/standardized_reviews_top10.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews_top10.csv",
+    "sha256_before": "b9d8a09c49609fdbc6122c053be43b27e43c5403252cc3d41b17101fd524ecfe",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews_umls.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews_umls.csv",
+    "sha256_before": "445af2c15dc33d9bc8fff598347d686fbabea88138a4d3da17a10b0e0516d0b3",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews_umls_v2.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews_umls_v2.csv",
+    "sha256_before": "d31b8039ea63e5288918ee8eedea568d8bc8d1d530a22f4816e0fd9542c7cc4e",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews_umls_v3.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews_umls_v3.csv",
+    "sha256_before": "0597bbc1353920a0d935eee2545ad708ba322b7695e659931228eff3e84344e7",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews_umls_v4.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews_umls_v4.csv",
+    "sha256_before": "f130e23119d9af46fe7070563c05a76ec2738f008e476e9b30f688271e98c0eb",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews_umls_v5.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews_umls_v5.csv",
+    "sha256_before": "0075e47bad0a83874d61ef35fd8f5be4b79eddf8dbb2499050ce970adddca308",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_standardized/standardized_reviews_umls_v6.csv": {
+    "new_path": "results/legacy/standardization/standardized_reviews_umls_v6.csv",
+    "sha256_before": "e875db1468fcf99d1d16058e60eca8d0000da01d121000046008265f19359f0d",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "data_webmd/collection_manifest.json": {
+    "new_path": "data/raw/webmd/2026-09-12/collection_manifest.json",
+    "sha256_before": "c63e12e2b0a9cb8841e0716d3c0661e3d5c619385aee4b557deafd1462d98ebe",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_all_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_all_reviews.csv",
+    "sha256_before": "7c77d5708009e2a9837dc7f9c03ebb4b931667ddbcd1381dea1522a5315e4d0d",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_mounjaro_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_mounjaro_reviews.csv",
+    "sha256_before": "4d03b9c7dd468a849b2704a53617f3acabd3c718b05dac0efd4e226ff1c3e93a",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_ozempic_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_ozempic_reviews.csv",
+    "sha256_before": "e5931df0aad38b6bc2011f69ee7102fada2d0245d6329c44eb2a28ce28f7960e",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_rybelsus_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_rybelsus_reviews.csv",
+    "sha256_before": "45506db4ad2896f763b3f489b801c52253c7d4a35ec5295a9bb493f873332cf9",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_saxenda_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_saxenda_reviews.csv",
+    "sha256_before": "46048fc6144c1cd33fc4dc7a0c389fc1591f0a1c952012f606ea7d341ec04c72",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_trulicity_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_trulicity_reviews.csv",
+    "sha256_before": "d0a5fcdd9b419388e20edffdf036a38adf8f4f7a7cda07ed9686d89c6e94f132",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_victoza_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_victoza_reviews.csv",
+    "sha256_before": "bf2386944a712176dbe6877fcbbe826180a73ba5a73875d694acba960fcd4976",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_wegovy_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_wegovy_reviews.csv",
+    "sha256_before": "eb4054efad2c7d8d0c1ec82c1b381d997ae0900920985675b26a69a7f9f69eec",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "data_webmd/webmd_zepbound_reviews.csv": {
+    "new_path": "data/raw/webmd/2026-09-12/webmd_zepbound_reviews.csv",
+    "sha256_before": "ef9875e9d968aee04895b6783ca699b34bb65ca78e89b42314d1e4311c57c052",
+    "preserve_bytes": true,
+    "role": "maintained_input_or_code"
+  },
+  "database_table/cell_db_standardized_reviews_all/index.faiss": {
+    "new_path": "archive/indexes/root/cell_db_standardized_reviews_all/index.faiss",
+    "sha256_before": "c5dc8ef378cf9d64f577e08cc0b93317930f0078d12fbbe743abe71515177cae",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "database_table/cell_db_standardized_reviews_all/index.pkl": {
+    "new_path": "archive/indexes/root/cell_db_standardized_reviews_all/index.pkl",
+    "sha256_before": "798e9484490b94f36a338c5384193c2d23c6fff5d9d147eea16da87c80cb893c",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "database_table/schema_db_standardized_reviews_all/index.faiss": {
+    "new_path": "archive/indexes/root/schema_db_standardized_reviews_all/index.faiss",
+    "sha256_before": "8aae796cca560b98dc10e1aa34ccfad186e77de0cadfd2207ef45aa42da9384b",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "database_table/schema_db_standardized_reviews_all/index.pkl": {
+    "new_path": "archive/indexes/root/schema_db_standardized_reviews_all/index.pkl",
+    "sha256_before": "e958af6f38cca56f2af0d83f06878592a28cf19ae6d3138ff21ace7d4d51d826",
+    "preserve_bytes": true,
+    "role": "historical"
+  },
+  "dataset_provenance.py": {
+    "new_path": "src/weightloss/provenance.py",
+    "sha256_before": "218f51020c34d7a760b8bbbc936a8cce5697fd64507c2545493b8367c2aba492",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "drug_catalog.py": {
+    "new_path": "src/weightloss/catalog.py",
+    "sha256_before": "2d06be1ea713d21fc30378c8b14d6bfe2870d69c3771ea6e2cb00cd78bca83d3",
+    "preserve_bytes": false,
+    "role": "maintained_input_or_code"
+  },
+  "tests/review-assistant.test.js": {
+    "new_path": "tests/frontend/review-assistant.test.js",
+    "sha256_before": "f0690a0c08070418a8efa213a756be044cb383078a01509f127ca03049d7b8e1",
+    "preserve_bytes": false,
+    "role": "maintained_test"
+  },
+  "tests/test_refresh.py": {
+    "new_path": "tests/unit/test_collection.py",
+    "additional_paths": [
+      "tests/unit/test_annotations.py",
+      "tests/integration/test_snapshot.py"
+    ],
+    "sha256_before": "9708d9c6bfe6e148eb05286fd68689c131ac5c77a84d2312cc949c8470b4b678",
+    "preserve_bytes": false,
+    "role": "maintained_tests_split_by_responsibility"
+  }
+}

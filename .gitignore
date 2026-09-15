@@ -2,16 +2,24 @@
 __pycache__/
 *.py[cod]
 .venv/
+.venv-*/
+*.egg-info/
+build/
+dist/
 .env
 .env.*
 !.env.example
 .cursor/
 .ipynb_checkpoints/
 .slide-build/
-outputs/
 *.pptx
-# Regenerable experiment caches exceed GitHub's normal file-size limit.
-data_standardized/biobert_embeddings_v5.json
-data_standardized/embeddings_cache_v6.pkl
-
 .cache/
+artifacts/web/
+artifacts/web-runs/
+artifacts/indexes/*
+!artifacts/indexes/README.md
+artifacts/embeddings/legacy/biobert_embeddings_v5.json
+artifacts/embeddings/legacy/embeddings_cache_v6.pkl
+# Provider event payloads may contain review text; keep manifests tracked separately.
+results/**/events.jsonl
+results/**/.operation.lock

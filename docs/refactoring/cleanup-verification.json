@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "date": "2026-09-14",
+  "changes": "Final directory cleanup after removal of transitional wrappers",
+  "offline_python_tests": 27,
+  "research_adapter_tests": 5,
+  "frontend_checks": 3963,
+  "structure": {
+    "status": "passed",
+    "top_level_directories": [
+      "apps",
+      "archive",
+      "artifacts",
+      "configs",
+      "data",
+      "docs",
+      "experiments",
+      "notebooks",
+      "requirements",
+      "results",
+      "scripts",
+      "src",
+      "tests"
+    ],
+    "issues": []
+  },
+  "migration": {
+    "status": "passed",
+    "mapped_files": 114,
+    "immutable_files_verified": 91,
+    "missing": [],
+    "changed_immutable": []
+  },
+  "research_test_output": ".venv-research/bin/python -m unittest discover -s tests/integration/research -p 'test_*.py'\n.....\n----------------------------------------------------------------------\nRan 5 tests in 12.066s\n\nOK\n",
+  "offline_check_output": ".venv/bin/python -m weightloss validate\n{\n  \"status\": \"passed\",\n  \"reviews\": 2727,\n  \"generics\": 4,\n  \"brands\": 8,\n  \"text_reviews\": 2681,\n  \"extraction_status\": {\n    \"pending\": 383,\n    \"historical_reused\": 2344\n  },\n  \"files\": {\n    \"extracted\": {\n      \"rows\": 2727,\n      \"sha256\": \"bb068b33664648edd795a3b5e66bfc42fb4540fe1a1431b1acba893e3cfec10e\"\n    },\n    \"standardized\": {\n      \"rows\": 2727,\n      \"sha256\": \"e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8\"\n    }\n  }\n}\n.venv/bin/python -m weightloss build-web\n/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web\n.venv/bin/python -m unittest discover -s tests -p 'test_*.py'\n........................Trulicity page 1: 1/2\n...\n----------------------------------------------------------------------\nRan 27 tests in 7.874s\n\nOK\nPYTHON=\"/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/.venv/bin/python\" node tests/frontend/review-assistant.test.js\n{\"checks\":3963,\"pairs\":28,\"brands\":8,\"records\":2727,\"status\":\"passed\"}\n.venv/bin/python scripts/audit_migration.py\n{\n  \"status\": \"passed\",\n  \"mapped_files\": 114,\n  \"immutable_files_verified\": 91,\n  \"missing\": [],\n  \"changed_immutable\": []\n}\n.venv/bin/python scripts/audit_structure.py\n{\n  \"status\": \"passed\",\n  \"top_level_directories\": [\n    \"apps\",\n    \"archive\",\n    \"artifacts\",\n    \"configs\",\n    \"data\",\n    \"docs\",\n    \"experiments\",\n    \"notebooks\",\n    \"requirements\",\n    \"results\",\n    \"scripts\",\n    \"src\",\n    \"tests\"\n  ],\n  \"issues\": []\n}\n",
+  "historical_qa_note": "moved byte-for-byte to docs/history/chatbot-qa-local-note.md",
+  "planning_records": "docs/refactoring/planning/",
+  "retained_local_environments": [
+    ".venv/",
+    ".venv-research/"
+  ],
+  "removed_temporary_environment": ".venv-wheel/",
+  "remote_CI": "configured; not executed in this task"
+}

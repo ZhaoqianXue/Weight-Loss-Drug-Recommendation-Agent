@@ -1,0 +1,62 @@
+{
+  "date": "2026-09-14",
+  "status": "passed",
+  "local_runtime": {
+    "python": "3.11.4",
+    "node": "v22.15.0",
+    "operating_system": "14.1",
+    "architecture": "x86_64"
+  },
+  "checks": {
+    "offline_python": {
+      "passed": 27,
+      "log": ".venv/bin/python -m unittest discover -s tests -p 'test_*.py'\n..................Trulicity page 1: 1/2\n.........\n----------------------------------------------------------------------\nRan 27 tests in 7.949s\n\nOK\n"
+    },
+    "frontend": {
+      "passed": 3963,
+      "brand_pairs": 28,
+      "brands": 8,
+      "records": 2727
+    },
+    "research_adapters": {
+      "passed": 5,
+      "live_model_calls": false,
+      "log": ".....\n----------------------------------------------------------------------\nRan 5 tests in 66.716s\n\nOK\n"
+    },
+    "migration": {
+      "mapped_files": 113,
+      "immutable_files_verified": 91
+    },
+    "wheel_install": {
+      "validate": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"passed\",\n  \"reviews\": 2727,\n  \"generics\": 4,\n  \"brands\": 8,\n  \"text_reviews\": 2681,\n  \"extraction_status\": {\n    \"pending\": 383,\n    \"historical_reused\": 2344\n  },\n  \"files\": {\n    \"extracted\": {\n      \"rows\": 2727,\n      \"sha256\": \"bb068b33664648edd795a3b5e66bfc42fb4540fe1a1431b1acba893e3cfec10e\"\n    },\n    \"standardized\": {\n      \"rows\": 2727,\n      \"sha256\": \"e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8\"\n    }\n  }\n}\n",
+        "stderr": ""
+      },
+      "help": {
+        "returncode": 0,
+        "stdout": "usage: weightloss [-h] [--root ROOT] [--config CONFIG]\n                  {validate,build-web,refresh,freeze,build-index,import-graph,chatbot,stats,extract,standardize,new-run,collect,reproduce-fixture,serve}\n                  ...\n\npositional arguments:\n  {validate,build-web,refresh,freeze,build-index,import-graph,chatbot,stats,extract,standardize,new-run,collect,reproduce-fixture,serve}\n\noptions:\n  -h, --help            show this help message and exit\n  --root ROOT           Research checkout, independent of cwd\n  --config CONFIG       Pipeline config JSON\n",
+        "stderr": ""
+      }
+    },
+    "offline_environment": "Checked 17 packages in 19ms\nAll installed packages are compatible\n",
+    "research_environment": "Using Python 3.11.4 environment at: .venv-research\nChecked 104 packages in 19ms\nAll installed packages are compatible\n",
+    "documentation_links": "passed",
+    "python_syntax": "passed"
+  },
+  "locks_sha256": {
+    "requirements/research-macos-x86_64-py311.lock": "013b526d4f46f386ce62d8c7bb0762656e962fec12440968cd66e28511e5a4bc",
+    "requirements/offline.lock": "60a5a9850184d44cace48abb0efb5b68dc715c991f3a03090bdab3006ec36541"
+  },
+  "limitations": [
+    "CI workflows are configured but were not run remotely in this task.",
+    "No live scraping, OpenAI calls, model weight downloads, FAISS rebuilds or Neo4j imports were performed.",
+    "Research lock tested locally only on Intel macOS 14.1 / Python 3.11.4."
+  ],
+  "resolved_issues": [
+    "Research installation uses an explicit macOS 14 target to avoid legacy platform detection/source builds.",
+    "Intel macOS Torch is pinned to 2.2.2; chardet is pinned to the compatible historical 5.2.0.",
+    "Initial heavy import test timed out at 120 seconds; a rerun with a 300-second bound passed the full adapter suite in 66.716 seconds."
+  ],
+  "directory_cleanup_followup": "cleanup-verification.json"
+}

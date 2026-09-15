@@ -1,0 +1,10 @@
+{
+  "status": "historical preserved input",
+  "file": "embedded_ae.csv",
+  "sha256": "193c94c3e00ca8b3d662211cae8db7d93c3157e9860ea9faf02ea8e94df2c862",
+  "model_in_current_consumer": "pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb",
+  "original_model_revision": "unknown",
+  "original_input_version": "unknown; not inferred from current terminology hash",
+  "current_terminology_sha256": "07eb812b95a76a5fe7221ed62e70b80d3a73ceb4cebdedf1e9c47f0556686a97",
+  "note": "Current association recorded for audit; not proof these embeddings were generated from this exact terminology version."
+}

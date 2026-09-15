@@ -1,0 +1,161 @@
+{
+  "status": "historical",
+  "original_experiment_configuration": "unknown unless documented in the original report",
+  "files": [
+    {
+      "original_path": "data_extracted/extracted_reviews_raw10.csv",
+      "path": "results/legacy/extraction/extracted_reviews_raw10.csv",
+      "sha256": "8f7637abfcc458e5f658876a52d4381d84d0843151c5e5c5d58430e75174c143"
+    },
+    {
+      "original_path": "data_extracted/extracted_reviews_top10.csv",
+      "path": "results/legacy/extraction/extracted_reviews_top10.csv",
+      "sha256": "aef936703e2ffba905529a55b541a05940b3c2460271422b2f26b3528ffc9164"
+    },
+    {
+      "original_path": "data_standardized/cui_atom_mappings_v4.json",
+      "path": "results/legacy/standardization/cui_atom_mappings_v4.json",
+      "sha256": "febe17dd4493f8c3497db02f6811ee2073bda0031bfc93b7aae1a7c8d7800317"
+    },
+    {
+      "original_path": "data_standardized/cui_atom_mappings_v5.json",
+      "path": "results/legacy/standardization/cui_atom_mappings_v5.json",
+      "sha256": "f46a19e47cfd94f8003ae80ba885a70e91904621636b759907d564dfdc503e35"
+    },
+    {
+      "original_path": "data_standardized/cui_atom_mappings_v6.json",
+      "path": "results/legacy/standardization/cui_atom_mappings_v6.json",
+      "sha256": "d5cac996a316f5feb2ba7f103759cd59738d7e2752086fd34fc7d469378a4e34"
+    },
+    {
+      "original_path": "data_standardized/cui_mappings.json",
+      "path": "results/legacy/standardization/cui_mappings.json",
+      "sha256": "54edfed0e7e2d7d39e28549e3da0b9a66c809563abee9dfdd1f2aead21c1751c"
+    },
+    {
+      "original_path": "data_standardized/cui_mappings_umls.json",
+      "path": "results/legacy/standardization/cui_mappings_umls.json",
+      "sha256": "9a6e1145f9f28d98ff4c18b700927b1879616a5f9f94e992fc28cce12dd98a09"
+    },
+    {
+      "original_path": "data_standardized/cui_mappings_umls_v2.json",
+      "path": "results/legacy/standardization/cui_mappings_umls_v2.json",
+      "sha256": "b0514d40cb232d63a41b097bfbbe1110542e97993c506c080d8efd724bf1f97e"
+    },
+    {
+      "original_path": "data_standardized/cui_mappings_umls_v3.json",
+      "path": "results/legacy/standardization/cui_mappings_umls_v3.json",
+      "sha256": "3a2f542c097026838265f17ddf506e2f311fa2cb4cfa655ce4576fe3888dd4a4"
+    },
+    {
+      "original_path": "data_standardized/cui_mappings_umls_v4.json",
+      "path": "results/legacy/standardization/cui_mappings_umls_v4.json",
+      "sha256": "6e8377592bd836a209a7ff21c9e645844f66915c424101e757b67a65b7746928"
+    },
+    {
+      "original_path": "data_standardized/cui_mappings_umls_v5.json",
+      "path": "results/legacy/standardization/cui_mappings_umls_v5.json",
+      "sha256": "eb5a0254be0de26d0ccfd3fb39b4e4805196bb9ead49fce3028bbd4475d9d065"
+    },
+    {
+      "original_path": "data_standardized/cui_mappings_umls_v6.json",
+      "path": "results/legacy/standardization/cui_mappings_umls_v6.json",
+      "sha256": "ed5dd4dbdfea302c9e4802d2d65f35b50bd3dcb92b686132e0e34c584538ecb2"
+    },
+    {
+      "original_path": "data_standardized/detailed_analysis.json",
+      "path": "results/legacy/standardization/detailed_analysis.json",
+      "sha256": "4bd0c670f4be67f65ac692737e9461925ef92bd03fd4157390d34e2dbaf80c30"
+    },
+    {
+      "original_path": "data_standardized/detailed_side_effects_comparison.csv",
+      "path": "results/legacy/standardization/detailed_side_effects_comparison.csv",
+      "sha256": "f7154f1129b0b655634496a5e65a31f139e8de9aababdad62b72e86a78979019"
+    },
+    {
+      "original_path": "data_standardized/llm_mappings_cache_v6.json",
+      "path": "results/legacy/standardization/llm_mappings_cache_v6.json",
+      "sha256": "23de1ab4f12986504b334fe33177759c2439f6abda42df57ece1b4e3e45128a4"
+    },
+    {
+      "original_path": "data_standardized/standardization_analysis.png",
+      "path": "results/legacy/standardization/standardization_analysis.png",
+      "sha256": "b606a0ae7dd99c953dc45c9dd16838ae6b69df8785fc492ee49cc052a4c36492"
+    },
+    {
+      "original_path": "data_standardized/standardization_comparison.csv",
+      "path": "results/legacy/standardization/standardization_comparison.csv",
+      "sha256": "f85ed196d3da4ac39a7616b8e0787b92e43c9642293218700604ad51de74379c"
+    },
+    {
+      "original_path": "data_standardized/standardization_report_umls.json",
+      "path": "results/legacy/standardization/standardization_report_umls.json",
+      "sha256": "bf24b4a291914a932857f341363b425e1911a4a3ff6ccf89c895841b243a07c2"
+    },
+    {
+      "original_path": "data_standardized/standardization_report_umls_v2.json",
+      "path": "results/legacy/standardization/standardization_report_umls_v2.json",
+      "sha256": "8d1a58fa3289cd295e99fef68dab6a08b78fe9d83bebc1bf5dbe8ce71a1065ae"
+    },
+    {
+      "original_path": "data_standardized/standardization_report_umls_v3.json",
+      "path": "results/legacy/standardization/standardization_report_umls_v3.json",
+      "sha256": "89e4bea7025afcc13d9a48928916d172b201eafdffa203021915a34f585816a8"
+    },
+    {
+      "original_path": "data_standardized/standardization_report_umls_v4.json",
+      "path": "results/legacy/standardization/standardization_report_umls_v4.json",
+      "sha256": "875c4b13ec94171c78d46fe426563546fceeda8b1093acb528fea679fab4df08"
+    },
+    {
+      "original_path": "data_standardized/standardization_report_umls_v5.json",
+      "path": "results/legacy/standardization/standardization_report_umls_v5.json",
+      "sha256": "608ca9b903db91ca12cef0bfd095fb83cc31a84d5f00a0cd1fd12144e2378a02"
+    },
+    {
+      "original_path": "data_standardized/standardization_report_umls_v6.json",
+      "path": "results/legacy/standardization/standardization_report_umls_v6.json",
+      "sha256": "ffd32037e667cad5c8988a2de06a2e155823790a734315093d17c28cdb046509"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews.csv",
+      "path": "results/legacy/standardization/standardized_reviews.csv",
+      "sha256": "7cee73733bcce29eaa60b4c2a4021610bcea4590c9ecf29ae5755d49f4fcc69d"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews_top10.csv",
+      "path": "results/legacy/standardization/standardized_reviews_top10.csv",
+      "sha256": "b9d8a09c49609fdbc6122c053be43b27e43c5403252cc3d41b17101fd524ecfe"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews_umls.csv",
+      "path": "results/legacy/standardization/standardized_reviews_umls.csv",
+      "sha256": "445af2c15dc33d9bc8fff598347d686fbabea88138a4d3da17a10b0e0516d0b3"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews_umls_v2.csv",
+      "path": "results/legacy/standardization/standardized_reviews_umls_v2.csv",
+      "sha256": "d31b8039ea63e5288918ee8eedea568d8bc8d1d530a22f4816e0fd9542c7cc4e"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews_umls_v3.csv",
+      "path": "results/legacy/standardization/standardized_reviews_umls_v3.csv",
+      "sha256": "0597bbc1353920a0d935eee2545ad708ba322b7695e659931228eff3e84344e7"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews_umls_v4.csv",
+      "path": "results/legacy/standardization/standardized_reviews_umls_v4.csv",
+      "sha256": "f130e23119d9af46fe7070563c05a76ec2738f008e476e9b30f688271e98c0eb"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews_umls_v5.csv",
+      "path": "results/legacy/standardization/standardized_reviews_umls_v5.csv",
+      "sha256": "0075e47bad0a83874d61ef35fd8f5be4b79eddf8dbb2499050ce970adddca308"
+    },
+    {
+      "original_path": "data_standardized/standardized_reviews_umls_v6.csv",
+      "path": "results/legacy/standardization/standardized_reviews_umls_v6.csv",
+      "sha256": "e875db1468fcf99d1d16058e60eca8d0000da01d121000046008265f19359f0d"
+    }
+  ]
+}

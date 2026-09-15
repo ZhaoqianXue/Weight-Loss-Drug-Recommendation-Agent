@@ -1,0 +1,51 @@
+{
+  "moved": [
+    {
+      "from": "task_plan.md",
+      "to": "docs/refactoring/planning/task_plan.md",
+      "sha256_before": "cd523954484ec3681e425d8b5671a9181e9e5b2a404916072bcb295841b12b0d"
+    },
+    {
+      "from": "findings.md",
+      "to": "docs/refactoring/planning/findings.md",
+      "sha256_before": "e35fd09f9ceedfa1a071d65086413db50fdf700c158c82fed23c28f2754ec572"
+    },
+    {
+      "from": "progress.md",
+      "to": "docs/refactoring/planning/progress.md",
+      "sha256_before": "7164c3bfb6f3846cc27cb9c5783db283efa4cab3bff20718ec64e1a2e60342db"
+    },
+    {
+      "from": "outputs/chatbot-qa/task_plan.md",
+      "to": "docs/history/chatbot-qa-local-note.md",
+      "sha256_before": "07d6edcfd77ce18886ee8db2a40007ff4d0071e27b9177d3f25720922167e5b9"
+    }
+  ],
+  "removed_compatibility_entries": [
+    "code_chatbot/graph_loader.py",
+    "code_chatbot/chatbot.py",
+    "code_chatbot/table_loader.py",
+    "code_extraction/extract_all.py",
+    "code_pipeline/refresh_data.py",
+    "code_pipeline/validate_data.py",
+    "code_scraping/batch_scraper.py",
+    "code_standardization/standardize_all.py",
+    "code_website/flask_app.py"
+  ],
+  "removed_generated_directories": [
+    ".venv-wheel"
+  ],
+  "test_split": {
+    "tests/test_refresh.py": [
+      "tests/unit/test_collection.py",
+      "tests/unit/test_annotations.py",
+      "tests/integration/test_snapshot.py"
+    ],
+    "tests/test_architecture.py": [
+      "tests/integration/test_architecture.py"
+    ],
+    "tests/research/test_adapters.py": [
+      "tests/integration/research/test_adapters.py"
+    ]
+  }
+}

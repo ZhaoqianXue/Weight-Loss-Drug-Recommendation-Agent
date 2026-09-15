@@ -2,7 +2,7 @@
 
 ## Included medications
 
-The maintained catalog is [`config/drugs.json`](../config/drugs.json). The current project includes these four generic names and their eight brands:
+The maintained catalog is [`configs/drugs.json`](../configs/drugs.json). The current project includes these four generic names and their eight brands:
 
 | Generic name | Canonical brands |
 | --- | --- |
@@ -33,11 +33,11 @@ Decision date: **2026-09-12**. **Byetta and Bydureon (alias Bydureon BCise), bot
 
 These findings were supplied with the scope decision; no new Reddit collection or source investigation was performed in this update. The remaining eight brands' sources and the recorded exclusion evidence are in [Reddit data sources](reddit-data-sources.md); that document is retained unchanged.
 
-The **421 Byetta reviews and 170 Bydureon reviews (591 total)** were moved, not deleted, to [`data_backup/excluded_exenatide_2026-09-12/`](../data_backup/excluded_exenatide_2026-09-12/). The eight retained per-brand WebMD files are unchanged. The combined raw dataset and its collection manifest were rebuilt offline, retaining original collection timestamps; extracted and standardized data and website copies were then regenerated without scraping or model API calls.
+The **421 Byetta reviews and 170 Bydureon reviews (591 total)** were moved, not deleted, to [`archive/data_backup/excluded_exenatide_2026-09-12/`](../archive/data_backup/excluded_exenatide_2026-09-12). The eight retained per-brand WebMD files are unchanged. The combined raw dataset and its collection manifest were rebuilt offline, retaining original collection timestamps; extracted and standardized data and website copies were then regenerated without scraping or model API calls.
 
 Scope exclusion applies to the primary `Brand Name` and `Drug Name` fields, catalog entries, and active medication lists. It does not erase mentions of previous or alternative treatments from source narratives: 38 retained-brand reviews mention Byetta or Bydureon. Historical UMLS datasets, mapping/cache files, audits and existing backups are preserved; planning records are consolidated in the [execution archive](history/execution-records.md). Consequently, an unrestricted text search can still find these names in source narratives and historical artifacts.
 
-Raw, extracted and standardized CSVs have different schemas (and standardized dates are normalized). All five canonical CSVs share the same ordered review IDs and source content; the three standardized copies have identical SHA-256 hashes. Raw and extracted byte hashes differ by design. Catalog copies and dataset-manifest copies are byte-identical within each pair.
+Raw, extracted and standardized CSVs have different schemas (and standardized dates are normalized). The three research CSVs share the same ordered review IDs and source content; the generated website standardized CSV is byte-identical to the selected processed CSV. The older extra website copy is preserved in the archive. Raw and extracted byte hashes differ by design. Catalog copies and dataset-manifest copies are byte-identical within each pair.
 
 ## Change summary — 2026-09-12
 

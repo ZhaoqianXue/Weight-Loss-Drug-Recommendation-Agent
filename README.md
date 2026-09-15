@@ -1,99 +1,124 @@
 # Weight Loss Drug Recommendation Agent
 
-A research prototype that extracts structured information from WebMD patient reviews, standardizes adverse-event terminology, and answers questions with TableRAG and a Neo4j knowledge graph.
+A research prototype for structured extraction and adverse-event standardization of WebMD reviews, with TableRAG, a Neo4j knowledge graph, and a deterministic website assistant.
 
-## Repository layout
+The current frozen dataset contains **2,727 reviews**, covering **4 generic names and 8 brands**; 2,681 reviews have text. Annotations are historically reused for 2,344 records; 383 remain pending (381 with text, 2 without). Pending means unknown, not absence of side effects. Historical annotations have not been clinically revalidated. See [project scope](docs/project-scope.md).
 
-This root directory is the canonical repository. It combines the later outer working directory with the original Git repository history. There is no nested repository.
+## Repository structure
 
-| Directory | Contents |
+| Path | Purpose |
 | --- | --- |
-| `code_scraping/` | WebMD review collection |
-| `code_extraction/` | LLM extraction prompts, schema, and batch processing |
-| `code_standardization/` | Baseline and UMLS standardization experiments and evaluation |
-| `code_embedding/` | Adverse-event embeddings and experimental prescribing-information extraction |
-| `code_chatbot/` | Canonical chatbot, TableRAG index builder, and Neo4j loader |
-| `code_website/` | Flask entry point and interactive graph interface |
-| `data_webmd/` | Validated current reviews for four generic names and eight brands |
-| `data_extracted/` | Structured extraction results |
-| `data_standardized/` | Baseline and versioned UMLS outputs and reports |
-| `data_embedded/` | Adverse-event terminology and embeddings |
-| `data_prescribing_information/` | Seven historical prescribing-information PDFs; not an updated regulatory corpus |
-| `database_table/` | Historical FAISS indexes; rebuild before use with the current dataset |
-| `data_literature/` | Reference papers |
-| `data_backup/` | Earlier data and graph artifacts retained for reference |
+| `src/weightloss/` | Installable research package: ingestion, extraction, standardization, embeddings, retrieval, pipeline, evaluation |
+| `configs/pipeline.json` | Explicit selection of the frozen snapshot, annotation seeds, input/output paths |
+| `configs/drugs.json` | Canonical medication catalog and aliases |
+| `apps/web/` | Flask adapter, HTML template, frontend source |
+| `data/raw/webmd/2026-09-12/` | Frozen collection snapshot; original timestamps and bytes preserved |
+| `data/external/` | Annotation seeds, terminology and historical prescribing-information PDFs |
+| `data/interim/migrated-2026-09-14/` | Frozen extraction results |
+| `data/processed/migrated-2026-09-14/` | Frozen standardized results and dataset manifest |
+| `artifacts/embeddings/legacy/` | Preserved terminology embeddings still required by the baseline |
+| `artifacts/web/`, `artifacts/indexes/` | Generated website and new retrieval indexes |
+| `experiments/legacy/`, `notebooks/legacy/` | Historical experiments; see their execution limits before use |
+| `results/` | Run metadata, metrics and preserved historical results |
+| `archive/` | Historical backups, captured pages and stale indexes |
+| `tests/` | Offline regression tests and synthetic fixtures |
+| `docs/` | Scope, provenance, history, references and reproducibility guides |
 
-The current raw, extraction, baseline standardized, and website datasets each contain **2,727 review records**, covering **4 generic names and 8 brands**. Of these, 2,681 contain review text. Historical annotations were reused for 2,344 matching records; **383 records carry the pending status: 381 have a nonempty text field, while 2 are rating-only records with no text to extract**. The reused historical outputs also include 44 empty-text records; see [the historical empty-text audit](docs/history/empty-review-audit-2026-09-12.md). Pending annotations are unknown, not evidence of no side effects. See [the current scope and counts](docs/project-scope.md), [the dataset manifest](data_standardized/dataset_manifest.json) for per-brand coverage, and [the historical refresh report](docs/history/data-refresh-2026-09-11.md) for provenance and outstanding model/index work.
+All maintained Python commands use the installed `weightloss` CLI. Temporary legacy wrappers have been removed; canonical code lives under `src/weightloss/`. Tests are divided into `tests/unit/`, `tests/integration/`, `tests/frontend/` and `tests/fixtures/`. The optional model-adapter tests are under `tests/integration/research/` and run explicitly with `make test-research`.
 
-Wegovy HD is an alias of **Wegovy**; Victoza 2-Pak and Victoza 3-Pak are aliases of **Victoza**, not extra datasets. Generic names are represented in `Drug Name`; brands are represented in `Brand Name`. Shared generic/brand review pages are collected once. The maintained catalog is [config/drugs.json](config/drugs.json). **Combination products are excluded regardless of review availability**, including Soliqua (insulin glargine + lixisenatide) and Xultophy (insulin degludec + liraglutide). See [the project scope](docs/project-scope.md) for exclusions and [Reddit data sources](docs/reddit-data-sources.md) for the eight retained brands.
+Local `.venv/`, `.venv-research/`, `.cache/` and Git metadata are runtime/tool directories, excluded from the source layout. `scripts/` contains the migration and structure auditors. Completed planning records are under `docs/refactoring/planning/`, and the historical local QA note is under `docs/history/`.
 
-UMLS versions, top-10 samples, embeddings, prescribing-information documents, notebooks, and previous evaluation reports remain historical experiments. They were not relabeled as current results. The pre-refresh canonical CSVs are preserved in `data_backup/pre_2026_refresh/`.
+## Install the verified offline environment
 
-## Documentation
-
-Current-facing documents describe the active project; dated reports describe the snapshot in which they were written. Detailed proposals in TODO are not implemented features or automatically approved decisions.
-
-| Document | Responsibility |
-| --- | --- |
-| [Project scope](docs/project-scope.md) | Included brands, exclusions, current counts and preservation rules |
-| [Reddit sources](docs/reddit-data-sources.md) | Community inventory, dated size estimates and collection routes |
-| [TODO and decision status](TODO.md) | Confirmed scope, recorded problems and proposals awaiting a decision |
-| [Assistant validation](docs/chatbot-validation.md) | Implemented behavior, counting rules, test evidence and limitations |
-| [Consolidation decisions](docs/history/consolidation.md) | Historical code choices and recovery location |
-| [WebMD source audit](docs/history/webmd-review-audit-2026-09-11.md) | Historical page inventory and redirect checks |
-| [Data refresh](docs/history/data-refresh-2026-09-11.md) | Historical collection, annotation reuse and validation |
-| [Empty-text audit](docs/history/empty-review-audit-2026-09-12.md) | Historical missing-text handling and its interpretation |
-| [Execution records](docs/history/execution-records.md) | Consolidated process logs, original snapshots and migration map |
-
-The three audit JSON files remain in `docs/`; dataset and collection manifests remain with their datasets. Reference PDFs and historical prescribing-information PDFs remain in their original directories. Git-ignored `outputs/chatbot-qa/task_plan.md` is a preserved local QA note, outside the maintained document set.
-
-## View the interactive graph
-
-From the repository root, run:
+Python 3.11 and Node.js 22 are the tested local runtime versions. From the repository root:
 
 ```sh
-python3 -m http.server 5001 --bind 127.0.0.1 --directory code_website
+uv venv --python 3.11 .venv
+uv pip sync requirements/offline.lock --python .venv/bin/python
+uv pip install --python .venv/bin/python --no-deps -e .
+make check
 ```
 
-Open `http://127.0.0.1:5001/templates/knowledge_graph.html`. This preview needs no LLM credentials or Neo4j. The page loads JavaScript libraries from external CDNs. Its Medication Experience Assistant computes answers directly from the loaded CSV: medication summaries, rating comparisons, reported side-effect counts, source-review browsing, and graph actions. It uses deterministic guided dialogue and supported text intents, not a general-purpose LLM or the backend API.
+The offline environment supports collection parsing, data validation, synthetic replay, the static site and Flask. No model credentials are needed for these checks. The CLI has no mandatory third-party dependencies; optional dependency groups are declared in `pyproject.toml`. See [environment details](requirements/README.md) for research dependencies and platform constraints.
 
-## Refresh review data
+An editable install locates this checkout without relying on the current working directory. A wheel installation requires `WEIGHTLOSS_ROOT=/absolute/path/to/WeightLoss`, or `weightloss --root /absolute/path/to/WeightLoss ...`. Data and web assets are intentionally outside the Python wheel.
 
-Install the small collection dependency set with `python3 -m pip install -r code_scraping/requirements.txt`, then run from this directory:
+## Validate and preview
 
 ```sh
-python3 code_scraping/batch_scraper.py
-python3 code_pipeline/refresh_data.py
-python3 -m unittest discover -s tests -p 'test_*.py'
-node tests/review-assistant.test.js
+.venv/bin/weightloss validate
+.venv/bin/weightloss build-web
+.venv/bin/weightloss serve
 ```
 
-The collector validates all eight brands' review-page identities, pagination, unique review IDs and headline totals before publishing. Page checkpoints are under `.cache/webmd/`; `--run-dir PATH` resumes an interrupted snapshot. Start a new run directory for a new collection date. The refresh command aligns annotations by content, updates all canonical CSV copies and manifests, and requires no model credentials.
+Open [the local preview](http://127.0.0.1:5001). The built site is self-contained relative to its output directory; visualization libraries still load from external CDNs. Its Medication Experience Assistant computes summaries, ratings, reported side-effect counts and review browsing directly from the selected CSV. It does not call the LLM, `/chat`, TableRAG or GraphRAG.
 
-## Backend and research workflows
+`build-web` validates one processed dataset, copies its CSV/catalog/manifest into the build, and replaces the prior build only after staging succeeds. Generated web files are not independent research inputs. Original pre-refactor copies remain traceable in the [migration map](docs/refactoring/migration-map.json).
 
-The existing dependency snapshot is `code_website/requirements.txt`; additional standardization dependencies are recorded in `code_standardization/`. These are historical research environments, not a verified cross-platform installation lockfile.
-
-Configure `OPENAI_API_KEY`, `UMLS_API_KEY` when needed, and `NEO4J_PASSWORD` in the shell environment. `.env.example` lists their names. The application does not automatically load a `.env` file.
-
-Run scripts from the repository root so their relative data paths resolve:
+## Reproduce the offline synthetic example
 
 ```sh
-python3 code_extraction/extract_all.py
-python3 code_standardization/standardize_all.py
-python3 code_chatbot/table_loader.py
-python3 code_chatbot/graph_loader.py
-python3 code_chatbot/chatbot.py
-# Alternatively, start the Flask backend:
-python3 code_website/flask_app.py
+.venv/bin/weightloss reproduce-fixture --output-dir .cache/my-fixture
 ```
 
-Extraction and standardization process pending reviews incrementally, checkpoint results, and support `--limit N`. They require model dependencies and `OPENAI_API_KEY`; missing credentials leave data unchanged. Standardization publishes updated website copies. FAISS indexes require rebuilding; missing or stale dataset fingerprints are rejected. Import the current snapshot into an empty Neo4j database before GraphRAG use; the loader refuses to mix a new snapshot into an existing graph. No external database was modified during this refresh. The Flask backend provides `/chat` as a separate research workflow. The page uses the local dataset-backed assistant instead; it does not invoke TableRAG, GraphRAG, or `/chat`. Run `node tests/review-assistant.test.js` from the repository root to validate the assistant (Node.js and Python 3 required). See `docs/chatbot-validation.md` for scope and results.
+Use a fresh destination each time. This replays synthetic reviews and frozen annotation responses through refresh, validation, summary metrics, static build and run freezing. It checks hand-specified expected metrics and calls no external model. Results appear under `.cache/my-fixture/results/fixture/`. This exercises infrastructure; it is not an evaluation of extraction accuracy.
 
-Prescribing-information processing scripts and FDA-related standardization prompts are present. A complete prescribing-information/FDA retrieval integration in the chatbot has not been established. Some historical notebooks reference FAERS Excel files that are not included in this repository.
+## Work on a new run
 
-## Version and data policy
+The migrated baseline is frozen. Create a separate run before processing:
 
-The outer working copy takes precedence for conflicting files. In particular, extraction assigns side-effect relations to the primary review drug; the older associated-drug implementation remains available in Git history. See [historical consolidation decisions](docs/history/consolidation.md) for the migration decisions.
+```sh
+.venv/bin/weightloss new-run --run-id my-experiment
+.venv/bin/weightloss --config configs/runs/my-experiment.json refresh
+```
 
-Notebook outputs are cleared. Slides and presentation build files are excluded. Large regenerable embedding caches are ignored, while versioned data and reports are retained. API credentials are read from environment variables. Original Git history is preserved without rewriting historical source or credentials.
+Install the [research environment](requirements/README.md), then explicitly invoke model steps:
+
+```sh
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json extract --limit 10
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json standardize --limit 10
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json validate
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json stats
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json build-web
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json freeze
+```
+
+Set `OPENAI_API_KEY` in the environment before model calls. `.env.example` documents variable names; `.env` is not automatically loaded. `WEIGHTLOSS_CONFIG` can select a configuration for the CLI; set `WEIGHTLOSS_ROOT` as well when using an external configuration without `project_root`.
+
+Each explicit operation writes a manifest under its run's `results/.../operations/`, including code and input hashes, configuration, installed packages, status and coverage. Provider event payloads are kept locally and ignored by Git. A failed model step retains its checkpoint; refresh the manifest after recovery by completing standardization. Validation rejects an inconsistent checkpoint before web publication. Frozen configurations reject refresh, extraction and standardization.
+
+The historical annotation seed is an active input under `data/external/annotation_seeds/pre_2026_refresh/`; do not remove it as a backup. See [data dictionary and lifecycle](data/README.md).
+
+## Collect a new snapshot
+
+```sh
+.venv/bin/weightloss collect --output-dir data/raw/webmd/NEW_SNAPSHOT --run-dir .cache/webmd/NEW_COLLECTION
+.venv/bin/weightloss new-run --run-id new-review-run --raw-dir data/raw/webmd/NEW_SNAPSHOT
+.venv/bin/weightloss --config configs/runs/new-review-run.json refresh
+```
+
+Choose new snapshot and run names. Existing snapshot directories are rejected. The collector validates page identity, pagination, IDs and totals before publishing a staged snapshot. Resume an interrupted collection using the same checkpoint directory; start a fresh checkpoint directory for a new collection date. Collection does not switch the active research configuration automatically.
+
+## Research retrieval and backend
+
+```sh
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json build-index
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json import-graph
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json chatbot
+.venv-research/bin/weightloss --config configs/runs/my-experiment.json serve --backend
+```
+
+Graph import requires a configured Neo4j server (`NEO4J_URI`, `NEO4J_PASSWORD`) and retains the empty-database/snapshot guard. Index use retains the dataset/model fingerprint guard. Historical FAISS indexes are archived as stale and are never relabeled current. Flask initializes the research chatbot only when `/chat` is requested. Complete live model, index-building and database workflows were not executed as part of the structural migration.
+
+TableRAG, GraphRAG and the current scientific methods remain in place. Proposed changes to terminology, graph schema, retrieval strategy and Reddit ingestion remain undecided in [TODO](TODO.md). Reddit ingestion has not been implemented. The prescribing-information PDFs and UMLS v2–v6 results are historical; no complete current FDA retrieval integration is claimed.
+
+## Documentation and provenance
+
+- [Reproducibility and operation guide](docs/reproducibility.md)
+- [Data dictionary and lifecycle](data/README.md)
+- [Contribution guide](CONTRIBUTING.md)
+- [Project scope](docs/project-scope.md), [Reddit sources](docs/reddit-data-sources.md), [assistant validation](docs/chatbot-validation.md)
+- [Results index](results/README.md), [architecture plan](docs/architecture-refactoring-plan.md), [implementation report](docs/refactoring/implementation.md)
+- [Migration map](docs/refactoring/migration-map.json), [pre-refactor baseline](docs/refactoring/baseline.json), [historical execution records](docs/history/execution-records.md)
+
+Historical records retain the meaning of their original dates; their old path names can be resolved through the migration map. No Git history was rewritten. Software authorship/license selection and data release permissions remain separate release decisions; this reorganization grants no new license and does not change the release scope of review text.

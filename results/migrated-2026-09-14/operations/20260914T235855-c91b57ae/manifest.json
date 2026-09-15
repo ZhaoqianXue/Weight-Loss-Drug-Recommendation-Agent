@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "run_id": "migrated-2026-09-14",
+  "operation": "build-web",
+  "started_at": "2026-09-14T23:58:55.962262+00:00",
+  "status": "completed",
+  "code": {
+    "commit": "0c6c422ef031982b873ca48e011f81aa0a48e56d",
+    "dirty": true
+  },
+  "source_sha256": {
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/catalog.py": "61ecb0345441f7bb39c5d864824cd515d18c11f172efa9829a1f06ba09a17d43",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/cli.py": "49f27faade2d21cb9f1b0f9a9752dc2c25e17a30ad6e2308fc6d17b093172dba",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/settings.py": "5598b921b27e5e1748b1042affffa0ac0f61d8dbd4f6b3ae0867a52eafefc6f5",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/provenance.py": "07483a92b3e95fb4227b0cd0e0a6bad4f9af938fa8d176fdb24b91f73210252b",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/runs.py": "af459f3fceeba3285aeaa619c4bc2413d507d654acc7e6f6fc0f196a01f21246",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/__main__.py": "79ee6f134c5c5193377cf9b189cbdcc3e2095e49ba9cec310114441c15a917c4",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/pipeline/fixture.py": "da6535991f7fd344b195702a93108ed60436cad5115a2ce66065ec2a8b3afd49",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/pipeline/refresh_data.py": "5b483d485f2e37d1df8e94a60b9816a8afaac2bf14bbbcc480f7a3131074e856",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/pipeline/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/pipeline/build_web.py": "7cc22316a7190e0c43d30b51f3070b172e39c3bc475178ded54c5552b69d7cef",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/pipeline/validate_data.py": "894a1686a702db3e1233d19e280d58a1d2a7ed0dd2758a3620fb1d8717fdb3ab",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/ingestion/scraper.py": "0ccbdc95e1de03fc3209b9183d44f9b86c56a5a3e91551058a2d4a35503a517d",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/ingestion/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/ingestion/batch_scraper.py": "9c755573b3c5de6a68f89c4949b14231e9f130346af298e69850c79781973672",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/embeddings/embedding_pi_light.py": "dee2c3cab8d19824cbb476eb272d61c46d77c1dae2522554ec7ea7d955d54bea",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/embeddings/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/embeddings/embedding_pi_heavy.py": "2dd017cd16e1a58aaba0ba04788dfe1eacf2b7090f427620e06df7aae5c9fa90",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/standardization/baseline.py": "b526a11c576da1334ec480bf7554810a2037adbf714038d5689b7c992313d885",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/standardization/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/standardization/standardize_all.py": "cfd24f9c76b29edc37c5765a81cbf2ae133c6a8fc0d4790a8de49fc053f964af",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/retrieval/graph_loader.py": "045ce8feaa2c6c925a9c33a85a7e3ac1eef62dd13f122a9f14306a674af244c6",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/retrieval/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/retrieval/chatbot.py": "26cac49601b814d7a7e0cea1ea0eb696a85bc85623d0cf0dc047b3ec6d551ea1",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/retrieval/table_loader.py": "80d45e5065aa8ad7cb75ec430b8be89676c3e359e114744b3b0c53436e5dc45c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/evaluation/standardization_stat.py": "0020941a6784ce02efe4f4c481c20b25ea861f3ec7e249b1e7d8d4a1702b35e3",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/evaluation/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/extraction/__init__.py": "777f97cb45f0fae36c8adac67542cdc67b96f35ca317f5bbd9d6ee8986ac721c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/extraction/schema_extraction.py": "0631d63db424d26f5d1f7712731434b4b91854166a73a15e62defaf0e7e59297",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/src/weightloss/extraction/extract_all.py": "e7cbd9009f1843dd302cc573135802a291ff06631f324dca4351747eb65e0356"
+  },
+  "environment": {
+    "python": "3.11.4",
+    "platform": "macOS-10.16-x86_64-i386-64bit",
+    "packages": {
+      "click": "8.5.0",
+      "packaging": "26.3",
+      "charset-normalizer": "3.5.1",
+      "requests": "2.32.3",
+      "blinker": "1.9.0",
+      "weightloss-research": "0.1.0",
+      "itsdangerous": "2.2.0",
+      "Flask": "3.1.1",
+      "build": "1.2.2.post1",
+      "idna": "3.19",
+      "certifi": "2026.7.22",
+      "Jinja2": "3.1.6",
+      "MarkupSafe": "3.0.3",
+      "Werkzeug": "3.1.8",
+      "lxml": "5.4.0",
+      "urllib3": "2.7.0",
+      "pyproject_hooks": "1.2.0"
+    }
+  },
+  "lock_sha256": {
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/requirements/research-macos-x86_64-py311.lock": "013b526d4f46f386ce62d8c7bb0762656e962fec12440968cd66e28511e5a4bc",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/requirements/offline.lock": "60a5a9850184d44cace48abb0efb5b68dc715c991f3a03090bdab3006ec36541"
+  },
+  "config": {
+    "schema_version": 1,
+    "snapshot_id": "2026-09-12",
+    "run_id": "migrated-2026-09-14",
+    "frozen": true,
+    "raw_dir": "data/raw/webmd/2026-09-12",
+    "extracted": "data/interim/migrated-2026-09-14/extracted_reviews_all.csv",
+    "standardized": "data/processed/migrated-2026-09-14/standardized_reviews_all.csv",
+    "annotation_seed_dir": "data/external/annotation_seeds/pre_2026_refresh",
+    "catalog": "configs/drugs.json",
+    "terminology": "data/external/terminology/ae.csv",
+    "terminology_embeddings": "artifacts/embeddings/legacy/embedded_ae.csv",
+    "indexes": "artifacts/indexes/migrated-2026-09-14",
+    "web_source": "apps/web",
+    "web_build": "artifacts/web",
+    "results": "results/migrated-2026-09-14"
+  },
+  "config_sha256": "5b483e13bbf5fb4b25ca1565fe98f137f78695ad116a59a0dfc616fc65fdcdf8",
+  "parameters": {
+    "command": "build-web"
+  },
+  "input_sha256": {
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/raw/webmd/2026-09-12/webmd_all_reviews.csv": "7c77d5708009e2a9837dc7f9c03ebb4b931667ddbcd1381dea1522a5315e4d0d",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/raw/webmd/2026-09-12/collection_manifest.json": "c63e12e2b0a9cb8841e0716d3c0661e3d5c619385aee4b557deafd1462d98ebe",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/interim/migrated-2026-09-14/extracted_reviews_all.csv": "bb068b33664648edd795a3b5e66bfc42fb4540fe1a1431b1acba893e3cfec10e",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/processed/migrated-2026-09-14/standardized_reviews_all.csv": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/configs/drugs.json": "6cb44ea6afa37877ea21a4e71d6f70a66ac21128c1f071e4dee17959a8613987",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/external/terminology/ae.csv": "07eb812b95a76a5fe7221ed62e70b80d3a73ceb4cebdedf1e9c47f0556686a97",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/embeddings/legacy/embedded_ae.csv": "193c94c3e00ca8b3d662211cae8db7d93c3157e9860ea9faf02ea8e94df2c862",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/external/annotation_seeds/pre_2026_refresh/standardized_reviews_all.csv": "78a02d0bf195960a295ecaf98d56c21e0900eeadca0847cc104c5fabd9f74ad5",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/external/annotation_seeds/pre_2026_refresh/webmd_all_reviews.csv": "59810e957b277351a08bb164597a17367519b0f375207e908348923734ef7ea1",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/external/annotation_seeds/pre_2026_refresh/extracted_reviews_all.csv": "ca53c571675aa02ff2024fdcd6e287df1e74b4e76f090043eac518a52eec8b52",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/external/annotation_seeds/pre_2026_refresh/manifest.json": "6ee6d85ba8123e0e4410a6ecde953f8e619ac7e16a90adba1a7be5b0b72d5438"
+  },
+  "models": {
+    "mode": "no model called by this operation"
+  },
+  "limitations": [
+    "Model calls are not guaranteed to be byte-identical on repeat. Historical annotations have unknown original model revisions."
+  ],
+  "artifacts_sha256": {
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web/index.html": "e44e4e773e83eefdcd2af45f098dff8dffaf0063c81ff695d6737f95db355543",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web/build_manifest.json": "813c76080bf2364e7feb5388d1448b6cdfd55d3e5e9ea866d7c429cec810a43c",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web/static/standardized_reviews_all.csv": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web/static/drugs.json": "6cb44ea6afa37877ea21a4e71d6f70a66ac21128c1f071e4dee17959a8613987",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web/static/review-assistant.js": "ccc44d6363a457cf8caec08ef8c586dbcac3688e59976413923d1f25db3ae6b0",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web/static/dataset_manifest.json": "38c5085f1f289b978cdf476db727ea4c10268c88834d7acd4de0efa65e9326e1",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/artifacts/web/templates/knowledge_graph.html": "a2a7704fc31c3168ec1c48ae062e74f9a8800dfe8c2140cce54a06fbeedb4993"
+  },
+  "finished_at": "2026-09-14T23:58:57.294906+00:00",
+  "output_sha256": {
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/interim/migrated-2026-09-14/extracted_reviews_all.csv": "bb068b33664648edd795a3b5e66bfc42fb4540fe1a1431b1acba893e3cfec10e",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/processed/migrated-2026-09-14/standardized_reviews_all.csv": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+    "/Users/zhaoqianxue/Desktop/UPenn/WeightLoss/data/processed/migrated-2026-09-14/dataset_manifest.json": "38c5085f1f289b978cdf476db727ea4c10268c88834d7acd4de0efa65e9326e1"
+  },
+  "coverage": {
+    "rows": 2727,
+    "extraction_status": {
+      "pending": 383,
+      "historical_reused": 2344
+    },
+    "standardization_status": {
+      "pending": 383,
+      "historical_reused": 2344
+    }
+  }
+}

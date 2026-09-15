@@ -35,7 +35,7 @@ The live recheck of the 41 newly added empty records is recorded in [`empty-revi
 
 ## What did the old code do?
 
-The implementation inspected is Git revision `f1e5e50dfc330c98317a29f5c0e6a1286584800e`. The corresponding pre-refresh raw/extracted/standardized CSVs are preserved in [`data_backup/pre_2026_refresh/`](../../data_backup/pre_2026_refresh).
+The implementation inspected is Git revision `f1e5e50dfc330c98317a29f5c0e6a1286584800e`. The corresponding pre-refresh raw/extracted/standardized CSVs are preserved in [`data_backup/pre_2026_refresh/`](../../data/external/annotation_seeds/pre_2026_refresh).
 
 1. **Collection retained the row.** `code_scraping/scraper.py` attempted the long-review spans, short-review text and a description fallback. If no text was found, the text remained empty, but `page_data.append(data)` still added the complete rating record. There was no “skip empty narrative” condition.
 2. **CSV loading converted blanks to missing values.** `code_extraction/extract_all.py` used default `pandas.read_csv`. Reading the archived CSV reproduces 44 missing (`NaN`) `Textual Review` values.

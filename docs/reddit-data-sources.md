@@ -1,6 +1,6 @@
 # Reddit data sources for the eight in-scope brands
 
-Decision date: 2026-09-12. Scope: 4 generic names, 8 brands (see [project scope](project-scope.md)). WebMD sources are already fixed in [`config/drugs.json`](../config/drugs.json) and are not repeated here.
+Decision date: 2026-09-12. Scope: 4 generic names, 8 brands (see [project scope](project-scope.md)). WebMD sources are already fixed in [`configs/drugs.json`](../configs/drugs.json) and are not repeated here.
 
 ## How these numbers were produced
 

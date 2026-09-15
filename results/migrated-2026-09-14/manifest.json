@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "run_id": "migrated-2026-09-14",
+  "status": "frozen migrated baseline",
+  "migration_date": "2026-09-14",
+  "original_model_revision": "unknown",
+  "baseline_git_commit": "0c6c422ef031982b873ca48e011f81aa0a48e56d",
+  "config": "configs/pipeline.json",
+  "data_sha256": {
+    "data/external/annotation_seeds/pre_2026_refresh/extracted_reviews_all.csv": "ca53c571675aa02ff2024fdcd6e287df1e74b4e76f090043eac518a52eec8b52",
+    "data/external/annotation_seeds/pre_2026_refresh/manifest.json": "6ee6d85ba8123e0e4410a6ecde953f8e619ac7e16a90adba1a7be5b0b72d5438",
+    "data/external/annotation_seeds/pre_2026_refresh/standardized_reviews_all.csv": "78a02d0bf195960a295ecaf98d56c21e0900eeadca0847cc104c5fabd9f74ad5",
+    "data/external/annotation_seeds/pre_2026_refresh/webmd_all_reviews.csv": "59810e957b277351a08bb164597a17367519b0f375207e908348923734ef7ea1",
+    "data/interim/migrated-2026-09-14/extracted_reviews_all.csv": "bb068b33664648edd795a3b5e66bfc42fb4540fe1a1431b1acba893e3cfec10e",
+    "data/processed/migrated-2026-09-14/dataset_manifest.json": "38c5085f1f289b978cdf476db727ea4c10268c88834d7acd4de0efa65e9326e1",
+    "data/processed/migrated-2026-09-14/standardized_reviews_all.csv": "e4bb15982d884905efb723b9c0d68be6dc60e1e4ea56bfb4ebf0bb69607840d8",
+    "data/raw/webmd/2026-09-12/collection_manifest.json": "c63e12e2b0a9cb8841e0716d3c0661e3d5c619385aee4b557deafd1462d98ebe",
+    "data/raw/webmd/2026-09-12/webmd_all_reviews.csv": "7c77d5708009e2a9837dc7f9c03ebb4b931667ddbcd1381dea1522a5315e4d0d",
+    "data/raw/webmd/2026-09-12/webmd_mounjaro_reviews.csv": "4d03b9c7dd468a849b2704a53617f3acabd3c718b05dac0efd4e226ff1c3e93a",
+    "data/raw/webmd/2026-09-12/webmd_ozempic_reviews.csv": "e5931df0aad38b6bc2011f69ee7102fada2d0245d6329c44eb2a28ce28f7960e",
+    "data/raw/webmd/2026-09-12/webmd_rybelsus_reviews.csv": "45506db4ad2896f763b3f489b801c52253c7d4a35ec5295a9bb493f873332cf9",
+    "data/raw/webmd/2026-09-12/webmd_saxenda_reviews.csv": "46048fc6144c1cd33fc4dc7a0c389fc1591f0a1c952012f606ea7d341ec04c72",
+    "data/raw/webmd/2026-09-12/webmd_trulicity_reviews.csv": "d0a5fcdd9b419388e20edffdf036a38adf8f4f7a7cda07ed9686d89c6e94f132",
+    "data/raw/webmd/2026-09-12/webmd_victoza_reviews.csv": "bf2386944a712176dbe6877fcbbe826180a73ba5a73875d694acba960fcd4976",
+    "data/raw/webmd/2026-09-12/webmd_wegovy_reviews.csv": "eb4054efad2c7d8d0c1ec82c1b381d997ae0900920985675b26a69a7f9f69eec",
+    "data/raw/webmd/2026-09-12/webmd_zepbound_reviews.csv": "ef9875e9d968aee04895b6783ca699b34bb65ca78e89b42314d1e4311c57c052"
+  },
+  "counts": {
+    "reviews": 2727,
+    "generics": 4,
+    "brands": 8,
+    "historical_reused": 2344,
+    "pending": 383
+  },
+  "limitations": [
+    "No model calls were made during migration.",
+    "Historical annotations have not been clinically revalidated."
+  ]
+}
