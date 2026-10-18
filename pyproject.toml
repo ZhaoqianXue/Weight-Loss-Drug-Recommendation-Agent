@@ -11,7 +11,7 @@ requires-python = ">=3.11,<3.13"
 dependencies = []
 
 [project.optional-dependencies]
-demo = ["requests==2.32.3", "lxml==5.4.0", "Flask==3.1.1"]
+demo = ["requests==2.32.3", "lxml==5.4.0", "fastapi==0.143.3", "uvicorn==0.54.0", "neo4j==5.28.1", "openai==1.82.0"]
 research = [
     "weightloss-research[demo]",
     "langchain-openai==0.3.18", "pydantic==2.11.5",
@@ -21,7 +21,7 @@ research = [
     "torch==2.7.0; sys_platform != 'darwin' or platform_machine != 'x86_64'",
     "langchain==0.3.25", "langchain-community==0.3.24", "faiss-cpu==1.11.0", "neo4j==5.28.1",
 ]
-dev = ["weightloss-research[demo]", "build==1.2.2.post1"]
+dev = ["weightloss-research[demo]", "build==1.2.2.post1", "httpx2==2.13.1"]
 
 [project.scripts]
 weightloss = "weightloss.cli:main"

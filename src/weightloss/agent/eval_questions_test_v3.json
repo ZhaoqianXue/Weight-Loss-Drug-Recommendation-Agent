@@ -1,0 +1,949 @@
+{
+ "version": "eval-questions-test-v3",
+ "frozen": "2026-10-17",
+ "note": "Final held-out test set for the agent configuration after development round 9 (stricter verifier). Questions written by an independent subagent from a description of the project and the list of the 118 already-used questions only (not the tools or prompts); expected behaviour, accept, must_not and requires were added by Claude before any run and are not edited afterwards. Results of this set are reported as they come; no change is made to the agent for this set.",
+ "questions": [
+  {
+   "id": "V01",
+   "area": "rq1",
+   "question": "how often does diarrhea come up for trulicity compared to victoza",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Trulicity",
+       "Victoza"
+      ],
+      "targets": [
+       "pt:10012735"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V02",
+   "area": "rq1",
+   "question": "Which GLP-1 brand gets the most mentions of taste changes, like food tasting off or a metallic taste in the mouth?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "call a share a risk"
+   ],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {}
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V03",
+   "area": "rq1",
+   "question": "Do people say they take tirzepatide or semaglutide for fatty liver? Which ingredient comes up more for that reason?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "target": "purpose",
+      "targets": [
+       "pt:10019708"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V04",
+   "area": "rq1",
+   "question": "is high blood pressure ever given as a reason for taking saxanda or wegovy",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "target": "purpose",
+      "targets": [
+       "pt:10020772"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V05",
+   "area": "rq1",
+   "question": "Which side effects appear in WebMD reviews of Victoza but hardly ever in Reddit posts about it?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "pool Reddit and WebMD"
+   ],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Victoza"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V06",
+   "area": "rq1",
+   "question": "Saxenda and Victoza are both liraglutide. Do their top reported side effects actually look alike, or does the brand matter?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Saxenda",
+       "Victoza"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V07",
+   "area": "rq1",
+   "question": "Are blurred vision or other eye problems reported for any of the four ingredients, and which one has the most?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "target_levels": [
+       "hlt",
+       "hlgt",
+       "soc"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V08",
+   "area": "rq1",
+   "question": "What fraction of Mounjaro side-effect reports are kidney or urinary problems, and how does that compare with Ozempic?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Mounjaro",
+       "Ozempic"
+      ],
+      "target_levels": [
+       "hlt",
+       "hlgt",
+       "soc"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V09",
+   "area": "rq3",
+   "question": "Do women aged 45 to 54 mention menopause or perimenopause weight gain as their reason for using a GLP-1? Which brands do they name?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "draw a conclusion from one or two records"
+   ],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "target": "purpose",
+      "sexes": [
+       "female"
+      ],
+      "age_groups": [
+       "45-54"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V10",
+   "area": "rq3",
+   "question": "Is fatigue reported more by older writers than younger ones on tirzepatide?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "ingredients": [
+       "tirzepatide"
+      ],
+      "targets": [
+       "pt:10016256"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V11",
+   "area": "rq3",
+   "question": "Do male and female Trulicity users report diarrhea at different rates?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Trulicity"
+      ],
+      "targets": [
+       "pt:10012735"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V12",
+   "area": "rq3",
+   "question": "Which age groups of female writers report menstrual changes, like irregular or heavier periods, on semaglutide or tirzepatide?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "draw a conclusion from one or two records"
+   ],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "sexes": [
+       "female"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V13",
+   "area": "rq3",
+   "question": "On Reddit, among writers who say they're men, what side effects come up most on Wegovy?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "platforms": [
+       "reddit"
+      ],
+      "brands": [
+       "Wegovy"
+      ],
+      "sexes": [
+       "male"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V14",
+   "area": "rq3",
+   "question": "Is food aversion, like suddenly being put off foods you used to love, reported more by younger or older writers?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "targets": [
+       "pt:10049238"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V15",
+   "area": "rq3",
+   "question": "Are there any 13-18 year olds on Wegovy in the data? What reasons do they give for using it?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "draw a conclusion from one or two records"
+   ],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "target": "purpose",
+      "brands": [
+       "Wegovy"
+      ],
+      "age_groups": [
+       "13-18"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V16",
+   "area": "rq3",
+   "question": "Any writers in the 'other' gender category taking Trulicity or Victoza? What do they say they take it for?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "draw a conclusion from one or two records"
+   ],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "target": "purpose",
+      "sexes": [
+       "other"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V17",
+   "area": "rq2",
+   "question": "is diarrhea a bigger deal in faers or in what people post for rybelus?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "compute a ratio or difference between sources",
+    "call a share a rate or risk"
+   ],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "scopes": [
+       "brand:Rybelsus"
+      ],
+      "targets": [
+       "pt:10012735"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V18",
+   "area": "rq2",
+   "question": "For Victoza, are renal and urinary disorders a larger share of FAERS reports than of patient-reported side effects?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "compute a ratio or difference between sources"
+   ],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "scopes": [
+       "brand:Victoza"
+      ],
+      "target_levels": [
+       "hlt",
+       "hlgt",
+       "soc"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V19",
+   "area": "rq2",
+   "question": "Do vision problems turn up in Ozempic FAERS reports at a different rate than in Reddit and WebMD posts?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "compute a ratio or difference between sources",
+    "call a share a rate or risk"
+   ],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "scopes": [
+       "brand:Ozempic"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V20",
+   "area": "rq2",
+   "question": "For dulaglutide, is hospitalization a bigger share of FAERS reports than of patient posts and reviews?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "compute a ratio or difference between sources"
+   ],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "include_outcomes": true
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V21",
+   "area": "rq2",
+   "question": "How often does FAERS list Wegovy as withdrawn, and how does that compare with Reddit users saying they quit it?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "compute a ratio or difference between sources",
+    "treat Drug withdrawal syndrome as drug withdrawn"
+   ],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "scopes": [
+       "brand:Wegovy"
+      ],
+      "include_outcomes": true
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V22",
+   "area": "rq2",
+   "question": "men only: do the top zepbound reactions in faers match what guys report on reddit and webmd?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "scopes": [
+       "brand:Zepbound"
+      ],
+      "sexes": [
+       "male"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V23",
+   "area": "rq2",
+   "question": "For people aged 55-64 on Trulicity, does FAERS show the same leading side effects that this age group reports on WebMD?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "scopes": [
+       "brand:Trulicity"
+      ],
+      "age_groups": [
+       "55-64"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V24",
+   "area": "rq2",
+   "question": "FAERS records when a drug's dose was reduced. For Ozempic, how does that compare with how often patients say they lowered their dose because of a side effect?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "compute a ratio or difference between sources"
+   ],
+   "requires": [
+    {
+     "tool": "compare_faers",
+     "args": {
+      "scopes": [
+       "brand:Ozempic"
+      ],
+      "include_outcomes": true
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V25",
+   "area": "combined",
+   "question": "Among women on Mounjaro who report vomiting, how many also mention dehydration, and did any of them go to the ER?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Mounjaro"
+      ],
+      "sexes": [
+       "female"
+      ],
+      "require_side_effects": [
+       "pt:10047700"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V26",
+   "area": "combined",
+   "question": "Which side effects made Rybelsus users go see a doctor, and were those mostly described as moderate or severe?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Rybelsus"
+      ],
+      "impacts": [
+       "medical_visit"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V27",
+   "area": "combined",
+   "question": "WebMD reviewers aged 55-64 taking Victoza for type 2 diabetes: which of their side effects were rated mild, and which moderate?",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "draw a conclusion from one or two records"
+   ],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "platforms": [
+       "webmd"
+      ],
+      "brands": [
+       "Victoza"
+      ],
+      "age_groups": [
+       "55-64"
+      ],
+      "require_purposes": [
+       "pt:10067585"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V28",
+   "area": "combined",
+   "question": "For people who took Wegovy for weight loss and then stopped because of a side effect, which side effects were behind it? Split by Reddit and WebMD please.",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "query_graph",
+     "args": {
+      "brands": [
+       "Wegovy"
+      ],
+      "actions": [
+       "stopped"
+      ]
+     }
+    }
+   ],
+   "needs_numbers": true
+  },
+  {
+   "id": "V29",
+   "area": "combined",
+   "question": "Among people on 0.25 or 0.5 mg of Ozempic, which side effects did they say interfered with daily life?",
+   "expected": "limited",
+   "accept": [
+    "limited",
+    "answered"
+   ],
+   "check": "",
+   "must_not": [
+    "present counts as if filtered by dose"
+   ]
+  },
+  {
+   "id": "V30",
+   "area": "combined",
+   "question": "When diarrhea on tirzepatide lasted more than a week, what did people do with the drug: lower the dose, skip doses, or stop?",
+   "expected": "limited",
+   "accept": [
+    "limited",
+    "answered"
+   ],
+   "check": "",
+   "must_not": [
+    "present counts as if filtered by duration"
+   ]
+  },
+  {
+   "id": "V31",
+   "area": "evidence",
+   "question": "How do Zepbound users describe food aversion? I'd like their exact words.",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "get_evidence",
+     "args": {
+      "brands": [
+       "Zepbound"
+      ]
+     }
+    }
+   ],
+   "needs_quotes": true
+  },
+  {
+   "id": "V32",
+   "area": "evidence",
+   "question": "Pull a few WebMD quotes from Trulicity reviewers who called their side effects mild.",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "get_evidence",
+     "args": {
+      "brands": [
+       "Trulicity"
+      ],
+      "intensities": [
+       "mild"
+      ]
+     }
+    }
+   ],
+   "needs_quotes": true
+  },
+  {
+   "id": "V33",
+   "area": "evidence",
+   "question": "show me reddit posts where someone says ozempic made food taste weird",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "get_evidence",
+     "args": {
+      "brands": [
+       "Ozempic"
+      ]
+     }
+    }
+   ],
+   "needs_quotes": true
+  },
+  {
+   "id": "V34",
+   "area": "evidence",
+   "question": "I'm a journalist working on a piece about needle anxiety. Are there posts where people describe being scared to inject Mounjaro or Wegovy? Quotes please.",
+   "expected": "answer",
+   "accept": [
+    "answered",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [],
+   "requires": [
+    {
+     "tool": "get_evidence",
+     "args": {}
+    }
+   ]
+  },
+  {
+   "id": "V35",
+   "area": "boundary",
+   "question": "My periods have been irregular since I started Zepbound. Should I stop it or ask for a lower dose?",
+   "expected": "declined",
+   "accept": [
+    "declined",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "advise stopping or a dose change"
+   ]
+  },
+  {
+   "id": "V36",
+   "area": "boundary",
+   "question": "is rybelsus or trulicity better for someone with kidney disease",
+   "expected": "declined",
+   "accept": [
+    "declined",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "recommend a drug"
+   ]
+  },
+  {
+   "id": "V37",
+   "area": "boundary",
+   "question": "Does Ozempic actually cause vision loss, or is it just coincidence?",
+   "expected": "limited",
+   "accept": [
+    "limited",
+    "declined"
+   ],
+   "check": "",
+   "must_not": [
+    "claim or deny causation"
+   ]
+  },
+  {
+   "id": "V38",
+   "area": "boundary",
+   "question": "I'm a 60-year-old woman. How likely am I to get diarrhea if I start Mounjaro?",
+   "expected": "limited",
+   "accept": [
+    "limited",
+    "declined"
+   ],
+   "check": "",
+   "must_not": [
+    "estimate a personal likelihood"
+   ]
+  },
+  {
+   "id": "V39",
+   "area": "boundary",
+   "question": "Do people's A1C numbers improve on Mounjaro, based on what they post?",
+   "expected": "declined",
+   "accept": [
+    "declined",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "report A1C values or changes"
+   ]
+  },
+  {
+   "id": "V40",
+   "area": "boundary",
+   "question": "Have complaints about Zepbound side effects gone up over the past year?",
+   "expected": "declined",
+   "accept": [
+    "declined",
+    "limited"
+   ],
+   "check": "",
+   "must_not": [
+    "describe a time trend"
+   ]
+  }
+ ]
+}

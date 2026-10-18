@@ -1,0 +1,2480 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "AskGLP1 website API",
+    "version": "2.0.0"
+  },
+  "paths": {
+    "/api/overview": {
+      "get": {
+        "summary": "Overview",
+        "operationId": "overview",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Overview"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The knowledge graph database is not running",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/graph": {
+      "post": {
+        "summary": "Graph",
+        "operationId": "graph",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GraphQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GraphView"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The knowledge graph database is not running",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/patterns": {
+      "get": {
+        "summary": "Patterns",
+        "operationId": "patterns",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patterns"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The knowledge graph database is not running",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/faers": {
+      "post": {
+        "summary": "Faers",
+        "operationId": "faers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FaersQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FaersView"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The knowledge graph database is not running",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/evidence": {
+      "post": {
+        "summary": "Evidence",
+        "operationId": "evidence",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceView"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The knowledge graph database is not running",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ask/status": {
+      "get": {
+        "summary": "Ask Status",
+        "operationId": "ask_status",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AskStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ask": {
+      "post": {
+        "summary": "Ask",
+        "operationId": "ask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Server-sent events; each data line is one AskEvent as JSON",
+            "content": {
+              "text/event-stream": {},
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AskEvent"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AskEvent": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/StartEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ModelEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ToolEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ResultEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ErrorEvent"
+          }
+        ],
+        "title": "AskEvent",
+        "description": "One server-sent event of POST /api/ask (each `data:` line is one of these, as JSON).",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "error": "#/components/schemas/ErrorEvent",
+            "model": "#/components/schemas/ModelEvent",
+            "result": "#/components/schemas/ResultEvent",
+            "start": "#/components/schemas/StartEvent",
+            "tool": "#/components/schemas/ToolEvent"
+          }
+        }
+      },
+      "AskRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Question"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "AskRequest"
+      },
+      "AskResult": {
+        "properties": {
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "question": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question"
+          },
+          "verified": {
+            "type": "boolean",
+            "title": "Verified"
+          },
+          "answer_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "answered",
+                  "limited",
+                  "declined"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer Type"
+          },
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          },
+          "citations": {
+            "items": {
+              "$ref": "#/components/schemas/Citation"
+            },
+            "type": "array",
+            "title": "Citations"
+          },
+          "quotes": {
+            "items": {
+              "$ref": "#/components/schemas/Quote"
+            },
+            "type": "array",
+            "title": "Quotes"
+          },
+          "tool_calls": {
+            "items": {
+              "$ref": "#/components/schemas/ToolCall"
+            },
+            "type": "array",
+            "title": "Tool Calls"
+          },
+          "problems": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Problems"
+          },
+          "repair_used": {
+            "type": "boolean",
+            "title": "Repair Used"
+          },
+          "stop_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stop Reason"
+          },
+          "cost_usd": {
+            "type": "number",
+            "title": "Cost Usd"
+          },
+          "seconds": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seconds"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "reasoning_effort": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoning Effort"
+          },
+          "agent_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agent Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "verified",
+          "answer",
+          "limitations",
+          "citations",
+          "quotes",
+          "tool_calls",
+          "problems",
+          "repair_used",
+          "cost_usd"
+        ],
+        "title": "AskResult"
+      },
+      "AskStatus": {
+        "properties": {
+          "available": {
+            "type": "boolean",
+            "title": "Available"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "agent_version": {
+            "type": "string",
+            "title": "Agent Version"
+          },
+          "spent_usd": {
+            "type": "number",
+            "title": "Spent Usd"
+          },
+          "budget_usd": {
+            "type": "number",
+            "title": "Budget Usd"
+          }
+        },
+        "type": "object",
+        "required": [
+          "available",
+          "agent_version",
+          "spent_usd",
+          "budget_usd"
+        ],
+        "title": "AskStatus"
+      },
+      "BrandInfo": {
+        "properties": {
+          "brand": {
+            "type": "string",
+            "title": "Brand"
+          },
+          "ingredient": {
+            "type": "string",
+            "title": "Ingredient"
+          }
+        },
+        "type": "object",
+        "required": [
+          "brand",
+          "ingredient"
+        ],
+        "title": "BrandInfo"
+      },
+      "Citation": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "call": {
+            "type": "string",
+            "title": "Call"
+          },
+          "row": {
+            "type": "integer",
+            "title": "Row"
+          },
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "tool": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool"
+          },
+          "arguments": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Arguments",
+            "default": {}
+          },
+          "source": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source",
+            "description": "The cited tool-output row"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "call",
+          "row",
+          "field",
+          "value"
+        ],
+        "title": "Citation"
+      },
+      "ErrorEvent": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "error",
+            "title": "Type"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "message"
+        ],
+        "title": "ErrorEvent"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "ErrorResponse"
+      },
+      "EvidenceQuery": {
+        "properties": {
+          "target": {
+            "type": "string",
+            "enum": [
+              "side_effect",
+              "purpose"
+            ],
+            "title": "Target"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform"
+          },
+          "level": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "ingredient",
+                  "brand"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Level"
+          },
+          "drug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drug"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code",
+            "description": "PT code"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 6
+          },
+          "age_groups": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Groups"
+          },
+          "sexes": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sexes"
+          },
+          "soc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soc",
+            "description": "MedDRA SOC code, used when no PT code is given"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target",
+          "platform"
+        ],
+        "title": "EvidenceQuery"
+      },
+      "EvidenceView": {
+        "properties": {
+          "target": {
+            "type": "string",
+            "enum": [
+              "side_effect",
+              "purpose"
+            ],
+            "title": "Target"
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform"
+          },
+          "drug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drug"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "matching_records": {
+            "type": "integer",
+            "title": "Matching Records"
+          },
+          "statements": {
+            "items": {
+              "$ref": "#/components/schemas/Statement"
+            },
+            "type": "array",
+            "title": "Statements"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target",
+          "platform",
+          "matching_records",
+          "statements",
+          "notes"
+        ],
+        "title": "EvidenceView"
+      },
+      "FaersQuery": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "pattern": "^(all|ingredient:[a-z]+|brand:[A-Za-z]+)$",
+            "title": "Scope",
+            "default": "all"
+          },
+          "rank_by": {
+            "type": "string",
+            "enum": [
+              "faers",
+              "reddit",
+              "webmd"
+            ],
+            "title": "Rank By",
+            "default": "faers"
+          },
+          "top_n": {
+            "type": "integer",
+            "maximum": 30.0,
+            "minimum": 1.0,
+            "title": "Top N",
+            "default": 12
+          },
+          "sex": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "female",
+                  "male"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sex"
+          },
+          "age_group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Group"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "FaersQuery"
+      },
+      "FaersRow": {
+        "properties": {
+          "concept": {
+            "type": "string",
+            "title": "Concept"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code",
+            "description": "MedDRA PT code (ranked rows only)"
+          },
+          "faers_reports": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Faers Reports"
+          },
+          "faers_denominator": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Faers Denominator"
+          },
+          "faers_percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Faers Percent"
+          },
+          "reddit_records": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reddit Records"
+          },
+          "reddit_denominator": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reddit Denominator"
+          },
+          "reddit_percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reddit Percent"
+          },
+          "webmd_records": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Webmd Records"
+          },
+          "webmd_denominator": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Webmd Denominator"
+          },
+          "webmd_percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Webmd Percent"
+          },
+          "reddit_small": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reddit Small",
+            "description": "Reddit denominator below 30"
+          },
+          "webmd_small": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Webmd Small",
+            "description": "WebMD denominator below 30"
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept"
+        ],
+        "title": "FaersRow"
+      },
+      "FaersView": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "title": "Scope"
+          },
+          "rank_by": {
+            "type": "string",
+            "title": "Rank By"
+          },
+          "sex": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sex"
+          },
+          "age_group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Group"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "window": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Window"
+          },
+          "summary": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Summary"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/FaersRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scope",
+          "rank_by",
+          "summary",
+          "rows",
+          "notes"
+        ],
+        "title": "FaersView"
+      },
+      "GraphLink": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "target": {
+            "type": "string",
+            "title": "Target"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "side_effect",
+              "purpose"
+            ],
+            "title": "Kind"
+          },
+          "records": {
+            "type": "integer",
+            "title": "Records"
+          },
+          "denominator": {
+            "type": "integer",
+            "title": "Denominator",
+            "description": "Records of the drug with at least one statement of this role"
+          },
+          "percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percent"
+          },
+          "sparse": {
+            "type": "boolean",
+            "title": "Sparse",
+            "description": "Denominator below 10: too few records to compare"
+          },
+          "small": {
+            "type": "boolean",
+            "title": "Small",
+            "description": "Denominator below 30: a small group, so the share is unstable",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "target",
+          "kind",
+          "records",
+          "denominator",
+          "sparse"
+        ],
+        "title": "GraphLink"
+      },
+      "GraphNode": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "drug",
+              "side_effect",
+              "purpose"
+            ],
+            "title": "Kind"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "soc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soc"
+          },
+          "ingredient": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingredient"
+          },
+          "records": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Records",
+            "description": "Records per role: for a drug, records with at least one statement of that role; for a PT, records reporting it for any shown drug"
+          },
+          "denominator": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Denominator"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "label",
+          "records"
+        ],
+        "title": "GraphNode"
+      },
+      "GraphQuery": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform",
+            "default": "reddit"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "ingredient",
+              "brand"
+            ],
+            "title": "Level",
+            "default": "brand"
+          },
+          "show": {
+            "type": "string",
+            "enum": [
+              "side_effect",
+              "purpose",
+              "both"
+            ],
+            "title": "Show",
+            "default": "both"
+          },
+          "drugs": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Drugs",
+            "description": "Ingredients or brands (by level) to keep; omitted: all"
+          },
+          "age_groups": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Groups"
+          },
+          "sexes": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sexes"
+          },
+          "soc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soc",
+            "description": "MedDRA SOC code: keep only PTs under it"
+          },
+          "top_n": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 1.0,
+            "title": "Top N",
+            "description": "PTs kept per drug and role",
+            "default": 4
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "GraphQuery"
+      },
+      "GraphSummary": {
+        "properties": {
+          "target": {
+            "type": "string",
+            "enum": [
+              "side_effect",
+              "purpose"
+            ],
+            "title": "Target"
+          },
+          "universe_records": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Universe Records"
+          },
+          "records_before_age_sex_filter": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Records Before Age Sex Filter"
+          },
+          "excluded_missing_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Excluded Missing Age"
+          },
+          "excluded_missing_sex": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Excluded Missing Sex"
+          },
+          "universe_records_with_uncoded_mention": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Universe Records With Uncoded Mention"
+          },
+          "universe_records_with_community_ingredient": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Universe Records With Community Ingredient"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target"
+        ],
+        "title": "GraphSummary"
+      },
+      "GraphView": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform"
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "ingredient",
+              "brand"
+            ],
+            "title": "Level"
+          },
+          "show": {
+            "type": "string",
+            "enum": [
+              "side_effect",
+              "purpose",
+              "both"
+            ],
+            "title": "Show"
+          },
+          "top_n": {
+            "type": "integer",
+            "title": "Top N"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/GraphNode"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "links": {
+            "items": {
+              "$ref": "#/components/schemas/GraphLink"
+            },
+            "type": "array",
+            "title": "Links"
+          },
+          "summary": {
+            "items": {
+              "$ref": "#/components/schemas/GraphSummary"
+            },
+            "type": "array",
+            "title": "Summary"
+          },
+          "rows_not_shown": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Rows Not Shown"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "platform",
+          "level",
+          "show",
+          "top_n",
+          "nodes",
+          "links",
+          "summary",
+          "rows_not_shown",
+          "notes"
+        ],
+        "title": "GraphView"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ModelEvent": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "model",
+            "title": "Type"
+          },
+          "round": {
+            "type": "integer",
+            "title": "Round"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "done"
+            ],
+            "title": "Status"
+          },
+          "tool_calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tool Calls"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "round",
+          "status"
+        ],
+        "title": "ModelEvent"
+      },
+      "Overview": {
+        "properties": {
+          "platforms": {
+            "items": {
+              "$ref": "#/components/schemas/PlatformCounts"
+            },
+            "type": "array",
+            "title": "Platforms"
+          },
+          "faers_reports": {
+            "type": "integer",
+            "title": "Faers Reports",
+            "description": "FAERS reports in the primary configuration"
+          },
+          "faers_status": {
+            "type": "string",
+            "title": "Faers Status"
+          },
+          "versions": {
+            "$ref": "#/components/schemas/Versions"
+          },
+          "ingredients": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Ingredients"
+          },
+          "brands": {
+            "items": {
+              "$ref": "#/components/schemas/BrandInfo"
+            },
+            "type": "array",
+            "title": "Brands"
+          },
+          "age_groups": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Age Groups"
+          },
+          "sexes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sexes"
+          },
+          "socs": {
+            "items": {
+              "$ref": "#/components/schemas/Soc"
+            },
+            "type": "array",
+            "title": "Socs"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "platforms",
+          "faers_reports",
+          "faers_status",
+          "versions",
+          "ingredients",
+          "brands",
+          "age_groups",
+          "sexes",
+          "socs",
+          "notes"
+        ],
+        "title": "Overview"
+      },
+      "PatternRow": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "records": {
+            "type": "integer",
+            "title": "Records"
+          },
+          "denominator": {
+            "type": "integer",
+            "title": "Denominator"
+          },
+          "percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percent"
+          },
+          "sparse": {
+            "type": "boolean",
+            "title": "Sparse"
+          },
+          "small": {
+            "type": "boolean",
+            "title": "Small",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "platform",
+          "label",
+          "records",
+          "denominator",
+          "sparse"
+        ],
+        "title": "PatternRow"
+      },
+      "PatternSection": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "definition": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Definition"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/PatternRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "title",
+          "unit",
+          "rows"
+        ],
+        "title": "PatternSection"
+      },
+      "Patterns": {
+        "properties": {
+          "sections": {
+            "items": {
+              "$ref": "#/components/schemas/PatternSection"
+            },
+            "type": "array",
+            "title": "Sections"
+          },
+          "population": {
+            "items": {
+              "$ref": "#/components/schemas/PopulationCell"
+            },
+            "type": "array",
+            "title": "Population"
+          },
+          "population_summary": {
+            "items": {
+              "$ref": "#/components/schemas/PopulationSummary"
+            },
+            "type": "array",
+            "title": "Population Summary"
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sections",
+          "population",
+          "population_summary",
+          "notes"
+        ],
+        "title": "Patterns"
+      },
+      "PlatformCounts": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform"
+          },
+          "records_processed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Records Processed",
+            "description": "Records given to extraction"
+          },
+          "records_with_side_effect": {
+            "type": "integer",
+            "title": "Records With Side Effect"
+          },
+          "side_effect_statements": {
+            "type": "integer",
+            "title": "Side Effect Statements"
+          },
+          "records_with_purpose": {
+            "type": "integer",
+            "title": "Records With Purpose"
+          },
+          "purpose_statements": {
+            "type": "integer",
+            "title": "Purpose Statements"
+          }
+        },
+        "type": "object",
+        "required": [
+          "platform",
+          "records_with_side_effect",
+          "side_effect_statements",
+          "records_with_purpose",
+          "purpose_statements"
+        ],
+        "title": "PlatformCounts"
+      },
+      "PopulationCell": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform"
+          },
+          "age_group": {
+            "type": "string",
+            "title": "Age Group"
+          },
+          "sex": {
+            "type": "string",
+            "title": "Sex"
+          },
+          "records": {
+            "type": "integer",
+            "title": "Records"
+          },
+          "denominator": {
+            "type": "integer",
+            "title": "Denominator"
+          },
+          "percent": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "platform",
+          "age_group",
+          "sex",
+          "records",
+          "denominator"
+        ],
+        "title": "PopulationCell"
+      },
+      "PopulationSummary": {
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": [
+              "reddit",
+              "webmd"
+            ],
+            "title": "Platform"
+          },
+          "records": {
+            "type": "integer",
+            "title": "Records"
+          },
+          "age_and_sex_stated": {
+            "type": "integer",
+            "title": "Age And Sex Stated"
+          },
+          "neither_stated": {
+            "type": "integer",
+            "title": "Neither Stated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "platform",
+          "records",
+          "age_and_sex_stated",
+          "neither_stated"
+        ],
+        "title": "PopulationSummary"
+      },
+      "Quote": {
+        "properties": {
+          "edge_id": {
+            "type": "string",
+            "title": "Edge Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "statement": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Statement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "edge_id",
+          "text"
+        ],
+        "title": "Quote"
+      },
+      "ResultEvent": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "result",
+            "title": "Type"
+          },
+          "result": {
+            "$ref": "#/components/schemas/AskResult"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "result"
+        ],
+        "title": "ResultEvent"
+      },
+      "Soc": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "side_effect": {
+            "type": "integer",
+            "title": "Side Effect",
+            "description": "Largest per-platform record count with a side effect in this SOC"
+          },
+          "purpose": {
+            "type": "integer",
+            "title": "Purpose"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "side_effect",
+          "purpose"
+        ],
+        "title": "Soc"
+      },
+      "StartEvent": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "start",
+            "title": "Type"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "question"
+        ],
+        "title": "StartEvent"
+      },
+      "Statement": {
+        "properties": {
+          "edge_id": {
+            "type": "string",
+            "title": "Edge Id"
+          },
+          "platform": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Platform"
+          },
+          "record_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Record Id"
+          },
+          "date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Date"
+          },
+          "ingredient": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingredient"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand"
+          },
+          "ingredient_basis": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingredient Basis"
+          },
+          "pt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pt"
+          },
+          "pt_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pt Code"
+          },
+          "soc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Soc"
+          },
+          "wording": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wording"
+          },
+          "writer_age_group": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Writer Age Group"
+          },
+          "writer_sex": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Writer Sex"
+          },
+          "dose": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dose"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          },
+          "intensity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intensity"
+          },
+          "impact": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Impact"
+          },
+          "action_taken": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Action Taken",
+            "default": []
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence",
+            "default": []
+          },
+          "writer_evidence": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Writer Evidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "edge_id"
+        ],
+        "title": "Statement"
+      },
+      "ToolCall": {
+        "properties": {
+          "call": {
+            "type": "string",
+            "title": "Call"
+          },
+          "tool": {
+            "type": "string",
+            "title": "Tool"
+          },
+          "seconds": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seconds"
+          },
+          "arguments": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Arguments",
+            "default": {}
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "rows": {
+            "type": "integer",
+            "title": "Rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "call",
+          "tool",
+          "rows"
+        ],
+        "title": "ToolCall"
+      },
+      "ToolEvent": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "tool",
+            "title": "Type"
+          },
+          "step": {
+            "type": "string",
+            "title": "Step"
+          },
+          "tool": {
+            "type": "string",
+            "title": "Tool"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "done",
+              "error"
+            ],
+            "title": "Status"
+          },
+          "arguments": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Arguments",
+            "default": {}
+          },
+          "seconds": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seconds"
+          },
+          "rows": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rows"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "step",
+          "tool",
+          "status"
+        ],
+        "title": "ToolEvent"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Versions": {
+        "properties": {
+          "kg": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kg"
+          },
+          "kg_built": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kg Built"
+          },
+          "graph_loaded": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Graph Loaded"
+          },
+          "meddra": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meddra"
+          },
+          "extraction_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extraction Model"
+          },
+          "extraction_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extraction Prompt"
+          },
+          "agent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agent"
+          },
+          "agent_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Agent Model"
+          }
+        },
+        "type": "object",
+        "title": "Versions"
+      }
+    }
+  }
+}

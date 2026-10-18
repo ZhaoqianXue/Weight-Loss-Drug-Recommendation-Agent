@@ -1,10 +1,10 @@
 export PYTHONDONTWRITEBYTECODE := 1
 PYTHON ?= .venv/bin/python
-NODE ?= node
+WEB := apps/web
 PORT ?= 5001
 OUTPUT ?= .cache/fixture-$(shell date -u +%Y%m%dT%H%M%S)
 
-.PHONY: install test reproduce demo validate build-web reproduce-fixture preview check test-research
+.PHONY: install test reproduce demo validate build-web reproduce-fixture preview check test-research web-install web-build web-dev web-check web-api
 install:
 	uv venv --python 3.11 .venv
 	uv pip sync requirements/offline.lock --python $(PYTHON)
@@ -15,13 +15,26 @@ build-web:
 	$(PYTHON) -m weightloss build-web
 test: build-web
 	$(PYTHON) -m unittest discover -s tests -p 'test_*.py'
-	PYTHON="$$(command -v $(PYTHON))" $(NODE) tests/frontend/review-assistant.test.js
 reproduce:
 	$(PYTHON) -m weightloss reproduce-fixture --output-dir $(OUTPUT)
-demo: build-web
+demo: web-build
 	$(PYTHON) -m weightloss serve --port $(PORT)
+# Website frontend (Vite + React in apps/web); the FastAPI backend is weightloss.web.
+web-install:
+	pnpm --dir $(WEB) install --frozen-lockfile
+web-build:
+	pnpm --dir $(WEB) build
+web-check:
+	pnpm --dir $(WEB) lint
+	pnpm --dir $(WEB) build
+# Regenerate the frontend API types after changing src/weightloss/web/schemas.py.
+web-api:
+	PYTHON="$(abspath $(PYTHON))" pnpm --dir $(WEB) gen:api
+# API with auto-reload on PORT, frontend with hot reload on http://localhost:5173.
+web-dev:
+	$(PYTHON) -m weightloss serve --port $(PORT) --reload & API=$$!; trap "kill $$API" EXIT; WEIGHTLOSS_API=http://127.0.0.1:$(PORT) pnpm --dir $(WEB) dev
 reproduce-fixture: reproduce
 preview: demo
 test-research:
 	.venv-research/bin/python -m unittest discover -s tests/integration/research -p 'test_*.py'
-check: validate test
+check: validate test web-check

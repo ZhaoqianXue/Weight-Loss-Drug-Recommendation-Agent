@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[2]
 def documents():
     yield from ROOT.glob('*.md')
     for directory in ('apps', 'src', 'configs', 'data', 'results', 'tests', 'requirements', 'docs', 'archive'):
-        yield from (ROOT/directory).rglob('*.md')
+        # Installed frontend packages (apps/web/node_modules) carry their own READMEs.
+        yield from (p for p in (ROOT/directory).rglob('*.md') if 'node_modules' not in p.parts)
 
 
 class DocumentationTests(unittest.TestCase):

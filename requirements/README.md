@@ -4,15 +4,15 @@ The core package uses the Python standard library. Three extras are exposed:
 
 | Extra | Purpose |
 | --- | --- |
-| `demo` | Collection parsing, website and Flask; no Torch, FAISS or PDF stack |
+| `demo` | Collection parsing and the website backend (FastAPI, Uvicorn); no Torch, FAISS or PDF stack |
 | `research` | Demo plus extraction, standardization, TableRAG and GraphRAG |
-| `dev` | Demo plus build tools and offline checks |
+| `dev` | Demo plus build tools, offline checks and the API test client (httpx2) |
 
 [Historical environments](../archive/environments/) and the previous two locks are archived. The unused PI scripts and PDF dependencies are outside the maintained research install.
 
 ## Offline environment
 
-`offline.lock` is generated from the `dev` group (demo and build tools), with exact versions and distribution hashes. Local checks use Python 3.11.4 and Node.js 22.15.0. CI also declares Python 3.11 / Node 22 for Ubuntu and macOS; CI execution is separate from local verification.
+`offline.lock` is generated from the `dev` group (demo and build tools), with exact versions and distribution hashes. Local checks use Python 3.11.4 and Node.js 22.15.0 with pnpm 10. Website frontend packages are locked separately in `apps/web/pnpm-lock.yaml`. CI also declares Python 3.11 / Node 22 for Ubuntu and macOS; CI execution is separate from local verification.
 
 ```sh
 uv venv --python 3.11 .venv

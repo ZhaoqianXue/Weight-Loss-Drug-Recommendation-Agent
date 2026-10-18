@@ -9,12 +9,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import threading
 import unittest
 from unittest.mock import patch
-from urllib.request import urlopen
-from functools import partial
-from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
 from weightloss.settings import get_settings, configure
 from weightloss.provenance import dataset_digest
@@ -125,34 +121,10 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             self.assertEqual(build['run_provenance_sha256'][str((a/'results/fixture/frozen.json').resolve())],dataset_digest(a/'results/fixture/frozen.json'))
             with self.assertRaises(ValueError):reproduce(a)
 
-    def test_http_preview_resources(self):
-        from weightloss.pipeline.build_web import build_web
-        with isolated_run() as paths:
-            build_web()
-            class QuietHandler(SimpleHTTPRequestHandler):
-                def log_message(self,*args):pass
-            server=ThreadingHTTPServer(('127.0.0.1',0),partial(QuietHandler,directory=str(paths.path('web_build'))))
-            thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
-            try:
-                for name in ('index.html','templates/knowledge_graph.html','static/review-assistant.js','static/standardized_reviews_all.csv','static/drugs.json','static/dataset_manifest.json'):
-                    with urlopen(f'http://127.0.0.1:{server.server_port}/{name}') as response:
-                        self.assertEqual(response.status,200)
-                        self.assertTrue(response.read())
-            finally:server.shutdown();server.server_close();thread.join()
-
-    def test_flask_static_and_unconfigured_backend(self):
-        import runpy
-        with isolated_run() as paths:
-            from weightloss.pipeline.build_web import build_web
-            build_web()
-            with patch.dict(os.environ,{'OPENAI_API_KEY':''}):
-                app=runpy.run_path(str(ROOT/'apps/web/flask_app.py'))['app']
-                client=app.test_client()
-                for url in ('/','/static/standardized_reviews_all.csv','/static/review-assistant.js'):
-                    response=client.get(url)
-                    self.assertEqual(response.status_code,200);response.close()
-                self.assertEqual(client.post('/chat',json={}).status_code,400)
-                self.assertEqual(client.post('/chat',json={'message':'hello'}).status_code,503)
+    def test_committed_frontend_api_schema_is_current(self):
+        from weightloss.web.openapi import render
+        committed=(ROOT/'apps/web/src/api/openapi.json').read_text()
+        self.assertEqual(committed,render(),'Run: pnpm --dir apps/web gen:api')
 
     def test_collector_failure_creates_no_partial_snapshot(self):
         from weightloss.ingestion import batch_scraper

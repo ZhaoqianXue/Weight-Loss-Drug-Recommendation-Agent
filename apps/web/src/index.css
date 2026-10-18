@@ -1,0 +1,234 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/hanken-grotesk";
+@import "@fontsource-variable/newsreader";
+@import "@fontsource/ibm-plex-mono/400.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design "A2+" from the redesign canvas, built on ReviewPilot's palette (github.com/ZhaoqianXue/ReviewPilot):
+ * a navy masthead; cream canvas; navy #1a365d for titles, values and primary actions; text #1a1a1a / #3a4252 / #68798c;
+ * surfaces #fffefc, #f8fbff (toolbars, footers), #eef4fb (bubbles, selected); borders #d8e2f0 (cards),
+ * #c8d8e8 (controls), #e3e8ef (inner lines, tracks). Newsreader titles, Hanken Grotesk UI, IBM Plex Mono numbers.
+ * No shadows. Light first; dark mode keeps the neutral dark values of the base theme.
+ */
+@theme inline {
+    --font-sans: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, sans-serif;
+    --font-heading: var(--font-sans);
+    --font-display: 'Newsreader Variable', Newsreader, Georgia, serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+    --color-ink: var(--ink);              /* navy accent */
+    --color-subtle: var(--subtle);        /* tertiary text, section labels */
+    --color-hairline: var(--hairline);    /* inner dividers */
+    --color-tint: var(--tint);            /* selected and assistant surfaces */
+    --color-tint-border: var(--tint-border);
+    --color-chip-border: var(--chip-border);
+    --color-info: var(--info);
+    --color-info-border: var(--info-border);
+    --color-quiet: var(--quiet);          /* secondary neutral surface */
+    --color-prose: var(--prose);          /* secondary text */
+    --color-masthead: var(--masthead);
+    --color-masthead-fg: var(--masthead-fg);
+    --color-masthead-muted: var(--masthead-muted);
+    --color-masthead-line: var(--masthead-line);
+
+    --text-label: 10px;
+    --text-label--letter-spacing: 0.06em;
+    --text-meta: 11.5px;
+    --text-ui: 12.5px;
+    --text-ui--line-height: 1.5;
+    --text-title: 15px;
+    --text-title--letter-spacing: -0.01em;
+
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+
+    /* 6px small chips, 9px controls, 12px cards, 999px pills. */
+    --radius-sm: 6px;
+    --radius-md: 9px;
+    --radius-lg: 9px;
+    --radius-xl: 12px;
+    --radius-2xl: 12px;
+    --radius-3xl: 12px;
+    --radius-4xl: 999px;
+}
+
+:root {
+    --ink: #1a365d;
+    --ink-hover: #243449;
+    --subtle: #68798c;
+    --hairline: #e3e8ef;
+    --tint: #eef4fb;
+    --tint-border: #d8e2f0;
+    --chip-border: #c8d8e8;
+    --info: #f8fbff;
+    --info-border: #d8e2f0;
+    --quiet: #f8fbff;
+    --prose: #3a4252;
+    --dot: #e6ecf3;
+    --masthead: #1a365d;
+    --masthead-fg: #fffefc;
+    --masthead-muted: #9bb8d8;
+    --masthead-line: rgba(255, 254, 252, 0.18);
+
+    --background: #fffefc;
+    --foreground: #1a1a1a;
+    --card: #fffefc;
+    --card-foreground: #1a1a1a;
+    --popover: #fffefc;
+    --popover-foreground: #1a1a1a;
+    --primary: #1a365d;
+    --primary-foreground: #fffefc;
+    --secondary: #eef4fb;
+    --secondary-foreground: #1a365d;
+    --muted: #e3e8ef;
+    --muted-foreground: #68798c;
+    --accent: #eef4fb;
+    --accent-foreground: #1a365d;
+    --destructive: #8a1f1f;
+    --border: #d8e2f0;
+    --input: #c8d8e8;
+    --ring: #9bb8d8;
+    --chart-1: #1a365d;
+    --chart-2: #2c5282;
+    --chart-3: #3f6fae;
+    --chart-4: #6f96bf;
+    --chart-5: #9bb8d8;
+    --radius: 9px;
+    --sidebar: #fbfcfa;
+    --sidebar-foreground: #1a1a1a;
+    --sidebar-primary: #1a365d;
+    --sidebar-primary-foreground: #fffefc;
+    --sidebar-accent: #eaf0f7;
+    --sidebar-accent-foreground: #1a365d;
+    --sidebar-border: #e3e8ef;
+    --sidebar-ring: #9bb8d8;
+}
+
+.dark {
+    /* Navy-tinted dark theme: the same identity as the light one, with a muted accent so selected controls stay quiet. */
+    --ink: #c9d8ec;
+    --ink-hover: #e6eef8;
+    --subtle: #7d8ca2;
+    --hairline: rgb(200 216 232 / 9%);
+    --tint: #1a2638;
+    --tint-border: rgb(200 216 232 / 16%);
+    --chip-border: rgb(200 216 232 / 22%);
+    --info: #111a28;
+    --info-border: rgb(200 216 232 / 14%);
+    --quiet: #0f1724;
+    --prose: #c3cddb;
+    --dot: rgb(200 216 232 / 7%);
+    --masthead: #0b1220;
+    --masthead-fg: #eef3f9;
+    --masthead-muted: #8fa6c2;
+    --masthead-line: rgb(238 243 249 / 14%);
+
+    --background: #0e1623;
+    --foreground: #e6ebf2;
+    --card: #131c2b;
+    --card-foreground: #e6ebf2;
+    --popover: #131c2b;
+    --popover-foreground: #e6ebf2;
+    --primary: #9bb8d8;
+    --primary-foreground: #0e1623;
+    --secondary: #1b2738;
+    --secondary-foreground: #e6ebf2;
+    --muted: #1b2738;
+    --muted-foreground: #8d9bb0;
+    --accent: #1b2738;
+    --accent-foreground: #e6ebf2;
+    --destructive: #f4a3a3;
+    --border: rgb(200 216 232 / 14%);
+    --input: rgb(200 216 232 / 20%);
+    --ring: #6f96bf;
+    --chart-1: #9bb8d8;
+    --chart-2: #6f96bf;
+    --chart-3: #3f6fae;
+    --chart-4: #2c5282;
+    --chart-5: #1a365d;
+    --sidebar: #131c2b;
+    --sidebar-foreground: #e6ebf2;
+    --sidebar-primary: #9bb8d8;
+    --sidebar-primary-foreground: #0e1623;
+    --sidebar-accent: #1b2738;
+    --sidebar-accent-foreground: #e6ebf2;
+    --sidebar-border: rgb(200 216 232 / 14%);
+    --sidebar-ring: #6f96bf;
+}
+
+/* Section label: 10px grey caps, as on ReviewPilot cards. */
+@utility label-caps {
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    text-transform: uppercase;
+    color: var(--subtle);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-ui text-foreground antialiased;
+    letter-spacing: -0.01em;
+  }
+  /* Thin, quiet scrollbars as in ReviewPilot. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--chip-border) transparent;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* Agent answers rendered from Markdown. */
+.answer-prose {
+    display: grid;
+    gap: 0.5rem;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--prose);
+}
+.answer-prose strong { font-weight: 600; color: var(--ink); }
+.answer-prose ul, .answer-prose ol { display: grid; gap: 0.25rem; padding-left: 1.1rem; }
+.answer-prose ul { list-style: disc; }
+.answer-prose ol { list-style: decimal; }
+.answer-prose h1, .answer-prose h2, .answer-prose h3, .answer-prose h4 { font-size: 13px; font-weight: 600; color: var(--ink); }
+.answer-prose table { width: 100%; border-collapse: collapse; font-size: 11.5px; font-variant-numeric: tabular-nums; background: var(--card); }
+.answer-prose th, .answer-prose td { border: 1px solid var(--tint-border); padding: 4px 6px; text-align: left; vertical-align: top; }
+.answer-prose th { font-weight: 500; color: var(--muted-foreground); background: var(--info); }
+.answer-prose code { font-family: var(--font-mono); font-size: 11px; }

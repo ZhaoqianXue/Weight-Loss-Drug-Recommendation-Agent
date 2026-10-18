@@ -4,7 +4,6 @@ import importlib
 import json
 import os
 from pathlib import Path
-import runpy
 import sys
 from .settings import configure, get_settings
 
@@ -13,7 +12,7 @@ def main(argv=None):
     parser.add_argument('--root', help='Research checkout, independent of cwd')
     parser.add_argument('--config', help='Pipeline config JSON')
     sub = parser.add_subparsers(dest='command', required=True)
-    for name in ('validate','build-web','refresh','freeze','build-index','import-graph','chatbot','stats'):
+    for name in ('validate','build-web','refresh','freeze','import-graph','stats'):
         sub.add_parser(name)
     for name in ('extract','standardize'):
         sub.add_parser(name).add_argument('--limit',type=int)
@@ -25,9 +24,9 @@ def main(argv=None):
     collect.add_argument('--run-dir')
     fixture = sub.add_parser('reproduce-fixture')
     fixture.add_argument('--output-dir',required=True)
-    serve = sub.add_parser('serve')
+    serve = sub.add_parser('serve', help='Run the website: FastAPI API plus the built frontend (apps/web/dist)')
     serve.add_argument('--port',type=int,default=5001)
-    serve.add_argument('--backend',action='store_true',help='Enable Flask research backend')
+    serve.add_argument('--reload',action='store_true',help='Restart when Python sources change (development)')
     args = parser.parse_args(argv)
     configure(args.root,args.config)
     try:
@@ -54,19 +53,20 @@ def dispatch(args):
         print(build_web())
         return 0
     if command == 'serve':
+        import uvicorn
+        from .graph import neo4j_db
         paths = get_settings()
-        if not (paths.path('web_build')/'index.html').exists():
-            raise ValueError('Build the preview first: weightloss build-web')
-        if args.backend:
-            app = runpy.run_path(str(paths.path('web_source')/'flask_app.py'))['app']
-            app.run(host='127.0.0.1',port=args.port)
+        if not neo4j_db.is_running():
+            print('The knowledge graph database is not running (python -m weightloss.graph.neo4j_db start); '
+                  'the API will answer 503 until it is.',flush=True)
+        if not (paths.path('web_source')/'dist'/'index.html').is_file():
+            print('Frontend not built (make web-build); serving the API only.',flush=True)
+        print(f'http://127.0.0.1:{args.port}',flush=True)
+        if args.reload:
+            uvicorn.run('weightloss.web.app:create_app',factory=True,host='127.0.0.1',port=args.port,reload=True,reload_dirs=[str(Path(__file__).parent)])
         else:
-            from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
-            from functools import partial
-            server = ThreadingHTTPServer(('127.0.0.1',args.port),partial(SimpleHTTPRequestHandler,directory=str(paths.path('web_build'))))
-            print(f'http://127.0.0.1:{args.port}',flush=True)
-            try: server.serve_forever()
-            finally: server.server_close()
+            from .web.app import create_app
+            uvicorn.run(create_app(),host='127.0.0.1',port=args.port)
         return 0
     if command in ('refresh','extract','standardize','freeze'):
         get_settings().require_writable()
@@ -92,19 +92,11 @@ def dispatch(args):
         elif command == 'refresh':
             from .pipeline.refresh_data import main
             main()
-        elif command == 'build-index':
-            from .retrieval.table_loader import build_database, CONFIG
-            from .pipeline.validate_data import validate
-            validate()
-            build_database(CONFIG)
-            report["artifacts_sha256"] = hashes(p for p in get_settings().path("indexes").rglob("*") if p.is_file())
         elif command == 'import-graph':
             from .pipeline.validate_data import validate
             validate()
             from .retrieval.graph_loader import main
             main()
-        elif command == 'chatbot':
-            runpy.run_module('weightloss.retrieval.chatbot',run_name='__main__')
         elif command == 'stats':
             from .evaluation.standardization_stat import main
             main()
