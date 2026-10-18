@@ -51,6 +51,14 @@ class GraphUnavailable(RuntimeError):
     """The local Neo4j instance is not running."""
 
 
+def graph_running():
+    """Whether the local Neo4j instance is up; False also where Neo4j is not installed (CI, a fresh machine)."""
+    try:
+        return neo4j_db.is_running()
+    except OSError:
+        return False
+
+
 def _notes(*outputs):
     return list(dict.fromkeys(note for out in outputs for note in out.get('notes') or ()))
 
@@ -81,7 +89,7 @@ class KGService:
 
     @staticmethod
     def _default_connect():
-        if not neo4j_db.is_running():
+        if not graph_running():
             raise GraphUnavailable('The knowledge graph database is not running. Start it with '
                                    '`python -m weightloss.graph.neo4j_db start`.')
         return T.KnowledgeGraph()

@@ -17,6 +17,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: apps/web/package.json
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -25,5 +28,7 @@ jobs:
       - run: python -m weightloss validate
       - run: python -m weightloss build-web
       - run: python -m unittest discover -s tests -p 'test_*.py'
-      - run: node tests/frontend/review-assistant.test.js
+      - run: pnpm --dir apps/web install --frozen-lockfile
+      - run: pnpm --dir apps/web lint
+      - run: pnpm --dir apps/web build
       - run: python -m weightloss reproduce-fixture --output-dir .cache/ci-fixture

@@ -2,9 +2,9 @@
 import collections
 import unittest
 
-from weightloss.graph import neo4j_db
+from weightloss.web.kg import graph_running
 
-RUNNING = neo4j_db.is_running()
+RUNNING = graph_running()
 
 
 @unittest.skipUnless(RUNNING, 'local Neo4j is not running (python -m weightloss.graph.neo4j_db start)')

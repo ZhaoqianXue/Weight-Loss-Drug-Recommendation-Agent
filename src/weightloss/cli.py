@@ -54,9 +54,9 @@ def dispatch(args):
         return 0
     if command == 'serve':
         import uvicorn
-        from .graph import neo4j_db
+        from .web.kg import graph_running
         paths = get_settings()
-        if not neo4j_db.is_running():
+        if not graph_running():
             print('The knowledge graph database is not running (python -m weightloss.graph.neo4j_db start); '
                   'the API will answer 503 until it is.',flush=True)
         if not (paths.path('web_source')/'dist'/'index.html').is_file():
