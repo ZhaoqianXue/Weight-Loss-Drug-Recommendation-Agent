@@ -5,18 +5,28 @@ import type { Statement } from "@/api/client"
 import { drugLabel, PLATFORM_LABEL, valueLabel } from "@/lib/format"
 import { cn } from "@/lib/utils"
 
-/** The sentence with every case-insensitive occurrence of `phrase` marked (the writer's wording, or a quote). */
-function Marked({ text, phrase }: { text: string; phrase: string | null | undefined }) {
-  const needle = phrase?.trim().toLowerCase()
-  if (!needle || needle.length < 2) return <>{text}</>
+// Case and curly quotes do not matter when finding a phrase; the replacements keep every index in place.
+const fold = (text: string) => text.toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
+
+/** The sentence with every occurrence of `phrase` marked (the writer's wording, or a quote). */
+function Marked({ text, phrase, color }: { text: string; phrase: string | null | undefined; color: string }) {
+  const lower = fold(text)
+  // A quote may end with punctuation the sentence does not repeat.
+  const full = fold(phrase?.trim() ?? "")
+  const needle = lower.includes(full) ? full : full.replace(/[.!?…]+$/, "")
+  // Nothing to point at when the phrase is (nearly) the whole sentence.
+  if (needle.length < 2 || needle.length >= lower.trim().length * 0.9) return <>{text}</>
   const parts: React.ReactNode[] = []
-  const lower = text.toLowerCase()
   let from = 0
   let at = lower.indexOf(needle)
   while (at >= 0) {
     if (at > from) parts.push(text.slice(from, at))
     parts.push(
-      <mark key={at} className="rounded-[2px] bg-tint text-ink shadow-[0_0_0_2px_var(--tint)] [box-decoration-break:clone]">
+      <mark
+        key={at}
+        className="rounded-[2px] text-foreground [box-decoration-break:clone]"
+        style={{ background: `color-mix(in oklab, ${color} 38%, transparent)`, boxShadow: `0 0 0 1.5px color-mix(in oklab, ${color} 38%, transparent)` }}
+      >
         {text.slice(at, at + needle.length)}
       </mark>
     )
@@ -41,17 +51,17 @@ function CopyId({ id }: { id: string }) {
   return (
     <button
       type="button"
-      title={`Statement id ${id}`}
+      title={copied ? "Copied" : `Copy the statement id (${id})`}
+      aria-label={copied ? "Copied" : "Copy the statement id"}
       onClick={() =>
         void navigator.clipboard.writeText(id).then(() => {
           setCopied(true)
           setTimeout(() => setCopied(false), 1200)
         })
       }
-      className="inline-flex items-center gap-1 rounded-[4px] text-subtle hover:text-ink"
+      className="inline-flex size-5 items-center justify-center rounded-[4px] text-subtle hover:bg-tint hover:text-ink"
     >
       {copied ? <Check className="size-3" /> : <Copy className="size-3" />}
-      {copied ? "Copied" : "Copy statement id"}
     </button>
   )
 }
@@ -65,11 +75,13 @@ type Props = {
   hidePlatform?: boolean
   /** "card" stands alone; "quote" sits in a list inside an answer. */
   variant?: "card" | "quote"
+  /** Color of the rule beside the sentences and of the marked wording (the node color of the term's role). */
+  accent?: string
   className?: string
 }
 
 /** One patient statement: its source sentences and where it comes from. */
-export function StatementView({ statement, highlight, hideTerm = false, hidePlatform = false, variant = "card", className }: Props) {
+export function StatementView({ statement, highlight, hideTerm = false, hidePlatform = false, variant = "card", accent = "#9bb8d8", className }: Props) {
   const drug =
     statement.brand && statement.brand !== "unspecified"
       ? statement.brand
@@ -93,46 +105,56 @@ export function StatementView({ statement, highlight, hideTerm = false, hidePlat
   ].filter(Boolean) as string[]
   const url = sourceUrl(statement)
   return (
-    <figure
-      className={cn(
-        "grid gap-1.5",
-        variant === "card" ? "rounded-[10px] border border-hairline bg-card px-3 py-2.5" : "border-l-2 border-chip-border py-0.5 pl-3",
-        className
-      )}
-    >
-      <blockquote className="grid gap-1 text-[12.5px] leading-[1.55] text-foreground">
-        {statement.evidence.map((sentence, index) => (
-          <p key={index}>
-            <Marked text={sentence} phrase={highlight ?? statement.wording} />
-          </p>
-        ))}
-      </blockquote>
-      <figcaption className="grid gap-1.5 text-[11.5px] text-muted-foreground">
-        <span className="flex flex-wrap items-center gap-x-1.5">
-          {meta.map((part, index) => (
-            <span key={part} className={cn(index > 0 && "before:mr-1.5 before:text-subtle before:content-['·']", index === 0 && !hideTerm && "text-ink")}>
-              {part}
-            </span>
+    <figure className={cn("grid gap-1.5 border-l-2 py-0.5 pl-3", variant === "card" && "pb-1", className)} style={{ borderColor: accent }}>
+      {statement.evidence.length > 0 ? (
+        <blockquote className="grid gap-1 text-[13px] leading-[1.55] text-foreground">
+          {statement.evidence.map((sentence, index) => (
+            <p key={index}>
+              <Marked text={sentence} phrase={highlight ?? statement.wording} color={accent} />
+            </p>
           ))}
+        </blockquote>
+      ) : (
+        // The graph does not show what writers aged 13-18 wrote; the statement still counts.
+        <p className="text-[12.5px] text-muted-foreground italic" title={statement.evidence_withheld ?? undefined}>
+          {statement.evidence_withheld ? "Sentences not shown: the writer is aged 13–18." : "No source sentences."}
+        </p>
+      )}
+      <figcaption className="grid gap-1.5 text-[12px] text-muted-foreground">
+        <span className="flex items-start gap-2">
+          <span className="flex min-w-0 flex-1 flex-wrap items-center gap-x-1.5">
+            {meta.map((part, index) => (
+              <span key={part} className={cn(index > 0 && "before:mr-1.5 before:text-subtle before:content-['·']", index === 0 && !hideTerm && "text-ink")}>
+                {part}
+              </span>
+            ))}
+          </span>
+          {/* Where the statement comes from: the Reddit post when it has one, and the statement id. */}
+          <span className="-my-0.5 flex shrink-0 items-center gap-0.5">
+            {url && (
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                title="Open the post on Reddit"
+                aria-label="Open the post on Reddit"
+                className="inline-flex size-5 items-center justify-center rounded-[4px] text-subtle hover:bg-tint hover:text-ink"
+              >
+                <ExternalLink className="size-3" aria-hidden />
+              </a>
+            )}
+            <CopyId id={statement.edge_id} />
+          </span>
         </span>
         {details.length > 0 && (
           <span className="flex flex-wrap gap-1" title="Details the extraction model read from the whole post or review">
             {details.map((detail) => (
-              <span key={detail} className="rounded-full border border-hairline bg-card px-1.5 py-px text-[11px] text-prose">
+              <span key={detail} className="rounded-full border border-hairline bg-card px-1.5 py-px text-[11.5px] text-prose">
                 {detail}
               </span>
             ))}
           </span>
         )}
-        <span className="flex flex-wrap items-center gap-x-3 text-[10.5px]">
-          {url && (
-            <a href={url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 text-ink underline-offset-2 hover:underline">
-              Open the post on Reddit
-              <ExternalLink className="size-3" aria-hidden />
-            </a>
-          )}
-          <CopyId id={statement.edge_id} />
-        </span>
       </figcaption>
     </figure>
   )

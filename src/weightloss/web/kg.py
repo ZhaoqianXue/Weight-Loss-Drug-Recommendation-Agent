@@ -69,11 +69,12 @@ def _pt(code):
 
 def statement(row):
     """An example statement with its record id, which the agent's rows leave out (answers must not show ids, the page
-    may). Statement ids are '<platform>:<record id>:d<drug group>:<p|s><index>' (weightloss.graph.build)."""
+    may). Statement ids are '<platform>:<record id>:d<drug group>:<p|s><index>' (weightloss.graph.build). Purpose
+    statements carry no side-effect details, so their action list is empty."""
     if row is None:
         return None
     parts = (row.get('edge_id') or '').split(':')
-    return {**row, 'record_id': ':'.join(parts[1:-2]) if len(parts) >= 4 else None}
+    return {**row, 'record_id': ':'.join(parts[1:-2]) if len(parts) >= 4 else None, 'action_taken': row.get('action_taken') or []}
 
 
 class KGService:
@@ -362,7 +363,7 @@ class KGService:
                                           **{**FILTER_DEFAULTS, **filters})
             keep = ('edge_id', 'platform', 'date', 'ingredient', 'brand', 'ingredient_basis', 'pt', 'pt_code', 'soc',
                     'wording', 'writer_age_group', 'writer_sex', 'dose', 'duration', 'intensity', 'impact', 'action_taken',
-                    'evidence', 'writer_evidence')
+                    'evidence', 'evidence_withheld', 'writer_evidence')
             match = next((s for s in out.get('summary') or [] if s.get('platform') == platform), {})
             return {'target': target, 'platform': platform, 'drug': drug, 'code': code,
                     'matching_records': match.get('matching_records', 0),
@@ -397,3 +398,17 @@ class KGService:
                     self.graph_view(platform, level, 'both', sexes=[sex])
                 for drug in (BRANDS if level == 'brand' else INGREDIENTS):
                     self.graph_view(platform, level, 'both', drugs=[drug])
+        for age in AGE_GROUPS:
+            self.faers('all', 'faers', age_group=age)
+        # Example statements behind every node and line of the two default graphs (the page asks for 6 at a time).
+        for platform in PLATFORMS:
+            view = self.graph_view(platform, 'brand', 'both')
+            nodes = {n['id']: n for n in view['nodes']}
+            for node in view['nodes']:
+                if node['kind'] == 'drug':
+                    for role in TARGETS:
+                        self.evidence(role, platform, 'brand', drug=node['label'])
+                else:
+                    self.evidence(node['kind'], platform, 'brand', code=node['code'])
+            for link in view['links']:
+                self.evidence(link['kind'], platform, 'brand', drug=nodes[link['source']]['label'], code=nodes[link['target']]['code'])

@@ -5,6 +5,7 @@ import { useEvidence } from "@/api/queries"
 import { StatementView } from "@/components/statement"
 import { Button } from "@/components/ui/button"
 import { formatNumber, PLATFORM_LABEL, PLATFORM_UNIT, ROLE_LABEL, valueLabel } from "@/lib/format"
+import { PURPOSE_COLOR, SIDE_EFFECT_COLOR } from "./style"
 import { cn } from "@/lib/utils"
 import type { Explorer, Level, Selection } from "@/state"
 
@@ -56,7 +57,7 @@ export function EvidencePanel({ selection, platform, level, filters, onClose, on
           <p className="label-caps">
             {selection.code ? ROLE_LABEL[selection.target] : "Drug"} · {PLATFORM_LABEL[platform]}
           </p>
-          <h3 className="font-display text-[19px] leading-[1.2] text-ink">
+          <h3 className="font-display text-[20px] leading-[1.2] text-ink">
             {selection.drug && selection.code ? `${valueLabel(selection.drug)} → ${selection.label}` : valueLabel(selection.label)}
           </h3>
           {data && (
@@ -73,7 +74,7 @@ export function EvidencePanel({ selection, platform, level, filters, onClose, on
           <X />
         </Button>
       </div>
-      <div className="grid min-h-0 flex-1 content-start gap-2.5 overflow-y-auto px-4 py-3">
+      <div className="grid min-h-0 flex-1 content-start gap-4 overflow-y-auto px-4 py-3.5">
         {evidence.isLoading && (
           <p className="flex items-center gap-2 text-muted-foreground">
             <Loader2 className="size-3.5 animate-spin" /> Reading statements…
@@ -81,7 +82,13 @@ export function EvidencePanel({ selection, platform, level, filters, onClose, on
         )}
         {evidence.error && <p className="text-destructive">{evidence.error.message}</p>}
         {data?.statements.map((statement) => (
-          <StatementView key={statement.edge_id} statement={statement} hideTerm={Boolean(selection.code)} hidePlatform />
+          <StatementView
+            key={statement.edge_id}
+            statement={statement}
+            hideTerm={Boolean(selection.code)}
+            hidePlatform
+            accent={selection.target === "purpose" ? PURPOSE_COLOR : SIDE_EFFECT_COLOR}
+          />
         ))}
         {data && data.statements.length === 0 && <p className="text-muted-foreground">No statements match.</p>}
       </div>

@@ -7,8 +7,9 @@ import { cn } from "@/lib/utils"
 
 const PLATFORMS = ["reddit", "webmd"] as const
 const SEXES = ["female", "male", "other", "not stated"]
-// Cards side by side have similar lengths: ten-row lists together, five-row lists together.
+// Cards side by side have similar lengths; the class card (long names) and the impact card take a full row.
 const ORDER = ["side_effects", "purposes", "socs", "brands", "ingredients", "impacts"]
+const WIDE = new Set(["socs", "impacts"])
 // Groups that are not a concept ("no brand named", "not stated") go last and are muted.
 const RESIDUAL = new Set(["unspecified", "not stated"])
 
@@ -20,7 +21,7 @@ const CARD: Record<string, { title: string; unit: string; note?: string }> = {
     note: "One intent can map to several terms: weight loss to Weight decreased, Weight control or Obesity; diabetes to Diabetes mellitus, Type 2 diabetes mellitus or Diabetes mellitus management. WebMD purposes include the reviewer's profile condition.",
   },
   socs: { title: "Side effects by system organ class", unit: "% of records with a side effect" },
-  brands: { title: "Brands named", unit: "% of records with a side effect", note: "A record can name several brands, so shares add up to more than 100%." },
+  brands: { title: "Brands named in side-effect records", unit: "% of records with a side effect", note: "A record can name several brands, so shares add up to more than 100%." },
   ingredients: {
     title: "Ingredients",
     unit: "% of records with a side effect",
@@ -55,16 +56,14 @@ function Ranked({ section, rows, scale }: { section: string; rows: PatternRow[];
         return (
           <li key={row.label} className={cn("grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1", residual && "text-muted-foreground")}>
             <div className="flex min-w-0 items-baseline justify-between gap-3">
-              <span className="min-w-0 truncate" title={label(section, row.label)}>
-                {label(section, row.label)}
-              </span>
+              <span className="min-w-0 leading-snug text-pretty">{label(section, row.label)}</span>
               <span className="shrink-0 text-meta text-muted-foreground tabular-nums">
                 <span className={residual ? undefined : "text-foreground"}>{formatPercent(row.percent, row.records)}</span> · {formatNumber(row.records)}
               </span>
             </div>
-            <div className="h-1 rounded-full bg-hairline">
+            <div className="h-[5px] rounded-full bg-hairline">
               <div
-                className="h-1 rounded-full"
+                className="h-[5px] rounded-full"
                 style={{ width: `${Math.min(100, width)}%`, background: residual ? "var(--chip-border)" : barColor(section, row.label) }}
               />
             </div>
@@ -83,12 +82,12 @@ function SectionCard({ section }: { section: PatternSection }) {
   // One scale for both sources in a card, so equal bars mean equal shares.
   const scale = Math.max(1, ...section.rows.filter((r) => !RESIDUAL.has(r.label)).map((r) => r.percent ?? 0))
   return (
-    <div className="grid content-start gap-3 rounded-xl border border-border bg-card px-4 py-3.5">
+    <div className={cn("grid content-start gap-3 rounded-xl border border-border bg-card px-4 py-3.5", WIDE.has(section.key) && "xl:col-span-2")}>
       <div className="flex items-baseline justify-between gap-3">
         <h3 className="label-caps">{card.title}</h3>
-        <span className="text-[11px] text-muted-foreground">{card.unit}</span>
+        <span className="text-[11.5px] text-muted-foreground">{card.unit}</span>
       </div>
-      <div className="grid gap-x-6 gap-y-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className={cn("grid gap-x-6 gap-y-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]", WIDE.has(section.key) && "xl:gap-x-10")}>
         {PLATFORMS.map((platform) => {
           const all = section.rows.filter((r) => r.platform === platform)
           const notStated = all.find((r) => r.label === "not stated")
@@ -96,7 +95,7 @@ function SectionCard({ section }: { section: PatternSection }) {
             <div key={platform} className="grid min-w-0 content-start gap-2">
               <p className="flex items-baseline justify-between gap-2 border-b border-hairline pb-1 text-meta">
                 <span className="font-medium text-foreground">{PLATFORM_LABEL[platform]}</span>
-                <span className="font-mono text-[10.5px] text-subtle" title="Denominator of the shares in this column">
+                <span className="font-mono text-[11px] text-subtle" title="Denominator of the shares in this column">
                   {hideNotStated && notStated && <>not stated {formatPercent(notStated.percent)} · </>}n {formatNumber(all[0]?.denominator)}
                 </span>
               </p>
@@ -115,8 +114,8 @@ function PopulationCard({ cells, summary, ageGroups }: { cells: PopulationCell[]
   return (
     <div className="grid content-start gap-3 rounded-xl border border-border bg-card px-4 py-3.5 xl:col-span-2">
       <div className="flex items-baseline justify-between gap-3">
-        <h3 className="label-caps">Side-effect records by the writer's stated age and sex</h3>
-        <span className="text-[11px] text-muted-foreground">records</span>
+        <h3 className="label-caps">Who writes: side-effect records by the writer's stated age and sex</h3>
+        <span className="text-[11.5px] text-muted-foreground">records</span>
       </div>
       <div className="grid gap-x-10 gap-y-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         {PLATFORMS.map((platform) => {
@@ -130,12 +129,12 @@ function PopulationCard({ cells, summary, ageGroups }: { cells: PopulationCell[]
               <p className="flex items-baseline justify-between gap-2 border-b border-hairline pb-1 text-meta">
                 <span className="font-medium text-foreground">{PLATFORM_LABEL[platform]}</span>
                 {s && (
-                  <span className="text-[11px] text-muted-foreground">
+                  <span className="text-[11.5px] text-muted-foreground">
                     both stated in {formatNumber(s.age_and_sex_stated)} of {formatNumber(s.records)}
                   </span>
                 )}
               </p>
-              <table className="w-full table-fixed border-separate border-spacing-[2px] text-[11px] tabular-nums">
+              <table className="w-full table-fixed border-separate border-spacing-[2px] text-[11.5px] tabular-nums">
                 <thead>
                   <tr className="text-muted-foreground">
                     <th className="w-20 text-left font-normal" />
@@ -194,7 +193,7 @@ export function PatternsSection({ patterns, ageGroups }: { patterns: Patterns | 
   const sections = patterns ? [...patterns.sections].sort((a, b) => ORDER.indexOf(a.key) - ORDER.indexOf(b.key)) : []
   return (
     <section aria-label="Patterns" className="grid gap-3">
-      <SectionHeading title="Patterns" meta="The most reported terms in each source, over the whole graph." />
+      <SectionHeading title="Patterns" meta="The most reported terms in each source, over all drugs and with no filters." />
       {patterns ? (
         <div className="grid gap-4 xl:grid-cols-2">
           {sections.map((section) => (

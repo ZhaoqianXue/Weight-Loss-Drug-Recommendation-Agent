@@ -2196,6 +2196,18 @@
             "title": "Evidence",
             "default": []
           },
+          "evidence_withheld": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Withheld",
+            "description": "Why the source sentences are not shown (writers aged 13-18)"
+          },
           "writer_evidence": {
             "anyOf": [
               {

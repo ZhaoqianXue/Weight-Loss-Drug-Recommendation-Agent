@@ -141,7 +141,7 @@ export function ExplorerToolbar({ overview, state, onChange, onReset }: Props) {
             }}
           />
           <span aria-hidden className="text-meta text-muted-foreground">
-            <span className="inline-block w-4 text-right font-mono text-[12px] text-ink">{topN}</span> {roles(state.show, topN)}
+            <span className="inline-block w-4 text-right font-mono text-[12.5px] text-ink">{topN}</span> {roles(state.show, topN)}
           </span>
         </div>
       </div>

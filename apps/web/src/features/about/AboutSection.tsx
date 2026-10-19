@@ -1,4 +1,5 @@
 import type { Overview } from "@/api/client"
+import { SectionHeading } from "@/components/layout"
 import { formatNumber } from "@/lib/format"
 
 function Item({ term, children }: { term: string; children: React.ReactNode }) {
@@ -31,12 +32,12 @@ export function AboutSection({ overview }: { overview: Overview }) {
   const webmd = overview.platforms.find((p) => p.platform === "webmd")
   const release = /openFDA release ([\d-]+)/.exec(overview.faers_status)
   return (
-    <section aria-label="About the data" className="grid gap-x-12 gap-y-4 border-t border-border pt-[22px] lg:grid-cols-[220px_minmax(0,1fr)]">
-      <h2 className="font-display text-[21px] leading-[1.2] font-normal text-ink">About the data</h2>
-      <div className="grid gap-x-10 gap-y-6 xl:grid-cols-2">
+    <section aria-label="About the data" className="grid gap-3">
+      <SectionHeading title="About the data" meta="Sources, versions and the rules behind every number on this page." />
+      <div className="grid gap-x-10 gap-y-6 rounded-xl border border-border bg-card px-5 py-4 xl:grid-cols-2">
         <div className="grid content-start gap-2">
           <h3 className="label-caps">Sources and versions</h3>
-          <dl className="text-[12.5px]">
+          <dl className="text-[13px]">
             <Item term="Drugs">
               {overview.ingredients.map((ingredient, index) => (
                 <span key={ingredient}>
@@ -72,7 +73,7 @@ export function AboutSection({ overview }: { overview: Overview }) {
               )}
             </Item>
             <Item term="Extraction">
-              <span className="whitespace-nowrap">{v.extraction_model ?? "–"}</span>, prompt{" "}
+              <span className="whitespace-nowrap">{v.extraction_model ?? "–"}</span> with{" "}
               <span className="whitespace-nowrap">{v.extraction_prompt ?? "–"}</span>
             </Item>
             <Item term="Terminology">MedDRA {v.meddra ?? "–"}: Preferred Terms (PTs) and their system organ class (SOC)</Item>
@@ -86,7 +87,7 @@ export function AboutSection({ overview }: { overview: Overview }) {
         </div>
         <div className="grid content-start gap-2">
           <h3 className="label-caps">How to read the numbers</h3>
-          <ul className="grid gap-0 text-[12.5px] text-prose">
+          <ul className="grid gap-0 text-[13px] text-prose">
             {READING.map((line) => (
               <li key={line} className="border-b border-hairline py-2">
                 {line}

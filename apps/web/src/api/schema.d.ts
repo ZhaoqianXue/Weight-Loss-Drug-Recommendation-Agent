@@ -769,6 +769,11 @@ export interface components {
              * @default []
              */
             evidence: string[];
+            /**
+             * Evidence Withheld
+             * @description Why the source sentences are not shown (writers aged 13-18)
+             */
+            evidence_withheld?: string | null;
             /** Writer Evidence */
             writer_evidence?: string[] | null;
         };

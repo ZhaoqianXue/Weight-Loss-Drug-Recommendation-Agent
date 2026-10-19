@@ -17,7 +17,7 @@ import type { Explorer, NodeSizes, Selection } from "@/state"
 import { EvidencePanel } from "./EvidencePanel"
 import { GraphCanvas, type GraphCanvasHandle, type Hover } from "./GraphCanvas"
 import { GraphTooltip } from "./GraphTooltip"
-import { PURPOSE_COLOR, SIDE_EFFECT_COLOR, type GraphMode } from "./style"
+import { drugColor, PURPOSE_COLOR, SIDE_EFFECT_COLOR, type GraphMode } from "./style"
 
 type Props = {
   view: GraphView | undefined
@@ -85,88 +85,99 @@ function NodeSizesButton({ sizes, onChange }: { sizes: NodeSizes; onChange: (siz
   )
 }
 
-/** The same links as a table, grouped by drug, largest first within each drug and role. */
+/**
+ * The view as a matrix: terms (grouped by role, most reported first) by drugs, each cell the drug's share. A blank cell
+ * means the term is not among that drug's top terms here, not that nobody reports it.
+ */
 function LinkTable({ view, selected, onSelect }: { view: GraphView; selected: string | null; onSelect: (s: Picked) => void }) {
-  const nodes = new Map(view.nodes.map((n) => [n.id, n]))
-  const order = new Map(view.nodes.filter((n) => n.kind === "drug").map((n, i) => [n.id, i]))
-  const rows = [...view.links].sort(
-    (a, b) => (order.get(a.source) ?? 0) - (order.get(b.source) ?? 0) || a.kind.localeCompare(b.kind) || b.records - a.records
-  )
+  const drugs = view.nodes.filter((n) => n.kind === "drug")
+  const byPair = new Map(view.links.map((l) => [`${l.source}->${l.target}`, l]))
+  const roles = (["purpose", "side_effect"] as const).filter((role) => view.nodes.some((n) => n.kind === role))
   const unit = PLATFORM_UNIT[view.platform]
   return (
     <div className="absolute inset-0 overflow-auto bg-card">
-      <table className="w-full border-collapse text-left text-[12.5px]">
-        <thead className="sticky top-0 z-10 bg-card text-meta text-muted-foreground shadow-[0_1px_0_var(--hairline)]">
+      <table className="w-full min-w-[640px] border-collapse text-left text-[13px]">
+        <thead className="sticky top-0 z-10 bg-card shadow-[0_1px_0_var(--border)]">
           <tr>
-            <th scope="col" className="px-4 py-2 font-normal">
-              {view.level === "brand" ? "Brand" : "Ingredient"}
-            </th>
-            <th scope="col" className="hidden px-3 py-2 font-normal sm:table-cell">
-              Role
-            </th>
-            <th scope="col" className="px-3 py-2 font-normal">
+            <th scope="col" className="px-4 py-2.5 text-meta font-normal text-muted-foreground">
               MedDRA Preferred Term
             </th>
-            <th scope="col" className="hidden px-3 py-2 font-normal md:table-cell">
-              System organ class
-            </th>
-            <th scope="col" className="px-3 py-2 text-right font-normal">
-              {unit === "records" ? "Records" : "Reviews"}
-            </th>
-            <th scope="col" className="hidden px-3 py-2 text-right font-normal sm:table-cell" title="The drug's records that report any statement of this role">
-              Out of
-            </th>
-            <th scope="col" className="px-4 py-2 text-right font-normal">
-              Share
-            </th>
+            {drugs.map((drug) => (
+              <th key={drug.id} scope="col" className="px-1.5 py-2.5 text-center font-medium whitespace-nowrap text-foreground">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="size-2 rounded-full" style={{ background: drugColor(drug.label) }} />
+                  {valueLabel(drug.label)}
+                </span>
+              </th>
+            ))}
           </tr>
         </thead>
-        <tbody>
-          {rows.map((link, index) => {
-            const drug = nodes.get(link.source)
-            const pt = nodes.get(link.target)
-            if (!drug || !pt) return null
-            const id = `${link.source}->${link.target}`
-            const first = index === 0 || rows[index - 1].source !== link.source
-            const pick = () => onSelect({ id, target: link.kind, code: pt.code ?? null, label: pt.label, drug: drug.label })
-            return (
-              <tr
-                key={id}
-                tabIndex={0}
-                onClick={pick}
-                onKeyDown={(event) => event.key === "Enter" && pick()}
-                className={cn(
-                  "cursor-pointer outline-none hover:bg-info focus-visible:bg-tint",
-                  first ? "border-t border-border" : "border-t border-hairline",
-                  selected === id && "bg-tint"
-                )}
-              >
-                <td className="px-4 py-1.5 font-medium text-foreground">{first ? valueLabel(drug.label) : ""}</td>
-                <td className="hidden px-3 py-1.5 text-muted-foreground sm:table-cell">{ROLE_LABEL[link.kind]}</td>
-                <td className="px-3 py-1.5 text-foreground">{pt.label}</td>
-                <td className="hidden max-w-56 truncate px-3 py-1.5 text-muted-foreground md:table-cell" title={pt.soc ?? undefined}>
-                  {pt.soc ?? "–"}
-                </td>
-                <td className="px-3 py-1.5 text-right tabular-nums">{formatNumber(link.records)}</td>
-                <td className="hidden px-3 py-1.5 text-right text-muted-foreground tabular-nums sm:table-cell">{formatNumber(link.denominator)}</td>
-                <td className="px-4 py-1.5 text-right tabular-nums">
-                  {formatPercent(link.percent, link.records)}
-                  {link.sparse ? (
-                    <span className="ml-1 text-meta text-muted-foreground" title="Fewer than 10 of the drug's records report any statement of this role">
-                      few records
+        {roles.map((role) => {
+          const terms = view.nodes.filter((n) => n.kind === role).sort((a, b) => (b.records[role] ?? 0) - (a.records[role] ?? 0))
+          const max = Math.max(1, ...view.links.filter((l) => l.kind === role).map((l) => l.percent ?? 0))
+          return (
+            <tbody key={role}>
+              <tr className="border-t border-border bg-info text-meta">
+                <th scope="rowgroup" className="px-4 py-1.5 font-medium text-prose">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="size-2 rounded-full" style={{ background: role === "purpose" ? PURPOSE_COLOR : SIDE_EFFECT_COLOR }} />
+                    <span>
+                      {role === "purpose" ? "Purposes" : "Side effects"}
+                      <span className="font-normal text-muted-foreground">: share of the drug's {unit} with a {ROLE_LABEL[role].toLowerCase()}</span>
                     </span>
-                  ) : (
-                    link.small && (
-                      <span className="ml-1 text-meta text-muted-foreground" title="Fewer than 30 of the drug's records report any statement of this role, so the share is unstable">
-                        small group
-                      </span>
-                    )
-                  )}
-                </td>
+                  </span>
+                </th>
+                {drugs.map((drug) => (
+                  <td key={drug.id} className="px-1.5 py-1.5 text-center font-mono text-[11px] text-subtle" title={`${valueLabel(drug.label)} ${unit} with a ${ROLE_LABEL[role].toLowerCase()}`}>
+                    n {formatNumber(drug.records[role])}
+                  </td>
+                ))}
               </tr>
-            )
-          })}
-        </tbody>
+              {terms.map((term) => {
+                const termId = term.id
+                return (
+                  <tr key={term.id} className="border-t border-hairline">
+                    <th scope="row" className="px-4 py-1 font-normal">
+                      <button
+                        type="button"
+                        onClick={() => onSelect({ id: termId, target: role, code: term.code ?? null, label: term.label, drug: null })}
+                        className={cn("rounded-[4px] text-left text-foreground outline-none hover:text-ink hover:underline focus-visible:ring-2 focus-visible:ring-ring/50", selected === termId && "font-medium text-ink")}
+                      >
+                        {term.label}
+                      </button>
+                    </th>
+                    {drugs.map((drug) => {
+                      const link = byPair.get(`${drug.id}->${term.id}`)
+                      if (!link) return <td key={drug.id} className="px-1.5 py-1 text-center text-subtle" aria-label="Not among this drug's top terms">·</td>
+                      const id = `${drug.id}->${term.id}`
+                      const strength = (link.percent ?? 0) / max
+                      return (
+                        <td key={drug.id} className="px-1 py-[3px]">
+                          <button
+                            type="button"
+                            title={`${valueLabel(drug.label)} → ${term.label}: ${formatNumber(link.records)} of ${formatNumber(link.denominator)} ${unit}${link.sparse ? ", too few to compare" : link.small ? ", a small group" : ""}`}
+                            onClick={() => onSelect({ id, target: role, code: term.code ?? null, label: term.label, drug: drug.label })}
+                            className={cn(
+                              "w-full rounded-[6px] px-1.5 py-1 text-center tabular-nums outline-none hover:ring-1 hover:ring-ring focus-visible:ring-2 focus-visible:ring-ring",
+                              selected === id && "ring-2 ring-ink",
+                              (link.sparse || link.small) && "italic"
+                            )}
+                            style={{
+                              background: `color-mix(in oklab, var(--ink) ${Math.round(strength * 58)}%, var(--card))`,
+                              color: strength > 0.62 ? "var(--primary-foreground)" : undefined,
+                            }}
+                          >
+                            {formatPercent(link.percent, link.records)}
+                          </button>
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
+            </tbody>
+          )
+        })}
       </table>
     </div>
   )
@@ -206,7 +217,7 @@ export function GraphCard({ view, fetching, error, blocked, filters, sizes, onSi
   return (
     <>
       {/* Tall enough that heading, filters, canvas and bar fill the first screen, within limits. */}
-      <div ref={area} className="relative flex h-[clamp(440px,calc(100svh-340px),880px)] overflow-hidden">
+      <div ref={area} className="relative flex h-[clamp(440px,calc(100svh-372px),880px)] overflow-hidden">
         {fetching && view && (
           <span role="status" className="absolute top-3 left-1/2 z-40 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 text-meta text-ink">
             <Loader2 className="size-3.5 animate-spin" />
@@ -215,7 +226,6 @@ export function GraphCard({ view, fetching, error, blocked, filters, sizes, onSi
         )}
         <div
           className={cn("relative min-w-0 flex-1 transition-opacity", fetching && view && "opacity-50")}
-          style={layout === "graph" ? { backgroundImage: "radial-gradient(circle, var(--dot) 1px, transparent 1.3px)", backgroundSize: "20px 20px" } : undefined}
         >
           {error ? (
             <p className="p-4 text-destructive">The graph could not be loaded: {error.message}</p>
@@ -238,7 +248,7 @@ export function GraphCard({ view, fetching, error, blocked, filters, sizes, onSi
           {empty && <p className="pointer-events-none absolute inset-x-0 top-1/2 text-center text-muted-foreground">{empty}</p>}
           {hover && layout === "graph" && <GraphTooltip hover={hover} unit={unit} />}
         </div>
-        {/* Beside the graph, which re-lays out narrower, so the selected node stays in view; over it on narrow cards. */}
+        {/* Beside the graph, which re-lays out narrower so the selected node stays in view; over it on narrow cards. */}
         {selection && view && (
           <EvidencePanel
             selection={selection}
@@ -247,7 +257,7 @@ export function GraphCard({ view, fetching, error, blocked, filters, sizes, onSi
             filters={filters}
             onClose={() => setSelection(null)}
             onAsk={onAsk}
-            className="w-[min(380px,100%)] shrink-0 border-l border-border bg-card max-[39.99rem]:absolute max-[39.99rem]:inset-y-0 max-[39.99rem]:right-0"
+            className={cn("w-[min(400px,100%)] shrink-0 border-l border-border bg-card", areaWidth < 640 && "absolute inset-y-0 right-0")}
           />
         )}
       </div>
@@ -256,7 +266,6 @@ export function GraphCard({ view, fetching, error, blocked, filters, sizes, onSi
           label="Show the graph as"
           value={layout}
           onChange={setLayout}
-          className="h-[30px]"
           options={[
             { value: "graph", label: "Graph" },
             { value: "table", label: "Table" },
@@ -266,14 +275,14 @@ export function GraphCard({ view, fetching, error, blocked, filters, sizes, onSi
           <Fragment>
             {kinds.has("purpose") && <LegendDot color={PURPOSE_COLOR} label="Purpose" />}
             {kinds.has("side_effect") && <LegendDot color={SIDE_EFFECT_COLOR} label="Side effect" />}
-            <span className="text-muted-foreground" title={`Terms are MedDRA Preferred Terms. Circle size and line width grow with ${unit}; sizes compare within a column.`}>
-              Size and width: {unit}
+            <span className="text-muted-foreground">
+              Circle: {unit} · Line: share of the drug's {unit}
             </span>
             <div role="toolbar" aria-label="Graph view" className="ml-auto flex items-center gap-0.5">
               <ToolbarButton label="Zoom out" onClick={() => canvas.current?.zoomBy(0.7)}>
                 <Minus />
               </ToolbarButton>
-              <span className="w-10 text-center font-mono text-[11px] text-ink">{Math.round(zoom * 100)}%</span>
+              <span className="w-10 text-center font-mono text-[11.5px] text-ink">{Math.round(zoom * 100)}%</span>
               <ToolbarButton label="Zoom in" onClick={() => canvas.current?.zoomBy(1.3)}>
                 <Plus />
               </ToolbarButton>
@@ -292,15 +301,20 @@ export function GraphCard({ view, fetching, error, blocked, filters, sizes, onSi
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="top" align="end" className="max-w-64">
-                  Terms are MedDRA Preferred Terms. Circle size and line width grow with the number of {unit}; sizes compare within a column.
-                  Hover a node to highlight its links, click a node or a line to read example statements, drag a node to move it, and pinch
-                  or hold Ctrl and scroll to zoom.
+                  Terms are MedDRA Preferred Terms. Circle size grows with the number of {unit} (compare within a column); line width is the
+                  share of the drug's {unit} that report the term. Hover a node to see its shares, click a node or a line to read example
+                  statements, drag a node to move it, and pinch or hold Ctrl and scroll to zoom.
                 </TooltipContent>
               </Tooltip>
             </div>
           </Fragment>
         )}
-        {layout === "table" && <span className="text-muted-foreground">Click a row to read example statements.</span>}
+        {layout === "table" && view && (
+          <span className="text-muted-foreground">
+            Darker cells are larger shares; italics mark a group under 30. A dot: not among that drug's top {view.top_n}. Click a cell or a term to read
+            example statements.
+          </span>
+        )}
       </div>
     </>
   )

@@ -17,18 +17,20 @@ function Line({ label, value }: { label: string; value: React.ReactNode }) {
 export function GraphTooltip({ hover, unit }: { hover: Hover; unit: string }) {
   // Keep the tooltip inside the canvas: flip left near the right edge, upward in the lower part.
   // Open away from the pointer's half of the canvas, so the hovered node, its label and its links stay visible.
+  // A drug sits between the two term columns, whose ends show the shares, so its tooltip opens under (or over) it.
   const flipX = hover.x > hover.width / 2
   const flipY = hover.y > hover.height * 0.55
+  const centred = hover.kind === "node" && hover.node.kind === "drug"
   const style = {
     width: WIDTH,
-    left: flipX ? hover.x - WIDTH - 28 : hover.x + 28,
-    ...(flipY ? { bottom: hover.height - hover.y + 12 } : { top: hover.y + 12 }),
+    left: centred ? Math.max(8, Math.min(hover.width - WIDTH - 8, hover.x - WIDTH / 2)) : flipX ? hover.x - WIDTH - 28 : hover.x + 28,
+    ...(flipY ? { bottom: hover.height - hover.y + (centred ? 40 : 12) } : { top: hover.y + (centred ? 40 : 12) }),
   }
   return (
-    <div role="tooltip" className="pointer-events-none absolute z-20 grid gap-1 rounded-[10px] border border-border bg-card px-3 py-2.5 text-[12px]" style={style}>
+    <div role="tooltip" className="pointer-events-none absolute z-20 grid gap-1 rounded-[10px] border border-border bg-card px-3 py-2.5 text-[12.5px]" style={style}>
       {hover.kind === "node" ? (
         <>
-          <div className="text-[13px] font-medium text-ink">{hover.node.kind === "drug" ? valueLabel(hover.node.label) : hover.node.label}</div>
+          <div className="text-[13.5px] font-medium text-ink">{hover.node.kind === "drug" ? valueLabel(hover.node.label) : hover.node.label}</div>
           <div className="text-muted-foreground">
             {hover.node.kind === "drug"
               ? hover.node.ingredient !== hover.node.label
@@ -51,7 +53,7 @@ export function GraphTooltip({ hover, unit }: { hover: Hover; unit: string }) {
         </>
       ) : (
         <>
-          <div className="text-[13px] font-medium text-ink">
+          <div className="text-[13.5px] font-medium text-ink">
             {valueLabel(hover.source.label)} → {hover.target.label}
           </div>
           <div className="text-muted-foreground">{ROLE_LABEL[hover.link.kind]} statements</div>

@@ -233,6 +233,7 @@ class Statement(BaseModel):
     impact: Optional[str] = None
     action_taken: list[str] = []
     evidence: list[str] = []
+    evidence_withheld: Optional[str] = Field(None, description='Why the source sentences are not shown (writers aged 13-18)')
     writer_evidence: Optional[list[str]] = None
 
 

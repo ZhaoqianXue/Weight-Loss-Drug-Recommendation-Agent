@@ -17,7 +17,7 @@ const EXAMPLES = [
   { kind: "Compared with FAERS", question: "How does vomiting on Trulicity compare with what FAERS reports show?" },
   { kind: "Consequences", question: "Which side effects do writers most often say led them to stop Wegovy?" },
   { kind: "In their words", question: "How do people describe constipation on Zepbound in their own words?" },
-  { kind: "Medical advice", question: "Should I stop taking Zepbound if I keep throwing up?" },
+  { kind: "Out of scope", question: "Should I stop taking Zepbound if I keep throwing up?" },
 ]
 
 function StepRow({ step }: { step: Step }) {
@@ -32,18 +32,18 @@ function StepRow({ step }: { step: Step }) {
           <Check className="size-3.5 text-[#2f6b45]" />
         )}
       </span>
-      <span className={cn("text-[12px] text-prose", step.status === "error" && "text-muted-foreground")}>
+      <span className={cn("text-[12.5px] text-prose", step.status === "error" && "text-muted-foreground")}>
         {step.title}
         {step.note && step.status === "done" && <span className="text-muted-foreground"> · {step.note}</span>}
       </span>
       {(step.details.length > 0 || (step.status === "error" && step.note)) && (
         <span className="col-start-2 flex flex-wrap gap-1">
           {step.details.map((detail) => (
-            <span key={detail} className="rounded-full border border-hairline bg-card px-1.5 text-[10.5px] text-prose">
+            <span key={detail} className="rounded-full border border-hairline bg-card px-1.5 text-[11px] text-prose">
               {detail}
             </span>
           ))}
-          {step.status === "error" && step.note && <span className="text-[10.5px] text-muted-foreground">Rejected: {step.note}</span>}
+          {step.status === "error" && step.note && <span className="text-[11px] text-muted-foreground">Rejected: {step.note}</span>}
         </span>
       )}
     </li>
@@ -56,7 +56,7 @@ function Elapsed({ since }: { since: number }) {
     const timer = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(timer)
   }, [])
-  return <span className="font-mono text-[11px] font-normal text-muted-foreground">{Math.max(0, Math.round((now - since) / 1000))} s</span>
+  return <span className="font-mono text-[11.5px] font-normal text-muted-foreground">{Math.max(0, Math.round((now - since) / 1000))} s</span>
 }
 
 function TurnView({ turn, onShowInGraph }: { turn: Turn; onShowInGraph: (update: Partial<Explorer>) => void }) {
@@ -64,18 +64,24 @@ function TurnView({ turn, onShowInGraph }: { turn: Turn; onShowInGraph: (update:
     <div className="grid scroll-mt-3 gap-2.5" data-turn={turn.id}>
       <div className="ml-auto w-fit max-w-[80%] rounded-[13px_13px_3px_13px] bg-primary px-3 py-2.5 text-[#eaf0f7] dark:text-primary-foreground">{turn.question}</div>
       <div>
-        <div className="min-w-0 rounded-[3px_13px_13px_13px] border border-tint-border bg-tint px-3.5 py-3 text-prose">
+        {/* A finished answer is set on the page like an article; progress and errors sit in a tinted box. */}
+        <div
+          className={cn(
+            "min-w-0 text-prose",
+            !(turn.status === "done" && turn.result) && "rounded-[3px_13px_13px_13px] border border-tint-border bg-tint px-3.5 py-3"
+          )}
+        >
           {turn.status === "done" && turn.result ? (
             <AnswerCard result={turn.result} onShowInGraph={onShowInGraph} />
           ) : (
             <div className="grid gap-2">
-              <p className="flex items-baseline justify-between gap-3 text-[13px] font-medium text-ink">
+              <p className="flex items-baseline justify-between gap-3 text-[13.5px] font-medium text-ink">
                 {turn.status === "error" ? "No answer" : "Querying the knowledge graph"}
                 {turn.status === "running" && <Elapsed since={turn.startedAt} />}
               </p>
               {turn.steps.length > 0 && <ol className="grid gap-1.5">{turn.steps.map((step) => <StepRow key={step.key} step={step} />)}</ol>}
               {turn.status === "error" && (
-                <p className="flex items-start gap-1.5 text-[12px] text-destructive">
+                <p className="flex items-start gap-1.5 text-[12.5px] text-destructive">
                   <CircleAlert className="mt-0.5 size-3.5 shrink-0" />
                   {turn.error}
                 </p>
@@ -140,15 +146,15 @@ export function AskPanel({ request, onShowInGraph }: Props) {
       <div className="flex shrink-0 items-center gap-2.5 border-b border-hairline px-4 pt-[13px] pb-3">
         <BrandMark className="size-7" />
         <div className="grid min-w-0 gap-0.5">
-          <h2 className="font-display text-[19px] leading-[1.2] font-normal text-ink">AskGLP1 agent</h2>
+          <h2 className="font-display text-[20px] leading-[1.2] font-normal text-ink">AskGLP1 agent</h2>
           <p className="text-meta text-muted-foreground">Answers from the knowledge graph. Every number links to the row it came from.</p>
         </div>
       </div>
       <div ref={scroller} className="relative flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-4 py-4" role="log" aria-live="polite" aria-label="Questions and answers">
         {turns.length === 0 ? (
-          <div className="my-auto grid gap-7 py-2">
+          <div className="grid gap-7 pt-6 pb-2">
             <div className="grid justify-items-center gap-2 text-center">
-              <h3 className="font-display text-[22px] leading-[1.2] font-normal text-ink">What would you like to know?</h3>
+              <h3 className="font-display text-[23px] leading-[1.2] font-normal text-ink">What would you like to know?</h3>
               <p className="max-w-[46ch] text-prose">
                 Ask what Reddit writers and WebMD reviewers report about GLP-1 receptor agonists and how it compares with FAERS. Each
                 question is answered on its own, from the graph only, without medical advice.
@@ -162,10 +168,10 @@ export function AskPanel({ request, onShowInGraph }: Props) {
                   type="button"
                   disabled={!available}
                   onClick={() => void ask(example.question)}
-                  className="grid grid-cols-[1fr_auto] items-center gap-x-3 rounded-[10px] border border-chip-border bg-card px-3 py-[9px] text-left transition-colors hover:bg-tint disabled:opacity-50"
+                  className="grid grid-cols-[1fr_auto] items-center gap-x-3 rounded-[10px] border border-border bg-card px-3 py-[9px] text-left transition-colors hover:border-chip-border hover:bg-tint disabled:opacity-50"
                 >
                   <span className="grid gap-px">
-                    <span className="text-[10px] tracking-[0.06em] text-subtle uppercase">{example.kind}</span>
+                    <span className="text-[10.5px] tracking-[0.06em] text-subtle uppercase">{example.kind}</span>
                     <span className="text-ink">{example.question}</span>
                   </span>
                   <ArrowRight className="size-3.5 text-muted-foreground" aria-hidden />

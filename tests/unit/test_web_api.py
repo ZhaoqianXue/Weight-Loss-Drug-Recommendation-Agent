@@ -80,11 +80,21 @@ class FakeGraph:
 
     def get_evidence(self, **a):
         self.calls.append(('get_evidence', a))
+        if a['target'] == 'purpose':  # purpose rows have no side-effect details (dose, intensity, action taken)
+            return {'tool': 'get_evidence', 'summary': [row(1, platform=a['platforms'][0], matching_statements=3, matching_records=3)],
+                    'rows': [row(2, edge_id='webmd:42:d0:p0', platform=a['platforms'][0], date='2024-01-01', ingredient='semaglutide',
+                                 brand='Ozempic', ingredient_basis='name', pt='Weight decreased', pt_code='2', soc='Investigations',
+                                 wording='to lose weight', writer_age_group='45-54', writer_sex='female',
+                                 evidence=['I take it to lose weight.'])], 'notes': NOTES}
         return {'tool': 'get_evidence', 'summary': [row(1, platform=a['platforms'][0], matching_statements=12, matching_records=11)],
                 'rows': [row(2, edge_id='reddit:t1_a:d0:s0', platform=a['platforms'][0], date='2025-01-01',
                              ingredient='semaglutide', brand='Ozempic', ingredient_basis='name', pt='Nausea', pt_code='1', soc='GI',
                              wording='nauseous', writer_age_group='not stated', writer_sex='not stated', dose=None, duration=None,
-                             intensity='mild', impact=None, action_taken=[], evidence=['I felt nauseous all week.'])],
+                             intensity='mild', impact=None, action_taken=[], evidence=['I felt nauseous all week.']),
+                         row(3, edge_id='reddit:t1_b:d0:s0', platform=a['platforms'][0], date='2025-02-01', ingredient='semaglutide',
+                             brand='Ozempic', ingredient_basis='name', pt='Nausea', pt_code='1', soc='GI', wording='nausea',
+                             writer_age_group='13-18', writer_sex='not stated', dose=None, duration=None, intensity=None, impact=None,
+                             action_taken=[], evidence=[], evidence_withheld='writer aged 13-18: source sentences are not shown or quoted')],
                 'notes': NOTES, '_full_evidence': {'reddit:t1_a:d0:s0': ['I felt nauseous all week.']}}
 
     def link_terms(self, text, kind):
@@ -196,6 +206,15 @@ class KGServiceTest(unittest.TestCase):
         self.assertNotIn('_full_evidence', view)
 
 
+    def test_warm_up_reaches_every_kind_of_view(self):
+        graph = FakeGraph()
+        KGService(graph=graph).warm()
+        tools = {name for name, _ in graph.calls}
+        self.assertEqual(tools, {'overview', 'query_graph', 'compare_faers', 'get_evidence'})
+        # Example statements for both roles, including purposes, which carry no side-effect details.
+        self.assertEqual({args['target'] for name, args in graph.calls if name == 'get_evidence'}, {'side_effect', 'purpose'})
+
+
 class WebApiTest(unittest.TestCase):
     def client(self, graph=None, **ask):
         kg = KGService(graph=graph or FakeGraph())
@@ -225,6 +244,10 @@ class WebApiTest(unittest.TestCase):
             evidence = client.post('/api/evidence', json={'target': 'side_effect', 'platform': 'webmd', 'code': '1'}).json()
             self.assertEqual(evidence['statements'][0]['evidence'], ['I felt nauseous all week.'])
             self.assertEqual(evidence['statements'][0]['record_id'], 't1_a')  # from the statement id
+            self.assertEqual((evidence['statements'][1]['evidence'], evidence['statements'][1]['evidence_withheld'][:18]), ([], 'writer aged 13-18:'))
+            purpose = client.post('/api/evidence', json={'target': 'purpose', 'platform': 'webmd', 'level': 'brand', 'drug': 'Ozempic', 'code': '2'})
+            self.assertEqual(purpose.status_code, 200)
+            self.assertEqual((purpose.json()['statements'][0]['action_taken'], purpose.json()['statements'][0]['record_id']), ([], '42'))
 
     def test_graph_down_answers_503(self):
         def down():

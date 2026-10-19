@@ -24,8 +24,8 @@ export const PURPOSE_COLOR = "#FFDA66"
 export const SIDE_EFFECT_COLOR = "#B89EC8"
 
 export const GRAPH_THEME = {
-  light: { surface: "#fffefc", text: "#26364b", muted: "#68798c", link: "#9aa8b8", ring: "#fffefc", selected: "#1a365d" },
-  dark: { surface: "#131c2b", text: "#e0e6ef", muted: "#8d9bb0", link: "#6f7f95", ring: "#131c2b", selected: "#eef3f9" },
+  light: { surface: "#fffefc", text: "#26364b", title: "#1a365d", muted: "#68798c", link: "#8d9cae", linkOpacity: 0.24, ring: "#fffefc", selected: "#1a365d" },
+  dark: { surface: "#131c2b", text: "#e0e6ef", title: "#c9d8ec", muted: "#8d9bb0", link: "#7d8ea6", linkOpacity: 0.2, ring: "#131c2b", selected: "#eef3f9" },
 }
 
 export type GraphMode = keyof typeof GRAPH_THEME

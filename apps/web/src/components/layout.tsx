@@ -25,8 +25,8 @@ type SectionHeadingProps = Omit<React.ComponentProps<"div">, "title"> & { title:
 export function SectionHeading({ title, meta, className, ...props }: SectionHeadingProps) {
   return (
     <div className={cn("grid gap-0.5", className)} {...props}>
-      <h2 className="flex items-center gap-2 font-display text-[21px] leading-[1.2] font-normal text-ink">{title}</h2>
-      {meta && <p className="text-[12px] text-muted-foreground">{meta}</p>}
+      <h2 className="flex items-center gap-2 font-display text-[23px] leading-[1.2] font-normal text-ink">{title}</h2>
+      {meta && <p className="text-[12.5px] text-muted-foreground">{meta}</p>}
     </div>
   )
 }

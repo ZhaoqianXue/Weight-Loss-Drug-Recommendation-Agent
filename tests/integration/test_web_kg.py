@@ -48,12 +48,15 @@ class WebKnowledgeGraphTest(unittest.TestCase):
             self.assertLessEqual(row['reddit_records'], row['reddit_denominator'])
 
     def test_example_statements_carry_their_record(self):
-        for platform in ('reddit', 'webmd'):
-            view = self.kg.evidence('side_effect', platform, level='brand', code='10028813', limit=3)
-            self.assertTrue(view['statements'])
-            for s in view['statements']:
-                self.assertTrue(s['record_id'])
-                self.assertTrue(s['edge_id'].startswith(f"{platform}:{s['record_id']}:d"))
+        # Side-effect and purpose statements both come with their record; purposes have no action list of their own.
+        for target, code in (('side_effect', '10028813'), ('purpose', '10047895')):  # Nausea; Weight decreased
+            for platform in ('reddit', 'webmd'):
+                view = self.kg.evidence(target, platform, level='brand', code=code, limit=3)
+                self.assertTrue(view['statements'])
+                for s in view['statements']:
+                    self.assertTrue(s['record_id'])
+                    self.assertIsInstance(s['action_taken'], list)
+                    self.assertTrue(s['edge_id'].startswith(f"{platform}:{s['record_id']}:d"))
 
 
 if __name__ == '__main__':

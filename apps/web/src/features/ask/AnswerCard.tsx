@@ -59,8 +59,9 @@ const FIELD_LABEL: Record<string, string> = {
   records_processed: "Records processed",
   records_with_side_effect: "With a side effect",
   records_with_purpose: "With a purpose",
-  records_with_age_stated: "With age stated",
-  records_with_sex_stated: "With sex stated",
+  // Counted before any age or sex filter, and for any stated value (sex "other" included).
+  records_with_age_stated: "Age stated (any value)",
+  records_with_sex_stated: "Sex stated (any value)",
   universe_records_with_profile_purpose: "With a WebMD profile condition",
   record_window: "Dates",
   code: "MedDRA code",
@@ -86,22 +87,35 @@ export function callName(call: string) {
 }
 
 /** A footnote-style marker after a number; hovering or focusing it shows the tool row the number comes from. */
-function CitationMark({ citation, number }: { citation: Citation | undefined; number: number }) {
-  if (!citation) return <sup className="text-destructive">?</sup>
+function CitationMark({ citation, number, children }: { citation: Citation | undefined; number: number; children?: React.ReactNode }) {
+  if (!citation) return <>{children}<sup className="text-destructive">?</sup></>
   const source = citation.source ?? {}
-  const fields = Object.keys(FIELD_LABEL).filter((key) => key in source)
+  // Flags are shown only when they apply; empty values are left out.
+  const fields = Object.keys(FIELD_LABEL).filter((key) => key in source && source[key] !== false && source[key] !== null && source[key] !== "")
+  const label = `Source of this number: ${callName(citation.call)}, row ${citation.row}, ${FIELD_LABEL[citation.field] ?? citation.field}`
   return (
     <HoverCard openDelay={60} closeDelay={80}>
       <HoverCardTrigger asChild>
-        <button
-          type="button"
-          className="relative -top-[0.45em] ml-px rounded-[3px] px-[2px] font-mono text-[9.5px] leading-none text-[#5b7aa3] outline-none hover:bg-card hover:text-ink focus-visible:bg-card focus-visible:text-ink focus-visible:ring-2 focus-visible:ring-ring/50 dark:text-[#9bb8d8]"
-          aria-label={`Source of this number: ${callName(citation.call)}, row ${citation.row}, ${FIELD_LABEL[citation.field] ?? citation.field}`}
-        >
-          {number}
-        </button>
+        {children ? (
+          // The cited number itself is the link to its source row; an inline span, so it never breaks from "(" or "of".
+          <span
+            tabIndex={0}
+            aria-label={`${String(children)}. ${label}`}
+            className="cursor-help rounded-[3px] font-medium text-foreground underline decoration-[#9bb8d8] decoration-dotted decoration-[1.5px] underline-offset-[3px] outline-none hover:bg-card hover:text-ink hover:decoration-ink focus-visible:bg-card focus-visible:ring-2 focus-visible:ring-ring/50 dark:decoration-[#6f96bf]"
+          >
+            {children}
+          </span>
+        ) : (
+          <button
+            type="button"
+            className="relative -top-[0.45em] ml-px rounded-[3px] px-[2px] font-mono text-[10px] leading-none text-[#5b7aa3] outline-none hover:bg-card hover:text-ink focus-visible:bg-card focus-visible:text-ink focus-visible:ring-2 focus-visible:ring-ring/50 dark:text-[#9bb8d8]"
+            aria-label={label}
+          >
+            {number}
+          </button>
+        )}
       </HoverCardTrigger>
-      <HoverCardContent align="start" collisionPadding={12} className="w-80 p-0 text-[12px]">
+      <HoverCardContent align="start" collisionPadding={12} className="w-80 p-0 text-[12.5px]">
         <div className="border-b border-hairline px-3 py-2">
           <p className="label-caps">
             {callName(citation.call)} · row {citation.row}
@@ -130,20 +144,32 @@ function readable(text: string) {
   return text.replace(/(?<![\d.,])(\d{4,})(?=\s*\[c\d+\])/g, (n) => Number(n).toLocaleString("en-US"))
 }
 
-/** Answer text with [cN] tags turned into source markers. */
+// A number right before a citation tag: "1,207", "32.4%", "<0.1%", "$0.01".
+const CITED_NUMBER = /((?:[<>≤≥~]\s?)?\$?\d[\d,]*(?:\.\d+)?%?)\s*\[(c\d+)\]/g
+
+/** Answer text in which each cited number links to its source row; a tag after anything else becomes a small marker. */
 function AnswerText({ result }: { result: AskResult }) {
   const byId = new Map(result.citations.map((c) => [c.id, c]))
-  // Markers are numbered in reading order; the agent's own tag ids stay in the copied text and the JSON record.
+  const linked = readable(result.answer).replace(CITED_NUMBER, "[$1](#cite-$2)")
+  // Remaining markers are numbered in reading order; the agent's own tag ids stay in the copied text and the JSON record.
   const order = new Map<string, number>()
-  for (const match of result.answer.matchAll(/\[(c\d+)\]/g)) if (!order.has(match[1])) order.set(match[1], order.size + 1)
-  const text = readable(result.answer).replace(/\s*\[(c\d+)\]/g, "[$1](#cite-$1)")
+  for (const match of linked.matchAll(/\[(c\d+)\]/g)) if (!order.has(match[1])) order.set(match[1], order.size + 1)
+  const text = linked.replace(/\s*\[(c\d+)\]/g, "[$1](#cite-$1)")
   return (
     <div className="answer-prose">
       <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
           a: ({ href, children }) => {
-            if (href?.startsWith("#cite-")) return <CitationMark citation={byId.get(href.slice(6))} number={order.get(href.slice(6)) ?? 0} />
+            if (href?.startsWith("#cite-")) {
+              const id = href.slice(6)
+              const marker = /^c\d+$/.test(String(children))
+              return (
+                <CitationMark citation={byId.get(id)} number={order.get(id) ?? 0}>
+                  {marker ? undefined : children}
+                </CitationMark>
+              )
+            }
             return (
               <a href={href} target="_blank" rel="noreferrer">
                 {children}
@@ -173,7 +199,7 @@ function IconAction({ label, onClick, children }: { label: string; onClick: () =
 
 function Disclosure({ title, children, defaultOpen = false }: { title: React.ReactNode; children: React.ReactNode; defaultOpen?: boolean }) {
   return (
-    <details className="group border-t border-tint-border pt-2" open={defaultOpen}>
+    <details className="group border-t border-hairline pt-2.5" open={defaultOpen}>
       <summary className="flex cursor-pointer list-none items-center gap-1 text-meta text-ink hover:underline">
         <ChevronRight className="size-3.5 transition-transform group-open:rotate-90" />
         {title}
@@ -211,8 +237,8 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
       setTimeout(() => setCopied(false), 1500)
     })
   return (
-    <div className="grid gap-2.5">
-      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
+    <div className="grid gap-3">
+      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px]">
         <span className={cn("font-medium", type.className)}>{type.text}</span>
         {result.verified
           ? checked.length > 0 && (
@@ -239,7 +265,7 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {graphView && result.answer_type !== "declined" && (
           <>
-            <Button variant="outline" size="sm" className="h-7 gap-1.5 rounded-full bg-card px-2.5 text-[12px]" onClick={() => onShowInGraph(graphView)}>
+            <Button variant="outline" size="sm" className="h-7 gap-1.5 rounded-full bg-card px-2.5 text-[12.5px]" onClick={() => onShowInGraph(graphView)}>
               <Network className="size-3.5" />
               Show in graph
             </Button>
@@ -291,7 +317,7 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
             </li>
           ))}
         </ol>
-        <p className="font-mono text-[10.5px] text-subtle">
+        <p className="font-mono text-[11px] text-subtle">
           {result.model} ({result.reasoning_effort} reasoning) · {result.agent_version} · {result.seconds ?? "–"} s · ${result.cost_usd.toFixed(4)}
           {result.repair_used && " · revised once after a failed check"} · run {result.run_id}
         </p>
