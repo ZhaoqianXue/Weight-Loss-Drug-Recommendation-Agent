@@ -822,6 +822,7 @@ class SandboxReadTest(unittest.TestCase):
 
     def test_setup_rebuilds_when_any_bundled_input_changes(self):
         from weightloss import site_setup
+        (ROOT / '.cache').mkdir(exist_ok=True)  # absent on a fresh checkout (CI)
         with tempfile.TemporaryDirectory(dir=ROOT / '.cache') as d:
             f = Path(d) / 'input.csv'
             f.write_text('a')
