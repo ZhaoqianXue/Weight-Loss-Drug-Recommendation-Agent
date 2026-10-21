@@ -237,6 +237,9 @@
 .answer-prose ul { list-style: disc; }
 .answer-prose ol { list-style: decimal; }
 .answer-prose h1, .answer-prose h2, .answer-prose h3, .answer-prose h4 { font-size: 14px; font-weight: 600; color: var(--ink); }
+/* Grid children may not grow past the panel: a long table or word scrolls in its own box, never the whole answer. */
+.answer-prose > * { min-width: 0; }
+.answer-table { max-width: 100%; overflow-x: auto; }
 .answer-prose table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; background: var(--card); }
 .answer-prose th, .answer-prose td { border: 1px solid var(--tint-border); padding: 4px 6px; text-align: left; vertical-align: top; }
 .answer-prose th { font-weight: 500; color: var(--muted-foreground); background: var(--info); }

@@ -14,6 +14,9 @@ Graph = the Section 3.4 graph unchanged plus three layers taken from frozen inpu
   order_key = sha256(edge id) are added for record-level counting and deterministic example order, source ('profile' or
   'text') tells whether a statement comes from the WebMD profile or from the text, and each coded PT node carries its
   most frequent wordings (common_wordings, lowercased, by statement count).
+- Side-effect statements also carry dose_mg (a free-text dose that is only a number with an optional mg unit, 0.1-20) and
+  duration_bucket (under 1 day, 1-6 days, 1-4 weeks, over 4 weeks, from the first number and time unit of the free-text
+  duration); both are empty when the text does not allow it.
 - MedDRA 29.1 primary path: PT -IN_HLT-> HLT -IN_HLGT-> HLGT -IN_SOC-> SOC, from the FAERS validation's frozen
   meddra_pt_hierarchy.csv (one primary path per PT, with its nonclinical_group flag); Drug -HAS_INGREDIENT-> Ingredient.
 - FAERS (validated and frozen, results/fda-validation-20261017/frozen): Report nodes; REPORTS_DRUG to the brand or
@@ -30,6 +33,7 @@ import gzip
 import hashlib
 import json
 import os
+import re
 import shutil
 import sqlite3
 import subprocess
@@ -47,12 +51,37 @@ MANIFEST = HOME / 'manifest.json'
 KG = ROOT / '.cache/reextraction-20261016/kg/full-v7/kg.sqlite'
 FROZEN = ROOT / 'results/fda-validation-20261017/frozen'
 APPROVAL_CONFIG = ROOT / 'configs/reddit.json'
-NEO4J = '/opt/homebrew/bin/neo4j'
-NEO4J_ADMIN = '/opt/homebrew/Cellar/neo4j/2025.04.0/bin/neo4j-admin'
-DEFAULT_CONF_DIR = Path('/opt/homebrew/Cellar/neo4j/2025.04.0/libexec/conf')
+
+
+def installation():
+    """(neo4j, neo4j-admin, stock conf directory) of the installed Neo4j 5 or 2025: $NEO4J_HOME when set (a tarball
+    install), else the `neo4j` on PATH (Homebrew keeps the stock conf in libexec/conf). None when Neo4j is not installed."""
+    home = os.environ.get('NEO4J_HOME')
+    if home:
+        bin_dir = Path(home) / 'bin'
+        neo4j, admin = bin_dir / 'neo4j', bin_dir / 'neo4j-admin'
+    else:
+        found = shutil.which('neo4j')
+        if not found:
+            return None
+        neo4j = Path(found)
+        admin = Path(shutil.which('neo4j-admin') or neo4j.with_name('neo4j-admin'))
+    prefix = neo4j.resolve().parent.parent
+    for conf in (prefix / 'libexec/conf', prefix / 'conf'):
+        if (conf / 'neo4j.conf').is_file():
+            return str(neo4j), str(admin), conf
+    return None
+
+
+def _installed():
+    found = installation()
+    if found is None:
+        raise SystemExit('Neo4j is not installed. On macOS: brew install neo4j (it brings Java 21); elsewhere install '
+                         'Neo4j 5 or 2025 and set NEO4J_HOME to its folder.')
+    return found
 BOLT_PORT, HTTP_PORT = 7688, 7475
 URI = f'bolt://127.0.0.1:{BOLT_PORT}'
-LOADER_VERSION = 'neo4j-load-1.1.0'
+LOADER_VERSION = 'neo4j-load-1.3.0'
 INGREDIENTS = ('semaglutide', 'tirzepatide', 'liraglutide', 'dulaglutide')
 BRAND_BY_LOWER = {b.lower(): b for b in BRAND_INGREDIENT}
 
@@ -99,6 +128,9 @@ INDEXES = [
     "OPTIONS {indexConfig: {`fulltext.analyzer`: 'english'}}",
     "CREATE FULLTEXT INDEX verbatims IF NOT EXISTS FOR ()-[r:USED_FOR|SIDE_EFFECT]-() ON EACH [r.text] "
     "OPTIONS {indexConfig: {`fulltext.analyzer`: 'english'}}",
+    # the cited source sentences (JSON spans): search by what a writer said around the extracted wording
+    "CREATE FULLTEXT INDEX sentences IF NOT EXISTS FOR ()-[r:USED_FOR|SIDE_EFFECT]-() ON EACH [r.evidence] "
+    "OPTIONS {indexConfig: {`fulltext.analyzer`: 'english'}}",
 ]
 
 
@@ -126,7 +158,8 @@ def write_conf():
     CONF_DIR.mkdir(parents=True, exist_ok=True)
     for d in ('data', 'logs', 'run', 'import'):
         (HOME / d).mkdir(parents=True, exist_ok=True)
-    stock = (DEFAULT_CONF_DIR / 'neo4j.conf').read_text().splitlines()
+    default_conf = _installed()[2]
+    stock = (default_conf / 'neo4j.conf').read_text().splitlines()
     jvm = [l for l in stock if l.startswith('server.jvm.additional=') and 'udc.source' not in l]
     text = CONF.format(home=HOME, bolt=BOLT_PORT, http=HTTP_PORT) + '\n'.join(jvm) + '\n'
     path = CONF_DIR / 'neo4j.conf'
@@ -135,7 +168,7 @@ def write_conf():
     for name in ('neo4j-admin.conf', 'server-logs.xml', 'user-logs.xml'):
         target = CONF_DIR / name
         if not target.exists():
-            shutil.copyfile(DEFAULT_CONF_DIR / name, target)
+            shutil.copyfile(default_conf / name, target)
 
 
 def _run(cmd, check=True):
@@ -143,7 +176,9 @@ def _run(cmd, check=True):
 
 
 def status():
-    return _run([NEO4J, 'status'], check=False).stdout.strip()
+    if installation() is None:  # CI and fresh machines: no database to ask
+        return 'Neo4j is not installed'
+    return _run([_installed()[0], 'status'], check=False).stdout.strip()
 
 
 def is_running():
@@ -168,16 +203,48 @@ def connect(timeout=30):
 
 def start(wait=120):
     if not is_running():
-        _run([NEO4J, 'start'])
+        _run([_installed()[0], 'start'])
     connect(timeout=wait).close()
 
 
 def stop():
     if is_running():
-        _run([NEO4J, 'stop'])
+        _run([_installed()[0], 'stop'])
 
 
 # ---------------------------------------------------------------------------------------------------- export
+DOSE = re.compile(r'^\s*(\d*\.?\d+)\s*(?:mg|mgs|milligrams?)?\s*$', re.I)
+NUMBER_WORDS = {'a': 1, 'an': 1, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8,
+                'nine': 9, 'ten': 10, 'couple': 2, 'few': 3, 'several': 4}
+UNIT_DAYS = {'hour': 1 / 24, 'hr': 1 / 24, 'night': 1, 'day': 1, 'week': 7, 'wk': 7, 'month': 30, 'year': 365}
+DURATION = re.compile(r'(\d+(?:\.\d+)?|' + '|'.join(NUMBER_WORDS) + r')?(?:\s*(?:-|to|or)\s*(\d+(?:\.\d+)?))?\s*'
+                      r'(?:of\s+)?(hours?|hrs?|nights?|days?|weeks?|wks?|months?|years?)\b', re.I)
+DURATION_BUCKETS = ('under 1 day', '1-6 days', '1-4 weeks', 'over 4 weeks')
+
+
+def dose_mg(text):
+    """Dose in mg from a free-text dose that is only a number with an optional mg unit (GLP-1 doses are all in mg),
+    kept when 0.1 to 20 mg; otherwise None."""
+    m = DOSE.match(text or '')
+    if not m:
+        return None
+    value = float(m.group(1))
+    return value if 0.1 <= value <= 20 else None
+
+
+def duration_bucket(text):
+    """Coarse bucket of a free-text symptom duration from its first number and time unit ("2-3 days" -> 1-6 days,
+    "a few weeks" -> 1-4 weeks, "all night" -> 1-6 days, a bare plural such as "months" counts as two); None when no time
+    unit is named (e.g. "quickly")."""
+    m = DURATION.search((text or '').lower())
+    if not m:
+        return None
+    first, second, unit = m.groups()
+    n = float(second or (NUMBER_WORDS.get(first) if first in NUMBER_WORDS else first) or (2 if unit.endswith('s') else 1))
+    days = n * UNIT_DAYS[unit.rstrip('s') if unit.rstrip('s') in UNIT_DAYS else unit[:-1]]
+    return DURATION_BUCKETS[0] if days < 1 else DURATION_BUCKETS[1] if days < 7 else DURATION_BUCKETS[2] if days <= 31 else DURATION_BUCKETS[3]
+
+
 def _writer(path, header):
     f = open(path, 'w', newline='', encoding='utf-8')
     w = csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator='\n')
@@ -294,7 +361,8 @@ def export(kg=KG, out=EXPORT_DIR):
               'ingredient_basis', 'text', 'llt_code', 'evidence', 'order_key', 'source']
     for table, target, rel in (('edge_used_for', 'purpose_id', 'USED_FOR'), ('edge_side_effect', 'side_effect_id', 'SIDE_EFFECT')):
         se = rel == 'SIDE_EFFECT'
-        header = [':START_ID', ':END_ID', ':TYPE'] + common + (['dose', 'duration', 'intensity', 'impact', 'action_taken:string[]'] if se else [])
+        header = [':START_ID', ':END_ID', ':TYPE'] + common + (['dose', 'duration', 'intensity', 'impact', 'action_taken:string[]',
+                                                               'dose_mg:float', 'duration_bucket'] if se else [])
         f, w = _writer(out / f'rels_{rel.lower()}.csv', header)
         n = 0
         for r in con.execute(f'SELECT * FROM {table} ORDER BY id'):
@@ -304,8 +372,9 @@ def export(kg=KG, out=EXPORT_DIR):
                    hashlib.sha256(r['id'].encode()).hexdigest(),
                    'profile' if all(s.get('field') == 'profile_condition' for s in json.loads(r['evidence']) or [{}]) else 'text']
             if se:
+                mg = dose_mg(r['dose'])
                 row += [r['dose'] or '', r['duration'] or '', r['intensity'] or '', r['impact'] or '',
-                        ';'.join(json.loads(r['action_taken']))]
+                        ';'.join(json.loads(r['action_taken'])), '' if mg is None else mg, duration_bucket(r['duration']) or '']
             w.writerow(row)
             n += 1
         f.close()
@@ -378,7 +447,7 @@ def load(kg=KG):
     nodes = [p for p in files if p.name.startswith('nodes_')]
     rels = [p for p in files if p.name.startswith('rels_')]
     stop()
-    cmd = [NEO4J_ADMIN, 'database', 'import', 'full', 'neo4j', '--overwrite-destination=true',
+    cmd = [_installed()[1], 'database', 'import', 'full', 'neo4j', '--overwrite-destination=true',
            '--ignore-empty-strings=true', '--array-delimiter=;', '--multiline-fields=true', '--bad-tolerance=0',
            '--report-file', str(HOME / 'logs/import-report.txt')]
     cmd += [f'--nodes={p}' for p in nodes] + [f'--relationships={p}' for p in rels]

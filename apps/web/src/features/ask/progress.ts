@@ -47,6 +47,7 @@ function details(args: Args) {
   out.push(...list(args.intensities).map((v) => `intensity: ${valueLabel(v)}`))
   if (list(args.group_by).length) out.push(`by ${list(args.group_by).join(" × ")}`)
   if (typeof args.wording === "string") out.push(`“${args.wording}”`)
+  if (typeof args.sentence === "string") out.push(`sentences with “${args.sentence}”`)
   return out
 }
 
@@ -60,6 +61,8 @@ export function toolTitle(tool: string, args: Args) {
       return "Reading example statements"
     case "compare_faers":
       return "Comparing with FAERS reports"
+    case "run_python":
+      return "Computing over the statement tables"
     default:
       return tool
   }
@@ -68,11 +71,19 @@ export function toolTitle(tool: string, args: Args) {
 /** Apply one streamed event to a turn. */
 export function applyEvent(turn: Turn, event: AskEvent): Turn {
   switch (event.type) {
+    case "queued": {
+      const title = `Waiting for a free agent: ${event.ahead} ${event.ahead === 1 ? "question" : "questions"} from other visitors start first`
+      return { ...turn, steps: [...turn.steps, { key: "queued", kind: "model", status: "running", title, details: [] }] }
+    }
     case "model": {
       const key = `model-${event.round}`
-      const steps = turn.steps.filter((s) => s.key !== key)
+      // The question has left the queue once the model is working on it.
+      const steps = turn.steps
+        .filter((s) => s.key !== key)
+        .map((s) => (s.key === "queued" || (s.key === "model-0" && key !== "model-0") ? { ...s, status: "done" as const } : s))
       if (event.status === "running") {
-        const title = event.round === 1 ? "Reading the question" : "Deciding the next step"
+        const title =
+          event.round === 0 ? "Reconnecting to the model service" : event.round === 1 ? "Reading the question" : "Deciding the next step"
         return { ...turn, steps: [...steps, { key, kind: "model", status: "running", title, details: [] }] }
       }
       // A response without tool calls is the final answer, which the verifier checks next.
@@ -89,7 +100,14 @@ export function applyEvent(turn: Turn, event: AskEvent): Turn {
         status: event.status,
         title: toolTitle(event.tool, args),
         details: details(args),
-        note: event.status === "error" ? event.detail : event.status === "done" ? `${event.rows ?? 0} rows` : null,
+        note:
+          event.status === "error"
+            ? event.detail
+            : event.status === "done"
+              ? event.tool === "run_python"
+                ? `${Math.round(event.seconds ?? 0)} s`
+                : `${event.rows ?? 0} rows`
+              : null,
         seconds: event.seconds,
       }
       const exists = turn.steps.some((s) => s.key === event.step)

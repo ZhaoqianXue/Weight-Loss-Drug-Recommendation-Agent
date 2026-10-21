@@ -28,13 +28,16 @@ import itertools
 import json
 import math
 import re
+import sqlite3
 import threading
 from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
-from weightloss.graph import neo4j_db
+from weightloss.graph import analysis_db, neo4j_db
 from weightloss.graph.build import AGE_GROUPS, BRAND_INGREDIENT, UNSPECIFIED
+
+from . import spelling, vocabulary
 
 PLATFORMS = ('reddit', 'webmd')
 INGREDIENTS = ('semaglutide', 'tirzepatide', 'liraglutide', 'dulaglutide')
@@ -44,13 +47,14 @@ INTENSITIES = ('mild', 'moderate', 'severe')
 IMPACTS = ('daily_life', 'medical_visit', 'emergency_visit', 'hospitalization')
 ACTIONS = ('dose_reduced', 'escalation_paused', 'dose_skipped', 'stopped')
 TARGETS = ('side_effect', 'purpose')
-LEVELS = ('pt', 'hlt', 'hlgt', 'soc')
+LEVELS = ('pt', 'hlt', 'hlgt', 'soc', 'wording')
 NOT_STATED = 'not stated'
 NONE_STATED = 'none stated'   # action_taken: empty list
 UNCODED = 'uncoded'           # code of the uncoded node (mentions without an adequate MedDRA term)
 UNCODED_LABEL = '[uncoded: no adequate MedDRA term]'
-POPULATION_DIMS = ('ingredient', 'brand', 'age_group', 'sex')
-DETAIL_DIMS = ('pt', 'hlt', 'hlgt', 'soc', 'intensity', 'impact', 'action_taken')
+DURATION_BUCKETS = neo4j_db.DURATION_BUCKETS
+POPULATION_DIMS = ('ingredient', 'brand', 'age_group', 'sex', 'year')
+DETAIL_DIMS = ('pt', 'hlt', 'hlgt', 'soc', 'intensity', 'impact', 'action_taken', 'dose_mg', 'duration')
 GROUP_DIMS = ('hlt', 'hlgt', 'soc')
 SPARSE_BELOW = 10             # too few records to support any statement
 SMALL_BELOW = 30              # few records: a share is unstable and must be called small in words
@@ -64,7 +68,8 @@ GENERIC_WORDS = frozenset('side effect effects adverse experience experiences ev
                           'complaints problem problems issue issues symptom symptoms reason reasons purpose purposes use uses '
                           'common commonly reported report reports people patients drug drugs medication medications glp '
                           'glp1 shot shots injection injections pill pills women woman men man female females male males '
-                          'older younger age aged teen teens adults writers reviewers'.split())
+                          'older younger age aged teen teens adults writers reviewers change changes trouble troubles '
+                          'difficulty difficulties any like such things'.split())
 DRUG_WORDS = frozenset(w.lower() for w in INGREDIENTS + tuple(BRAND_INGREDIENT))
 SCHEMA = {'side_effect': ('SIDE_EFFECT', 'SideEffect'), 'purpose': ('USED_FOR', 'Purpose')}
 FAERS_STATUS = ('FAERS data validated and frozen (openFDA release 2026-07-30, primary configuration); spontaneous '
@@ -79,6 +84,7 @@ ORDER = {
     'intensity': INTENSITIES + (NOT_STATED,),
     'impact': IMPACTS + (NOT_STATED,),
     'action_taken': ACTIONS + (NONE_STATED,),
+    'duration': DURATION_BUCKETS + (NOT_STATED,),
 }
 BASE_NOTES = [
     'Counts are records (Reddit posts or comments, WebMD reviews), not patients; one person can write several records.',
@@ -107,8 +113,10 @@ class Concept(BaseModel):
     concept: str = Field(description='Short name of the concept this node counts toward, e.g. "weight loss". Nodes given the same '
                                      'name form one concept: a record counts once for it, whichever of its nodes it mentions.')
     level: Literal[LEVELS] = Field(description='pt for a single Preferred Term; hlt, hlgt or soc for a MedDRA group (all PTs '
-                                                'whose primary path passes through it)')
-    code: str = Field(description='MedDRA code from link_terms, or "uncoded" (level pt) for mentions without an adequate term')
+                                                'whose primary path passes through it); wording for uncoded mentions whose wording '
+                                                'contains the words in code')
+    code: str = Field(description='MedDRA code from link_terms, "uncoded" (level pt) for every mention without an adequate term, '
+                                  'or the words of an uncoded wording (level wording), e.g. "t2d"')
 
 
 class LinkTermsArgs(BaseModel):
@@ -141,9 +149,19 @@ class FilterArgs(BaseModel):
     actions: Optional[list[Literal[ACTIONS + (NONE_STATED,)]]] = Field(
         description='Side effects only: keep statements with one of these actions taken with the drug (e.g. ["stopped"] for '
                     '"led people to stop"), or null')
+    doses_mg: Optional[list[float]] = Field(
+        description='Side effects only: keep statements whose stated dose is one of these mg values (parsed from the free-text '
+                    'dose, e.g. [15] or [0.25, 0.5]), or null')
+    duration_buckets: Optional[list[Literal[DURATION_BUCKETS]]] = Field(
+        description='Side effects only: keep statements whose stated symptom duration falls in these buckets (parsed from the '
+                    'free-text duration), or null')
 
 
 class QueryGraphArgs(FilterArgs):
+    denominator: Literal['universe', 'concept'] = Field(
+        description='universe: records with at least one statement of the target role in the filtered universe and group; '
+                    'concept: records with at least one statement to the row\'s concept (needs targets), for "among records '
+                    'that report X, how many had detail Y" with a detail in group_by')
     group_by: list[GroupDim] = Field(description='Dimensions to split rows by; platform is always a dimension. pt ranks PTs; '
                                                  'hlt/hlgt/soc rank MedDRA groups; intensity, impact and action_taken exist '
                                                  'only for side effects')
@@ -152,6 +170,9 @@ class QueryGraphArgs(FilterArgs):
 
 class GetEvidenceArgs(FilterArgs):
     wording: Optional[str] = Field(description='Words the statement wording must contain (e.g. "sulfur burps"), or null')
+    sentence: Optional[str] = Field(description='A word or short phrase the cited source sentences must contain, matched '
+                                                'as written (e.g. "no rash", "antidepressant", "after my gastric sleeve"), '
+                                                'or null. summary counts every matching statement and record.')
     limit: int = Field(description='Number of example statements, 1-10')
 
 
@@ -166,8 +187,18 @@ class CompareFaersArgs(BaseModel):
     include_outcomes: bool = Field(description='true adds hospitalization and action-taken counts per scope')
 
 
+class RunSqlArgs(BaseModel):
+    description: str = Field(description='One sentence: what the query counts and what its denominator is')
+    query: str = Field(description='One read-only SQLite SELECT (or WITH ... SELECT) statement over the analysis tables')
+
+
 TOOL_ARGS = {'link_terms': LinkTermsArgs, 'query_graph': QueryGraphArgs, 'get_evidence': GetEvidenceArgs,
              'compare_faers': CompareFaersArgs}
+SQL_ROW_CAP = 200
+SENTENCE_CAP = 60000          # statements a sentence search may return before it asks for a more specific word
+SQL_SECONDS = 40
+SQL_START = re.compile(r'^\s*(?:--[^\n]*\n\s*|/\*.*?\*/\s*)*(select|with)\b', re.I | re.S)
+PT_CODE = re.compile(r'\b1\d{7}\b')
 
 
 # ---------------------------------------------------------------------------------------------------- helpers
@@ -176,14 +207,15 @@ def percent(num, den):
 
 
 def wilson(num, den, z=1.96):
-    """95% Wilson score interval of a share, in percent (low, high), or (None, None) without a denominator. Records are
+    """95% Wilson score interval of a share, in percent (low, high) with two decimals, or (None, None) without a
+    denominator. Two decimals keep intervals that nearly touch apart (0.49 and 0.52 would both read 0.5). Records are
     treated as independent, which they are not quite (one writer can post several times), so the interval is approximate."""
     if not den:
         return None, None
     p = num / den
     centre = (p + z * z / (2 * den)) / (1 + z * z / den)
     half = z * math.sqrt(p * (1 - p) / den + z * z / (4 * den * den)) / (1 + z * z / den)
-    return round(100 * max(0.0, centre - half), 1), round(100 * min(1.0, centre + half), 1)
+    return round(100 * max(0.0, centre - half), 2), round(100 * min(1.0, centre + half), 2)
 
 
 def _sort_value(dim, value):
@@ -228,6 +260,16 @@ def interval_order(row, x, y):
     return 'similar'
 
 
+def _order(row, x, y, dx, dy):
+    if (dx or 0) < SPARSE_BELOW or (dy or 0) < SPARSE_BELOW:
+        return 'insufficient'
+    if row[f'{x}_ci95_low'] > row[f'{y}_ci95_high']:
+        return 'higher'
+    if row[f'{x}_ci95_high'] < row[f'{y}_ci95_low']:
+        return 'lower'
+    return 'similar'
+
+
 def clear_differences(rows, popd, limit=40):
     """Pairs of rows that differ only in their population values and whose 95% intervals do not overlap (neither row
     sparse), as {higher_row, lower_row, higher, lower}; at most `limit` pairs, largest gaps between intervals first."""
@@ -248,6 +290,15 @@ def clear_differences(rows, popd, limit=40):
                                     'higher': ', '.join(str(hi[d]) for d in popd), 'lower': ', '.join(str(lo[d]) for d in popd)}))
     pairs.sort(key=lambda x: -x[0])
     return [p for _, p in pairs[:limit]]
+
+
+def _related_by(r):
+    """How a concept-review row relates to the counted members."""
+    if not r['related_to']:
+        return None
+    if r['related_to'].startswith('meaning'):
+        return 'meaning'
+    return 'member name' if r['strong'] else 'wordings only'
 
 
 def _public_filters(f):
@@ -279,11 +330,12 @@ def _check_list(name, values, allowed):
 
 # Population and detail expressions over the statement pattern (d:Drug)-[e]->(n)
 POP_EXPR = {'ingredient': 'd.ingredient', 'brand': 'd.brand', 'age_group': f"coalesce(e.writer_age_group, '{NOT_STATED}')",
-            'sex': f"coalesce(e.writer_sex, '{NOT_STATED}')"}
+            'sex': f"coalesce(e.writer_sex, '{NOT_STATED}')", 'year': f"coalesce(substring(e.date, 0, 4), '{NOT_STATED}')"}
 DETAIL_EXPR = {'pt': f"coalesce(n.pt_code, '{UNCODED}')", 'hlt': f"coalesce(h.code, '{UNCODED}')",
                'hlgt': f"coalesce(g.code, '{UNCODED}')", 'soc': f"coalesce(s.code, '{UNCODED}')",
                'intensity': f"coalesce(e.intensity, '{NOT_STATED}')", 'impact': f"coalesce(e.impact, '{NOT_STATED}')",
-               'action_taken': 'action'}
+               'action_taken': 'action', 'dose_mg': f"coalesce(toString(e.dose_mg), '{NOT_STATED}')",
+               'duration': f"coalesce(e.duration_bucket, '{NOT_STATED}')"}
 LABEL_EXPR = {'pt': f"coalesce(n.pt, '{UNCODED_LABEL}')", 'hlt': f"coalesce(h.name, '{UNCODED_LABEL}')",
               'hlgt': f"coalesce(g.name, '{UNCODED_LABEL}')", 'soc': f"coalesce(s.name, '{UNCODED_LABEL}')"}
 PATH = 'OPTIONAL MATCH (n)-[:IN_HLT]->(h:HLT)-[:IN_HLGT]->(g:HLGT)-[:IN_SOC]->(s:SOC)'
@@ -304,9 +356,26 @@ class KnowledgeGraph:
         self.brand_start = dict(dates)
         self.ingredient_start = {i: min(d for b, d in dates.items() if BRAND_INGREDIENT[b] == i) for i in INGREDIENTS}
         self.all_start = min(dates.values())
+        self._spelling = {}
 
     def close(self):
         self.driver.close()
+
+    def spelling(self, kind):
+        """Uncoded statements of `kind` whose wording misspells a PT name (weightloss.agent.spelling): {'words': {wording:
+        (pt_code, pt)}, 'eids': {pt_code: [edge ids]}}, read once per graph connection."""
+        with self._lock:
+            if kind not in self._spelling:
+                words = spelling.table(str(analysis_db.PATH)).get(kind, {}) if analysis_db.PATH.exists() else {}
+                rel, label = SCHEMA[kind]
+                eids = collections.defaultdict(list)
+                if words:
+                    for r in self.run(f'MATCH (n:{label}) WHERE n.pt_code IS NULL MATCH ()-[e:{rel}]->(n) '
+                                      'WITH e, toLower(trim(e.text)) AS t WHERE t IN $ws RETURN t, collect(e.id) AS ids',
+                                      ws=sorted(words)):
+                        eids[words[r['t']][0]] += r['ids']
+                self._spelling[kind] = {'words': words, 'eids': dict(eids)}
+            return self._spelling[kind]
 
     def run(self, cypher, **params):
         with self.driver.session(default_access_mode='READ') as s:
@@ -338,20 +407,44 @@ class KnowledgeGraph:
             resolved.append({'level': level, 'code': code, 'name': rows[0]['name'], 'pts': len(rows)})
         return sorted(ids), resolved, missing
 
-    def resolve_sets(self, kind, concepts):
+    def resolve_sets(self, kind, concepts, misspellings=True):
         """Concepts by name: [{concept, ids, members}] in the order the names first appear, plus codes not in the graph.
-        A record counts once for a concept whichever of its member nodes it mentions."""
+        A record counts once for a concept whichever of its member nodes it mentions. With misspellings, a PT member
+        (alone or in a MedDRA group) also counts the uncoded statements whose wording misspells its name (self.spelling);
+        they appear as a member of level 'misspelling'."""
         if len(concepts) > 1 and any(c['level'] == 'pt' and str(c['code']).strip() == UNCODED for c in concepts):
             self.resolve(kind, concepts)  # raises the uncoded-mixing error
         sets, missing = collections.OrderedDict(), []
+        rel, label = SCHEMA[kind]
         for c in concepts:
+            name = (c.get('concept') or '').strip() or f"{c['level']}:{c['code']}"
+            s = sets.setdefault(name, {'concept': name, 'ids': set(), 'eids': set(), 'members': []})
+            if c['level'] == 'wording':  # uncoded statements whose wording contains the words
+                eids = self.run("CALL db.index.fulltext.queryRelationships('verbatims', $q) YIELD relationship AS r "
+                                f"WHERE type(r) = '{rel}' AND endNode(r).pt_code IS NULL RETURN collect(r.id) AS ids",
+                                q=lucene_query(c['code'])[0])[0]['ids']
+                if not eids:
+                    missing.append(f"wording:{c['code']}")
+                s['eids'].update(eids)
+                s['members'].append({'level': 'wording', 'code': c['code'], 'name': f'uncoded wording "{c["code"]}"',
+                                     'statements': len(eids)})
+                continue
             ids, res, miss = self.resolve(kind, [c])
             missing += miss
-            name = (c.get('concept') or '').strip() or f"{c['level']}:{c['code']}"
-            s = sets.setdefault(name, {'concept': name, 'ids': set(), 'members': []})
             s['ids'].update(ids)
             s['members'] += [{k: r[k] for k in ('level', 'code', 'name', 'pts')} for r in res]
-        out = [{'concept': s['concept'], 'ids': sorted(s['ids']), 'members': s['members']} for s in sets.values()]
+        if misspellings:
+            spelt = self.spelling(kind)
+            for s in sets.values():
+                codes = self.pt_codes(kind, s['ids']) if s['ids'] else set()
+                for code in sorted(codes & set(spelt['eids'])):
+                    s['eids'].update(spelt['eids'][code])
+                    pt = next(p for c, p in spelt['words'].values() if c == code)
+                    s['members'].append({'level': 'misspelling', 'code': code, 'name': f'uncoded misspellings of {pt}',
+                                         'wordings': sorted(w for w, (c, _) in spelt['words'].items() if c == code)[:6],
+                                         'statements': len(spelt['eids'][code])})
+        out = [{'concept': s['concept'], 'ids': sorted(s['ids']), 'eids': sorted(s['eids']), 'members': s['members']}
+               for s in sets.values()]
         return out, missing
 
     def pt_codes(self, kind, ids):
@@ -390,9 +483,9 @@ class KnowledgeGraph:
         f['purposes_from_text_only'] = bool(a.get('purposes_from_text_only'))
         if f['purposes_from_text_only'] and f['target'] == 'purpose':
             where.append("e.source = 'text'")
-        details = {k: a.get(k) for k in ('intensities', 'impacts', 'actions')}
+        details = {k: a.get(k) for k in ('intensities', 'impacts', 'actions', 'doses_mg', 'duration_buckets')}
         if f['target'] != 'side_effect' and any(details.values()):
-            raise QueryError('intensities, impacts and actions exist only for side effects')
+            raise QueryError('intensities, impacts, actions, doses_mg and duration_buckets exist only for side effects')
         f['intensities'] = _check_list('intensities', details['intensities'], INTENSITIES + (NOT_STATED,))
         f['impacts'] = _check_list('impacts', details['impacts'], IMPACTS + (NOT_STATED,))
         f['actions'] = _check_list('actions', details['actions'], ACTIONS + (NONE_STATED,))
@@ -406,6 +499,16 @@ class KnowledgeGraph:
             where.append(f"(any(x IN coalesce(e.action_taken, []) WHERE x IN $actions) OR "
                          f"('{NONE_STATED}' IN $actions AND size(coalesce(e.action_taken, [])) = 0))")
             params['actions'] = f['actions']
+        f['doses_mg'] = sorted({float(x) for x in details['doses_mg']}) if details['doses_mg'] is not None else None
+        if f['doses_mg'] is not None:
+            if not f['doses_mg']:
+                raise QueryError('doses_mg must be null or name at least one dose')
+            where.append('e.dose_mg IN $doses_mg')
+            params['doses_mg'] = f['doses_mg']
+        f['duration_buckets'] = _check_list('duration_buckets', details['duration_buckets'], DURATION_BUCKETS)
+        if f['duration_buckets'] is not None:
+            where.append('e.duration_bucket IN $duration_buckets')
+            params['duration_buckets'] = f['duration_buckets']
         counted = {'purpose': set(), 'side_effect': set()}
         for kind, key in (('purpose', 'require_purposes'), ('side_effect', 'require_side_effects')):
             concepts = a.get(key)
@@ -414,6 +517,7 @@ class KnowledgeGraph:
             concepts = [dict(c) for c in concepts]
             sets, miss = self.resolve_sets(kind, concepts)
             ids = sorted({i for s in sets for i in s['ids']})
+            eids = sorted({i for s in sets for i in s['eids']})
             resolved[key] = [{'concept': s['concept'], 'members': s['members']} for s in sets]
             f[key] = concepts
             counted[kind] |= self.pt_codes(kind, ids)
@@ -421,8 +525,9 @@ class KnowledgeGraph:
                 missing[key] = miss
             rel, label = SCHEMA[kind]
             text_only = " AND r.source = 'text'" if kind == 'purpose' and f['purposes_from_text_only'] else ''
-            keys = self.run(f'MATCH (d:Drug)-[r:{rel}]->(m:{label}) WHERE m.id IN $ids AND r.platform IN $platforms{text_only} '
-                            "RETURN collect(DISTINCT r.record_key + '|' + d.id) AS k", ids=ids, platforms=f['platforms'])[0]['k']
+            keys = self.run(f'MATCH (d:Drug)-[r:{rel}]->(m:{label}) WHERE (m.id IN $ids OR r.id IN $eids) AND r.platform IN '
+                            f"$platforms{text_only} RETURN collect(DISTINCT r.record_key + '|' + d.id) AS k", ids=ids, eids=eids,
+                            platforms=f['platforms'])[0]['k']
             where.append(f"(e.record_key + '|' + d.id) IN $req_{kind}")
             params[f'req_{kind}'] = keys
         target_ids = None
@@ -431,6 +536,7 @@ class KnowledgeGraph:
             concepts = [dict(c) for c in a['targets']]
             sets, miss = self.resolve_sets(f['target'], concepts)
             target_ids = sorted({i for s in sets for i in s['ids']})
+            params['target_eids'] = sorted({i for s in sets for i in s['eids']})
             resolved['targets'] = [{'concept': s['concept'], 'members': s['members']} for s in sets]
             f['targets'], f['_target_sets'] = concepts, sets
             counted[f['target']] |= self.pt_codes(f['target'], target_ids)
@@ -463,6 +569,20 @@ class KnowledgeGraph:
             "count(DISTINCT CASE WHEN e.ingredient_basis = 'community' THEN e.record_key END) AS community, "
             "count(DISTINCT CASE WHEN n.pt_code IS NULL THEN e.record_key END) AS uncoded, "
             "count(DISTINCT CASE WHEN e.source = 'profile' THEN e.record_key END) AS profile", **params)}
+        detail_keys = ('intensities', 'impacts', 'actions', 'doses_mg', 'duration_buckets')
+        before_detail = {}
+        if any(f.get(k) is not None for k in detail_keys):
+            bwhere = [w for w in where if not any(f'${k}' in w for k in detail_keys)]
+            before_detail = {r['platform']: r['n'] for r in self.run(
+                f"{self._match(f)} WHERE {' AND '.join(bwhere + pop)} RETURN e.platform AS platform, "
+                "count(DISTINCT e.record_key) AS n", **params)}
+        uncoded = collections.defaultdict(list)
+        for r in self.run(f"{self._match(f)} WHERE {' AND '.join(where + pop)} AND n.pt_code IS NULL "
+                          "WITH e.platform AS platform, toLower(trim(e.text)) AS t, count(DISTINCT e.record_key) AS c "
+                          "ORDER BY c DESC, t RETURN platform, collect([t, c])[..5] AS top", **params):
+            uncoded[r['platform']] = r['top']
+        spelt = self.spelling(f['target'])['words']  # misspelled PT names count with their PT, so they are not listed
+        uncoded = {p: [x for x in top if x[0] not in spelt] for p, top in uncoded.items()}
         age = f['age_groups'] is not None or 'age_group' in dims
         sex = f['sexes'] is not None or 'sex' in dims
         rows = []
@@ -478,12 +598,76 @@ class KnowledgeGraph:
                 excluded_missing_age=b.get('age_missing', 0) if f['age_groups'] is not None and NOT_STATED not in f['age_groups'] else None,
                 excluded_missing_sex=b.get('sex_missing', 0) if f['sexes'] is not None and NOT_STATED not in f['sexes'] else None,
                 universe_records=a.get('records', 0),
+                universe_records_before_detail_filters=before_detail.get(p, 0) if before_detail else None,
                 universe_records_with_community_ingredient=a.get('community', 0),
                 universe_records_with_uncoded_mention=a.get('uncoded', 0))
             if f['target'] == 'purpose':
                 row['universe_records_with_profile_purpose'] = a.get('profile', 0)
             rows.append(row)
-        return rows
+        return rows, [_row(platform=p, wording=t, records=c) for p in f['platforms'] for t, c in uncoded.get(p, [])]
+
+    def _not_counted(self, f, cond, params, sets):
+        """Residual review of the concepts over the filtered universe: PTs and uncoded wordings that no member counts, the
+        ones related in wording to the counted members with the records they would add (vocabulary.mark/select), the
+        records counted per platform, and the uncoded wordings the wording members counted."""
+        m = self._match(f)
+        ids = sorted({i for s in sets for i in s['ids']})
+        eids = sorted({i for s in sets for i in s['eids']})
+        p = dict(params, res_ids=ids, res_eids=eids)
+        inside = '(n.id IN $res_ids OR e.id IN $res_eids)'
+        counted = {r['platform']: r['n'] for r in self.run(
+            f'{m} WHERE {cond} AND {inside} RETURN e.platform AS platform, count(DISTINCT e.record_key) AS n', **p)}
+        names = [x['code'] if x['level'] == 'wording' else x['name'] for s in sets for x in s['members']
+                 if x['level'] != 'misspelling']
+        wordings = [(r['t'], r['c']) for r in self.run(
+            f'{m} WHERE {cond} AND {inside} WITH toLower(trim(e.text)) AS t, count(DISTINCT e.record_key) AS c '
+            'ORDER BY c DESC LIMIT 300 RETURN t, c', **p)]
+        vocab = vocabulary.counted_words(names, wordings, max(counted.values(), default=0))
+        rows = [{'platform': r['platform'], 'kind': 'pt', 'code': r['code'], 'name': r['name'], 'records': r['records'],
+                 'common_wordings': (r['w'] or [])[:2]} for r in self.run(
+            f'{m} WHERE {cond} AND n.pt_code IS NOT NULL AND NOT n.id IN $res_ids RETURN e.platform AS platform, '
+            'n.pt_code AS code, n.pt AS name, n.common_wordings AS w, count(DISTINCT e.record_key) AS records '
+            'ORDER BY records DESC LIMIT 1500', **p)]
+        rows += [{'platform': r['platform'], 'kind': 'wording', 'code': UNCODED, 'name': r['name'], 'records': r['records']}
+                 for r in self.run(f'{m} WHERE {cond} AND n.pt_code IS NULL AND NOT {inside} RETURN e.platform AS platform, '
+                                   'toLower(trim(e.text)) AS name, count(DISTINCT e.record_key) AS records '
+                                   'ORDER BY records DESC LIMIT 1500', **p)]
+        counted_codes = self.pt_codes(f['target'], ids) - {UNCODED} if ids else set()
+        rows = vocabulary.mark(rows, vocab, vocabulary.closeness(counted_codes, [r['code'] for r in rows if r['kind'] == 'pt']))
+        related = [r for r in rows if r['related_to']]
+        if related:  # records each related row would add: its records that no counted statement already covers
+            keys = collections.defaultdict(set)
+            for r in self.run(f"{m} WHERE {cond} AND (n.pt_code IN $codes OR (n.pt_code IS NULL AND NOT e.id IN $res_eids "
+                              "AND toLower(trim(e.text)) IN $texts)) RETURN e.platform AS platform, "
+                              f"coalesce(n.pt_code, '{UNCODED}') AS code, CASE WHEN n.pt_code IS NULL THEN toLower(trim(e.text)) "
+                              'END AS t, collect(DISTINCT e.record_key) AS ks', **p,
+                              codes=sorted({r['code'] for r in related if r['kind'] == 'pt'}),
+                              texts=sorted({r['name'] for r in related if r['kind'] == 'wording'})):
+                keys[(r['platform'], r['code'], r['t'])] |= set(r['ks'])
+            every = sorted(set().union(*keys.values())) if keys else []
+            already = set(self.run(f'{m} WHERE {cond} AND {inside} AND e.record_key IN $keys '
+                                   'RETURN collect(DISTINCT e.record_key) AS ks', **p, keys=every)[0]['ks']) if every else set()
+            for r in related:
+                k = (r['platform'], r['code'], None if r['kind'] == 'pt' else r['name'])
+                r['new_records'] = len(keys.get(k, set()) - already)
+        shown = vocabulary.select(f['platforms'], rows, counted)
+        counted_uncoded = []
+        if eids:
+            counted_uncoded = self.run(f'{m} WHERE {cond} AND e.id IN $res_eids RETURN e.platform AS platform, '
+                                       'toLower(trim(e.text)) AS wording, count(DISTINCT e.record_key) AS records '
+                                       'ORDER BY records DESC, wording LIMIT 40', **p)
+        members = []  # the counted PTs with their own wordings here, so each member can be checked against the asked meaning
+        if ids:
+            top = self.run(f'{m} WHERE {cond} AND n.id IN $res_ids AND n.pt_code IS NOT NULL RETURN n.pt_code AS code, '
+                           'n.pt AS pt, count(DISTINCT e.record_key) AS records ORDER BY records DESC, pt LIMIT 25', **p)
+            said = collections.defaultdict(list)
+            for r in self.run(f'{m} WHERE {cond} AND n.pt_code IN $codes WITH n.pt_code AS code, toLower(trim(e.text)) AS w, '
+                              'count(DISTINCT e.record_key) AS c ORDER BY c DESC, w RETURN code, collect(w)[..3] AS ws',
+                              **p, codes=[r['code'] for r in top]):
+                said[r['code']] = r['ws']
+            members = [{'pt': r['pt'], 'code': r['code'], 'records': r['records'], 'wordings_here': said.get(r['code'], [])}
+                       for r in top]
+        return counted, shown, counted_uncoded, members
 
     def _notes(self, f, dims):
         notes = list(BASE_NOTES)
@@ -509,10 +693,19 @@ class KnowledgeGraph:
                          "drops records with a missing value (excluded_missing_age / excluded_missing_sex).")
         if f.get('require_purposes') is not None or f.get('require_side_effects') is not None:
             notes.append('require_* conditions are statements for the same drug in the same record.')
-        if any(f.get(k) is not None for k in ('intensities', 'impacts', 'actions')):
-            notes.append('intensities/impacts/actions restrict the universe to side-effect statements with those details, so the '
-                         'denominator counts records with at least one such statement (for actions ["stopped"]: records in which '
-                         'the writer stopped the drug because of a side effect).')
+        if any(f.get(k) is not None for k in ('intensities', 'impacts', 'actions', 'doses_mg', 'duration_buckets')):
+            notes.append('intensities/impacts/actions/doses_mg/duration_buckets restrict the universe to side-effect statements with '
+                         'those details, so the denominator counts records with at least one such statement (for actions '
+                         '["stopped"]: records in which the writer stopped the drug because of a side effect). To ask how many of '
+                         'a group had a detail, group_by the detail instead of filtering by it.')
+        if f.get('doses_mg') is not None or f.get('duration_buckets') is not None or {'dose_mg', 'duration'} & set(dims):
+            notes.append('dose_mg is parsed from the free-text dose when it is only a number with an optional mg unit (about 41% of '
+                         'side-effect statements); duration buckets come from the first number and time unit of the free-text '
+                         'duration (about 18% of statements). Statements without a parsable value are "not stated".')
+        if 'year' in dims:
+            notes.append('year is the year the record was written. Without targets the rows are the distribution of records over years, '
+                         'which only follows posting volume; compare a concept\'s share across years (targets with group_by ["year"]) '
+                         'instead, and treat the current year as partial.')
         if set(dims) & set(GROUP_DIMS) or any(c['level'] != 'pt' for c in f.get('targets') or []):
             notes.append('MedDRA groups (HLT, HLGT, SOC) follow each PT\'s primary path, so a PT sits in one group per level; a '
                          'record counts once per group.')
@@ -520,7 +713,8 @@ class KnowledgeGraph:
             notes.append('Each concept row counts records with at least one statement to any of its member nodes (a record counts '
                          'once per concept); resolved_concepts lists the members.')
         notes.append(f"'{UNCODED_LABEL}' collects mentions without an adequate MedDRA term; it is not a PT. "
-                     'universe_records_with_uncoded_mention tells how many records hold such a mention.')
+                     'universe_records_with_uncoded_mention tells how many records hold such a mention, and uncoded_wordings '
+                     'lists the most frequent such wordings with their record counts.')
         notes.append(f'sparse = denominator below {SPARSE_BELOW} (too few records to support a statement); small = denominator '
                      f'below {SMALL_BELOW} (say in words that the group is small).')
         notes.append('ci95_low/ci95_high: approximate 95% Wilson interval of percent (records treated as independent). Call one '
@@ -564,6 +758,10 @@ class KnowledgeGraph:
                              'For side effects or purposes in general, call query_graph with targets null; pass drugs as '
                              'ingredients or brands.')
 
+        specific = [w for w in words if w not in GENERIC_WORDS]
+        if specific and len(specific) < len(words):  # "gallbladder problems" searches "gallbladder"
+            q, words = lucene_query(' '.join(specific))
+
         def search(query):
             names = self.run("CALL db.index.fulltext.queryNodes('pt_names', $q) YIELD node, score "
                              f"WHERE '{label}' IN labels(node) RETURN node.id AS id, score", q=query)
@@ -580,7 +778,7 @@ class KnowledgeGraph:
         names, verb = search(q)
         partial = not names and not verb and len(words) > 1
         if partial:
-            names, verb = search(lucene_query(text, 'OR')[0])
+            names, verb = search(lucene_query(' '.join(words), 'OR')[0])
         hit = {r['id']: {'name': True} for r in names}
         for r in verb:
             texts = sorted(r['texts'], key=lambda x: (-x['c'], x['t']))
@@ -684,8 +882,8 @@ class KnowledgeGraph:
         bad = [d for d in dims if d not in POPULATION_DIMS + DETAIL_DIMS]
         if bad:
             raise QueryError(f'group_by: unknown dimensions {bad}')
-        if f['target'] == 'purpose' and set(dims) & {'intensity', 'impact', 'action_taken'}:
-            raise QueryError('intensity, impact and action_taken exist only for side effects')
+        if f['target'] == 'purpose' and set(dims) & {'intensity', 'impact', 'action_taken', 'dose_mg', 'duration'}:
+            raise QueryError('intensity, impact, action_taken, dose_mg and duration exist only for side effects')
         top_n = max(1, min(int(a.get('top_n') or 15), 50))
         popd = [d for d in dims if d in POPULATION_DIMS]
         det = [d for d in dims if d in DETAIL_DIMS]
@@ -699,11 +897,12 @@ class KnowledgeGraph:
         dens = {}
         for r in den_rows:
             dens[(r['platform'], tuple(r[d] for d in popd))] = r['n']
-        summary = self._summary_rows(f, where, pop, params, dims)
+        summary, uncoded_rows = self._summary_rows(f, where, pop, params, dims)
         for s in summary:
             universe[s['platform']] = s['universe_records']
         distribution = not det and sets is None
         labels = {}
+        remap = ''
         rows = []  # (platform, population key, concept or None, detail key, records, denominator)
         if distribution:
             for (p, pk), n in dens.items():
@@ -715,12 +914,18 @@ class KnowledgeGraph:
             lab_ret = ''.join(f', {LABEL_EXPR[d]} AS {d}_label' for d in det if d in LABEL_EXPR)
             if sets is not None:
                 head = 'UNWIND $target_sets AS ts '
-                tcond = cond + ' AND n.id IN ts.ids'
+                tcond = cond + ' AND (n.id IN ts.ids OR e.id IN ts.eids)'
                 cret = ', ts.name AS concept'
-                params['target_sets'] = [{'name': s['concept'], 'ids': s['ids']} for s in sets]
+                params['target_sets'] = [{'name': s['concept'], 'ids': s['ids'], 'eids': s['eids']} for s in sets]
             else:
                 head, tcond, cret = '', cond, ', null AS concept'
-            num_rows = self.run(f"{head}{self._match(f)} WHERE {tcond} {pre} {unwind} RETURN e.platform AS platform{pop_ret}"
+            remap = ''
+            spelt = self.spelling(f['target'])['words'] if set(det) & {'pt', *GROUP_DIMS} and sets is None else {}
+            if spelt:  # a PT ranking counts uncoded misspellings of a PT name with that PT (weightloss.agent.spelling)
+                remap = (f" OPTIONAL MATCH (v:{SCHEMA[f['target']][1]}) WHERE n.pt_code IS NULL AND "
+                         "v.pt_code = $spell[toLower(trim(e.text))] WITH d, e, coalesce(v, n) AS n")
+                params['spell'] = {w: c for w, (c, _) in spelt.items()}
+            num_rows = self.run(f"{head}{self._match(f)} WHERE {tcond}{remap} {pre} {unwind} RETURN e.platform AS platform{pop_ret}"
                                 f"{cret}{det_ret}{lab_ret}, count(DISTINCT e.record_key) AS n", **params)
             nums = {}
             for r in num_rows:
@@ -734,12 +939,20 @@ class KnowledgeGraph:
                     for s in sets:
                         if not det:
                             nums.setdefault((p, pk, s['concept'], ()), 0)
-                        elif det == ['pt'] and all(m['level'] == 'pt' for m in s['members']):
-                            for m in s['members']:
+                        elif det == ['pt'] and all(m['level'] in ('pt', 'misspelling') for m in s['members']):
+                            for m in [m for m in s['members'] if m['level'] == 'pt']:
                                 labels.setdefault(('pt', m['code']), m['name'])
                                 nums.setdefault((p, pk, s['concept'], (m['code'],)), 0)
+            cden = {}
+            if a.get('denominator') == 'concept':
+                if sets is None:
+                    raise QueryError("denominator 'concept' needs targets")
+                for r in self.run(f"UNWIND $target_sets AS ts {self._match(f)} WHERE {cond} AND (n.id IN ts.ids OR e.id IN ts.eids) "
+                                  f"RETURN e.platform AS platform{pop_ret}, ts.name AS concept, count(DISTINCT e.record_key) AS n",
+                                  **params):
+                    cden[(r['platform'], tuple(r[d] for d in popd), r['concept'])] = r['n']
             for (p, pk, c, dk), n in nums.items():
-                rows.append((p, pk, c, dk, n, dens.get((p, pk), 0)))
+                rows.append((p, pk, c, dk, n, cden.get((p, pk, c), 0) if a.get('denominator') == 'concept' else dens.get((p, pk), 0)))
 
         def key(r):
             p, pk, c, dk, n, _ = r
@@ -762,6 +975,17 @@ class KnowledgeGraph:
                 ties += 1
             last[g] = r[4]
             kept.append(r)
+        if popd and det:  # comparisons: every population group shows the same detail rows (PTs) as any other group
+            shown = {(r[0], r[2], r[3]) for r in kept}
+            have = {(r[0], r[1], r[2], r[3]) for r in kept}
+            extra = [r for r in rows if (r[0], r[2], r[3]) in shown and (r[0], r[1], r[2], r[3]) not in have]
+            if len(kept) + len(extra) <= MAX_ROWS + 100:
+                kept = sorted(kept + extra, key=key)
+                aligned = len(extra)
+            else:
+                aligned = 0
+        else:
+            aligned = 0
         wordings = {}
         pt_codes = [dk[det.index('pt')] for (_, _, _, dk, _, _) in kept if 'pt' in det]
         if pt_codes:
@@ -798,31 +1022,86 @@ class KnowledgeGraph:
             den_def = ('records = records in the group with at least one '
                        + ('statement to a member of the row\'s concept' if sets is not None else f'{f["target"]} statement')
                        + (' with the row values' if det else '')
-                       + f'; denominator = records with at least one {f["target"]} statement in the filtered universe and the '
-                       'same population group' + (f" ({', '.join(popd)})" if popd else '') + '.')
+                       + (f"; denominator = records with at least one statement to the row's concept in the filtered universe and "
+                          'the same population group' if a.get('denominator') == 'concept' else
+                          f'; denominator = records with at least one {f["target"]} statement in the filtered universe and the '
+                          'same population group') + (f" ({', '.join(popd)})" if popd else '') + '.')
         out = collections.OrderedDict(tool='query_graph', filters={**_public_filters(f), 'group_by': dims, 'top_n': top_n,
                                                                     'top_n_applied': top_applied})
         if resolved:
             out['resolved_concepts'] = resolved
         out['summary'] = summary
         out['rows'] = out_rows
+        if uncoded_rows:
+            out['uncoded_wordings'] = uncoded_rows
+        review = []  # (role of the concepts, filters, target sets) for the targets and each required co-statement concept
+        if sets is not None:
+            review.append(('targets', f, cond, params, sets))
+        for kind, key in (('purpose', 'require_purposes'), ('side_effect', 'require_side_effects')):
+            if a.get(key) is not None:
+                f2, where2, pop2, params2, *_ = self._filters({**a, 'target': kind, 'targets': a[key], 'require_purposes': None,
+                                                               'require_side_effects': None, 'intensities': None, 'impacts': None,
+                                                               'actions': None, 'doses_mg': None, 'duration_buckets': None})
+                review.append((key, f2, ' AND '.join(where2 + pop2), params2, f2['_target_sets']))
+        if review:
+            out['not_counted'], out['counted_uncoded_wordings'], out['concept_review'], out['counted_members'] = [], [], [], []
+            for role, f2, cond2, params2, sets2 in review:
+                counted, shown, cu, members = self._not_counted(f2, cond2, params2, sets2)
+                out['counted_members'] += [_row(concepts=role, **x) for x in members]
+                for p in f2['platforms']:
+                    out['concept_review'].append(_row(concepts=role, kind=f2['target'], platform=p,
+                                                      records_counted=counted.get(p, 0),
+                                                      check_from_new_records=vocabulary.check_threshold(counted.get(p, 0))))
+                for r in shown:
+                    row = _row(concepts=role, kind=f2['target'], platform=r['platform'])
+                    if r['kind'] == 'pt':
+                        row.update(pt=r['name'], code=r['code'], common_wordings=r['common_wordings'],
+                                   meaning_similarity=r['similarity'])
+                    else:
+                        row.update(uncoded_wording=r['name'])
+                    row.update(records=r['records'], new_records=r['new_records'], related_to=r['related_to'],
+                               related_by=_related_by(r),
+                               check=r['check'])
+                    out['not_counted'].append(row)
+                out['counted_uncoded_wordings'] += [_row(concepts=role, **r) for r in cu]
         out['denominator_definition'] = den_def
         if truncated:
             out['rows_not_shown'] = dict(truncated)
         if ties:
             out['rows_kept_for_ties'] = ties
+        if aligned:
+            out['rows_added_to_align_groups'] = aligned
         if top_applied < top_n:
             out['top_n_reduced'] = f'top_n lowered from {top_n} to {top_applied} so that {n_groups} groups fit in {MAX_ROWS} rows'
         if missing:
             out['codes_not_in_graph'] = missing
         out['notes'] = self._notes(f, dims)
+        if remap or any(m['level'] == 'misspelling' for st in sets or [] for m in st['members']):
+            out['notes'].append('PT counts include the uncoded mentions whose wording misspells the PT name (for example "nausa" '
+                                'for Nausea; resolved_concepts lists them for targets); say so when they change a number you report.')
         if ties:
             out['notes'].append('Rows tied with the last row within top_n are also shown, so a cut never splits equal counts.')
+        if aligned:
+            out['notes'].append('Each population group also shows the detail rows (PTs) that another group ranks in its top_n, so '
+                                'groups can be compared row by row; clear_differences covers these rows.')
         if 'pt' in det:
             out['notes'].append('common_wordings are the most frequent writer wordings coded to the PT (all records), to show what '
                                 'the MedDRA term stands for in these data.')
+        if review:
+            out['notes'].append(
+                'Concept review: not_counted lists PTs and uncoded wordings of the filtered universe that no member of the '
+                'concepts counts. related_to names the counted word a row shares (or nearly shares: an inflection or a '
+                'misspelling), related_by whether the row\'s own name holds a member\'s name words or only its wordings relate; '
+                'meaning_similarity is the BioLORD-2023 closeness in meaning to the nearest counted PT (close is not the same: '
+                'judge from the wordings); new_records is how many records it would add. Count every row that expresses the asked meaning '
+                '(give it the same concept name) and query again; name in the answer each row with check=true that you leave '
+                'out, with the reason. The rows with related_to null are the largest other rows: check whether any says the '
+                'same in other words. counted_uncoded_wordings are the uncoded wordings the wording members counted, and '
+                'counted_members the counted PTs with their most frequent wordings here: drop any member whose wordings mean '
+                'something else.')
         out['_counted'] = {k: sorted(v) for k, v in f['_counted'].items()}
-        number_rows(out, 'summary', 'rows')
+        number_rows(out, 'summary', 'rows', 'uncoded_wordings', 'concept_review', 'not_counted', 'counted_uncoded_wordings',
+                    'counted_members')
         if popd:
             out['clear_differences'] = clear_differences(out['rows'], popd)
             out['notes'].append('clear_differences lists, for the same platform, concept and detail values, the population groups '
@@ -835,7 +1114,19 @@ class KnowledgeGraph:
         limit = max(1, min(int(a.get('limit') or 5), 10))
         cond = where + pop
         if target_ids is not None:
-            cond.append('n.id IN $target_ids')
+            cond.append('(n.id IN $target_ids OR e.id IN $target_eids)')
+        sentence = ' '.join((a.get('sentence') or '').lower().split()) or None
+        if sentence:  # full-text candidates by the content words, then the phrase as written in the sentences
+            rel, _ = SCHEMA[f['target']]
+            cand = self.run("CALL db.index.fulltext.queryRelationships('sentences', $q) YIELD relationship AS r "
+                            f"WHERE type(r) = '{rel}' RETURN r.id AS id, r.evidence AS ev LIMIT $cap",
+                            q=lucene_query(sentence)[0], cap=SENTENCE_CAP + 1)
+            if len(cand) > SENTENCE_CAP:
+                raise QueryError(f'"{sentence}" occurs in more than {SENTENCE_CAP:,} statements; add a more specific word')
+            phrase = re.compile(r'(?<![a-z0-9])' + re.escape(sentence).replace(r'\ ', r'\s+'), re.I)
+            params['sentence_ids'] = [r['id'] for r in cand
+                                      if phrase.search(' '.join(sp.get('text', '') for sp in json.loads(r['ev'] or '[]')))]
+            cond.append('e.id IN $sentence_ids')
         wording = (a.get('wording') or '').strip() or None
         if wording:
             rel, _ = SCHEMA[f['target']]
@@ -866,7 +1157,6 @@ class KnowledgeGraph:
         for r in chosen:
             e = r['e']
             spans = json.loads(e['evidence'])
-            w_spans = json.loads(e['writer_evidence'])
             row = _row(edge_id=e['id'], platform=e['platform'], date=e.get('date'),
                        ingredient=r['ingredient'], brand=r['brand'], ingredient_basis=e.get('ingredient_basis'),
                        pt=r['pt'], pt_code=r['pt_code'], soc=r['soc'], wording=e['text'],
@@ -874,17 +1164,20 @@ class KnowledgeGraph:
             if se:
                 row.update(dose=e.get('dose'), duration=e.get('duration'), intensity=e.get('intensity'),
                            impact=e.get('impact'), action_taken=e.get('action_taken') or [])
-            row['evidence'] = [_clip(s['text'], 600, e['text']) for s in spans[:3]]
-            if len(spans) > 3:
-                row['evidence_spans_not_shown'] = len(spans) - 3
-            if e.get('writer_age_group') or e.get('writer_sex'):
-                row['writer_evidence'] = [_clip(s['text'], 300) for s in w_spans[:2]]
-            full[e['id']] = [s['text'] for s in spans + w_spans]
+            if e.get('writer_age_group') == '13-18':  # minors: wording and codes only, never their sentences
+                row['evidence'] = []
+                row['evidence_withheld'] = 'writer aged 13-18: source sentences are not shown or quoted'
+            else:
+                row['evidence'] = [_clip(sp['text'], 600, e['text']) for sp in spans[:3]]
+                if len(spans) > 3:
+                    row['evidence_spans_not_shown'] = len(spans) - 3
+                full[e['id']] = [sp['text'] for sp in spans]
             record_ids.add(e['record_id'])
             rows.append(row)
         summary = [_row(platform=p, matching_statements=counts.get(p, {}).get('edges', 0),
                         matching_records=counts.get(p, {}).get('records', 0)) for p in f['platforms']]
-        out = collections.OrderedDict(tool='get_evidence', filters={**_public_filters(f), 'wording': wording, 'limit': limit})
+        out = collections.OrderedDict(tool='get_evidence', filters={**_public_filters(f), 'wording': wording,
+                                                                     'sentence': sentence, 'limit': limit})
         if resolved:
             out['resolved_concepts'] = resolved
         out['summary'] = summary
@@ -894,16 +1187,50 @@ class KnowledgeGraph:
         out['notes'] = ['Examples are drawn in a fixed pseudo-random order (sha256 of the statement id), one statement per record, '
                         'platforms in turn; they illustrate and are not representative counts.',
                         'evidence holds the cited source sentences; WebMD profile values appear as profile fields. Quote only '
-                        'from these sentences and give the edge_id in the quotes list; never write ids in the answer.'] + BASE_NOTES[:1]
+                        'from these sentences and give the edge_id in the quotes list; never write ids in the answer. Sentences '
+                        'in which writers state their own age or sex are never shown, and statements of writers aged 13-18 come '
+                        'without sentences; describe those in your own words.'] + BASE_NOTES[:1]
         out['_full_evidence'] = full
         out['_record_ids'] = sorted(record_ids)
         out['_counted'] = {k: sorted(v) for k, v in f['_counted'].items()}
-        number_rows(out, 'summary', 'rows')
-        if popd:
-            out['clear_differences'] = clear_differences(out['rows'], popd)
-            out['notes'].append('clear_differences lists, for the same platform, concept and detail values, the population groups '
-                                'whose 95% intervals do not overlap (neither group sparse); every other pair is similar or unclear.')
-        return out
+        return number_rows(out, 'summary', 'rows')
+
+    # ------------------------------------------------------------------ SQL
+    def run_sql(self, query, description=''):
+        """One read-only SELECT over the analysis database (weightloss.graph.analysis_db), at most SQL_ROW_CAP rows."""
+        import time
+        if not SQL_START.match(query or '') or ';' in query.strip().rstrip(';'):
+            raise QueryError('run_sql takes one SELECT or WITH ... SELECT statement')
+        db = analysis_db.connect()
+        db.execute('PRAGMA query_only = 0')  # the file is opened read-only; this only allows the temporary view
+        spelling.install(db, str(analysis_db.PATH))
+        db.execute('PRAGMA query_only = 1')
+        deadline = time.time() + SQL_SECONDS
+        db.set_progress_handler(lambda: int(time.time() > deadline), 20000)
+        try:
+            cur = db.execute(query.strip().rstrip(';'))
+            cols = [c[0] for c in cur.description or []]
+            data = cur.fetchmany(SQL_ROW_CAP + 1)
+        except sqlite3.OperationalError as error:
+            raise QueryError(f'SQL error: {error}' + (' (query stopped after 40 s; add filters or aggregate)'
+                                                     if 'interrupted' in str(error) else ''))
+        finally:
+            db.close()
+        names, seen = [], collections.Counter()
+        for c in cols:  # unique, non-reserved field names
+            c = 'row_' + c if c == 'row' else c
+            seen[c] += 1
+            names.append(c if seen[c] == 1 else f'{c}_{seen[c]}')
+        rows = [_row(**dict(zip(names, r))) for r in data[:SQL_ROW_CAP]]
+        cols = names
+        out = collections.OrderedDict(tool='run_sql', description=description, columns=cols, rows=rows)
+        if len(data) > SQL_ROW_CAP:
+            out['truncated'] = f'only the first {SQL_ROW_CAP} rows are shown; aggregate or filter further'
+        out['notes'] = ['Rows are exactly what the query returned; cite them like any tool row. The counting rules of the other '
+                        'tools apply: count DISTINCT record_key, keep platforms apart, and state the denominator.']
+        codes = sorted(set(PT_CODE.findall(query)))
+        out['_counted'] = {'purpose': codes, 'side_effect': codes}
+        return number_rows(out, 'rows')
 
     # ------------------------------------------------------------------ FAERS
     def _scope(self, scope):
@@ -930,6 +1257,28 @@ class KnowledgeGraph:
         return (f'MATCH {anchored} WHERE x.in_primary', f"EXISTS {{ MATCH {pattern.format(v='x')} WHERE x.in_primary }}",
                 pattern.format(v='y'), dcond, {'scope_name': name}, start)
 
+    def _faers_not_counted(self, rmatch, rf, p, ids, names):
+        """FAERS side of the concept review for one scope: clinical PTs of the scope's reports (with at least one clinical
+        PT) that no concept counts, related to the counted members by name or BioLORD meaning (vocabulary.mark), with the
+        reports each would add. Returns (reports counted, rows to show)."""
+        base = f'{rmatch}{rf} AND r.has_clinical_pt WITH DISTINCT r MATCH (r)-[:REACTION]->(c:SideEffect)'
+        counted = self.run(f'{base} WHERE c.id IN $review_ids RETURN count(DISTINCT r) AS n', review_ids=ids, **p)[0]['n']
+        rows = [{'platform': 'faers', 'kind': 'pt', 'code': r['code'], 'name': r['name'], 'records': r['n'], 'common_wordings': []}
+                for r in self.run(f'{base} WHERE c.nonclinical_group IS NULL AND NOT c.id IN $review_ids RETURN c.pt_code AS code, '
+                                  'c.pt AS name, count(DISTINCT r) AS n ORDER BY n DESC, name LIMIT 1500', review_ids=ids, **p)]
+        counted_codes = self.pt_codes('side_effect', ids) - {UNCODED}
+        rows = vocabulary.mark(rows, vocabulary.counted_words(names, [], counted),
+                               vocabulary.closeness(counted_codes, [r['code'] for r in rows]))
+        related = [r for r in rows if r['related_to']]
+        if related:
+            new = {r['code']: r['n'] for r in self.run(
+                f'{base} WHERE c.pt_code IN $review_codes AND NOT EXISTS {{ MATCH (r)-[:REACTION]->(x:SideEffect) '
+                'WHERE x.id IN $review_ids } RETURN c.pt_code AS code, count(DISTINCT r) AS n',
+                review_codes=sorted({r['code'] for r in related}), review_ids=ids, **p)}
+            for r in related:
+                r['new_records'] = new.get(r['code'], 0)
+        return counted, vocabulary.select(['faers'], rows, {'faers': counted}, keep_related=10, keep_other=0)
+
     def compare_faers(self, targets=None, scopes=(), sexes=None, age_groups=None, rank_by='faers', top_n=10,
                       include_outcomes=False):
         scopes = list(dict.fromkeys(scopes or []))
@@ -940,10 +1289,10 @@ class KnowledgeGraph:
         age_groups = _check_list('age_groups', age_groups, AGE_GROUPS)
         top_n = max(1, min(int(top_n or 10), 30))
         concepts, resolved, missing = [], [], []
-        excluded_nonclinical = []
+        excluded_nonclinical, excluded_wording = [], []
         counted = set()
         if targets is not None:
-            sets, missing = self.resolve_sets('side_effect', [dict(c) for c in targets])
+            sets, missing = self.resolve_sets('side_effect', [dict(c) for c in targets], misspellings=False)
             for st in sets:
                 if not st['ids']:
                     continue
@@ -952,7 +1301,9 @@ class KnowledgeGraph:
                 if not clin:
                     excluded_nonclinical.append(st['concept'])
                     continue
-                concepts.append({'key': st['concept'], 'ids': clin})
+                concepts.append({'key': st['concept'], 'ids': clin, 'eids': []})  # RQ2 rules: coded PTs only on both sides
+                if st['eids']:
+                    excluded_wording.append(st['concept'])
                 resolved.append({'concept': st['concept'], 'members': st['members'], 'clinical_pts': len(clin)})
                 counted |= self.pt_codes('side_effect', clin)
         rfil, efil, fparams = [], [], {}
@@ -967,11 +1318,33 @@ class KnowledgeGraph:
         rf = ''.join(f' AND {x}' for x in rfil)
         ef = ''.join(f' AND {x}' for x in efil)
         epred = ' AND '.join(efil) or 'true'
-        cc = [{'key': c['key'], 'ids': c['ids']} for c in concepts]
+        cc = [{'key': c['key'], 'ids': c['ids'], 'eids': c['eids']} for c in concepts]
         summary, rows, outcomes, ties = [], [], [], 0
+        review, review_rows, counted_members = [], [], []
         for scope in scopes:
             rmatch, rpred, ypat, dcond, sp, start = self._scope(scope)
             p = {**fparams, **sp, 'start': start, 'end': WINDOW_END}
+            if concepts:  # concept review on the patient side (coded PTs only, as the comparison counts)
+                members = {r['concept']: r['members'] for r in resolved}
+                counted_n, shown, _, members = self._not_counted(
+                    {'target': 'side_effect', 'platforms': list(PLATFORMS)},
+                    f'{dcond} AND e.date >= $start AND e.date <= $end AND n.nonclinical_group IS NULL{ef}', dict(p),
+                    [{'concept': c['key'], 'ids': c['ids'], 'eids': [], 'members': members[c['key']]} for c in concepts])
+                for plat in PLATFORMS:
+                    review.append(_row(scope=scope, kind='side_effect', platform=plat, records_counted=counted_n.get(plat, 0),
+                                       check_from_new_records=vocabulary.check_threshold(counted_n.get(plat, 0))))
+                counted_members += [_row(scope=scope, **x) for x in members]
+                names = [m['name'] for c in resolved for m in c['members'] if m['level'] not in ('wording', 'misspelling')]
+                faers_n, faers_shown = self._faers_not_counted(rmatch, rf, p, sorted({i for c in concepts for i in c['ids']}),
+                                                               names)
+                review.append(_row(scope=scope, kind='side_effect', platform='faers', records_counted=faers_n,
+                                   check_from_new_records=vocabulary.check_threshold(faers_n)))
+                review_rows += [_row(scope=scope, kind='side_effect', platform=r['platform'], pt=r['name'], code=r['code'],
+                                     common_wordings=r['common_wordings'], meaning_similarity=r['similarity'],
+                                     records=r['records'], new_records=r['new_records'],
+                                     related_to=r['related_to'],
+                                     related_by=_related_by(r),
+                                     check=r['check']) for r in shown + faers_shown if r['kind'] == 'pt']
             fr = self.run(f"{rmatch} WITH DISTINCT r RETURN count(r) AS reports, "
                           "count(CASE WHEN r.sex IN ['female', 'male'] THEN 1 END) AS sex_known, "
                           "count(CASE WHEN r.age_group IS NOT NULL AND r.age_group <> 'under 13' THEN 1 END) AS age_known", **p)[0]
@@ -1012,7 +1385,7 @@ class KnowledgeGraph:
                     f'UNWIND $cc AS cc MATCH (c:SideEffect)<-[:REACTION]-(r:Report) WHERE c.id IN cc.ids AND {rpred}{rf} '
                     'RETURN cc.key AS key, count(DISTINCT r) AS c', cc=cc, **p)}
                 pn = {(r['key'], r['platform']): r['c'] for r in self.run(
-                    f'UNWIND $cc AS cc MATCH (n:SideEffect)<-[e:SIDE_EFFECT]-(d:Drug) WHERE n.id IN cc.ids AND {dcond} '
+                    f'UNWIND $cc AS cc MATCH (n:SideEffect)<-[e:SIDE_EFFECT]-(d:Drug) WHERE (n.id IN cc.ids OR e.id IN cc.eids) AND {dcond} '
                     f'AND e.date >= $start AND e.date <= $end{ef} '
                     'RETURN cc.key AS key, e.platform AS platform, count(DISTINCT e.record_key) AS c', cc=cc, **p)}
                 for c in concepts:
@@ -1051,13 +1424,32 @@ class KnowledgeGraph:
                     **p)}
                 z = {'records': 0, 'hosp': 0, 'stopped': 0, 'reduced': 0}
                 rr, ww = po.get('reddit', z), po.get('webmd', z)
-                outcomes.append(_row(scope=scope, faers_reports=o['reports'], faers_hospitalization=o['hosp'],
-                                     faers_action_known_reports=o['known'], faers_drug_withdrawn=o['withdrawn'],
-                                     faers_dose_reduced=o['reduced'],
-                                     reddit_records=rr['records'], reddit_hospitalization=rr['hosp'],
-                                     reddit_stopped=rr['stopped'], reddit_dose_reduced=rr['reduced'],
-                                     webmd_records=ww['records'], webmd_hospitalization=ww['hosp'],
-                                     webmd_stopped=ww['stopped'], webmd_dose_reduced=ww['reduced']))
+                row = _row(scope=scope, faers_reports=o['reports'], faers_hospitalization=o['hosp'],
+                           faers_action_known_reports=o['known'], faers_drug_withdrawn=o['withdrawn'],
+                           faers_dose_reduced=o['reduced'],
+                           reddit_records=rr['records'], reddit_hospitalization=rr['hosp'],
+                           reddit_stopped=rr['stopped'], reddit_dose_reduced=rr['reduced'],
+                           webmd_records=ww['records'], webmd_hospitalization=ww['hosp'],
+                           webmd_stopped=ww['stopped'], webmd_dose_reduced=ww['reduced'])
+                shares = {'faers_hospitalization': (o['hosp'], o['reports']), 'faers_withdrawn_of_known': (o['withdrawn'], o['known']),
+                          'faers_withdrawn_of_all': (o['withdrawn'], o['reports']), 'faers_dose_reduced_of_known': (o['reduced'], o['known']),
+                          'faers_dose_reduced_of_all': (o['reduced'], o['reports']),
+                          'reddit_dose_reduced': (rr['reduced'], rr['records']), 'webmd_dose_reduced': (ww['reduced'], ww['records']),
+                          'reddit_hospitalization': (rr['hosp'], rr['records']), 'webmd_hospitalization': (ww['hosp'], ww['records']),
+                          'reddit_stopped': (rr['stopped'], rr['records']), 'webmd_stopped': (ww['stopped'], ww['records'])}
+                for name, (k, d) in shares.items():
+                    lo, hi = wilson(k, d)
+                    row.update({f'{name}_percent': percent(k, d), f'{name}_ci95_low': lo, f'{name}_ci95_high': hi})
+                for x, y, key in (('faers_hospitalization', 'reddit_hospitalization', 'hospitalization_faers_vs_reddit'),
+                                  ('faers_hospitalization', 'webmd_hospitalization', 'hospitalization_faers_vs_webmd'),
+                                  ('faers_withdrawn_of_all', 'reddit_stopped', 'withdrawn_of_all_faers_vs_reddit_stopped'),
+                                  ('faers_withdrawn_of_all', 'webmd_stopped', 'withdrawn_of_all_faers_vs_webmd_stopped'),
+                                  ('faers_withdrawn_of_known', 'reddit_stopped', 'withdrawn_of_known_faers_vs_reddit_stopped'),
+                                  ('faers_withdrawn_of_known', 'webmd_stopped', 'withdrawn_of_known_faers_vs_webmd_stopped'),
+                                  ('faers_dose_reduced_of_all', 'reddit_dose_reduced', 'dose_reduced_of_all_faers_vs_reddit'),
+                                  ('faers_dose_reduced_of_all', 'webmd_dose_reduced', 'dose_reduced_of_all_faers_vs_webmd')):
+                    row[key] = _order(row, x, y, shares[x][1], shares[y][1])
+                outcomes.append(row)
         out = collections.OrderedDict(tool='compare_faers', status=FAERS_STATUS, scopes=scopes, sexes=sexes,
                                       age_groups=age_groups, rank_by=None if targets is not None else rank_by)
         if resolved:
@@ -1070,6 +1462,8 @@ class KnowledgeGraph:
             out['codes_not_in_graph'] = missing
         if excluded_nonclinical:
             out['excluded_nonclinical_concepts'] = excluded_nonclinical
+        if excluded_wording:
+            out['wording_members_not_used'] = excluded_wording
         out['notes'] = [
             FAERS_STATUS + '.',
             'faers_reports = primary-configuration FAERS reports in the scope (suspect or interacting role, validated drug identity, '
@@ -1093,13 +1487,28 @@ class KnowledgeGraph:
             'lower or similar (overlapping intervals) compared with source y. Describe comparisons with these words and never '
             'compute a ratio or difference.']
         if include_outcomes:
-            out['notes'].append('outcomes: FAERS hospitalization = reports with the hospitalization seriousness criterion; action '
-                                'codes come from the study-drug entries (withdrawn, dose reduced; known = any of withdrawn, reduced, '
-                                'increased, not changed). Reddit and WebMD hospitalization = records with a side effect whose impact '
-                                'is hospitalization; stopped and dose_reduced come from action_taken. Their outcome counts use all '
-                                'side effects in the window (no clinical-event restriction).')
+            out['notes'].append('outcomes: FAERS hospitalization = reports in the scope with the hospitalization seriousness criterion '
+                                '(a report-level flag, share of all reports in scope); FAERS withdrawn = reports whose study-drug action '
+                                'is drug withdrawn, as a share of reports with a known action (withdrawn, reduced, increased or not '
+                                'changed; most reports have none), and also as a share of all reports in scope (*_of_all, the closer analogue of the '
+                                'Reddit and WebMD shares; report both). Reddit and WebMD hospitalization = records in which a side effect led '
+                                'to hospitalization, and stopped = records in which the writer stopped the drug because of a side effect, '
+                                'each as a share of records with a side-effect statement in the window (no clinical-event restriction). '
+                                'The two sides measure different things: say so whenever you put them side by side. The *_vs_* fields '
+                                'compare the shares by their 95% intervals.')
+        if excluded_wording:
+            out['notes'].append('FAERS comparisons count coded PTs only on both sides, so uncoded wording members were not used.')
+        if review:
+            out['concept_review'], out['not_counted'], out['counted_members'] = review, review_rows, counted_members
+            out['notes'].append('Concept review (Reddit and WebMD records, coded PTs in the window, and FAERS reports of the scope, '
+                                'platform "faers"; records_counted and new_records count reports there): not_counted lists PTs that no member '
+                                'of the concepts counts; related_to names the counted word a row shares, related_by whether the row\'s '
+                                "own name holds a member's name words or only its wordings relate, new_records how many records it would add. Count every "
+                                'row that expresses the asked meaning (give it the same concept name) and compare again; name in the '
+                                'answer each row with check=true that you leave out, with the reason. counted_members are the counted '
+                                'PTs with their most frequent wordings here: drop any member whose wordings mean something else.')
         if ties:
             out['rows_kept_for_ties'] = ties
             out['notes'].append('PTs tied with the last ranked PT are also shown, so a cut never splits equal counts.')
         out['_counted'] = {'side_effect': sorted(counted), 'purpose': []}
-        return number_rows(out, 'summary', 'rows', 'outcomes')
+        return number_rows(out, 'summary', 'rows', 'outcomes', 'concept_review', 'not_counted', 'counted_members')

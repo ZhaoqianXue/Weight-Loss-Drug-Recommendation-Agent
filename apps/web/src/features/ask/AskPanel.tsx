@@ -22,7 +22,7 @@ const EXAMPLES = [
 
 function StepRow({ step }: { step: Step }) {
   return (
-    <li className="grid grid-cols-[16px_1fr] gap-x-2 gap-y-0.5">
+    <li className="grid grid-cols-[16px_minmax(0,1fr)] gap-x-2 gap-y-0.5">
       <span className="mt-[3px] flex size-4 items-center justify-center">
         {step.status === "running" ? (
           <Loader2 className="size-3.5 animate-spin text-ink" />
@@ -61,7 +61,7 @@ function Elapsed({ since }: { since: number }) {
 
 function TurnView({ turn, onShowInGraph }: { turn: Turn; onShowInGraph: (update: Partial<Explorer>) => void }) {
   return (
-    <div className="grid scroll-mt-3 gap-2.5" data-turn={turn.id}>
+    <div className="grid min-w-0 scroll-mt-3 gap-2.5 [&>*]:min-w-0" data-turn={turn.id}>
       <div className="ml-auto w-fit max-w-[80%] rounded-[13px_13px_3px_13px] bg-primary px-3 py-2.5 text-[#eaf0f7] dark:text-primary-foreground">{turn.question}</div>
       <div>
         {/* A finished answer is set on the page like an article; progress and errors sit in a tinted box. */}
@@ -150,7 +150,7 @@ export function AskPanel({ request, onShowInGraph }: Props) {
           <p className="text-meta text-muted-foreground">Answers from the knowledge graph. Every number links to the row it came from.</p>
         </div>
       </div>
-      <div ref={scroller} className="relative flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-4 py-4" role="log" aria-live="polite" aria-label="Questions and answers">
+      <div ref={scroller} className="relative flex min-h-0 flex-1 flex-col gap-5 overflow-x-hidden overflow-y-auto px-4 py-4" role="log" aria-live="polite" aria-label="Questions and answers">
         {turns.length === 0 ? (
           <div className="grid gap-7 pt-6 pb-2">
             <div className="grid justify-items-center gap-2 text-center">

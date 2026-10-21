@@ -8,30 +8,40 @@ import { cn } from "@/lib/utils"
 // Case and curly quotes do not matter when finding a phrase; the replacements keep every index in place.
 const fold = (text: string) => text.toLowerCase().replace(/[‘’]/g, "'").replace(/[“”]/g, '"')
 
-/** The sentence with every occurrence of `phrase` marked (the writer's wording, or a quote). */
-function Marked({ text, phrase, color }: { text: string; phrase: string | null | undefined; color: string }) {
+/** The sentence with every occurrence of each phrase marked (the writer's wording, or the quotes taken from it). */
+function Marked({ text, phrases, color }: { text: string; phrases: (string | null | undefined)[]; color: string }) {
   const lower = fold(text)
-  // A quote may end with punctuation the sentence does not repeat.
-  const full = fold(phrase?.trim() ?? "")
-  const needle = lower.includes(full) ? full : full.replace(/[.!?…]+$/, "")
-  // Nothing to point at when the phrase is (nearly) the whole sentence.
-  if (needle.length < 2 || needle.length >= lower.trim().length * 0.9) return <>{text}</>
+  const spans: [number, number][] = []
+  for (const phrase of phrases) {
+    // A quote may end with punctuation the sentence does not repeat.
+    const full = fold(phrase?.trim() ?? "")
+    const needle = lower.includes(full) ? full : full.replace(/[.!?…]+$/, "")
+    // Nothing to point at when the phrase is (nearly) the whole sentence.
+    if (needle.length < 2 || needle.length >= lower.trim().length * 0.9) continue
+    for (let at = lower.indexOf(needle); at >= 0; at = lower.indexOf(needle, at + needle.length)) spans.push([at, at + needle.length])
+  }
+  if (spans.length === 0) return <>{text}</>
+  spans.sort((a, b) => a[0] - b[0])
+  const merged: [number, number][] = []
+  for (const [start, end] of spans) {
+    const last = merged.at(-1)
+    if (last && start <= last[1]) last[1] = Math.max(last[1], end)
+    else merged.push([start, end])
+  }
   const parts: React.ReactNode[] = []
   let from = 0
-  let at = lower.indexOf(needle)
-  while (at >= 0) {
-    if (at > from) parts.push(text.slice(from, at))
+  for (const [start, end] of merged) {
+    if (start > from) parts.push(text.slice(from, start))
     parts.push(
       <mark
-        key={at}
+        key={start}
         className="rounded-[2px] text-foreground [box-decoration-break:clone]"
         style={{ background: `color-mix(in oklab, ${color} 38%, transparent)`, boxShadow: `0 0 0 1.5px color-mix(in oklab, ${color} 38%, transparent)` }}
       >
-        {text.slice(at, at + needle.length)}
+        {text.slice(start, end)}
       </mark>
     )
-    from = at + needle.length
-    at = lower.indexOf(needle, from)
+    from = end
   }
   parts.push(text.slice(from))
   return <>{parts}</>
@@ -68,8 +78,8 @@ function CopyId({ id }: { id: string }) {
 
 type Props = {
   statement: Statement
-  /** Passage to mark instead of the writer's wording (an agent quote). */
-  highlight?: string
+  /** Passages to mark instead of the writer's wording (the agent's quotes from this statement). */
+  highlight?: string | string[]
   /** Leave out what the surrounding panel already says. */
   hideTerm?: boolean
   hidePlatform?: boolean
@@ -110,7 +120,7 @@ export function StatementView({ statement, highlight, hideTerm = false, hidePlat
         <blockquote className="grid gap-1 text-[13px] leading-[1.55] text-foreground">
           {statement.evidence.map((sentence, index) => (
             <p key={index}>
-              <Marked text={sentence} phrase={highlight ?? statement.wording} color={accent} />
+              <Marked text={sentence} phrases={highlight === undefined ? [statement.wording] : [highlight].flat()} color={accent} />
             </p>
           ))}
         </blockquote>

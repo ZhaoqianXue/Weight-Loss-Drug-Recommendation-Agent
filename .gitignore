@@ -21,3 +21,11 @@ results/*/demo/
 results/**/events.jsonl
 results/**/.operation.lock
 archive/**/events.jsonl
+# Licensed MedDRA content (codes / term names) from the kg-standardization formal phase stays local (2026-10-05).
+results/extraction-postjev-2026-09-29/kg-standardization-20261004-01a0fad5/acceptance/codex-formal-precision-cases.freeze.json
+results/extraction-postjev-2026-09-29/kg-standardization-20261004-01a0fad5/acceptance/codex-formal-source-literal-reference.jsonl
+results/extraction-postjev-2026-09-29/kg-standardization-20261004-01a0fad5/acceptance/formal-*precision-*.json
+results/extraction-postjev-2026-09-29/kg-standardization-20261004-01a0fad5/acceptance/*-dev-impact.json
+# Licensed MedDRA content and large intermediates from the FAERS validation stay local (user 2026-10-17).
+results/fda-validation-20261017/frozen/
+results/fda-validation-20261017/outputs/

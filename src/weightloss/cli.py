@@ -24,6 +24,9 @@ def main(argv=None):
     collect.add_argument('--run-dir')
     fixture = sub.add_parser('reproduce-fixture')
     fixture.add_argument('--output-dir',required=True)
+    site = sub.add_parser('setup-site', help='Set up the website on a fresh checkout from the site data bundle')
+    site.add_argument('--bundle', help='Path to askglp1-site-data-*.zip (from the project Google Drive folder)')
+    site.add_argument('--make-bundle', metavar='ZIP', help='Write the bundle from this machine\'s data instead')
     serve = sub.add_parser('serve', help='Run the website: FastAPI API plus the built frontend (apps/web/dist)')
     serve.add_argument('--port',type=int,default=5001)
     serve.add_argument('--reload',action='store_true',help='Restart when Python sources change (development)')
@@ -52,12 +55,22 @@ def dispatch(args):
         from .pipeline.build_web import build_web
         print(build_web())
         return 0
+    if command == 'setup-site':
+        from .site_setup import make_bundle, setup
+        if args.make_bundle:
+            make_bundle(args.make_bundle)
+            return 0
+        return setup(args.bundle)
     if command == 'serve':
         import uvicorn
+        from .graph import neo4j_db
         from .web.kg import graph_running
         paths = get_settings()
+        if not graph_running() and neo4j_db.MANIFEST.is_file() and neo4j_db.installation() is not None:
+            print('Starting the knowledge graph database...',flush=True)  # imported earlier by setup-site
+            neo4j_db.start()
         if not graph_running():
-            print('The knowledge graph database is not running (python -m weightloss.graph.neo4j_db start); '
+            print('The knowledge graph is not set up: run make site-setup BUNDLE=<site data zip>; '
                   'the API will answer 503 until it is.',flush=True)
         if not (paths.path('web_source')/'dist'/'index.html').is_file():
             print('Frontend not built (make web-build); serving the API only.',flush=True)

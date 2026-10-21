@@ -19,6 +19,10 @@ reproduce:
 	$(PYTHON) -m weightloss reproduce-fixture --output-dir $(OUTPUT)
 demo: web-build
 	$(PYTHON) -m weightloss serve --port $(PORT)
+# One-time setup of the website on a fresh checkout: packages, frontend, then the site data bundle (graph and FAERS
+# tables, from the project Google Drive folder) imported into the local Neo4j. Usage: make site-setup BUNDLE=<zip>
+site-setup: install web-install web-build
+	$(PYTHON) -m weightloss setup-site $(if $(BUNDLE),--bundle "$(BUNDLE)",)
 # Website frontend (Vite + React in apps/web); the FastAPI backend is weightloss.web.
 web-install:
 	pnpm --dir $(WEB) install --frozen-lockfile
