@@ -131,8 +131,8 @@ class Quote(BaseModel):
 
 
 class Comparison(BaseModel):
-    text: str = Field(description='The words of the answer that state the comparison, copied exactly without tags, e.g. '
-                                  '"the Reddit share is higher than the FAERS share"')
+    text: str = Field(description='The words of the answer that state the comparison, copied exactly without tags and '
+                                  'without the numbers, e.g. "the Reddit share is higher than the FAERS share"')
     first: str = Field(description='Citation id of the percentage of the share the text names first, e.g. c3')
     second: str = Field(description='Citation id of the percentage it is compared with, e.g. c7')
     claim: Literal['higher', 'lower', 'similar'] = Field(description='What the text says of the first share against the second')
@@ -574,6 +574,26 @@ def _interval(out, row_no, field):
     return (lo, hi) if lo is not None and hi is not None else None
 
 
+# An interval written after a share, each bound with its own tag: "30.12% [c4]–34.81% [c5]" or "30.1 [c4] to 34.8 [c5]".
+STATED_INTERVAL = re.compile(r'(\d[\d,]*(?:\.\d+)?)\s*%?\s*\[(c\d+)\]\s*(?:–|—|-|to)\s*(\d[\d,]*(?:\.\d+)?)\s*%?\s*\[(c\d+)\]')
+CITED_SHARE = re.compile(r'%\s*\[c\d+\]')
+
+
+def _stated_interval(answer, cites, cid):
+    """(low, high) of the interval the answer writes after the share tagged cid, from the cited bounds: in the same
+    sentence (or table row) and before any other cited share; None otherwise."""
+    m = re.search(r'\[' + re.escape(cid) + r'\]', answer.answer)
+    if not m:
+        return None
+    window = re.split(r'\.(?=\s|$)|\n', answer.answer[m.end():m.end() + 240], maxsplit=1)[0]  # same sentence or table row
+    found = STATED_INTERVAL.search(window)
+    if not found or CITED_SHARE.search(window[:found.start()]):
+        return None
+    lo, hi = cites.get(found.group(2)), cites.get(found.group(4))
+    lo, hi = (_number(lo.value) if lo else None), (_number(hi.value) if hi else None)
+    return (lo, hi) if lo is not None and hi is not None and lo <= hi else None
+
+
 def comparison_problems(answer, outputs):
     """Each listed comparison: its text is in the answer and its words say the claim, the claim agrees with the two cited
     percentages, and, when both cited rows carry 95% intervals, higher/lower needs separate intervals and similar
@@ -604,6 +624,26 @@ def comparison_problems(answer, outputs):
             continue
         ia = _interval(outputs.get(a.call) or {}, a.row, a.field)
         ib = _interval(outputs.get(b.call) or {}, b.row, b.field)
+        in_code = [c for c in (a, b) if (outputs.get(c.call) or {}).get('tool') == 'run_python']
+        if in_code:  # a share printed by code carries no interval row: the answer must state and cite its interval
+            stated = {c.id: _stated_interval(answer, cites, c.id) for c in in_code}
+            missing = [c.value for c in in_code if stated[c.id] is None]
+            if missing:
+                problems.append(f'comparison "{label}" rests on shares computed in code ({", ".join(missing)}); in the answer text '
+                                'write each one\'s 95% interval right after it, in the same sentence (in a table, the same cell), each '
+                                'bound printed by wilson_low/wilson_high and cited, for example 32.4% [c3] (30.12% [c4]–34.81% [c5]); '
+                                'the comparison text itself stays words only')
+                continue
+            ia = ia or stated.get(a.id)
+            ib = ib or stated.get(b.id)
+            overlap = not (ia[0] > ib[1] or ia[1] < ib[0])
+            if cmp.claim != 'similar' and overlap:
+                problems.append(f'comparison "{label}": the 95% intervals overlap ({ia[0]}-{ia[1]} and {ib[0]}-{ib[1]}), '
+                                'so say the shares are similar or show no clear difference')
+            elif cmp.claim == 'similar' and not overlap:
+                problems.append(f'comparison "{label}": the 95% intervals do not overlap ({ia[0]}-{ia[1]} and '
+                                f'{ib[0]}-{ib[1]}), so the shares are not similar')
+            continue
         if ia and ib:
             overlap = not (ia[0] > ib[1] or ia[1] < ib[0])
             if cmp.claim != 'similar' and overlap:

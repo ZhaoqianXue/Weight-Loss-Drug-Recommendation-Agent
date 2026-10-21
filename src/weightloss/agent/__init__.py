@@ -4,4 +4,4 @@ tools  graph tools: parameterized Cypher over the local Neo4j graph (link_terms,
        compare_faers), no LLM
 agent  Responses API tool loop, final-answer schema and the citation and quote verifier
 """
-VERSION = 'agent-0.8.4'
+VERSION = 'agent-0.8.5'

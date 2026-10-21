@@ -740,6 +740,25 @@ class ConceptReviewTest(unittest.TestCase):
         missing = answer(text2, cites)
         self.assertTrue(any('lists no comparisons' in p for p in agent.comparison_problems(missing, outputs)))
 
+    def test_comparisons_of_shares_computed_in_code_need_their_intervals(self):
+        out = {'t3': {'call': 't3', 'tool': 'run_python', 'output': 'reddit 9 137 6.6 3.49 12.01\nreddit 45 1361 3.3 3.23 3.6'}}
+        cites = [('c1', 't3', 1, 'output', '6.6'), ('c2', 't3', 1, 'output', '3.3')]
+        claim = [('The purpose share is higher', 'c1', 'c2', 'higher')]
+        bare = answer('With the purpose 6.6% [c1]; without 3.3% [c2]. The purpose share is higher.', cites, comparisons=claim)
+        self.assertTrue(any('computed in code' in p for p in agent.comparison_problems(bare, out)))
+        bounds = cites + [('c3', 't3', 1, 'output', '3.49'), ('c4', 't3', 1, 'output', '12.01'),
+                          ('c5', 't3', 1, 'output', '3.23'), ('c6', 't3', 1, 'output', '3.6')]
+        stated = answer('With the purpose 6.6% [c1] (3.49% [c3]–12.01% [c4]); without 3.3% [c2] (3.23% [c5]–3.6% [c6]). '
+                        'The purpose share is higher.', bounds, comparisons=claim)
+        self.assertTrue(any('intervals overlap' in p for p in agent.comparison_problems(stated, out)))
+        similar = answer('With the purpose 6.6% [c1] (3.49% [c3]–12.01% [c4]); without 3.3% [c2] (3.23% [c5]–3.6% [c6]). '
+                         'The shares are similar.', bounds, comparisons=[('The shares are similar', 'c1', 'c2', 'similar')])
+        self.assertEqual(agent.comparison_problems(similar, out), [])
+        # an interval written later, after the other share, is not taken for this share's own
+        later = answer('With the purpose 6.6% [c1]; without 3.3% [c2]. The shares are similar (3.49% [c3]–12.01% [c4] versus '
+                       '3.23% [c5]–3.6% [c6]).', bounds, comparisons=[('The shares are similar', 'c1', 'c2', 'similar')])
+        self.assertTrue(any('computed in code' in p for p in agent.comparison_problems(later, out)))
+
     def test_placeholders_fail(self):
         a = answer('On Reddit the under-35 share was higher [comparison]; 8 [c1] records.', [('c1', 't2', 2, 'records', '8')])
         self.assertTrue(any('placeholder "[comparison]"' in p for p in agent.verify(a, outputs_fixture())[0]))
@@ -781,6 +800,38 @@ class ConceptReviewTest(unittest.TestCase):
 
 
 class SandboxReadTest(unittest.TestCase):
+    @unittest.skipUnless(Path('/usr/bin/sandbox-exec').exists(), 'macOS sandbox')
+    def test_code_never_sees_the_server_environment(self):
+        import os
+        from weightloss.agent.code_baseline import SETUP_NO_SENTENCES, Sandbox
+        os.environ['OPENAI_API_KEY_TEST_ONLY'] = 'secret'
+        box = Sandbox(SETUP_NO_SENTENCES.split('import pandas')[0] if False else 'import os\n')
+        try:
+            res = box.run("print(sorted(k for k in os.environ if 'KEY' in k or 'TOKEN' in k or 'SECRET' in k))")
+        finally:
+            box.close()
+            del os.environ['OPENAI_API_KEY_TEST_ONLY']
+        self.assertTrue(res['ok'], res['output'])
+        self.assertEqual(res['output'].strip(), '[]')
+
+    def test_neo4j_status_without_an_installation(self):
+        from unittest import mock
+        from weightloss.graph import neo4j_db
+        with mock.patch.object(neo4j_db, 'installation', return_value=None):
+            self.assertFalse(neo4j_db.is_running())
+
+    def test_setup_rebuilds_when_any_bundled_input_changes(self):
+        from weightloss import site_setup
+        with tempfile.TemporaryDirectory(dir=ROOT / '.cache') as d:
+            f = Path(d) / 'input.csv'
+            f.write_text('a')
+            rel = str(f.relative_to(ROOT))
+            recorded = {rel: site_setup._sha256(f)}
+            self.assertTrue(site_setup._inputs_unchanged(recorded))
+            f.write_text('b')
+            self.assertFalse(site_setup._inputs_unchanged(recorded))
+            self.assertFalse(site_setup._inputs_unchanged({}))
+
     def test_code_reads_only_what_it_needs(self):
         from weightloss.graph import analysis_db, neo4j_db
         if not analysis_db.PATH.exists():

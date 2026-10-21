@@ -57,6 +57,14 @@ def make_bundle(out):
     return out
 
 
+def _inputs_unchanged(recorded):
+    """Every input a build recorded (repository-relative path -> SHA-256) still has that hash: the graph, each frozen
+    FAERS table, the MedDRA hierarchy and the approval dates. A new bundle that changes any of them forces a rebuild."""
+    if not recorded:
+        return False
+    return all((ROOT / rel).is_file() and _sha256(ROOT / rel) == sha for rel, sha in recorded.items())
+
+
 def _step(text):
     print(f'\n== {text}', flush=True)
 
@@ -97,8 +105,7 @@ def setup(bundle=None):
     if neo4j_db.installation() is None:
         raise SystemExit('Neo4j is not installed. On macOS: brew install neo4j (it brings Java 21), then run this again.')
     current = neo4j_db.manifest() if neo4j_db.MANIFEST.is_file() else None
-    kg_key, kg_sha = str(neo4j_db.KG.relative_to(ROOT)), _sha256(neo4j_db.KG)
-    if current and (current.get('inputs_sha256') or {}).get(kg_key) == kg_sha:
+    if current and _inputs_unchanged(current.get('inputs_sha256')):
         neo4j_db.start()
         print('   graph already imported; database started')
     else:
@@ -114,7 +121,7 @@ def setup(bundle=None):
             con = sqlite3.connect(f'file:{analysis_db.PATH}?mode=ro', uri=True)
             built = json.loads(con.execute("SELECT value FROM build WHERE key = 'inputs_sha256'").fetchone()[0])
             con.close()
-            stale = built.get(kg_key) != kg_sha
+            stale = not _inputs_unchanged(built)
         except Exception:
             stale = True
     if stale:

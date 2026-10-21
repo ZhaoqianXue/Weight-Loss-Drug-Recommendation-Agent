@@ -14,6 +14,7 @@ import collections
 import functools
 import datetime as dt
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -305,6 +306,9 @@ def readable_paths():
     return paths
 
 
+SAFE_ENV = ('PATH', 'HOME', 'LANG', 'LC_ALL', 'LC_CTYPE', 'TZ')
+
+
 class Sandbox:
     """Reads under the user's home folder are limited to readable_paths(); deny_read closes more files (the agent's sandbox
     cannot read kg.sqlite, which holds the sentences). The network and writes outside the temporary folder are closed."""
@@ -323,6 +327,13 @@ class Sandbox:
                                              + allow + deny)
         self.cells = []
 
+    def env(self):
+        """The environment of a cell: locale, PATH and HOME only. Model-written code never sees the server's own variables,
+        which hold the OpenAI key once the agent has loaded it."""
+        env = {k: os.environ[k] for k in SAFE_ENV if k in os.environ}
+        env['TMPDIR'] = str(self.tmp)
+        return env
+
     def run(self, code):
         cells = self.cells + [code]
         path = self.tmp / f'cells-{uuid.uuid4().hex[:6]}.json'
@@ -331,7 +342,7 @@ class Sandbox:
                str(self.tmp / 'setup.py')]
         t0 = time.time()
         try:
-            p = subprocess.run(cmd, capture_output=True, text=True, timeout=CELL_SECONDS, cwd=self.tmp)
+            p = subprocess.run(cmd, capture_output=True, text=True, timeout=CELL_SECONDS, cwd=self.tmp, env=self.env())
             out, ok = (p.stdout + ('\n' + p.stderr if p.stderr else '')), p.returncode == 0
         except subprocess.TimeoutExpired:
             out, ok = f'Execution stopped after {CELL_SECONDS} s.', False

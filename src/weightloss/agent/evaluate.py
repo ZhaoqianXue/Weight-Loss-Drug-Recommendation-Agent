@@ -105,6 +105,15 @@ def _run_one(q, graph, out, version, system='agent', effort=agent.EFFORT, model=
     return row
 
 
+def _settings(a):
+    """What a run's answers depend on besides the questions; a resumed run must match them."""
+    return {'system': a.system if a.system.startswith('agent') else f"{code_baseline.VERSION}:{'naive' if a.system == 'code-naive' else 'rules'}",
+            'model': a.model, 'reasoning_effort': a.effort, 'budget_usd_per_question': a.budget_usd,
+            'instructions_sha256': agent.sha256_text(agent.INSTRUCTIONS if a.system.startswith('agent') else
+                                                     code_baseline.INSTRUCTIONS['naive' if a.system == 'code-naive' else 'rules']),
+            'tools_sha256': agent.sha256_text(agent.compact_json(agent.TOOLS if a.system.startswith('agent') else code_baseline.TOOLS))}
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--questions', default=str(QUESTIONS))
@@ -133,18 +142,17 @@ def main(argv=None):
         prev = json.loads((out / 'manifest.json').read_text())
         if prev['questions_sha256'] != sha:
             raise SystemExit(f'{out} holds results for another question file; choose a new folder')
+        now = _settings(a)
+        changed = [k for k, v in now.items() if k in prev and prev[k] != v]
+        if changed:  # a resumed run must keep the system, model, effort, budget, instructions and tools it started with
+            raise SystemExit(f'{out} was started with other settings ({", ".join(changed)}); choose a new folder')
         done = {r['id']: r for r in map(json.loads, open(out / 'results.jsonl'))}
         done = {k: r for k, r in done.items() if not (r.get('stop_reason') or '').startswith('transport_error')}  # rerun these
     questions = [q for q in spec['questions'] if (not a.only or q['id'] in a.only) and q['id'] not in done]
     graph = KnowledgeGraph() if a.system.startswith('agent') else None
     if not done:
         manifest = {'started_utc': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'), 'agent_version': VERSION,
-                    'questions_version': spec['version'], 'questions_sha256': sha,
-                    'system': a.system if a.system.startswith('agent') else f"{code_baseline.VERSION}:{'naive' if a.system == 'code-naive' else 'rules'}",
-                    'model': a.model, 'reasoning_effort': a.effort, 'budget_usd_per_question': a.budget_usd,
-                    'instructions_sha256': agent.sha256_text(agent.INSTRUCTIONS if a.system.startswith('agent') else
-                                                             code_baseline.INSTRUCTIONS['naive' if a.system == 'code-naive' else 'rules']),
-                    'tools_sha256': agent.sha256_text(agent.compact_json(agent.TOOLS if a.system.startswith('agent') else code_baseline.TOOLS)),
+                    'questions_version': spec['version'], 'questions_sha256': sha, **_settings(a),
                     'graph_loaded_utc': graph.manifest.get('loaded_utc') if graph else None, 'n_questions': len(spec['questions'])}
         (out / 'manifest.json').write_text(json.dumps(manifest, indent=1))
     workers = a.workers or max(1, len(questions))

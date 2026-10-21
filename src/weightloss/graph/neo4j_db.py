@@ -176,6 +176,8 @@ def _run(cmd, check=True):
 
 
 def status():
+    if installation() is None:  # CI and fresh machines: no database to ask
+        return 'Neo4j is not installed'
     return _run([_installed()[0], 'status'], check=False).stdout.strip()
 
 
