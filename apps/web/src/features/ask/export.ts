@@ -15,6 +15,11 @@ export function answerMarkdown(result: AskResult) {
         .map((k) => `${k.replaceAll("_", " ")} ${String(row[k])}`)
         .join(", ")
       const call = c.call === "t0" ? "graph overview" : `graph query ${c.call.replace(/^t/, "")}`
+      if (c.tool === "run_python") {
+        const shown = (row.output_lines as string[] | undefined)?.[0]
+        lines.push(`- [${c.id}] ${c.value} (step ${c.call.replace(/^t/, "")}: computed in code over the statement tables${shown ? `; output "${shown.trim()}"` : ""})`)
+        continue
+      }
       lines.push(`- [${c.id}] ${c.field.replaceAll("_", " ")} = ${c.value} (${call}, row ${c.row}${c.tool ? `: ${toolTitle(c.tool, c.arguments).toLowerCase()}` : ""}${where ? `; ${where}` : ""})`)
     }
     lines.push("")

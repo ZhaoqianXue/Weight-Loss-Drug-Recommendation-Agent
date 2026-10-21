@@ -1,6 +1,8 @@
 """Website backend over the knowledge graph and the agent: view shaping, caching, HTTP contract and the streamed agent
 events. A fake graph returns rows in the agent tools' formats, so no Neo4j server or API call is needed."""
 import json
+import threading
+import time
 import tempfile
 import unittest
 from pathlib import Path
@@ -294,6 +296,58 @@ class WebApiTest(unittest.TestCase):
         with TestClient(create_app(frontend_dir=Path(self.trace_dir.name), kg_service=kg, ask_service=service, warm=False)) as client:
             with client.stream('POST', '/api/ask', json={'question': 'q'}) as response:
                 self.assertEqual([e['type'] for e in events(response)], ['start', 'error'])
+
+    def _service(self, run, **kwargs):
+        kg = KGService(graph=FakeGraph())
+        service = AskService(kg, run=run, client_factory=lambda: FakeClient(), key_check=lambda: True,
+                             trace_dir=Path(self.trace_dir.name), **kwargs)
+        return TestClient(create_app(frontend_dir=Path(self.trace_dir.name), kg_service=kg, ask_service=service, warm=False))
+
+    def test_a_dropped_model_connection_is_retried_once_then_reported(self):
+        calls = []
+
+        def dropped(question, graph, client, trace_path, label):
+            calls.append(question)
+            return {'run_id': 'r', 'question': question, 'verified': False, 'answer': None, 'problems': [], 'repair_used': False,
+                    'stop_reason': 'transport_error: APIConnectionError: Connection error.', 'cost_usd': 0.001}
+        with self._service(dropped) as client, client.stream('POST', '/api/ask', json={'question': 'q'}) as response:
+            stream = events(response)
+        self.assertEqual(len(calls), 2)
+        self.assertEqual([e['type'] for e in stream], ['start', 'model', 'error'])  # model round 0 = "Reconnecting"
+        self.assertIn('could not be reached', stream[-1]['message'])
+
+        flaky = []
+
+        def once(question, graph, client, trace_path, label):
+            flaky.append(question)
+            return dropped(question, graph, client, trace_path, label) if len(flaky) == 1 else fake_run(question, graph, client, trace_path, label)
+        with self._service(once) as client, client.stream('POST', '/api/ask', json={'question': 'q'}) as response:
+            self.assertEqual(events(response)[-1]['type'], 'result')
+
+    def test_questions_beyond_the_workers_are_told_they_wait(self):
+        release = threading.Event()
+
+        def slow(question, graph, client, trace_path, label):
+            release.wait(10)
+            return fake_run(question, graph, client, trace_path, label)
+        with self._service(slow, workers=1) as client:
+            results = {}
+
+            def ask(name):
+                with client.stream('POST', '/api/ask', json={'question': name}) as response:
+                    results[name] = [e['type'] for e in events(response)]
+            first = threading.Thread(target=ask, args=('first',))
+            first.start()
+            time.sleep(0.5)
+            second = threading.Thread(target=ask, args=('second',))
+            second.start()
+            time.sleep(0.5)
+            release.set()
+            first.join(15)
+            second.join(15)
+        self.assertNotIn('queued', results['first'])
+        self.assertEqual(results['second'][:2], ['start', 'queued'])
+        self.assertEqual(results['second'][-1], 'result')
 
 
 if __name__ == '__main__':

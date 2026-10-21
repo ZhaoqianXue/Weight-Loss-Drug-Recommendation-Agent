@@ -271,6 +271,9 @@
             "$ref": "#/components/schemas/StartEvent"
           },
           {
+            "$ref": "#/components/schemas/QueuedEvent"
+          },
+          {
             "$ref": "#/components/schemas/ModelEvent"
           },
           {
@@ -290,6 +293,7 @@
           "mapping": {
             "error": "#/components/schemas/ErrorEvent",
             "model": "#/components/schemas/ModelEvent",
+            "queued": "#/components/schemas/QueuedEvent",
             "result": "#/components/schemas/ResultEvent",
             "start": "#/components/schemas/StartEvent",
             "tool": "#/components/schemas/ToolEvent"
@@ -398,6 +402,12 @@
           "repair_used": {
             "type": "boolean",
             "title": "Repair Used"
+          },
+          "repairs": {
+            "type": "integer",
+            "title": "Repairs",
+            "description": "Repair rounds after failed verification (0-2)",
+            "default": 0
           },
           "stop_reason": {
             "anyOf": [
@@ -1903,6 +1913,26 @@
           "neither_stated"
         ],
         "title": "PopulationSummary"
+      },
+      "QueuedEvent": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "queued",
+            "title": "Type"
+          },
+          "ahead": {
+            "type": "integer",
+            "title": "Ahead",
+            "description": "Questions from other visitors that start before this one"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "ahead"
+        ],
+        "title": "QueuedEvent"
       },
       "Quote": {
         "properties": {

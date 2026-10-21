@@ -298,6 +298,7 @@ class AskResult(BaseModel):
     tool_calls: list[ToolCall]
     problems: list[str]
     repair_used: bool
+    repairs: int = Field(0, description='Repair rounds after failed verification (0-2)')
     stop_reason: Optional[str] = None
     cost_usd: float
     seconds: Optional[float] = None
@@ -309,6 +310,11 @@ class AskResult(BaseModel):
 class StartEvent(BaseModel):
     type: Literal['start']
     question: str
+
+
+class QueuedEvent(BaseModel):
+    type: Literal['queued']
+    ahead: int = Field(description='Questions from other visitors that start before this one')
 
 
 class ModelEvent(BaseModel):
@@ -339,7 +345,8 @@ class ErrorEvent(BaseModel):
     message: str
 
 
-class AskEvent(RootModel[Annotated[Union[StartEvent, ModelEvent, ToolEvent, ResultEvent, ErrorEvent], Field(discriminator='type')]]):
+class AskEvent(RootModel[Annotated[Union[StartEvent, QueuedEvent, ModelEvent, ToolEvent, ResultEvent, ErrorEvent],
+                                     Field(discriminator='type')]]):
     """One server-sent event of POST /api/ask (each `data:` line is one of these, as JSON)."""
 
 

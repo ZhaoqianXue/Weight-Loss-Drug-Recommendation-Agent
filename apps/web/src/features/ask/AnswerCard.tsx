@@ -86,13 +86,49 @@ export function callName(call: string) {
   return call === "t0" ? "Graph overview" : `Graph query ${call.replace(/^t/, "")}`
 }
 
+/** Hover card for a number computed in code: the output lines that hold it and the code that printed them. */
+function CodeSource({ citation }: { citation: Citation }) {
+  const source = (citation.source ?? {}) as { code?: string; output_lines?: string[] }
+  return (
+    <>
+      <div className="border-b border-hairline px-3 py-2">
+        <p className="label-caps">Step {citation.call.replace(/^t/, "")} · computed in code</p>
+        <p className="mt-0.5 font-medium text-ink">Computing over the statement tables</p>
+      </div>
+      {source.output_lines && source.output_lines.length > 0 && (
+        <div className="grid gap-1 px-3 py-2">
+          <p className="text-muted-foreground">Printed output</p>
+          {source.output_lines.map((line) => (
+            <pre key={line} className="overflow-x-auto rounded-md bg-tint px-2 py-1 font-mono text-[11px] leading-snug whitespace-pre-wrap text-ink">
+              {line}
+            </pre>
+          ))}
+        </div>
+      )}
+      {source.code && (
+        <details className="border-t border-hairline px-3 py-1.5">
+          <summary className="cursor-pointer text-meta text-ink">Code</summary>
+          <pre className="mt-1 max-h-48 overflow-auto rounded-md bg-tint px-2 py-1 font-mono text-[10.5px] leading-snug text-prose">{source.code}</pre>
+        </details>
+      )}
+      <p className="border-t border-hairline px-3 py-1.5 text-meta text-muted-foreground">
+        The cited value, <span className="font-medium text-ink">{citation.value}</span>, was found in this output before the answer was
+        shown. The code ran read-only over the knowledge graph's statement tables.
+      </p>
+    </>
+  )
+}
+
 /** A footnote-style marker after a number; hovering or focusing it shows the tool row the number comes from. */
 function CitationMark({ citation, number, children }: { citation: Citation | undefined; number: number; children?: React.ReactNode }) {
   if (!citation) return <>{children}<sup className="text-destructive">?</sup></>
   const source = citation.source ?? {}
+  const fromCode = citation.tool === "run_python"
   // Flags are shown only when they apply; empty values are left out.
   const fields = Object.keys(FIELD_LABEL).filter((key) => key in source && source[key] !== false && source[key] !== null && source[key] !== "")
-  const label = `Source of this number: ${callName(citation.call)}, row ${citation.row}, ${FIELD_LABEL[citation.field] ?? citation.field}`
+  const label = fromCode
+    ? `Source of this number: step ${citation.call.replace(/^t/, "")}, computed in code`
+    : `Source of this number: ${callName(citation.call)}, row ${citation.row}, ${FIELD_LABEL[citation.field] ?? citation.field}`
   return (
     <HoverCard openDelay={60} closeDelay={80}>
       <HoverCardTrigger asChild>
@@ -116,6 +152,10 @@ function CitationMark({ citation, number, children }: { citation: Citation | und
         )}
       </HoverCardTrigger>
       <HoverCardContent align="start" collisionPadding={12} className="w-80 p-0 text-[12.5px]">
+        {fromCode ? (
+          <CodeSource citation={citation} />
+        ) : (
+        <>
         <div className="border-b border-hairline px-3 py-2">
           <p className="label-caps">
             {callName(citation.call)} · row {citation.row}
@@ -134,6 +174,8 @@ function CitationMark({ citation, number, children }: { citation: Citation | und
           The cited value, <span className="font-medium text-ink">{display(citation.field, Number.isNaN(Number(citation.value)) ? citation.value : Number(citation.value))}</span>,
           was checked against this row before the answer was shown.
         </p>
+        </>
+        )}
       </HoverCardContent>
     </HoverCard>
   )
@@ -150,7 +192,11 @@ const CITED_NUMBER = /((?:[<>≤≥~]\s?)?\$?\d[\d,]*(?:\.\d+)?%?)\s*\[(c\d+)\]/
 /** Answer text in which each cited number links to its source row; a tag after anything else becomes a small marker. */
 function AnswerText({ result }: { result: AskResult }) {
   const byId = new Map(result.citations.map((c) => [c.id, c]))
-  const linked = readable(result.answer).replace(CITED_NUMBER, "[$1](#cite-$2)")
+  // A tag naming a range or list of citations ("[c67–c68]", "[c3, c4]") becomes one tag per citation.
+  const split = result.answer.replace(/\[(c\d+(?:\s*[–,-]\s*c\d+)+)\]/g, (_, ids: string) =>
+    ids.split(/\s*[–,-]\s*/).map((id) => `[${id}]`).join("")
+  )
+  const linked = readable(split).replace(CITED_NUMBER, "[$1](#cite-$2)")
   // Remaining markers are numbered in reading order; the agent's own tag ids stay in the copied text and the JSON record.
   const order = new Map<string, number>()
   for (const match of linked.matchAll(/\[(c\d+)\]/g)) if (!order.has(match[1])) order.set(match[1], order.size + 1)
@@ -160,6 +206,12 @@ function AnswerText({ result }: { result: AskResult }) {
       <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
+          // A table wider than the panel scrolls sideways in its own box.
+          table: ({ children }) => (
+            <div className="answer-table">
+              <table>{children}</table>
+            </div>
+          ),
           a: ({ href, children }) => {
             if (href?.startsWith("#cite-")) {
               const id = href.slice(6)
@@ -230,6 +282,13 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
     result.quotes.length > 0 && plural(result.quotes.length, "quote"),
   ].filter(Boolean) as string[]
   const queries = result.tool_calls.filter((call) => !call.error).length
+  // Several quotes from one statement are marked in one view of it.
+  const quoted: { quote: AskResult["quotes"][number]; texts: string[] }[] = []
+  for (const quote of result.quotes) {
+    const same = quoted.find((q) => q.quote.edge_id === quote.edge_id)
+    if (same) same.texts.push(quote.text)
+    else quoted.push({ quote, texts: [quote.text] })
+  }
   const [copied, setCopied] = useState(false)
   const copy = () =>
     void navigator.clipboard.writeText(answerMarkdown(result)).then(() => {
@@ -237,7 +296,7 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
       setTimeout(() => setCopied(false), 1500)
     })
   return (
-    <div className="grid gap-3">
+    <div className="grid min-w-0 gap-3 [&>*]:min-w-0">
       <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px]">
         <span className={cn("font-medium", type.className)}>{type.text}</span>
         {result.verified
@@ -256,11 +315,15 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
       </p>
       <AnswerText result={result} />
       {!result.verified && result.problems.length > 0 && (
-        <ul className="grid gap-0.5 rounded-lg border border-[#f4b4b4] bg-[#fff5f5] px-3 py-2 text-meta text-[#8a1f1f] dark:border-[#8a1f1f] dark:bg-transparent dark:text-[#f4b4b4]">
-          {result.problems.map((problem) => (
-            <li key={problem}>{problem}</li>
-          ))}
-        </ul>
+        // The checker's own messages are technical; they stay folded under the warning above.
+        <details className="rounded-lg border border-[#f4b4b4] bg-[#fff5f5] px-3 py-2 text-meta text-[#8a1f1f] dark:border-[#8a1f1f] dark:bg-transparent dark:text-[#f4b4b4]">
+          <summary className="cursor-pointer">What the check found ({result.problems.length})</summary>
+          <ul className="mt-1 grid gap-0.5">
+            {result.problems.map((problem) => (
+              <li key={problem}>{problem}</li>
+            ))}
+          </ul>
+        </details>
       )}
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         {graphView && result.answer_type !== "declined" && (
@@ -281,14 +344,14 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
           </IconAction>
         </span>
       </div>
-      {result.quotes.length > 0 && (
-        <Disclosure title={`Quoted statements (${result.quotes.length})`} defaultOpen>
-          {result.quotes.map((quote) =>
+      {quoted.length > 0 && (
+        <Disclosure title={`Quoted statements (${quoted.length})`} defaultOpen>
+          {quoted.map(({ quote, texts }) =>
             quote.statement ? (
-              <StatementView key={`${quote.edge_id}-${quote.text}`} statement={quote.statement} highlight={quote.text} variant="quote" />
+              <StatementView key={quote.edge_id} statement={quote.statement} highlight={texts} variant="quote" />
             ) : (
               <p key={quote.edge_id} className="text-meta text-muted-foreground">
-                “{quote.text}” ({quote.edge_id})
+                {texts.map((text) => `“${text}”`).join(" ")} ({quote.edge_id})
               </p>
             )
           )}
@@ -304,22 +367,34 @@ export function AnswerCard({ result, onShowInGraph }: { result: AskResult; onSho
         </Disclosure>
       )}
       {result.tool_calls.length > 0 && (
-      <Disclosure title={`How it was answered (${queries} graph ${queries === 1 ? "query" : "queries"})`}>
+      <Disclosure title={`How it was answered (${plural(queries, "step")})`}>
         <ol className="grid gap-1.5 text-meta">
           {result.tool_calls.map((call) => (
-            <li key={call.call} className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5">
+            <li key={call.call} className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-2 gap-y-0.5">
               <span className="font-mono text-subtle">{call.call.replace(/^t/, "")}.</span>
-              <span className={cn("text-prose", call.error && "text-muted-foreground")}>
+              <span className={cn("min-w-0 break-words text-prose", call.error && "text-muted-foreground")}>
                 {toolTitle(call.tool, call.arguments)}
-                {call.error ? <span className="text-muted-foreground"> · rejected, retried</span> : <span className="text-muted-foreground"> · {plural(call.rows, "row")}</span>}
+                {call.error ? (
+                  <span className="text-muted-foreground"> · rejected, retried</span>
+                ) : call.tool === "run_python" ? (
+                  <span className="text-muted-foreground"> · {Math.round(call.seconds ?? 0)} s</span>
+                ) : (
+                  <span className="text-muted-foreground"> · {plural(call.rows, "row")}</span>
+                )}
               </span>
               {call.error && <span className="col-start-2 text-muted-foreground">{call.error}</span>}
+              {call.tool === "run_python" && typeof call.arguments.code === "string" && (
+                <details className="col-start-2 min-w-0">
+                  <summary className="cursor-pointer text-muted-foreground hover:text-ink">Code</summary>
+                  <pre className="mt-1 max-h-56 overflow-auto rounded-md bg-tint px-2 py-1 font-mono text-[10.5px] leading-snug text-prose">{call.arguments.code}</pre>
+                </details>
+              )}
             </li>
           ))}
         </ol>
         <p className="font-mono text-[11px] text-subtle">
           {result.model} ({result.reasoning_effort} reasoning) · {result.agent_version} · {result.seconds ?? "–"} s · ${result.cost_usd.toFixed(4)}
-          {result.repair_used && " · revised once after a failed check"} · run {result.run_id}
+          {result.repair_used && ` · revised ${(result.repairs ?? 1) > 1 ? "twice" : "once"} after a failed check`} · run {result.run_id}
         </p>
       </Disclosure>
       )}

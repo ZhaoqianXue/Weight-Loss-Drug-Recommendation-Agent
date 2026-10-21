@@ -20,6 +20,18 @@ Open [the local demo](http://127.0.0.1:5001); stop it with Ctrl-C. `make demo PO
 
 `make reproduce` runs eight synthetic reviews and fixed annotation responses through refresh, validation, metrics, web build and freezing. It writes a fresh `.cache/fixture-<timestamp>/results/fixture/` directory. Use `make reproduce OUTPUT=.cache/my-fixture` to choose a fresh destination. This tests reproducibility of the pipeline, not model accuracy or full paper results.
 
+## Run the AskGLP1 website on your own computer
+
+Use this for the user study. You need macOS with [Homebrew](https://brew.sh), and a key for the OpenAI API.
+
+1. Install the tools once: `brew install python@3.11 node pnpm uv neo4j`. Neo4j brings Java 21.
+2. Download the site data bundle (`askglp1-site-data-*.zip`, about 80 MB) from the project's Google Drive folder. It holds the knowledge graph and the frozen FAERS tables. These are not in this public repository, so never commit or share them.
+3. In this folder, create a file named `.env` with one line, `OPENAI_API_KEY=<your key>`. The file is git-ignored.
+4. Run `make site-setup BUNDLE=<path to the zip>`. It installs the Python and frontend packages, unpacks the data, imports the graph into a Neo4j database inside this folder, builds the analysis database and checks the key with OpenAI. It takes about three minutes. You can run it again safely; finished steps are skipped.
+5. Run `make demo` and open http://127.0.0.1:5001. Stop the site with Ctrl-C. Later sessions need only `make demo`, which also starts the database.
+
+Each question costs about one US cent, and a server process stops answering after $5 (`WEIGHTLOSS_ASK_BUDGET_USD=20 make demo` raises the cap). An answer takes 30 to 120 seconds.
+
 The website, AskGLP1, has a FastAPI backend (`src/weightloss/web/`) and a React frontend (`apps/web/`, see its [README](apps/web/README.md) for development commands). It reads the knowledge graph through the agent's graph tools, so its counts follow the same rules as the agent's, and it runs the agent (`weightloss.agent`) for questions, which needs `OPENAI_API_KEY` and is capped at $5 of model spend per server process (`WEIGHTLOSS_ASK_BUDGET_USD`). Live research operations have separate [advanced commands](docs/reproducibility.md#advanced-commands).
 
 ## Repository structure

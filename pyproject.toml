@@ -11,7 +11,7 @@ requires-python = ">=3.11,<3.13"
 dependencies = []
 
 [project.optional-dependencies]
-demo = ["requests==2.32.3", "lxml==5.4.0", "fastapi==0.143.3", "uvicorn==0.54.0", "neo4j==5.28.1", "openai==1.82.0"]
+demo = ["requests==2.32.3", "lxml==5.4.0", "fastapi==0.143.3", "uvicorn==0.54.0", "neo4j==5.28.1", "openai==1.82.0", "pandas==2.2.3", "numpy==1.26.4"]
 research = [
     "weightloss-research[demo]",
     "langchain-openai==0.3.18", "pydantic==2.11.5",

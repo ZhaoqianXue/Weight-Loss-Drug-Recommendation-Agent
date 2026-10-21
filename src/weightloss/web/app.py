@@ -25,6 +25,17 @@ CACHE_DIR = ROOT / '.cache/web-kg'
 UNAVAILABLE = {503: {'model': s.ErrorResponse, 'description': 'The knowledge graph database is not running'}}
 
 
+class Frontend(StaticFiles):
+    """The built frontend. index.html is revalidated on every load, so a rebuilt site reaches browsers at once; the files
+    under assets/ carry a content hash in their names and are cached for good."""
+
+    async def get_response(self, path, scope):
+        response = await super().get_response(path, scope)
+        response.headers['Cache-Control'] = ('public, max-age=31536000, immutable' if path.startswith('assets/')
+                                             else 'no-cache')
+        return response
+
+
 def default_frontend():
     from weightloss.settings import get_settings
     return get_settings().path('web_source') / 'dist'
@@ -96,7 +107,7 @@ def create_app(frontend_dir: Optional[Path] = None, kg_service: Optional[KGServi
                                  headers={'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no'})
 
     if (Path(frontend_dir) / 'index.html').is_file():
-        app.mount('/', StaticFiles(directory=frontend_dir, html=True), name='frontend')
+        app.mount('/', Frontend(directory=frontend_dir, html=True), name='frontend')
     else:
         @app.get('/', include_in_schema=False)
         def frontend_missing():

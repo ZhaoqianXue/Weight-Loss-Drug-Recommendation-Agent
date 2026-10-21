@@ -8,6 +8,7 @@ so no server and no API call are needed.
 import csv
 import gzip
 import json
+import re
 import sqlite3
 import tempfile
 import unittest
@@ -40,7 +41,7 @@ GRAPH = neo4j_graph()
 def args(**kw):
     base = dict(target='side_effect', platforms=['reddit', 'webmd'], ingredients=None, brands=None, named_drugs_only=False,
                 purposes_from_text_only=False, age_groups=None, sexes=None, require_purposes=None, require_side_effects=None, targets=None, intensities=None,
-                impacts=None, actions=None)
+                impacts=None, actions=None, doses_mg=None, duration_buckets=None)
     base.update(kw)
     return base
 
@@ -51,7 +52,7 @@ def pt(code, concept=None):
 
 class PureTest(unittest.TestCase):
     def test_tool_schemas_are_strict(self):
-        self.assertEqual([t['name'] for t in agent.TOOLS], ['link_terms', 'query_graph', 'get_evidence', 'compare_faers'])
+        self.assertEqual([t['name'] for t in agent.TOOLS], ['link_terms', 'query_graph', 'get_evidence', 'compare_faers', 'run_python'])
         self.assertTrue(all(t['strict'] and t['parameters']['additionalProperties'] is False for t in agent.TOOLS))
 
     def test_lucene_query_keeps_only_words(self):
@@ -77,6 +78,25 @@ class PureTest(unittest.TestCase):
                'reddit_ci95_low': 30, 'reddit_ci95_high': 40, 'webmd_denominator': 50, 'webmd_ci95_low': 25, 'webmd_ci95_high': 35}
         self.assertEqual((interval_order(row, 'faers', 'webmd'), interval_order(row, 'faers', 'reddit')), ('lower', 'insufficient'))
 
+    def test_dose_and_duration_parsing(self):
+        from weightloss.graph.neo4j_db import dose_mg, duration_bucket
+        self.assertEqual([dose_mg(t) for t in ('5mg', '.25', '1.7 mg', 'lowest dose', '500')], [5.0, 0.25, 1.7, None, None])
+        self.assertEqual([duration_bucket(t) for t in ('3 hours', '2-3 days', 'a few weeks', '10 days', 'months', 'quickly')],
+                         ['under 1 day', '1-6 days', '1-4 weeks', '1-4 weeks', 'over 4 weeks', None])
+
+    def test_numbers_in_code_output(self):
+        text = 'reddit 5168 15668 0.32987 wilson 32.3 33.7\n120 rows'
+        for cited in ('5,168', '15668', '33.0', '32.3'):
+            self.assertTrue(agent.number_in_output(cited, text), cited)
+        for cited in ('12', '5,169', '33.1'):
+            self.assertFalse(agent.number_in_output(cited, text), cited)
+
+    @unittest.skipUnless(Path(ROOT / '.cache/analysis/analysis.sqlite').exists(), 'analysis database not built')
+    def test_counted_in_code_expands_groups_and_names(self):
+        code = "q = \"... pt_code IN ('10028813') OR hlt_code = '10033646' OR pt = 'Vomiting'\""
+        got = set(agent.counted_in_code(code)['side_effect'])
+        self.assertTrue({NAUSEA, PANCREATITIS, VOMITING} <= got)
+
     def test_session_hides_private_keys(self):
         out = agent.public({'tool': 'get_evidence', 'rows': [], '_full_evidence': {'e': ['s']}})
         self.assertNotIn('_full_evidence', out)
@@ -89,6 +109,19 @@ class GraphToolsTest(unittest.TestCase):
     def setUpClass(cls):
         cls.g = GRAPH
         cls.db = sqlite3.connect(f'file:{KG}?mode=ro', uri=True)
+        # The oracle applies the agent's misspelling rule (weightloss.agent.spelling): an uncoded statement whose wording
+        # misspells a PT name counts as that PT. Temporary views shadow the edge tables for every query below.
+        from weightloss.agent import spelling
+        from weightloss.graph import analysis_db
+        cls.db.execute('CREATE TEMP TABLE spelt (role TEXT, text TEXT, pt_code TEXT)')
+        cls.db.executemany('INSERT INTO spelt VALUES (?, ?, ?)', [(role, w, c) for role, words in spelling.table(
+            str(analysis_db.PATH)).items() for w, (c, _) in words.items()])
+        for table, role, col in (('edge_side_effect', 'side_effect', 'side_effect_id'), ('edge_used_for', 'purpose', 'purpose_id')):
+            cols = [r[1] for r in cls.db.execute(f'PRAGMA main.table_info({table})')]
+            cls.db.execute(f"CREATE TEMP VIEW {table} AS SELECT " + ', '.join(
+                f"CASE WHEN e.{col} = '{role}:uncoded' AND sp.pt_code IS NOT NULL THEN '{role}:pt:' || sp.pt_code "
+                f"ELSE e.{col} END AS {col}" if c == col else f'e.{c}' for c in cols)
+                + f" FROM main.{table} e LEFT JOIN spelt sp ON sp.role = '{role}' AND sp.text = lower(trim(e.text))")
         cls.soc = {}
         with open(FROZEN / 'meddra_pt_hierarchy.csv', newline='') as f:
             for r in csv.DictReader(f):
@@ -186,6 +219,83 @@ class GraphToolsTest(unittest.TestCase):
                         "AND evidence NOT LIKE '%profile_condition%'")[0][0]
         self.assertEqual(text['summary'][0]['universe_records'], want)
         self.assertEqual(text['summary'][0]['universe_records_with_profile_purpose'], 0)
+
+    def test_dose_filter_matches_parsed_free_text(self):
+        from weightloss.graph.neo4j_db import dose_mg
+        out = self.g.query_graph(**args(platforms=['reddit'], brands=['Mounjaro'], doses_mg=[15], targets=[pt(NAUSEA)]),
+                                 group_by=[], top_n=5)
+        recs, nausea = set(), set()
+        for rec, dose, sid in self.sql("SELECT e.record_id, e.dose, e.side_effect_id FROM edge_side_effect e JOIN drug d "
+                                       "ON d.id = e.drug_id WHERE e.platform = 'reddit' AND d.brand = 'Mounjaro'"):
+            if dose_mg(dose) == 15:
+                recs.add(rec)
+                if sid == 'side_effect:pt:10028813':
+                    nausea.add(rec)
+        self.assertEqual((out['rows'][0]['records'], out['rows'][0]['denominator']), (len(nausea), len(recs)))
+
+    def test_minor_statements_come_without_sentences(self):
+        out = self.g.get_evidence(**args(age_groups=['13-18']), wording=None, limit=5)
+        self.assertTrue(out['rows'])
+        for r in out['rows']:
+            self.assertEqual(r['evidence'], [])
+            self.assertNotIn(r['edge_id'], out['_full_evidence'])
+
+    def test_concept_denominator_counts_records_with_the_concept(self):
+        out = self.g.query_graph(**args(platforms=['webmd'], targets=[pt(NAUSEA)]), denominator='concept',
+                                 group_by=['action_taken'], top_n=10)
+        den = self.sql("SELECT COUNT(DISTINCT record_id) FROM edge_side_effect WHERE platform = 'webmd' "
+                       "AND side_effect_id = 'side_effect:pt:10028813'")[0][0]
+        self.assertTrue(out['rows'])
+        self.assertTrue(all(r['denominator'] == den for r in out['rows']))
+
+    def test_wording_member_counts_uncoded_mentions(self):
+        out = self.g.query_graph(**args(target='purpose', platforms=['reddit'],
+                                        targets=[pt(T2DM, 't2'), {'concept': 't2', 'level': 'wording', 'code': 't2d'}]),
+                                 denominator='universe', group_by=[], top_n=5)
+        recs = {r for (r,) in self.sql("SELECT DISTINCT e.record_id FROM edge_used_for e JOIN purpose p ON p.id = e.purpose_id "
+                                       "WHERE e.platform = 'reddit' AND (p.pt_code = '10067585' OR (p.pt_code IS NULL "
+                                       "AND (' ' || lower(e.text) || ' ') GLOB '*[^a-z0-9]t2d[^a-z0-9]*'))")}
+        self.assertAlmostEqual(out['rows'][0]['records'], len(recs), delta=len(recs) * 0.02)
+        self.assertEqual(out['resolved_concepts']['targets'][0]['members'][1]['level'], 'wording')
+
+    def test_sentence_search_counts_statements_by_their_sentences(self):
+        out = self.g.get_evidence(**args(platforms=['reddit'], ingredients=['tirzepatide']), wording=None, sentence='no rash',
+                                  limit=3)
+        want = set()
+        for eid, ev in self.sql("SELECT e.id, e.evidence FROM edge_side_effect e JOIN drug d ON d.id = e.drug_id "
+                                "WHERE e.platform = 'reddit' AND d.ingredient = 'tirzepatide'"):
+            if re.search(r'(?<![a-z0-9])no\s+rash', ' '.join(sp.get('text', '') for sp in json.loads(ev or '[]')), re.I):
+                want.add(eid)
+        self.assertEqual(out['summary'][0]['matching_statements'], len(want))
+        self.assertTrue(all('no rash' in ' '.join(r['evidence']).lower() for r in out['rows'] if r['evidence']))
+
+    def test_comparison_rows_are_aligned_across_groups(self):
+        out = self.g.query_graph(**args(platforms=['webmd'], brands=['Wegovy', 'Zepbound']), denominator='universe',
+                                 group_by=['brand', 'pt'], top_n=5)
+        by = {}
+        for r in out['rows']:
+            by.setdefault(r['brand'], set()).add(r['pt_code'])
+        for brand, other in (('Wegovy', 'Zepbound'), ('Zepbound', 'Wegovy')):
+            for code in by[brand] - by[other]:  # shown for one brand only: the other brand has no record with it
+                n = self.sql("SELECT COUNT(*) FROM edge_side_effect e JOIN drug d ON d.id = e.drug_id JOIN side_effect s "
+                             "ON s.id = e.side_effect_id WHERE e.platform = 'webmd' AND d.brand = ? "
+                             "AND COALESCE(s.pt_code, 'uncoded') = ?", (other, code))[0][0]
+                self.assertEqual(n, 0, (brand, code))
+
+    def test_run_sql_is_read_only_and_matches_query_graph(self):
+        for bad in ('DELETE FROM statement', 'SELECT 1; DROP TABLE statement', 'PRAGMA query_only = 0'):
+            with self.assertRaises(QueryError):
+                self.g.run_sql(bad, 'x')
+        out = self.g.run_sql("SELECT platform, count(DISTINCT CASE WHEN pt_code = '10028813' THEN record_key END) AS records, "
+                             "count(DISTINCT record_key) AS denominator, wilson_low(1, 2) AS lo FROM statement "
+                             "WHERE role = 'side_effect' AND brand = 'Mounjaro' GROUP BY platform ORDER BY platform", 'nausea')
+        qg = self.g.query_graph(**args(brands=['Mounjaro'], targets=[pt(NAUSEA)]), denominator='universe', group_by=[], top_n=5)
+        self.assertEqual([(r['platform'], r['records'], r['denominator']) for r in out['rows']],
+                         [(r['platform'], r['records'], r['denominator']) for r in qg['rows']])
+        self.assertIn(NAUSEA, out['_counted']['side_effect'])
+        big = self.g.run_sql('SELECT edge_id FROM statement LIMIT 500', 'cap')
+        self.assertEqual(len(big['rows']), 200)
+        self.assertIn('truncated', big)
 
     def test_ties_at_the_cut_are_kept(self):
         out = self.g.query_graph(**args(platforms=['webmd'], brands=['Zepbound']), group_by=['pt'], top_n=3)
@@ -336,10 +446,11 @@ def outputs_fixture():
                    '_full_evidence': {'reddit:x:d0:s0': ['The nausea hit me hard on day two, so I stayed in bed.']}}}
 
 
-def answer(text, cites, quotes=(), answer_type='answered', limitations=()):
+def answer(text, cites, quotes=(), answer_type='answered', limitations=(), comparisons=()):
     return agent.FinalAnswer(answer=text, answer_type=answer_type,
                              citations=[agent.Citation(id=i, call=c, row=r, field=f, value=v) for i, c, r, f, v in cites],
-                             quotes=[agent.Quote(edge_id=e, text=t) for e, t in quotes], limitations=list(limitations))
+                             quotes=[agent.Quote(edge_id=e, text=t) for e, t in quotes], limitations=list(limitations),
+                             comparisons=[agent.Comparison(text=t, first=a, second=b, claim=c) for t, a, b, c in comparisons])
 
 
 class VerifierTest(unittest.TestCase):
@@ -350,7 +461,7 @@ class VerifierTest(unittest.TestCase):
         self.assertEqual(agent.verify(a, outputs_fixture())[0], [])
 
     def test_rounded_percent_is_accepted(self):
-        a = answer('About 27% [c1].', [('c1', 't2', 2, 'percent', '27')])
+        a = answer('On Reddit, about 27% [c1].', [('c1', 't2', 2, 'percent', '27')])
         self.assertEqual(agent.verify(a, outputs_fixture())[0], [])
 
     def test_wrong_value_and_missing_citation_fail(self):
@@ -364,14 +475,14 @@ class VerifierTest(unittest.TestCase):
         self.assertTrue(any('not the number written just before' in p for p in agent.verify(a, outputs_fixture())[0]))
 
     def test_each_tag_follows_its_own_number(self):
-        a = answer('FAERS: 8 reports out of 30 [c1] [c2].', [('c1', 't2', 2, 'records', '8'), ('c2', 't2', 2, 'denominator', '30')])
+        a = answer('Reddit: 8 reports out of 30 [c1] [c2].', [('c1', 't2', 2, 'records', '8'), ('c2', 't2', 2, 'denominator', '30')])
         problems = agent.verify(a, outputs_fixture())[0]
         self.assertEqual(len(problems), 2)
         self.assertIn('[c1]', problems[0])
         self.assertIn('the number 8', problems[1])
 
     def test_tag_on_a_name_is_only_a_warning(self):
-        a = answer('Top PT: Nausea [c1].', [('c1', 't2', 2, 'pt', 'Nausea')])
+        a = answer('Top Reddit PT: Nausea [c1].', [('c1', 't2', 2, 'pt', 'Nausea')])
         problems, warnings = agent.verify(a, outputs_fixture())
         self.assertEqual(problems, [])
         self.assertTrue(any('non-numeric' in w for w in warnings))
@@ -382,7 +493,7 @@ class VerifierTest(unittest.TestCase):
         self.assertTrue(any("'d c4'" in p for p in problems))
 
     def test_bad_call_row_field(self):
-        a = answer('8 [c1] 8 [c2] 8 [c3]', [('c1', 't9', 2, 'records', '8'), ('c2', 't2', 7, 'records', '8'), ('c3', 't2', 2, 'n', '8')])
+        a = answer('Reddit: 8 [c1] 8 [c2] 8 [c3]', [('c1', 't9', 2, 'records', '8'), ('c2', 't2', 7, 'records', '8'), ('c3', 't2', 2, 'n', '8')])
         self.assertEqual(len(agent.verify(a, outputs_fixture())[0]), 3)
 
     def test_quotes_must_be_exact_and_returned(self):
@@ -424,8 +535,12 @@ class VerifierTest(unittest.TestCase):
         mixed = answer('Nausea: 8 [c1] records, about 27% of Reddit records.', [('c1', 't2', 2, 'records', '8')])
         self.assertTrue(any('the number 27' in p for p in agent.verify(mixed, outputs_fixture())[0]))
 
+    def test_duration_buckets_are_not_data_numbers(self):
+        a = answer('Reddit: in the 1–6 day bucket and the over 4 weeks bucket, 8 [c1] records.', [('c1', 't2', 2, 'records', '8')])
+        self.assertEqual(agent.verify(a, outputs_fixture())[0], [])
+
     def test_exempt_numbers(self):
-        a = answer('On 1 mg, writers aged 52 and over, the 2nd dose, top 5 PTs: 8 [c1] records (see MedDRA 29.1, 2026-06-30).',
+        a = answer('On 1 mg, Reddit writers aged 52 and over, the 2nd dose, top 5 PTs: 8 [c1] records (see MedDRA 29.1, 2026-06-30).',
                    [('c1', 't2', 2, 'records', '8')])
         self.assertEqual(agent.verify(a, outputs_fixture(), 'I am 52 and on 1 mg')[0], [])
 
@@ -458,6 +573,232 @@ class ConceptCheckTest(unittest.TestCase):
         self.assertTrue(agent.leaked_ids('Most everything tastes weird (t3_zqrdpc).', outs))
         self.assertTrue(agent.leaked_ids('see reddit:t1_jglk7yw:d0:s0', {}))
         self.assertEqual(agent.leaked_ids('Most everything tastes weird.', outs), [])
+
+
+class ConceptReviewTest(unittest.TestCase):
+    """The residual review (vocabulary.py) and the verifier checks built on it."""
+
+    def test_related_words(self):
+        from weightloss.agent import vocabulary as v
+        strong, weak = v.counted_words(['Weight decreased', 'Obesity'], [('weight loss', 50), ('lose weight with less hunger', 20),
+                                                                         ('get my weight off my knees', 1)], 60)
+        self.assertEqual(strong, [frozenset({'weight'}), frozenset({'obesity'})])  # member names define the concept
+        self.assertEqual(weak, {'hunger'})  # a word of the counted wordings; "knee" occurs in one record only
+        vocab = {'weight', 'obesity'}
+        self.assertEqual(v.related_word('Weight increased', vocab), 'weight')
+        self.assertIsNone(v.related_word('Hair loss', vocab))
+        self.assertEqual(v.related_word('inflammation for Lipidema', {'lipedema'}), 'lipedema')  # misspelling, uncoded
+        self.assertIsNone(v.related_word('Fasting', {'farting'}, misspelling=False))  # coded rows: real words only
+        self.assertIsNone(v.related_word('Heartburn', {'heart'}))
+        self.assertEqual(v.related_word('nauseous', {'nausea'}), 'nausea')
+        t1, _ = v.counted_words(['Type 1 diabetes mellitus', 'type 1'], [], 10)  # a subtype: the general term is not related
+        self.assertFalse(v.mark([{'platform': 'reddit', 'kind': 'pt', 'code': '1', 'name': 'Diabetes mellitus', 'records': 3}],
+                                (t1, set()))[0]['strong'])
+        self.assertTrue(v.mark([{'platform': 'reddit', 'kind': 'wording', 'code': 'uncoded', 'name': 'type 1 diabetc',
+                                 'records': 1}], (t1, set()))[0]['strong'])
+        self.assertTrue(v.inside_word_only('gas|fart', 'the cheese i used to call orgasmic'))
+        self.assertFalse(v.inside_word_only('gas|fart', 'gassier than usual'))
+        self.assertEqual(v.patterns_in("pt_code IS NULL AND wording REGEXP 'fart|gas' AND NOT wording REGEXP \"gasoline\""),
+                         ['fart|gas', 'gasoline'])
+
+    def test_select_marks_rows_that_add_enough_records(self):
+        from weightloss.agent import vocabulary as v
+        rows = v.mark([{'platform': 'reddit', 'kind': 'pt', 'code': '1', 'name': 'Weight', 'records': 8},
+                       {'platform': 'reddit', 'kind': 'pt', 'code': '2', 'name': 'Sleep apnoea syndrome', 'records': 9},
+                       {'platform': 'reddit', 'kind': 'wording', 'code': 'uncoded', 'name': 'my weight', 'records': 1},
+                       {'platform': 'reddit', 'kind': 'pt', 'code': '3', 'name': 'Hunger', 'records': 7}],
+                      ([frozenset({'weight'})], {'hunger'}))
+        rows[0]['new_records'], rows[2]['new_records'], rows[3]['new_records'] = 5, 1, 7
+        shown = {r['name']: r for r in v.select(['reddit'], rows, {'reddit': 150})}
+        self.assertTrue(shown['Weight']['check'])          # 5 >= max(2, 1% of 150), related through a member name
+        self.assertFalse(shown['my weight']['check'])      # adds 1 record
+        self.assertFalse(shown['Hunger']['check'])         # shown, but related only through a counted wording
+        self.assertEqual(shown['Hunger']['related_to'], 'hunger')
+        self.assertIsNone(shown['Sleep apnoea syndrome']['related_to'])
+
+    def outputs(self):
+        query = {'call': 't2', 'tool': 'query_graph', 'filters': {'target': 'purpose'},
+                 'rows': [{'row': 1, 'records': 49, 'denominator': 107}],
+                 'not_counted': [{'row': 9, 'concepts': 'targets', 'kind': 'purpose', 'platform': 'reddit', 'pt': 'Weight',
+                                  'code': '10047890', 'records': 8, 'new_records': 5, 'related_to': 'weight', 'check': True},
+                                 {'row': 10, 'concepts': 'targets', 'kind': 'purpose', 'platform': 'reddit',
+                                  'uncoded_wording': 'goal weight', 'records': 3, 'new_records': 3, 'related_to': 'weight',
+                                  'check': True}],
+                 '_counted': {'purpose': ['10047895'], 'side_effect': []}}
+        return {'t2': query}
+
+    def test_query_graph_rows_must_be_counted_or_named(self):
+        cite = [('c1', 't2', 1, 'records', '49')]
+        problems = agent.verify(answer('Reddit weight loss: 49 [c1] posts.', cite), self.outputs())[0]
+        self.assertEqual(len(problems), 2)
+        named = answer('Reddit weight loss: 49 [c1] posts. Not counted: Weight and "goal weight" (a body measure, not a goal).', cite)
+        self.assertEqual(agent.verify(named, self.outputs())[0], [])
+        outputs = self.outputs()
+        outputs['t3'] = {'call': 't3', 'tool': 'query_graph', 'rows': [], '_counted': {'purpose': ['10047890']},
+                         'counted_uncoded_wordings': [{'row': 1, 'wording': 'goal weight', 'records': 3}]}
+        self.assertEqual(agent.verify(answer('Reddit weight loss: 49 [c1] posts.', cite), outputs)[0], [])  # counted by a later query
+
+    def code_outputs(self, reviews, code="SELECT COUNT(DISTINCT record_key) FROM statement WHERE pt_code IN ('10047895')"):
+        return {'t1': {'call': 't1', 'tool': 'run_python', 'ok': True, 'output': 'weight records: 49',
+                       '_code': code, '_reviews': reviews, '_counted': {'purpose': [], 'side_effect': []}}}
+
+    def test_code_concepts_need_a_residual_review(self):
+        cite = [('c1', 't1', 1, 'output', '49')]
+        problems = agent.verify(answer('Reddit weight loss: 49 [c1] posts.', cite), self.code_outputs([]))[0]
+        self.assertTrue(any('residual() was never called' in p for p in problems))
+        plain = self.code_outputs([], code="SELECT COUNT(DISTINCT record_key) FROM statement WHERE writer_sex = 'female'")
+        self.assertEqual(agent.verify(answer('Reddit women: 49 [c1] posts.', cite), plain)[0], [])
+
+    def test_last_review_rows_and_inside_word_matches(self):
+        cite = [('c1', 't1', 1, 'output', '49')]
+        review = {'roles': ['side_effect'], 'rows': [
+            {'platform': 'reddit', 'kind': 'pt', 'code': '1', 'name': 'Abdominal distension', 'records': 9, 'new_records': 6,
+             'related_to': 'gas', 'check': True}],
+            'counted_uncoded': [{'platform': 'reddit', 'wording': 'orgasmic', 'records': 1, 'inside_word_only': True}]}
+        problems = agent.verify(answer('Reddit gas: 49 [c1] posts.', cite), self.code_outputs([review]))[0]
+        self.assertEqual(len(problems), 2)
+        fixed = dict(review, counted_uncoded=[])
+        ok = answer('Reddit gas: 49 [c1] posts; Abdominal distension (bloating) was not counted.', cite)
+        self.assertEqual(agent.verify(ok, self.code_outputs([review, fixed]))[0], [])
+
+    def test_misspellings_and_meaning(self):
+        from weightloss.agent import vocabulary as v
+        self.assertTrue(v._close('hemeroid', 'haemorrhoid'))           # sounds alike, uncoded rows only
+        self.assertFalse(v._close('hemeroid', 'haemorrhoid', misspelling=False))
+        self.assertFalse(v._close('haemorrhoid', 'haemorrhage'))       # a shared beginning, different things
+        sims = v.closeness(['10010774'], ['10059158', '10028813'])      # Constipation: Infrequent bowel movements, Nausea
+        if sims:  # the BioLORD index is local data; without it the review shows wording relations only
+            self.assertGreater(sims['10059158'], sims['10028813'])
+            rows = v.mark([{'platform': 'reddit', 'kind': 'pt', 'code': '10059158', 'name': 'Infrequent bowel movements',
+                            'records': 21, 'common_wordings': []}], ([frozenset({'constipation'})], set()), sims)
+            self.assertTrue(rows[0]['related_to'].startswith('meaning'))
+            self.assertFalse(rows[0]['strong'])  # close in meaning is shown, not enforced
+        self.assertTrue(v._close('nausa', 'nausea'))                   # a dropped letter from 5 letters on
+        self.assertTrue(v._close('nuasea', 'nausea'))                  # two swapped letters
+        self.assertFalse(v._close('nausa', 'nausea', misspelling=False))
+
+    def test_misspelled_pt_names(self):
+        from weightloss.agent import spelling as s
+        for word, name in (('nausa', 'nausea'), ('diahrrea', 'diarrhea'), ('consitpation', 'constipation'), ('virtigo', 'vertigo')):
+            self.assertTrue(s.misspelt(word, name), word)
+        for word, name in (('accidents', 'accident'), ('scratchy', 'scratch'), ('sleeping', 'sneezing'), ('stalling', 'swelling'),
+                           ('nausea', 'nausea'), ('gas', 'gaz')):
+            self.assertFalse(s.misspelt(word, name), word)  # endings, real words that sound different, too short
+        pts = {'10028813': 'Nausea', '10012735': 'Diarrhoea', '10022489': 'Insulin resistance'}
+        found = s.variants(['nausa', 'no nausea', 'diarreah', 'insulin resistanc', 'nausea and vomiting'], pts)
+        self.assertEqual(found, {'nausa': '10028813', 'diarreah': '10012735', 'insulin resistanc': '10022489'})
+
+    def test_answers_report_results_not_working_steps(self):
+        out = {'t1': {'call': 't1', 'tool': 'query_graph', 'rows': [{'row': 1, 'platform': 'reddit', 'records': 12}]}}
+        problems, _ = agent.verify(answer('On Reddit, 12 [c1] posts mention it; the concept review flagged two more PTs.',
+                                          [('c1', 't1', 1, 'records', '12')]), out)
+        self.assertTrue(any('working steps' in p for p in problems))
+        problems, _ = agent.verify(answer('On Reddit, 12 [c1] posts mention it.', [('c1', 't1', 1, 'records', '12')]), out)
+        self.assertFalse(any('working steps' in p for p in problems))
+
+    def test_minor_only_wordings_are_not_quoted(self):
+        minors = agent.minor_only_wordings()
+        if not minors:
+            self.skipTest('analysis database not built')
+        wording = sorted(minors)[0]
+        a = answer(f'One Reddit writer said "{wording}" about it.', [])
+        self.assertTrue(any('writer aged 13-18 only' in p for p in agent.verify(a, {})[0]))
+
+    def test_listed_quotes_must_be_shown(self):
+        outputs = outputs_fixture()
+        a = answer('Here are examples.', [], [('reddit:x:d0:s0', 'the nausea hit me hard on day two')])
+        self.assertTrue(any('not shown in the answer' in p for p in agent.verify(a, outputs)[0]))
+
+    def test_patient_numbers_must_name_the_platform(self):
+        outputs = self.code_outputs([], code="SELECT COUNT(DISTINCT record_key) FROM statement WHERE writer_sex = 'female'")
+        pooled = answer('Of 162 vomiting records, 49 [c1] gave a dose.', [('c1', 't1', 1, 'output', '49')])
+        self.assertTrue(any('which platform' in p for p in agent.verify(pooled, outputs)[0]))
+        split = answer('On Reddit, 49 [c1] gave a dose.', [('c1', 't1', 1, 'output', '49')])
+        self.assertEqual(agent.verify(split, outputs)[0], [])
+
+    def test_comparisons_are_checked_against_numbers_and_intervals(self):
+        outputs = {'t2': {'call': 't2', 'tool': 'compare_faers', 'rows': [
+            {'row': 1, 'faers_percent': 4.6, 'faers_ci95_low': 4.1, 'faers_ci95_high': 5.2,
+             'reddit_percent': 8.7, 'reddit_ci95_low': 7.7, 'reddit_ci95_high': 9.9,
+             'webmd_percent': 6.0, 'webmd_ci95_low': 3.0, 'webmd_ci95_high': 11.0}]}}
+        cites = [('c1', 't2', 1, 'faers_percent', '4.6'), ('c2', 't2', 1, 'reddit_percent', '8.7'),
+                 ('c3', 't2', 1, 'webmd_percent', '6.0')]
+        text = 'Appetite loss is a higher share of FAERS reports than of Reddit posts: 4.6% [c1] against 8.7% [c2]; WebMD 6.0% [c3].'
+        wrong = answer(text, cites, comparisons=[('a higher share of FAERS reports than of Reddit posts', 'c1', 'c2', 'higher')])
+        self.assertTrue(any('numbers say otherwise' in p for p in agent.comparison_problems(wrong, outputs)))
+        text2 = 'Appetite loss is a lower share of FAERS reports than of Reddit posts: 4.6% [c1] against 8.7% [c2]; WebMD 6.0% [c3].'
+        bare = answer(text2, cites, comparisons=[('a lower share of FAERS reports than of Reddit posts', 'c1', 'c2', 'lower')])
+        self.assertTrue(any('give both 95% intervals' in p for p in agent.comparison_problems(bare, outputs)))
+        ci = [('c4', 't2', 1, 'faers_ci95_low', '4.1'), ('c5', 't2', 1, 'faers_ci95_high', '5.2'),
+              ('c6', 't2', 1, 'reddit_ci95_low', '7.7'), ('c7', 't2', 1, 'reddit_ci95_high', '9.9')]
+        text3 = text2 + ' Intervals: 4.1 [c4] to 5.2 [c5]; 7.7 [c6] to 9.9 [c7].'
+        ok = answer(text3, cites + ci, comparisons=[('a lower share of FAERS reports than of Reddit posts', 'c1', 'c2', 'lower')])
+        self.assertEqual(agent.comparison_problems(ok, outputs), [])
+        overlap = answer(text3 + ' FAERS is lower than WebMD.', cites + ci,
+                         comparisons=[('FAERS is lower than WebMD', 'c1', 'c3', 'lower')])
+        self.assertTrue(any('intervals overlap' in p for p in agent.comparison_problems(overlap, outputs)))
+        missing = answer(text2, cites)
+        self.assertTrue(any('lists no comparisons' in p for p in agent.comparison_problems(missing, outputs)))
+
+    def test_placeholders_fail(self):
+        a = answer('On Reddit the under-35 share was higher [comparison]; 8 [c1] records.', [('c1', 't2', 2, 'records', '8')])
+        self.assertTrue(any('placeholder "[comparison]"' in p for p in agent.verify(a, outputs_fixture())[0]))
+
+    def test_partial_counts_fail(self):
+        a = answer('Reddit: 8 [c1] records. The count is not comprehensive.', [('c1', 't2', 2, 'records', '8')])
+        self.assertTrue(any('incomplete' in p for p in agent.verify(a, outputs_fixture())[0]))
+
+    def test_link_terms_numbers_are_not_citable(self):
+        outputs = {'t1': {'call': 't1', 'tool': 'link_terms', 'rows': [{'row': 1, 'matching_wording_records_reddit': 1707}]}}
+        a = answer('Alopecia (1,707 [c1] posts) was left out.', [('c1', 't1', 1, 'matching_wording_records_reddit', '1707')])
+        self.assertTrue(any('link_terms counts cover all drugs' in p for p in agent.verify(a, outputs)[0]))
+
+    def test_residual_in_the_sandbox(self):
+        from weightloss.graph import analysis_db
+        if not analysis_db.PATH.exists():
+            self.skipTest('analysis database not built')
+        from weightloss.agent.code_baseline import SETUP_AGENT, Sandbox
+        box = Sandbox(SETUP_AGENT)
+        try:
+            res = box.run("residual(\"role='side_effect' AND brand = 'Zepbound' AND platform = 'reddit'\", "
+                          "\"pt_code = '10016766' OR (pt_code IS NULL AND wording REGEXP 'fart|gas')\")")
+            self.assertTrue(res['ok'], res['output'])
+            self.assertIn('Concept review', res['output'])
+            self.assertEqual(len(res['reviews']), 1)
+            rv = res['reviews'][0]
+            self.assertEqual(rv['roles'], ['side_effect'])
+            self.assertTrue(any(u['inside_word_only'] and 'orgasmic' in u['wording'] for u in rv['counted_uncoded']))
+            self.assertEqual(rv['counted_members'][0]['pt'], 'Flatulence')  # counted PTs come with their wordings
+            self.assertTrue(rv['counted_members'][0]['wordings_here'])
+            again = box.run('print(1)')  # the earlier cell is replayed silently and reviews nothing
+            self.assertEqual(again['reviews'], [])
+            # an uncoded statement makes a pt_code condition NULL; it still counts as not counted
+            res = box.run("residual(\"role='side_effect' AND brand = 'Zepbound' AND platform = 'reddit' AND pt_code IS NULL\", "
+                          "\"pt_code IN ('10016766')\")")
+            self.assertTrue(any(r['kind'] == 'wording' for r in res['reviews'][0]['rows']), res['output'])
+        finally:
+            box.close()
+
+
+class SandboxReadTest(unittest.TestCase):
+    def test_code_reads_only_what_it_needs(self):
+        from weightloss.graph import analysis_db, neo4j_db
+        if not analysis_db.PATH.exists():
+            self.skipTest('analysis database not built')
+        from weightloss.agent.code_baseline import SETUP_AGENT, Sandbox
+        targets = [ROOT / 'pyproject.toml', ROOT / '.env', neo4j_db.KG, ROOT / 'src/weightloss/agent/agent.py']
+        code = (f"for p in {[str(t) for t in targets]!r}:\n"
+                "    try:\n        open(p, 'rb').read(1); print('READABLE', p)\n"
+                "    except OSError:\n        print('CLOSED', p)\n"
+                "print('rows', db.execute(\"select count(*) from statement\").fetchone()[0] > 0)")
+        box = Sandbox(SETUP_AGENT, deny_read=[str(neo4j_db.KG)])
+        try:
+            res = box.run(code)
+        finally:
+            box.close()
+        self.assertTrue(res['ok'], res['output'])
+        self.assertNotIn('READABLE', res['output'])  # nothing is printed from the files themselves
+        self.assertIn('rows True', res['output'])
 
 
 class QueryCheckTest(unittest.TestCase):
@@ -527,13 +868,21 @@ def call(name, arguments, call_id='fc_1'):
                      {'type': 'function_call', 'call_id': call_id, 'name': name, 'arguments': json.dumps(arguments)}])
 
 
-QUERY = call('query_graph', {**args(brands=['Mounjaro'], targets=[pt(NAUSEA)]), 'group_by': [], 'top_n': 5})
-EMPTY = {'answer': 'Insufficient data.', 'answer_type': 'limited', 'citations': [], 'quotes': [], 'limitations': []}
+QUERY = call('query_graph', {**args(brands=['Mounjaro'], targets=[pt(NAUSEA)]), 'denominator': 'universe', 'group_by': [], 'top_n': 5})
+EMPTY = {'answer': 'Insufficient data.', 'answer_type': 'limited', 'citations': [], 'quotes': [], 'comparisons': [],
+         'limitations': []}
 
 
 class LoopTest(unittest.TestCase):
+    def setUp(self):  # the scripted clients answer the agent's own requests only; the critic has its own test
+        self._critic = agent.run.__kwdefaults__['critic']
+        agent.run.__kwdefaults__['critic'] = False
+
+    def tearDown(self):
+        agent.run.__kwdefaults__['critic'] = self._critic
+
     def test_tool_round_then_verified_answer(self):
-        good = {'answer': 'Reddit: 8 [c1] of 30 [c2] records.', 'answer_type': 'answered', 'quotes': [],
+        good = {'answer': 'Reddit: 8 [c1] of 30 [c2] records.', 'answer_type': 'answered', 'quotes': [], 'comparisons': [],
                 'limitations': ['records, not patients'],
                 'citations': [{'id': 'c1', 'call': 't1', 'row': 2, 'field': 'records', 'value': '8'},
                               {'id': 'c2', 'call': 't1', 'row': 2, 'field': 'denominator', 'value': '30'}]}
@@ -555,13 +904,44 @@ class LoopTest(unittest.TestCase):
         self.assertEqual(second[1]['type'], 'reasoning')
         self.assertEqual(json.loads(second[-1]['output'])['call'], 't1')
 
+    @unittest.skipUnless(Path(ROOT / '.cache/analysis/analysis.sqlite').exists(), 'analysis database not built')
+    def test_code_output_citations_are_verified(self):
+        code = call('run_python', {'code': "n = db.execute(\"SELECT count(DISTINCT record_key) FROM statement WHERE platform = 'webmd' "
+                                           "AND role = 'side_effect'\").fetchone()[0]\nprint(n)"})
+        good = {'answer': 'WebMD: 1,768 [c1] reviews.', 'answer_type': 'answered', 'quotes': [], 'comparisons': [], 'limitations': [],
+                'citations': [{'id': 'c1', 'call': 't1', 'row': 1, 'field': 'output', 'value': '1,768'}]}
+        bad = dict(good, answer='WebMD: 1,767 [c1] reviews.',
+                   citations=[{'id': 'c1', 'call': 't1', 'row': 1, 'field': 'output', 'value': '1,767'}])
+        for answer, ok in ((good, True), (bad, False)):
+            res = agent.run('How many WebMD reviews report side effects?', StubGraph(),
+                            client=FakeClient([code, final(answer), final(answer)]), trace_path=None)
+            self.assertEqual(res['verified'], ok, res['problems'])
+
+    def test_critic_revision_replaces_answer_only_when_verified(self):
+        good = {'answer': 'Reddit: 8 [c1] of 30 [c2] records.', 'answer_type': 'answered', 'quotes': [], 'comparisons': [], 'limitations': [],
+                'citations': [{'id': 'c1', 'call': 't1', 'row': 2, 'field': 'records', 'value': '8'},
+                              {'id': 'c2', 'call': 't1', 'row': 2, 'field': 'denominator', 'value': '30'}]}
+        revised = dict(good, answer='Reddit writers: 8 [c1] of 30 [c2] records (a small group).')
+        broken = dict(good, answer='Reddit: 9 [c1] of 30 [c2] records.',
+                      citations=[{'id': 'c1', 'call': 't1', 'row': 2, 'field': 'records', 'value': '9'},
+                                 {'id': 'c2', 'call': 't1', 'row': 2, 'field': 'denominator', 'value': '30'}])
+        critique = final({'verdict': 'revise', 'issues': ['say the group is small']})
+        res = agent.run('q', StubGraph(), client=FakeClient([QUERY, final(good), critique, final(revised)]), trace_path=None,
+                        critic=True)
+        self.assertTrue(res['verified'])
+        self.assertIn('small group', res['answer']['answer'])
+        res = agent.run('q', StubGraph(), client=FakeClient([QUERY, final(good), critique, final(broken), final(broken)]),
+                        trace_path=None, critic=True)
+        self.assertTrue(res['verified'])
+        self.assertEqual(res['answer']['answer'], good['answer'])
+
     def test_invalid_tool_arguments_return_an_error_output(self):
         client = FakeClient([call('query_graph', {'target': 'side_effect'}), final(EMPTY)])
         res = agent.run('q', StubGraph(), client=client, trace_path=None)
         self.assertTrue(res['tool_calls'][1]['error'])
 
     def test_failed_verification_gets_one_repair_round(self):
-        bad = {'answer': 'Reddit: 999 [c1] records.', 'answer_type': 'answered', 'quotes': [], 'limitations': [],
+        bad = {'answer': 'Reddit: 999 [c1] records.', 'answer_type': 'answered', 'quotes': [], 'comparisons': [], 'limitations': [],
                'citations': [{'id': 'c1', 'call': 't0', 'row': 1, 'field': 'records_processed', 'value': '999'}]}
         client = FakeClient([final(bad), final(bad)])
         res = agent.run('q', StubGraph(), client=client, trace_path=None)

@@ -131,7 +131,7 @@ export interface components {
          * AskEvent
          * @description One server-sent event of POST /api/ask (each `data:` line is one of these, as JSON).
          */
-        AskEvent: components["schemas"]["StartEvent"] | components["schemas"]["ModelEvent"] | components["schemas"]["ToolEvent"] | components["schemas"]["ResultEvent"] | components["schemas"]["ErrorEvent"];
+        AskEvent: components["schemas"]["StartEvent"] | components["schemas"]["QueuedEvent"] | components["schemas"]["ModelEvent"] | components["schemas"]["ToolEvent"] | components["schemas"]["ResultEvent"] | components["schemas"]["ErrorEvent"];
         /** AskRequest */
         AskRequest: {
             /** Question */
@@ -161,6 +161,12 @@ export interface components {
             problems: string[];
             /** Repair Used */
             repair_used: boolean;
+            /**
+             * Repairs
+             * @description Repair rounds after failed verification (0-2)
+             * @default 0
+             */
+            repairs: number;
             /** Stop Reason */
             stop_reason?: string | null;
             /** Cost Usd */
@@ -681,6 +687,19 @@ export interface components {
             age_and_sex_stated: number;
             /** Neither Stated */
             neither_stated: number;
+        };
+        /** QueuedEvent */
+        QueuedEvent: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            type: "queued";
+            /**
+             * Ahead
+             * @description Questions from other visitors that start before this one
+             */
+            ahead: number;
         };
         /** Quote */
         Quote: {
