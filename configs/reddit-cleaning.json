@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "language_confidence": 0.9,
+  "language_min_words": 5,
+  "language_max_chars": 20000,
+  "reserve_gib": 15,
+  "commit_every": 1000,
+  "notes": "Stage1 text preparation, not medication/self-use/side-effect eligibility. Short and uncertain records remain in review. No same-text deletion across different Reddit IDs."
+}

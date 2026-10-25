@@ -1,0 +1,4 @@
+An independent check of your answer against the tool log raised these points:
+{issues}
+
+Check each point; fix what is right (call tools again if needed) and keep what is already correct. Then return the final answer in the same JSON format, with every cited number from a tool output.

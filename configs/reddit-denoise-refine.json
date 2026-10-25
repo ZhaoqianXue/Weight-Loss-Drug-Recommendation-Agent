@@ -1,0 +1,126 @@
+{
+ "schema_version": 1,
+ "revision": "denoise-x20-r6",
+ "notes": "Refinement r6 over the accepted denoise-coverage-1 run: formal floor x=20. Templates are complete-message rules (whole normalized message must match; bounded slots only). mechanical_template = bots, verbatim mass-posted solicitation, recurring moderator prompt posts; social_template = pure customer-service pleasantry macros (S class, not mechanical noise). non_latin_script_scope is a language-scope exclusion, not mechanical noise. No drug, symptom, identity, first-person or topic rules. r1 anchors dropped: rep-mochi-employee (identity), solicit-journalist (identity), solicit-survey-honours (human recruitment); moot at x=20 (0 hits >=20 words): spam-referral-code, ad-nutrisystem, solicit-dm-followup, listing-trial-injection-sites, mod-sched-lounge; Caremark Q&A posts carry policy information and are kept. duplicate_body_text: records whose own body (posts without their title) is identical after only Unicode NFC and whitespace normalization (case, digits, decimal points, hyphens, units, negations kept; >=20 body words) form a group; one representative is kept (post before comment, then earliest), comment copies are excluded, a post copy is excluded only if its title is also equal under the same NFC + whitespace normalization; any other title difference keeps the post and is counted; all members with titles in body_groups.parquet. Superseded: r2 (skeleton key merged 1.5 mg with 1-5 mg) and r3 (title word-set check removed reordered titles such as \"Nausea on 5 mg but not 2.5 mg\" vs \"Nausea on 2.5 mg but not 5 mg\"). contained_paragraph_copy: a comment whose blank-line paragraph list (NFC + whitespace only, in order, repeats counted) is an ordered subsequence of one other retained record sharing a >=40-word paragraph with it is excluded as a lossless copy (hashes and paragraph sets only preselect; longest paragraph lists kept first; posts never removed); mapping in paragraph_copies.parquet. Superseded: r5 (paragraph-set containment ignored paragraph order and repeat counts).",
+ "refine": {
+  "min_lexical_words": 20,
+  "templates": [
+   {
+    "id": "bot-language-corrector",
+    "family": "bot",
+    "pattern": "[^ ]+(?: [^ ]+){0,3} learn the difference here greetings i am a language corrector bot to make me ignore further mistakes from you in the future reply optout to this comment",
+    "class": "mechanical"
+   },
+   {
+    "id": "bot-fakespot",
+    "family": "bot",
+    "pattern": "this is a fakespot reviews analysis bot fakespot detects fake reviews fake products and unreliable sellers using ai here is the analysis for the amazon product reviews(?: [^ ]+){0,90} link to fakespot analysis check out the fakespot chrome extension fakespot analyzes the reviews authenticity and not the product quality using ai we look for real reviews that mention product issues such as counterfeits defects and bad return policies that fake reviews try to hide from consumers we give an a f letter for trustworthiness of reviews a very trustworthy reviews f highly untrustworthy reviews we also provide seller ratings to warn you if the seller can be trusted or not",
+    "class": "mechanical"
+   },
+   {
+    "id": "bot-grammar-error",
+    "family": "bot",
+    "pattern": "u(?: [^ ]+){1,6} i have found an error in your comment(?: [^ ]+){1,60} this is an automated bot i do not intend to shame your mistakes if you think the errors which i found are incorrect please contact me through dms(?: or contact my owner [^ ]+)?",
+    "class": "mechanical"
+   },
+   {
+    "id": "bot-weight-conversion",
+    "family": "bot",
+    "pattern": "\\d+(?: \\d+)? (?:lbs?|pounds?|kgs?|kilos?|grams?) would need \\d+(?: \\d+)? human hairs to lift this is assuming a hair can lift 100 grams which is usualy but not always the case|\\d+(?: \\d+)? (?:lbs?|pounds?|kgs?|kilos?|grams?) is the weight of about \\d+(?: \\d+)? cups of fine sea salt yes you did need to know that|fun fact \\d+(?: \\d+)? (?:lbs?|pounds?|kgs?|kilos?|grams?) of whatever is exactly the same as \\d+(?: \\d+)? (?:lbs?|pounds?|kgs?|kilos?|grams?) of candy or big macs or doofenshmirtzes",
+    "class": "mechanical"
+   },
+   {
+    "id": "bot-hippo",
+    "family": "bot",
+    "pattern": "hippobot 9000 v \\d+ \\d+ found a hippo(?: \\d+){1,5} comments searched(?: \\d+){1,4} hippos found your comment contains the word hippo",
+    "class": "mechanical"
+   },
+   {
+    "id": "solicit-license-images",
+    "family": "solicitation_template",
+    "pattern": "amazing transformation u(?: [^ ]+){1,6} i'm looking to license before after images from glp 1 users who have seen amazing results like yours any interest in getting paid to show off the work you put in",
+    "class": "mechanical"
+   },
+   {
+    "id": "mod-sched-availability",
+    "family": "moderation_schedule",
+    "kinds": [
+     "posts"
+    ],
+    "subreddits": [
+     "zepbound"
+    ],
+    "pattern": "weekly availability thread(?: [^ ]+){0,200} (?:we will get your area added or help you locate it within this thread|we will be removing all posts outside of this thread tied to availability)",
+    "class": "mechanical"
+   },
+   {
+    "id": "mod-sched-first-timer",
+    "family": "moderation_schedule",
+    "kinds": [
+     "posts"
+    ],
+    "subreddits": [
+     "zepbound"
+    ],
+    "pattern": "daily first timer post [a-z]+ \\d+ \\d+ welcome to your zepbound journey(?: [^ ]+){0,80} tell us about your experiences on your first day side effects you're seeing questions you may have",
+    "class": "mechanical"
+   },
+   {
+    "id": "mod-sched-prompts",
+    "family": "moderation_schedule",
+    "kinds": [
+     "posts"
+    ],
+    "subreddits": [
+     "zepbound"
+    ],
+    "pattern": "weigh in wednesday good morning afternoon evening to all today is weigh in wednesday(?: [^ ]+){0,150} looking forward to reading all the posts?|side effect sunday today is side effect sunday here you list anything regarding side effects(?: [^ ]+){0,100} (?:compared to a lower dose|share them here)|nsv friday good morning afternoon evening all today is nsv(?: [^ ]+){0,120} we can't wait to read some of your inspiring nsvs|thirsty thursday whatcha drinking hello r zepbound community(?: [^ ]+){0,60} favorite flavors|(?:sunday meal prepping|week ahead meal prep) hello r zepbound community(?: [^ ]+){0,60} what's your menu look like this week|fitness monday hello r zepbound community(?: [^ ]+){0,80} stay fit on our zepbound journey|how's your journey going hello r zepbound journey champions(?: [^ ]+){0,80} you got this|community weekly goals as we all work towards our common journey(?: [^ ]+){0,60} how can we help you|weekly welcome thread new to r zepbound start here(?: [^ ]+){0,250} we love hearing from you|happy nsv friday new here nsv non scale victory(?: [^ ]+){0,100} let's hear 'em",
+    "class": "mechanical"
+   },
+   {
+    "id": "service-checkin-pleasantries",
+    "family": "service_pleasantry",
+    "units": [
+     "hello",
+     "hi there",
+     "hi",
+     "hey there",
+     "hey",
+     "(?:an actual )?[a-z0-9]+ (?:employee|team member|representative|rep) here",
+     "(?:i am|i'm|we are|we're) (?:so )?sorry to hear about (?:your|you) (?:poor experience|shipping issues)",
+     "just checking in",
+     "i just wanted to check in",
+     "how are you doing",
+     "did you (?:happen to )?get your (?:questions?|concerns|issue)(?: concerns)? (?:addressed|answered|resolved)",
+     "did your (?:questions?|concerns) get (?:addressed|answered|resolved)",
+     "if not (?:i'd|i would) like to help",
+     "if not how may i help",
+     "(?:i'd|i would) like to help",
+     "how may i help",
+     "just sent you a dm",
+     "please do not hesitate to dm us if you have further issues",
+     "i hope you were able to get your issue resolved",
+     "we are honored to (?:be|have been) a part of your journey(?: but)?",
+     "your success is to be celebrated",
+     "thank you for being so patient with us",
+     "we are working to improve with each passing day"
+    ],
+    "class": "social"
+   }
+  ],
+  "body_duplicates": {
+   "min_body_words": 20
+  },
+  "paragraph_containment": {
+   "min_paragraph_words": 40
+  },
+  "script": {
+   "min_letters": 10,
+   "non_latin_share": 0.5
+  },
+  "repetition": {
+   "min_tokens": 10,
+   "max_unique": 3
+  }
+ }
+}

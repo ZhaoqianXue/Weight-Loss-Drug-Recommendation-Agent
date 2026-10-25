@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "start_rule": "first_fda_approval_date_utc_inclusive",
+  "end_rule": "source_available_through_run_snapshot",
+  "keyword_filter_at_download": false,
+  "approval_sources": [
+    "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2024/217806Orig1s000OtherR.pdf",
+    "https://www.fda.gov/news-events/press-announcements/fda-approves-new-medication-chronic-weight-management"
+  ],
+  "brands": {
+    "Victoza": "2010-01-25",
+    "Trulicity": "2014-09-18",
+    "Saxenda": "2014-12-23",
+    "Ozempic": "2017-12-05",
+    "Rybelsus": "2019-09-20",
+    "Wegovy": "2021-06-04",
+    "Mounjaro": "2022-05-13",
+    "Zepbound": "2023-11-08"
+  },
+  "pilot_targets": {
+    "Victoza": [
+      "Victoza"
+    ]
+  },
+  "note": "Source inventory from docs/reddit-data-sources.md. Associations govern download lower bounds, not evidence attribution. Shared sources downloaded once from earliest associated brand FDA date. Drug/product/experience filtering after download. General weight-loss sources are not individually specified and remain unselected.",
+  "targets": {
+    "diabetes_t2": [
+      "Victoza",
+      "Trulicity",
+      "Ozempic",
+      "Rybelsus"
+    ],
+    "glp1": [
+      "Victoza",
+      "Trulicity",
+      "Saxenda",
+      "Ozempic",
+      "Rybelsus",
+      "Wegovy",
+      "Mounjaro",
+      "Zepbound"
+    ],
+    "liraglutide": [
+      "Victoza",
+      "Saxenda"
+    ],
+    "mounjaro": [
+      "Trulicity",
+      "Mounjaro"
+    ],
+    "ozempic": [
+      "Trulicity",
+      "Ozempic",
+      "Rybelsus"
+    ],
+    "rybelsuspill": [
+      "Rybelsus"
+    ],
+    "saxendaforweightloss": [
+      "Saxenda"
+    ],
+    "saxendawegovymounjaro": [
+      "Saxenda"
+    ],
+    "semaglutide": [
+      "Ozempic",
+      "Rybelsus",
+      "Wegovy"
+    ],
+    "tirzepatiderx": [
+      "Mounjaro",
+      "Zepbound"
+    ],
+    "trulicity": [
+      "Trulicity"
+    ],
+    "type2diabetes": [
+      "Victoza",
+      "Trulicity",
+      "Ozempic",
+      "Rybelsus"
+    ],
+    "victoza": [
+      "Victoza"
+    ],
+    "wegovy": [
+      "Wegovy"
+    ],
+    "wegovyweightloss": [
+      "Wegovy"
+    ],
+    "zepbound": [
+      "Zepbound"
+    ]
+  },
+  "molecule_only_targets": [],
+  "excluded_subreddits": [
+    "compoundedsemaglutide",
+    "compoundedtirzepatide",
+    "diabetes",
+    "glp1_ozempic_wegovy",
+    "glp1_ozempic_weygovy",
+    "glp1microdosing",
+    "glp1peptides",
+    "glp1sourcing",
+    "mounjaro_fortype2",
+    "mounjaromaintenance",
+    "mounjarouk",
+    "ozempic_",
+    "ozempicaustralia",
+    "ozempicforweightloss",
+    "ozempicmaintenance",
+    "ozempict2d",
+    "pcos",
+    "pharmacy",
+    "prediabetes",
+    "semaglutide_uk",
+    "tirzepatidecompound",
+    "tirzepatidehelp",
+    "tirzepatidepcos",
+    "wegovygermany",
+    "wegovymaintenance",
+    "wegovypillweightloss",
+    "wegovyuk",
+    "zepbound2wegovy",
+    "zepbound_maintenance",
+    "zepbound_support",
+    "zepboundathletes",
+    "zepboundrx"
+  ]
+}

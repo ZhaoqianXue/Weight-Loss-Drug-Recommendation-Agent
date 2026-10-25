@@ -1,0 +1,37 @@
+{
+ "schema_version": 1,
+ "revision": "denoise-x20-a2",
+ "notes": "Aggressive structural layer a2 over frozen denoise-x20-r6 (x stays 20); supersedes a1 (a1 policy kept in its version directory). Every a1 rule is kept with equal or looser thresholds (near_duplicate 0.75->0.65 with a new rule that number and negation sets must match the representative, copy_compression 0.5->0.4, boilerplate share 0.6->0.5, title_only_post <5 -> title_dominant_post <20 body words), plus social_dominant (generalized social expressions >= half of the non-function words, <= 12 other content words; light semantic) and low_content_words (<= 8 content words after removing English function words and social expressions: a residual content-word threshold listed on its own, which removes mostly ordinary short discussion). Shared-sentence cover over >=2 records was measured but not used because it deletes the only kept copy of two-copy content. Yields and spot checks: results/reddit-denoise-iterations-2026-09-25/aggressive-rule-yield.*",
+ "aggressive": {
+  "near_duplicate": {
+   "min_similarity": 0.65
+  },
+  "copy_compression": {
+   "min_share": 0.4,
+   "min_sentence_words": 5
+  },
+  "boilerplate_template": {
+   "min_records": 3,
+   "min_share": 0.5,
+   "max_residual_words": 20
+  },
+  "title_dominant_post": {
+   "max_body_words": 20
+  },
+  "emoji_dominant": {
+   "min_emoji": 3,
+   "min_per_word": 0.2
+  },
+  "low_english_function_words": {
+   "min_words": 20,
+   "max_share": 0.08
+  },
+  "social_dominant": {
+   "min_share": 0.5,
+   "max_content_words": 12
+  },
+  "low_content_words": {
+   "max_content_words": 8
+  }
+ }
+}

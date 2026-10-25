@@ -1,0 +1,17 @@
+{
+  "schema_version": 3,
+  "language_confidence": 0.9,
+  "substantive_segment_words": 20,
+  "minimum_interpretable_words": 5,
+  "short_text_words": 20,
+  "context_depth": 2,
+  "commit_every": 1000,
+  "reserve_gib": 15,
+  "medications": {
+    "semaglutide": ["Ozempic", "Wegovy", "Rybelsus"],
+    "tirzepatide": ["Mounjaro", "Zepbound"],
+    "liraglutide": ["Victoza", "Saxenda"],
+    "dulaglutide": ["Trulicity"]
+  },
+  "context_competing_terms": ["metformin", "insulin", "Jardiance", "Farxiga", "glipizide", "gliclazide", "Januvia", "Reta", "retatrutide", "exenatide", "Byetta", "Bydureon", "Contrave", "phentermine", "Qsymia", "orlistat", "Xultophy", "Soliqua", "Zoloft", "Lexapro", "prednisone", "Zofran"]
+}

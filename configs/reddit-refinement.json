@@ -1,0 +1,18 @@
+{
+  "schema_version": 2,
+  "language_confidence": 0.9,
+  "language_min_words": 5,
+  "language_segment_chars": 2000,
+  "context_depth": 2,
+  "context_excerpt_chars": 2000,
+  "sample_per_stratum": 12,
+  "sample_per_boundary": 32,
+  "sampling_seed": "reddit-refinement-audit-2026-09-17",
+  "reserve_gib": 15,
+  "minimum_prose_words": 20,
+  "minimum_prose_chars": 80,
+  "require_explicit_target_mention": true,
+  "target_terms": ["semaglutide", "tirzepatide", "liraglutide", "dulaglutide", "Ozempic", "Wegovy", "Rybelsus", "Mounjaro", "Zepbound", "Victoza", "Saxenda", "Trulicity"],
+  "require_comment_context": true,
+  "commit_every": 1000
+}

@@ -1,0 +1,939 @@
+{
+  "schema_version": 1,
+  "revision": "denoise-coverage-1",
+  "english_only": true,
+  "non_english_confidence": 0.95,
+  "non_english_min_words": 20,
+  "commit_every": 1000,
+  "reserve_gib": 15,
+  "courtesy_templates": [
+    "thanks",
+    "thank you",
+    "thank you so much",
+    "thanks so much",
+    "congrats",
+    "congratulations",
+    "you're welcome"
+  ],
+  "automation_templates": [
+    {
+      "id": "automation-01",
+      "subreddit": "semaglutide",
+      "example_fullname": "t1_mqm6ayq",
+      "segments": [
+        "Thanks for posting to r/semaglutide!",
+        "A brief reminder about our rules. We do not permit the discussion of non-FDA approved formulations of semaglutide, nor do we permit selling or offering for sale any medication, including by private message. Do not request or respond to a private message from anyone offering such, they are not endorsed by this sub.",
+        "If you’re just starting out, you may want to review our FAQ. This is not intended to discourage discussion but merely supplement it.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-02",
+      "subreddit": "wegovy",
+      "example_fullname": "t1_o7p7xgd",
+      "segments": [
+        "Welcome to the Wegovy subreddit!",
+        "Our rules are simple: be respectful, kind, and supportive to your fellow redditors.",
+        "Resource: Free GLP-1 Tracker.",
+        "New Community: r/WegovyPillWeightloss if you're on the pill!",
+        "Enjoy!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-03",
+      "subreddit": "diabetes_t2",
+      "example_fullname": "t1_i0frs1k",
+      "segments": [
+        "Your post has been removed because your reddit account is less than one week old, or you have low comment karma. This subreddit does not allow accounts with negative comment karma or accounts less than 7 days old as a measure to reduce trolling and ban evasion. Please try your post again after your account is 7+ days old and has positive comment karma. This action is done automatically by a bot.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-04",
+      "subreddit": "semaglutide",
+      "example_fullname": "t1_jckj4on",
+      "segments": [
+        "Sorry, your comment has tripped our content review bot. Your post has been sent for moderator approval.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-05",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_n9mer38",
+      "segments": [
+        "Hi OP,",
+        "Please post availability updates in our regional chatrooms. This helps reduce clutter and consolidate updates.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-06",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_lnq7ue1",
+      "segments": [
+        "Hi OP,",
+        "Thank you for sharing that you have either started your first dose or picked up your first box, and you're curious as to what to expect. While we are all truly excited to see another person start this wonderful medication, I can assure you that, plenty of people have asked the same thing you are and there is plenty of post regarding first times.",
+        "Majority of your questions can be answered in the FAQ section.Or by searching common phrases of your post.",
+        "For other people's first time experiences you can click here or here. While we won't remove the post incase someone wishes to congratulate you,welcome you to the club or give you pointers and tricks. We strongly encourage you to use the search bar, especially when asking a common question!",
+        "If I got this message wrong please ignore.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-07",
+      "subreddit": "mounjaro",
+      "example_fullname": "t1_m92uipv",
+      "segments": [
+        "Hi there! It looks like you’re asking a question. This subreddit should be a great resource for you - our members love to help, especially for those who take the time to research the wealth of existing information available. Here are some suggested starting points:",
+        "Mounjaro.com. Many common questions can be answered straight from the source. These include questions about how/where to administer injections, proper storage instructions, traveling with your pens, most answers to “Is this normal?” questions, and how the manufacturer savings card program works.",
+        "Past threads. r/Mounjaro has tons of discussion threads that are likely to have answers to many questions. There's a handy search function, and you can also use Google to search this Reddit by typing \"site:reddit.com” after your search topic.",
+        "Your health care provider. Remember that you should NEVER rely on strangers on the internet for medical advice. If you want to understand if Mounjaro is right for you, or if the side effect you're feeling is cause for alarm, talk to your doctor, not Reddit!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-08",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_odrq85g",
+      "segments": [
+        "Hey OP,",
+        "It looks like you're posting about side effects. You can check this page for details and explore this subreddit search for shared experiences and remedies.",
+        "Most common side effects include: Nausea, Diarrhea, Constipation, Abdominal Pain, Fatigue, Hair Loss, Heartburn, etc.",
+        "If effects persist, consult your provider.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-09",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_nfo9mnf",
+      "segments": [
+        "Hi OP,",
+        "Thanks for sharing about starting Zepbound! Many have asked similar questions—please check our FAQ or search the subreddit.",
+        "For first-time experiences, try searching here or here.",
+        "Welcome aboard!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-10",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_oaac8xq",
+      "segments": [
+        "It looks like your post is about insurance or prior authorization. Please see our guide here: Insurance, PAs, and Zepbound Costs",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-11",
+      "subreddit": "wegovy",
+      "example_fullname": "t1_nwzlg84",
+      "segments": [
+        "Welcome to the Wegovy subreddit!",
+        "Our rules are simple: be respectful, kind, and supportive to your fellow redditors.",
+        "Resource: Free GLP-1 Tracker.",
+        "Enjoy!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    }
+  ],
+  "terminal_automation": true,
+  "social_templates": [
+    "thanks",
+    "thank you",
+    "thank you so much",
+    "thanks so much",
+    "thank you very much",
+    "thanks very much",
+    "thank you so very much",
+    "thank you for sharing",
+    "thanks for sharing",
+    "thanks for the advice",
+    "thank you for the advice",
+    "thank you for your advice",
+    "thanks for the info",
+    "thanks for the information",
+    "thank you for the information",
+    "thanks for the reply",
+    "thank you for the reply",
+    "thanks for your reply",
+    "thank you for your reply",
+    "thanks for responding",
+    "thank you for responding",
+    "you're welcome",
+    "you are welcome",
+    "you are very welcome",
+    "you're very welcome",
+    "my pleasure",
+    "happy to help",
+    "congrats",
+    "congratulations",
+    "congrats to you",
+    "congratulations to you",
+    "congrats on your progress",
+    "congratulations on your progress",
+    "great job",
+    "good job",
+    "awesome job",
+    "amazing job",
+    "well done",
+    "congrats great job",
+    "congratulations great job",
+    "good luck",
+    "best of luck",
+    "good luck to you",
+    "wishing you the best",
+    "you got this",
+    "you've got this",
+    "keep up the good work",
+    "welcome aboard",
+    "happy cake day",
+    "happy birthday",
+    "good morning",
+    "good evening",
+    "following",
+    "following for updates",
+    "following this thread",
+    "bump",
+    "boosting for visibility",
+    "lol",
+    "lmao",
+    "lmfao",
+    "haha",
+    "hahaha",
+    "hahahaha",
+    "hehe",
+    "thank you you too",
+    "thanks you too",
+    "thanks again",
+    "thank you again",
+    "many thanks",
+    "much appreciated",
+    "thank you kindly",
+    "thanks that makes sense",
+    "thank you that makes sense",
+    "thanks for looking anyway"
+  ],
+  "denoise": {
+    "schema_version": 1,
+    "notes": "Full-message rules only. No drug, symptom, first-person or relevance rules. Anchors come from reviewed repeated templates (see docs/reddit-denoise-coverage-2026-09-25.md).",
+    "automation_anchors": [
+      {
+        "id": "mod-removal-notice",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:(?:yikes|uh oh|bye|wtf|hai fam|wrong subreddit|nobody likes a re run|hey thanks but no thanks|oops|sorry|hi|hello|hey|hi there|hello there|hey there|hi op|hey op|hello op|op|hi friend|hello friend|hi op and welcome|hi there and welcome|hi and welcome|please note that|please note) )?(?:your|this) (?:post|comment|question post|recent post|post or comment|comment or post|submission|thread) (?:has been|was|have been|is being) (?:removed|locked)"
+      },
+      {
+        "id": "mod-we-removed",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:(?:hi|hey|hi op|hi friend|hi there|hi op and welcome) )?(?:we've|we have|i've|i have) removed (?:your|this) (?:post|comment)"
+      },
+      {
+        "id": "mod-submission-thanks",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:(?:hi|hello|hey)(?: there| op| friend)?(?: and)? )?(?:thank you|thanks) for your submission to r \\w+"
+      },
+      {
+        "id": "mod-continued-violations",
+        "family": "moderation_notice",
+        "position": "anywhere",
+        "pattern": "continued violations of this rule may result in additional actions"
+      },
+      {
+        "id": "mod-discretion",
+        "family": "moderation_notice",
+        "position": "anywhere",
+        "pattern": "all post comment removals are at the discretion of the mods"
+      },
+      {
+        "id": "mod-subject-to-ban",
+        "family": "moderation_notice",
+        "position": "anywhere",
+        "pattern": "you are now subject to (?:a )?ban at the (?:mod's|mods|moderators|moderator's) discretion"
+      },
+      {
+        "id": "mod-repeated-violations",
+        "family": "moderation_notice",
+        "position": "anywhere",
+        "pattern": "repeated violations will result in a ban"
+      },
+      {
+        "id": "mod-misinformation",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "misinformation is not allowed multiple infractions will result in a ban"
+      },
+      {
+        "id": "mod-megathread",
+        "family": "moderation_notice",
+        "position": "anywhere",
+        "pattern": "(?:please use the appropriate megathread|has been selected to be consolidated into a (?:mega ?thread|our chat rooms)|this highly talked about topic has already been posted and pinned)"
+      },
+      {
+        "id": "mod-ban-evasion",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:your account has triggered reddit's ban evasion filter|you are posting from an account associated with the same email of an account banned)"
+      },
+      {
+        "id": "zep-common-question",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:hi there op )?while we appreciate your post and contributions to this subreddit",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-safety",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "safety is a prime goal of the sub",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-compounded-sourcing",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:r zepbound is a community about the brand medication zepbound mounjaro )?your post has (?:included|requested) sourcing of compounded",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-we-have-found",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:we have found|we found) (?:that )?(?:this|your post comment|this post comment|this post) (?:goes above the advice|is not courteous|is targeting another user|is shaming|to be disrespectful|is promotional)",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-double-post",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "oops it looks like you double posted",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-manufacturer",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi there it appears your post comment goes against the manufacturer recommendations",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-recent-post",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi op your recent post was (?:removed|found to be answered)",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-promotional",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "this is promotional or spam",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-welcome-guide",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi op welcome be sure to check out the beginners guide",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-privacy",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "to protect privacy and prevent misuse posts showing faces",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-insurance-guide",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi op looks like you're looking to discuss something related to insurance",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-sell-trade",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "you are either seeking to sell trade or obtain prescription medication",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-dedicated",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "r zepbound is (?:dedicated to the use of zepbound|a community about the brand medication)",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-filled",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hey there we are truly happy you have finally been able to fill",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-info-website",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "the zepbound information can be found on the zepbound website",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-journey-start",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "thank you so much for telling us about the start of your journey",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-trolling",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "upon removal of your comment we have investigated",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-violence",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "inciting violence on this sub will not be tolerated",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-asked-answered",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "this topic has been asked and answered",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-off-topic",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "your post has been identified as being off topic",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "zep-caremark-linked",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "currently linked is",
+        "subreddits": [
+          "zepbound"
+        ]
+      },
+      {
+        "id": "mod-unusual-symptoms",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:please note that your post has been removed )?while we can fully appreciate the concerns over unusual symptoms",
+        "subreddits": [
+          "zepbound",
+          "diabetes_t2"
+        ]
+      },
+      {
+        "id": "mj-welcome",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:welcome friend|welcome op|welcome) congratulations on getting started (?:(?:we're|i'm) so excited for you because mounjaro will very likely|i hope you're excited for what will very likely)",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-community-everyone",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:(?:hi and welcome|hi op and welcome) )?(?:while )?(?:r mounjaro is a community for everyone|this community is for everyone) regardless of age gender size or health conditions",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-switching",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:(?:hi friend|hi op) )?there have been quite a few people in this subreddit who have decided to switch",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-jerk-filter",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "your post was flagged by our jerk filter",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-friend-faq",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:hi friend|hello friend) (?:have you taken a moment to review the faq|have you tried searching the subreddit|i've removed your post|this is a common question in this subreddit|there have been lots of people in this subreddit)",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-bullying",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "the r mounjaro community does not tolerate",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-low-quality",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "posts that are determined to be of low quality",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-chin-up",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:hi op (?:and welcome )?)?chin up (?:it's absolutely normal to hit a plateau|have you had a moment to read the faq)",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-op-welcome",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi op and welcome (?:please be sure to read the faq|your post has been removed|we've removed your post|while r mounjaro)",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-insurer",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi op we're sorry to hear that your insurer is denying coverage",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-savings-terms",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "the terms and conditions of the manufacturer's savings card for mounjaro",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-pace",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi and welcome it looks like your post is related to the pace of weight loss",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-shortage-list",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "if you're having a hard time finding your dosage at a pharmacy near you be sure to check the fda drug shortage list",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-availability",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "hi op it looks like your post is related to availability of medication",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "mj-prohibits",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "r mounjaro prohibits posts or comments with unsolicited promotion",
+        "subreddits": [
+          "mounjaro"
+        ]
+      },
+      {
+        "id": "oz-mod-team",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "the mod team has found that (?:your|this)",
+        "subreddits": [
+          "ozempic"
+        ]
+      },
+      {
+        "id": "oz-sell",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "please do not sell or solicit the purchase of",
+        "subreddits": [
+          "ozempic"
+        ]
+      },
+      {
+        "id": "oz-spam",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "please do not create spam",
+        "subreddits": [
+          "ozempic"
+        ]
+      },
+      {
+        "id": "oz-pit",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "please do not pit patients against",
+        "subreddits": [
+          "ozempic"
+        ]
+      },
+      {
+        "id": "t2-not-doctors",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:please note that your (?:post|comment) has been removed )?we are not doctors and (?:would not be aware of someone's full condition|you should consult yours for any medical advice)",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "t2-be-good",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "be good we aim to make r diabetes_t2 a friendly place",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "t2-pertain",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "posts and discussion should pertain to diabetes",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "t2-business",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "if you're just posting to push your business charity or cause",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "t2-focus-group",
+        "family": "moderation_notice",
+        "position": "anywhere",
+        "pattern": "we are a community not a paid focus group",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "t2-ai",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "while we appreciate how helpful ai can be",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "t2-platform-rules",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "r type2diabetes follows platform wide reddit rules",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "t2-rule-only",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "(?:removed (?:for|under|per) )?rule \\d+(?: no research studies)?$",
+        "subreddits": [
+          "diabetes_t2",
+          "type2diabetes"
+        ]
+      },
+      {
+        "id": "sema-compounded",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "we do not allow discussion about compounded semaglutide",
+        "subreddits": [
+          "semaglutide"
+        ]
+      },
+      {
+        "id": "glp1-peptides",
+        "family": "moderation_notice",
+        "position": "start",
+        "pattern": "research peptides and gray market discussions are not allowed",
+        "subreddits": [
+          "glp1"
+        ]
+      },
+      {
+        "id": "bot-remindme",
+        "family": "bot_template",
+        "position": "anywhere",
+        "pattern": "(?:i will be messaging you (?:in|on) (?:[\\w']+ ){1,24}?to remind you of this link|click this link to send a pm to also be reminded)"
+      },
+      {
+        "id": "bot-number-sum",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "all the numbers in your comment added up to"
+      },
+      {
+        "id": "bot-alphabetical",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "would you look at that all of the words in your comment are in alphabetical order"
+      },
+      {
+        "id": "bot-amp",
+        "family": "bot_template",
+        "position": "anywhere",
+        "pattern": "it looks like (?:you|op) (?:shared|posted) (?:an|some) amp links?"
+      },
+      {
+        "id": "bot-sneak-peek",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "here's a sneak peek of r"
+      },
+      {
+        "id": "bot-spelling",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "(?:hello )?it looks as though you may have spelled"
+      },
+      {
+        "id": "bot-grammar",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "hello it looks like you've made a mistake"
+      },
+      {
+        "id": "bot-ect",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "hello you have made the mistake of writing"
+      },
+      {
+        "id": "bot-vegan-btu",
+        "family": "bot_template",
+        "position": "anywhere",
+        "pattern": "of vegan poop being burned provides"
+      },
+      {
+        "id": "bot-linked-thread",
+        "family": "bot_template",
+        "position": "anywhere",
+        "pattern": "someone has linked to this thread from another place on reddit"
+      },
+      {
+        "id": "bot-tldr",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "this is the best tl dr i could make"
+      },
+      {
+        "id": "bot-upvote-instead",
+        "family": "bot_template",
+        "position": "anywhere",
+        "pattern": "if you agree with someone else's comment please leave an upvote instead of commenting"
+      },
+      {
+        "id": "bot-fatphobic",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "hello please do not use fatphobic phrases"
+      },
+      {
+        "id": "bot-haiku",
+        "family": "bot_template",
+        "position": "anywhere",
+        "pattern": "i detect haikus"
+      },
+      {
+        "id": "bot-price-history",
+        "family": "bot_template",
+        "position": "start",
+        "pattern": "amazon price history"
+      }
+    ],
+    "bot_disclosure": "(?:^| )(?:i am|i'm|im) (?:just )?a bot(?: |$)",
+    "bot_command": "^\\s*(?:!\\s*remind\\s*me\\b|remind\\s*me\\s*!|u/remindmebot\\b)",
+    "bot_command_max_lexical_words": 12,
+    "media_placeholders": [
+      "\\bprocessing (?:img|image|video|gif)\\s+[a-z0-9]+(?:\\.\\.\\.|…)?",
+      "!\\[(?:img|gif|image)\\]\\([^)]*\\)"
+    ],
+    "social": {
+      "max_words": 40,
+      "unit_max_words": 14,
+      "separators": "(?:[.,!?;:\\n…~*()\\[\\]\\\"“”/\\\\|+&\\-–—_#]+|\\s+(?:and|n)\\s+)",
+      "emoticons": "(?<!\\w)(?::-?\\)+|:-?d\\b|:\\]|;-?\\)+|<3+|\\^_*\\^|\\(:|x-?d\\b|:-?p\\b|=\\)+)",
+      "emoji": "😊🙂😀😃😄😁☺❤♥🤍💙💚💛💜🧡🩷🩵🤎🖤🎉🎊👏🙌👍🙏🎈💪🤩✨⭐🌟💫🔥💯🥳🍾🥂🏆🥇😍🥰😘😻💕💖💗💓💞💘💝❣🫶🥹🤗😎😉😆😂🤣😅😹👌🤘🫡🌈☀🌞🌸🌺🌷💐🌹🙋🤙✌🤞🎂🍰🧁🤜🤛👊✊💃🕺😇🤓😜😝😛🙃😌💥⚡🎯🏅👑💎🦋🥺🚀🍀♡🖐🫂",
+      "leading_fillers": [
+        "oh",
+        "ah",
+        "aw",
+        "well",
+        "and",
+        "so",
+        "wow",
+        "omg"
+      ],
+      "vocatives": [
+        "op",
+        "friend",
+        "friends",
+        "girl",
+        "girlie",
+        "girly",
+        "sis",
+        "sister",
+        "hun",
+        "honey",
+        "hon",
+        "babe",
+        "dear",
+        "love",
+        "mate",
+        "buddy",
+        "pal",
+        "man",
+        "dude",
+        "bro",
+        "guys",
+        "everyone",
+        "all",
+        "y'all",
+        "yall",
+        "folks",
+        "fam",
+        "lady",
+        "ladies",
+        "queen",
+        "king",
+        "sir",
+        "ma'am",
+        "mama",
+        "momma",
+        "lovely",
+        "my friend",
+        "my dear",
+        "<user>"
+      ],
+      "strong_units": [
+        "(?:thank(?:s| you| u| ya|you|yous?|s you|s a lot|s a bunch)|thx|ty|tysm|tyvm|thnx|thanx|many thanks|much appreciated|appreciate (?:it|you|this|that|you all|y'all)|i (?:really |truly )?appreciate (?:it|you|this|that|you all|y'all|the (?:info|advice|help|support|kind words|reply|response|encouragement))|cheers)(?: (?:so|very|really|super) much| sm| so so much| so very much| a lot| a bunch| a ton| a million| again| (?:to )?(?:all|everyone|everybody|guys|you all|y'all|all of you)| kindly| in advance| for (?:the|your|this|that|all (?:the|your)) (?:info|information|advice|tip|tips|reply|replies|response|responses|answer|answers|input|help|support|encouragement|kind words|nice words|sweet words|words|suggestion|suggestions|insight|insights|feedback|comment|comments|update|explanation|clarification|link|reassurance|perspective|recommendation|recommendations|resource|resources|love|compliment|compliments|kindness|positivity|motivation|inspiration|reminder|heads up|share|post)| for (?:sharing|asking|posting|responding|replying|answering|reaching out|checking in|letting me know|clarifying|explaining|this|that)| for sharing (?:this|that|your (?:story|journey|experience|progress))| friend| my friend)*",
+        "(?:(?:you're|you are|youre|ur|your) (?:very |so |most )?welcome|yw)",
+        "(?:my pleasure|happy to help|glad (?:to|i could) help|glad it helped|anytime|any time|no worries)",
+        "(?:that|this|it) means (?:a lot|so much|the world)(?: to me)?|you made my day|made my day",
+        "(?:big |huge |many |much |massive )?(?:congrats|congratulations|congratz|grats|congradulations|congratulation|congrates)(?: (?:to you|op|again|girl|friend|my friend|all|everyone|on (?:(?:your|the|this|that|such an?|such) )?(?:(?:great|amazing|awesome|incredible|huge|big|fantastic|wonderful|hard) )?(?:progress|success|results?|weight loss|loss|losses|milestone|achievement|journey|hard work|nsv|non scale victory|transformation|accomplishment|win|victory|goal|efforts?|dedication|work)))*(?: so far)?(?: too)?",
+        "(?:(?:such |a |what an? |really |very |so )?(?:great|good|nice|awesome|amazing|fantastic|excellent|wonderful|incredible|terrific|outstanding|phenomenal|fabulous|impressive|stellar|superb|brilliant|beautiful|remarkable|tremendous|spectacular|solid) (?:job|work|progress|results?|transformation|effort|going|stuff|news|share|post|update|tips?|advice|info|information|point|question|answer|idea|suggestion|explanation|response|reply|comment|summary|writeup|write up|list|recap)s?(?: so far)?(?: op)?)",
+        "(?:well done(?: you)?|nicely done|way to go|wtg|let's go|right on|high five|good for you|go you|yay you|you go|you go girl|go girl|get it girl|go get em|proud of you|so proud of you|i'm (?:so )?proud of you|we're (?:so )?proud of you|very proud of you|keep (?:it|this) up|keep (?:up )?the (?:good|great|hard|amazing) work|keep going|keep it going|keep at it|keep pushing|keep crushing it|you're (?:doing|killing|crushing|rocking) (?:it|great|amazing|awesome|so well|fantastic|wonderful)|you are (?:doing|killing|crushing|rocking) (?:it|great|amazing|awesome|so well)|doing great|killing it|crushing it|slaying|slay|nailed it|you rock|rock on|you did it|you did great|you're amazing|you are amazing|you're awesome|you are awesome|you're an inspiration|you are an inspiration|what an inspiration|so inspiring|very inspiring|inspiring|inspirational|so motivating|very motivating|motivating|goals|major goals|life goals|body goals|nsv|non scale victory|love (?:it|this|that|this for you|that for you|to see it|to see this|your (?:energy|attitude|outfit|smile))|i love (?:it|this|that|this for you|that for you|your (?:energy|attitude|outfit|smile))|love love love|(?:so |very |really )?happy for you|(?:i'm|i am|im) (?:so |very |really )?happy for you|so excited for you|i'm (?:so )?excited for you|this is (?:so )?(?:amazing|awesome|great|wonderful|fantastic|incredible|inspiring|beautiful)|that's (?:so )?(?:amazing|awesome|great|wonderful|fantastic|incredible|inspiring|beautiful|fabulous|excellent|impressive)|that is (?:so )?(?:amazing|awesome|great|wonderful|fantastic|incredible|inspiring|beautiful|fabulous|impressive)|how (?:amazing|awesome|wonderful|exciting|cool)|what a (?:difference|transformation|change|glow up|glowup)|huge difference|big difference|glow up|glowing|you're glowing|you are glowing|welcome to (?:onederland|twotopia)|onederland|lucky you|username checks out)",
+        "(?:you|u) (?:look|looking|are looking|look so|look really|look absolutely|looked) (?:so |really |absolutely |truly |very )?(?:great|amazing|fantastic|awesome|wonderful|beautiful|gorgeous|fabulous|stunning|incredible|good|healthy|happy|younger|radiant|lovely|fit|fierce|hot|sexy|cute|pretty|handsome|marvelous|terrific|phenomenal|spectacular|tremendous|brilliant|fab)(?: (?:and (?:so )?)?(?:great|amazing|fantastic|awesome|wonderful|beautiful|gorgeous|fabulous|stunning|incredible|good|healthy|happy|younger|radiant|lovely|fit|fierce|hot|sexy|cute|pretty|handsome))*",
+        "(?:looking|lookin) (?:so |really )?(?:good|great|amazing|fantastic|awesome|fabulous|gorgeous|beautiful|stunning|fit|healthy|fierce|sharp)",
+        "(?:you're|you are|youre) (?:so |absolutely |truly |very )?(?:beautiful|gorgeous|stunning|amazing|awesome|an inspiration|inspiring|glowing|killing it|doing amazing|doing great|rocking it|crushing it)",
+        "(?:this is|that is|that's|this was|that was|thats|so|very|super|really|extremely|incredibly) (?:so |very |really |super |extremely |incredibly )?(?:helpful|useful|informative|reassuring|encouraging|kind|sweet)|this helps|that helps|great info|good info|celebrating (?:you|with you)(?: today)?|love to see it|love to see this|well deserved|so deserved|you deserve (?:it|this)|you earned (?:it|this)|cheers to you|here's to you|you inspire me|you're my inspiration|you are my inspiration|what an achievement|(?:that's )?(?:a )?(?:huge|big|great|amazing) (?:accomplishment|achievement|win|milestone)|look at you(?: go| now)?|so cute|adorable|love (?:your|the) (?:outfit|dress|hair|look|shirt|top|jeans|style)|(?:cute|beautiful|gorgeous|great) (?:outfit|dress|hair|look|smile)|you look like a (?:new|different) person|so much healthier|you look (?:so much )?(?:healthier|happier|younger|thinner|slimmer)",
+        "(?:good luck|best of luck|lots of luck|all the best|best wishes|wishing you (?:the best|luck|well|all the best|success|the best of luck|continued success)|(?:i )?wish you (?:the best|luck|well|all the best|success)|you got this|you've got this|youve got this|you have got this|we got this|we've got this|you can do it|you can do this|hang in there|stay strong|rooting for you|cheering (?:you on|for you)|fingers crossed|fingers crossed for you|praying for you|prayers|sending (?:you )?(?:hugs|love|good vibes|positive vibes|prayers|strength|healing vibes|light)|hugs|big hugs|feel better(?: soon)?|get well soon|hope you feel better(?: soon)?|i hope you feel better(?: soon)?|take care|stay safe|be well|enjoy|have fun|have a (?:great|good|nice|wonderful|lovely|safe) (?:day|time|trip|weekend|week|vacation|holiday|one|night)|safe travels|you'll get there|you will get there|you'll do great|you will do great|you're going to do great|keep us (?:posted|updated)|please keep us (?:posted|updated)|keep me (?:posted|updated))(?: (?:to you|too|to you too|as well|to you as well|on your (?:journey|goals?|progress|next step|new journey)|with (?:(?:your|the) )?(?:journey|everything|it|that|this|things|goals?|rest|process)|with (?:continued|continuing) success|op|friend|my friend))*",
+        "(?:happy|merry) (?:cake day|birthday|bday|holidays|thanksgiving|new year|anniversary|halloween|easter|mother's day|father's day|valentine's day|valentines day|christmas|xmas|4th|fourth|friday|monday|weekend|shot day|dose day|zepday|zep day|jab day|poke day|pokeday|injection day)",
+        "(?:you too|same to you|and you|back at you|right back at you|likewise|you as well|u too|and to you)",
+        "(?:welcome(?: aboard| to the club| to the group| to the community| to the sub| to the family| to the journey| back)?|hi(?: there| all| everyone| friend)?|hello(?: there| all| everyone)?|hey(?: there| all| everyone| friend)?|good (?:morning|evening|afternoon|night)|morning|goodnight)",
+        "(?:ha|(?:a|b)?(?:ha){2,}h?|(?:he){2,}h?|lol(?:ol)*|lolz|lmf?ao+|rofl|roflmao|lul|kek|haha(?:ha)*)",
+        "(?:wow(?:za|zers|ee)?|whoa|woah|omg|omfg|oh my (?:god|gosh|goodness|word)|oh wow|yay|yey|woohoo|woo hoo|woo|woot|woot woot|hooray|hurray|hurrah|yippee|bravo|brava|kudos|hell yeah|heck yeah|hell yes|heck yes|fuck yeah|fuck yes|yass|yas|yasss|yaas|holy (?:cow|moly|smokes|crap|shit|hell|cannoli)|dang|damn(?: girl)?|dayum|aww|aw|awe|oof|yikes|geez|jeez|sheesh|wowie|amazeballs|ayy|ayyy|boom|yum|yummy|hilarious|ouch|bummer|what a bummer|good bot|bad bot|good human)",
+        "(?:(?:i'm|i am|im) (?:so |really |very |truly )?sorry(?: to hear (?:that|this))?(?: you're going through (?:this|that)| for your loss)?|so sorry(?: to hear (?:that|this))?|sorry to hear (?:that|this)|sorry for your loss|oh no|that sucks|that's rough|thats rough|that's awful|that's terrible|ugh)",
+        "(?:good to know|interesting|very interesting|makes sense|that makes sense|got it|gotcha|noted|good point|great point|fair point|well said|very well said|(?:that's |that is |so |very )?(?:great|good|nice|glad) to hear(?: that| this)?|(?:that's )?(?:great|good) news)",
+        "(?:bump|following|following for updates|following this|following this thread|commenting to follow|saving this|saved|bookmarking|bookmarked|subscribed)"
+      ],
+      "weak_units": [
+        "(?:ok|okay|k|kk|cool|nice|great|good|perfect|awesome|amazing|fantastic|excellent|wonderful|incredible|beautiful|gorgeous|stunning|lovely|fabulous|brilliant|superb|outstanding|phenomenal|impressive|sweet|neat|fab|legend|legendary|queen|king|yes please|will do|i will|sure|sounds good|sounds great|love it|so good|so cool|very nice|very cool|so nice|so awesome|so amazing|absolutely (?:amazing|beautiful|stunning|fabulous|incredible|gorgeous)|truly (?:amazing|inspiring)|just wow|simply amazing|really|so|oh|ah|aw|well|helpful|so helpful|very helpful|x|xx|xo|xoxo|lucky|cute)"
+      ]
+    },
+    "duplicates": {
+      "long_min_lexical_words": 15,
+      "quick_min_lexical_words": 5,
+      "quick_window_seconds": 600
+    },
+    "min_lexical_words": 10
+  }
+}

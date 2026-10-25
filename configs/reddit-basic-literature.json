@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "revision": "literature-noise-1",
+  "english_only": true,
+  "non_english_confidence": 0.95,
+  "non_english_min_words": 20,
+  "commit_every": 1000,
+  "reserve_gib": 15,
+  "courtesy_templates": [
+    "thanks",
+    "thank you",
+    "thank you so much",
+    "thanks so much",
+    "congrats",
+    "congratulations",
+    "you're welcome"
+  ],
+  "automation_templates": [
+    {
+      "id": "automation-01",
+      "subreddit": "semaglutide",
+      "example_fullname": "t1_mqm6ayq",
+      "segments": [
+        "Thanks for posting to r/semaglutide!",
+        "A brief reminder about our rules. We do not permit the discussion of non-FDA approved formulations of semaglutide, nor do we permit selling or offering for sale any medication, including by private message. Do not request or respond to a private message from anyone offering such, they are not endorsed by this sub.",
+        "If you’re just starting out, you may want to review our FAQ. This is not intended to discourage discussion but merely supplement it.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-02",
+      "subreddit": "wegovy",
+      "example_fullname": "t1_o7p7xgd",
+      "segments": [
+        "Welcome to the Wegovy subreddit!",
+        "Our rules are simple: be respectful, kind, and supportive to your fellow redditors.",
+        "Resource: Free GLP-1 Tracker.",
+        "New Community: r/WegovyPillWeightloss if you're on the pill!",
+        "Enjoy!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-03",
+      "subreddit": "diabetes_t2",
+      "example_fullname": "t1_i0frs1k",
+      "segments": [
+        "Your post has been removed because your reddit account is less than one week old, or you have low comment karma. This subreddit does not allow accounts with negative comment karma or accounts less than 7 days old as a measure to reduce trolling and ban evasion. Please try your post again after your account is 7+ days old and has positive comment karma. This action is done automatically by a bot.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-04",
+      "subreddit": "semaglutide",
+      "example_fullname": "t1_jckj4on",
+      "segments": [
+        "Sorry, your comment has tripped our content review bot. Your post has been sent for moderator approval.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-05",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_n9mer38",
+      "segments": [
+        "Hi OP,",
+        "Please post availability updates in our regional chatrooms. This helps reduce clutter and consolidate updates.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-06",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_lnq7ue1",
+      "segments": [
+        "Hi OP,",
+        "Thank you for sharing that you have either started your first dose or picked up your first box, and you're curious as to what to expect. While we are all truly excited to see another person start this wonderful medication, I can assure you that, plenty of people have asked the same thing you are and there is plenty of post regarding first times.",
+        "Majority of your questions can be answered in the FAQ section.Or by searching common phrases of your post.",
+        "For other people's first time experiences you can click here or here. While we won't remove the post incase someone wishes to congratulate you,welcome you to the club or give you pointers and tricks. We strongly encourage you to use the search bar, especially when asking a common question!",
+        "If I got this message wrong please ignore.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-07",
+      "subreddit": "mounjaro",
+      "example_fullname": "t1_m92uipv",
+      "segments": [
+        "Hi there! It looks like you’re asking a question. This subreddit should be a great resource for you - our members love to help, especially for those who take the time to research the wealth of existing information available. Here are some suggested starting points:",
+        "Mounjaro.com. Many common questions can be answered straight from the source. These include questions about how/where to administer injections, proper storage instructions, traveling with your pens, most answers to “Is this normal?” questions, and how the manufacturer savings card program works.",
+        "Past threads. r/Mounjaro has tons of discussion threads that are likely to have answers to many questions. There's a handy search function, and you can also use Google to search this Reddit by typing \"site:reddit.com” after your search topic.",
+        "Your health care provider. Remember that you should NEVER rely on strangers on the internet for medical advice. If you want to understand if Mounjaro is right for you, or if the side effect you're feeling is cause for alarm, talk to your doctor, not Reddit!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-08",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_odrq85g",
+      "segments": [
+        "Hey OP,",
+        "It looks like you're posting about side effects. You can check this page for details and explore this subreddit search for shared experiences and remedies.",
+        "Most common side effects include: Nausea, Diarrhea, Constipation, Abdominal Pain, Fatigue, Hair Loss, Heartburn, etc.",
+        "If effects persist, consult your provider.",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-09",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_nfo9mnf",
+      "segments": [
+        "Hi OP,",
+        "Thanks for sharing about starting Zepbound! Many have asked similar questions—please check our FAQ or search the subreddit.",
+        "For first-time experiences, try searching here or here.",
+        "Welcome aboard!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-10",
+      "subreddit": "zepbound",
+      "example_fullname": "t1_oaac8xq",
+      "segments": [
+        "It looks like your post is about insurance or prior authorization. Please see our guide here: Insurance, PAs, and Zepbound Costs",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    },
+    {
+      "id": "automation-11",
+      "subreddit": "wegovy",
+      "example_fullname": "t1_nwzlg84",
+      "segments": [
+        "Welcome to the Wegovy subreddit!",
+        "Our rules are simple: be respectful, kind, and supportive to your fellow redditors.",
+        "Resource: Free GLP-1 Tracker.",
+        "Enjoy!",
+        "I am a bot, and this action was performed automatically. Please contact the moderators of this subreddit if you have any questions or concerns."
+      ]
+    }
+  ],
+  "terminal_automation": true,
+  "social_templates": [
+    "thanks",
+    "thank you",
+    "thank you so much",
+    "thanks so much",
+    "thank you very much",
+    "thanks very much",
+    "thank you so very much",
+    "thank you for sharing",
+    "thanks for sharing",
+    "thanks for the advice",
+    "thank you for the advice",
+    "thank you for your advice",
+    "thanks for the info",
+    "thanks for the information",
+    "thank you for the information",
+    "thanks for the reply",
+    "thank you for the reply",
+    "thanks for your reply",
+    "thank you for your reply",
+    "thanks for responding",
+    "thank you for responding",
+    "you're welcome",
+    "you are welcome",
+    "you are very welcome",
+    "you're very welcome",
+    "my pleasure",
+    "happy to help",
+    "congrats",
+    "congratulations",
+    "congrats to you",
+    "congratulations to you",
+    "congrats on your progress",
+    "congratulations on your progress",
+    "great job",
+    "good job",
+    "awesome job",
+    "amazing job",
+    "well done",
+    "congrats great job",
+    "congratulations great job",
+    "good luck",
+    "best of luck",
+    "good luck to you",
+    "wishing you the best",
+    "you got this",
+    "you've got this",
+    "keep up the good work",
+    "welcome aboard",
+    "happy cake day",
+    "happy birthday",
+    "good morning",
+    "good evening",
+    "following",
+    "following for updates",
+    "following this thread",
+    "bump",
+    "boosting for visibility",
+    "lol",
+    "lmao",
+    "lmfao",
+    "haha",
+    "hahaha",
+    "hahahaha",
+    "hehe",
+    "thank you you too",
+    "thanks you too",
+    "thanks again",
+    "thank you again",
+    "many thanks",
+    "much appreciated",
+    "thank you kindly",
+    "thanks that makes sense",
+    "thank you that makes sense",
+    "thanks for looking anyway"
+  ]
+}

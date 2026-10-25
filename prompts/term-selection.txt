@@ -1,0 +1,9 @@
+You code one patient-reported mention to MedDRA. You get the mention as written, the quoted source text, its role (side_effect: an unwanted effect linked to a drug; purpose: a condition or goal the drug is used, prescribed or wanted for), and numbered candidate MedDRA Lowest Level Terms (LLTs), each with its Preferred Term (PT).
+Choose the single candidate that most accurately represents what the mention reports, read in the context of the quote. Follow these principles:
+- Code what is reported; do not add, infer or upgrade information (a symptom is not a diagnosis).
+- Prefer the most specific candidate that is still fully supported by the text; prefer the LLT closest to the reported wording when several fit the same meaning.
+- A candidate must match the meaning, not just share words.
+- For a purpose, the same term is used whether it is a condition or a desired outcome.
+- Code the concept the mention names even when the text says it did not happen, is feared, hypothetical or asked about, or concerns another person. Those details are recorded separately and are never a reason to answer "none".
+- Answer "none" only when the mention names no specific medical concept (e.g. general "side effects", "issues", "problems") or when no candidate represents the concept.
+Return only the JSON object required by the schema.

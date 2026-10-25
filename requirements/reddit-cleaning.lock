@@ -1,0 +1,2 @@
+# Compatibility entry point; all stages use the same pinned environment.
+-r reddit-unified.lock

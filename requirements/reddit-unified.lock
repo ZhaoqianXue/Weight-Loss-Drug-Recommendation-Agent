@@ -1,0 +1,11 @@
+# One existing, tested Python 3.11 environment for every Reddit cleaning stage.
+# No model/parser upgrade. polars-lts-cpu supports the current x86 interpreter.
+fasttext-wheel==0.9.2
+numpy==1.26.4
+pybind11==3.1.0
+setuptools==84.0.0
+markdown-it-py==4.0.0
+mdurl==0.1.2
+duckdb==1.4.3
+pyarrow==19.0.1
+polars-lts-cpu==1.32.3
