@@ -25,8 +25,11 @@ jobs:
           node-version: '22'
       - run: python -m pip install --require-hashes -r requirements/offline.lock
       - run: python -m pip install --no-deps -e .
-      - run: python -m weightloss validate
-      - run: python -m weightloss build-web
+      # The WebMD review snapshot is not distributed, so these run only where it is present.
+      - if: hashFiles('data/raw/webmd/2026-09-12/webmd_all_reviews.csv') != ''
+        run: python -m weightloss validate
+      - if: hashFiles('data/raw/webmd/2026-09-12/webmd_all_reviews.csv') != ''
+        run: python -m weightloss build-web
       - run: python -m unittest discover -s tests -p 'test_*.py'
       - run: pnpm --dir apps/web install --frozen-lockfile
       - run: pnpm --dir apps/web lint

@@ -22,6 +22,7 @@ from weightloss.pipeline.refresh_data import key, annotation, index, read
 from weightloss.provenance import verify_index, index_metadata
 
 
+@unittest.skipUnless((ROOT/'data/raw/webmd/2026-09-12/webmd_all_reviews.csv').exists(), 'WebMD review data are not distributed with the repository')
 class SnapshotTests(unittest.TestCase):
     def test_catalog_and_counts(self):
         rows=read(ROOT/'data/raw/webmd/2026-09-12/webmd_all_reviews.csv');manifest=json.loads((ROOT/'data/raw/webmd/2026-09-12/collection_manifest.json').read_text())

@@ -29,3 +29,15 @@ results/extraction-postjev-2026-09-29/kg-standardization-20261004-01a0fad5/accep
 # Licensed MedDRA content and large intermediates from the FAERS validation stay local (user 2026-10-17).
 results/fda-validation-20261017/frozen/
 results/fda-validation-20261017/outputs/
+# WebMD reviews, licensed terminology and third-party papers stay local and are not redistributed (2026-10-25).
+data/raw/webmd/**/*.csv
+data/external/annotation_seeds/**/*.csv
+data/interim/**/*.csv
+data/processed/**/*.csv
+data/external/terminology/*.csv
+archive/data_backup/
+archive/collection/*.html
+archive/website/data/
+archive/results/extraction/
+archive/results/standardization/
+docs/references/*.pdf
