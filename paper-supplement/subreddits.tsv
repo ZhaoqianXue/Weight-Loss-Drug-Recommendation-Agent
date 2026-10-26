@@ -1,0 +1,18 @@
+Subreddit	Type	Start date	Submissions	Comments
+mounjaro	B	2014-09-18	104709	1532780
+ozempic	B	2014-09-18	64624	930335
+rybelsuspill	B	2019-09-20	1374	12898
+saxendaforweightloss	B	2014-12-23	7	94
+trulicity	B	2014-09-18	1166	10292
+victoza	B	2010-01-25	35	320
+wegovy	B	2021-06-04	6387	44267
+wegovyweightloss	B	2021-06-04	70819	851545
+zepbound	B	2023-11-08	156962	2613491
+liraglutide	I	2010-01-25	10785	97888
+semaglutide	I	2017-12-05	75779	1040727
+tirzepatiderx	I	2022-05-13	8263	124128
+glp1	X	2010-01-25	8260	100332
+saxendawegovymounjaro	X	2014-12-23	516	3454
+diabetes_t2	T	2010-01-25	33286	493971
+type2diabetes	T	2010-01-25	8722	87788
+Total			551694	7944310

@@ -11,7 +11,7 @@ Both files preserve the original IDs, question wording, group assignments, and i
 
 ## Evaluation groups
 
-The fixed groups cover the tasks examined in RQ3. A question can involve several content dimensions while retaining its original group. The files use the readable group names reported in Appendix C of the paper.
+The fixed groups cover the tasks examined in RQ3. A question can involve several content dimensions while retaining its original group. The files use the readable group names reported in the annotation appendix of the paper.
 
 | Evaluation group | Questions |
 |---|---:|
@@ -33,6 +33,6 @@ The first five groups contain 100 answerable questions. The boundary group conta
 | evaluation_group | The question's existing evaluation group, shown with its readable label. |
 | intended_response | The intended handling, recorded as answer, decline, or limited. |
 
-The intended response is a design label. It is not the only acceptable system response status, the system's observed response, or a human error rating. A response is not judged incorrect solely because its status differs from this label. Human ratings assess the answer against the reference answer using the criteria in Appendix C of the paper.
+The intended response is a design label. It is not the only acceptable system response status, the system's observed response, or a human error rating. A response is not judged incorrect solely because its status differs from this label. Human ratings assess the answer against the reference answer using the criteria in the annotation appendix of the paper.
 
 This release provides the evaluation inputs. It contains no user posts or reviews, system answers, or automatic scoring configuration.

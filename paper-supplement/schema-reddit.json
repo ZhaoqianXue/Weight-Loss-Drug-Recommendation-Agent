@@ -1,0 +1,225 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "writer": {
+      "additionalProperties": false,
+      "properties": {
+        "age_group": {
+          "anyOf": [
+            {
+              "enum": [
+                "13-18",
+                "19-24",
+                "25-34",
+                "35-44",
+                "45-54",
+                "55-64",
+                "65-74",
+                "75 or over"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sex": {
+          "anyOf": [
+            {
+              "enum": [
+                "female",
+                "male",
+                "other"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence": {
+          "items": {
+            "type": "integer"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "age_group",
+        "sex",
+        "evidence"
+      ]
+    },
+    "drugs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "brand": {
+            "anyOf": [
+              {
+                "enum": [
+                  "Ozempic",
+                  "Wegovy",
+                  "Rybelsus",
+                  "Mounjaro",
+                  "Zepbound",
+                  "Victoza",
+                  "Saxenda",
+                  "Trulicity"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ingredient": {
+            "anyOf": [
+              {
+                "enum": [
+                  "semaglutide",
+                  "tirzepatide",
+                  "liraglutide",
+                  "dulaglutide"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "purposes": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "purpose": {
+                  "type": "string"
+                },
+                "evidence": {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object",
+              "required": [
+                "purpose",
+                "evidence"
+              ]
+            },
+            "type": "array"
+          },
+          "side_effects": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "effect": {
+                  "type": "string"
+                },
+                "dose": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "duration": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "intensity": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "mild",
+                        "moderate",
+                        "severe"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "impact": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "daily_life",
+                        "medical_visit",
+                        "emergency_visit",
+                        "hospitalization"
+                      ],
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "action_taken": {
+                  "items": {
+                    "enum": [
+                      "dose_reduced",
+                      "escalation_paused",
+                      "dose_skipped",
+                      "stopped"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "evidence": {
+                  "items": {
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object",
+              "required": [
+                "effect",
+                "dose",
+                "duration",
+                "intensity",
+                "impact",
+                "action_taken",
+                "evidence"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "type": "object",
+        "required": [
+          "brand",
+          "ingredient",
+          "purposes",
+          "side_effects"
+        ]
+      },
+      "type": "array"
+    }
+  },
+  "type": "object",
+  "required": [
+    "writer",
+    "drugs"
+  ]
+}

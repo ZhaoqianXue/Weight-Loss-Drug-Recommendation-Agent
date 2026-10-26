@@ -1,0 +1,62 @@
+{
+  "before": {
+    "tp": 13,
+    "fp": 2,
+    "fn": 4,
+    "reference_n": 17,
+    "prediction_n": 15,
+    "precision": 0.8666666666666667,
+    "recall": 0.7647058823529411,
+    "f1": 0.8125,
+    "precision_ci": [
+      0.6666666666666666,
+      1.0
+    ],
+    "precision_display": "0.87 [0.67, 1.00]",
+    "recall_ci": [
+      0.47368421052631576,
+      1.0
+    ],
+    "recall_display": "0.76 [0.47, 1.00]"
+  },
+  "after": {
+    "tp": 13,
+    "fp": 2,
+    "fn": 1,
+    "reference_n": 14,
+    "prediction_n": 15,
+    "precision": 0.8666666666666667,
+    "recall": 0.9285714285714286,
+    "f1": 0.896551724137931,
+    "precision_ci": [
+      0.6666666666666666,
+      1.0
+    ],
+    "precision_display": "0.87 [0.67, 1.00]",
+    "recall_ci": [
+      0.75,
+      1.0
+    ],
+    "recall_display": "0.93 [0.75, 1.00]"
+  },
+  "pre_adjudication_agreement": {
+    "reddit": 0.2087912087912088,
+    "webmd": 0.5405405405405406,
+    "unchanged": true
+  },
+  "invariants": {
+    "sample_posts_unchanged": 100,
+    "model_predictions_unchanged": true,
+    "only_changed_reference_record": 299,
+    "removed_reference_items": 3,
+    "other_fields_not_rescored_or_changed": true,
+    "original_annotations_and_adjudication_unchanged": true
+  },
+  "method": {
+    "sample_posts": 100,
+    "prediction_set": "unchanged frozen review-text predictions; profile conditions excluded from this score",
+    "matching": "unchanged existing score.py one-to-one same-drug wording/evidence match",
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 1
+  }
+}

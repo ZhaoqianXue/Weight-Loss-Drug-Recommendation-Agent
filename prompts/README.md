@@ -15,3 +15,5 @@ These files are readable copies of the instructions used by the study's processi
 | Text-retrieval baseline | [baseline-text-retrieval.txt](baseline-text-retrieval.txt) | [baselines.py](../results/human-eval-20261020/scripts/baselines.py) |
 
 The screening input is one cleaned Reddit post or comment. Extraction inputs use numbered sentences and a source header. Term selection receives a mention, its evidence sentences, and candidate LLTs with their PTs. The agent and baselines receive the evaluation question and the tools defined for that system. Tool definitions, response schemas, and dynamically constructed repair messages are part of the source code rather than these instruction files.
+
+The [paper supplement](../paper-supplement/README.md) also preserves the complete paper prompt descriptions, readable field definitions and exported strict request schemas.

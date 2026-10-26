@@ -1,12 +1,13 @@
 # AskGLP1
 
-Code, prompts, and evaluation questions for the AskGLP1 paper. This fixed review-v1 snapshot includes the research pipeline, question-answering agent, website, and evaluation scripts.
+Code, prompts, and evaluation questions for the AskGLP1 paper. This review-v2 snapshot includes the research pipeline, question-answering agent, website, and evaluation scripts.
 
 ## Contents
 
 | Material | Location |
 | --- | --- |
 | Complete 120-question list, TSV, and field definitions | [evaluation/questions](evaluation/questions/README.md) |
+| Full methods, schema, extended tables and reproducibility documentation | [paper-supplement](paper-supplement/README.md) |
 | Screening, extraction, term-selection, agent, answer-checking, and baseline prompts | [prompts](prompts/README.md) |
 | Python pipeline, graph tools, agent, and API | [src/weightloss](src/weightloss) |
 | Website frontend | [apps/web](apps/web/README.md) |
@@ -15,7 +16,7 @@ Code, prompts, and evaluation questions for the AskGLP1 paper. This fixed review
 | Re-extraction and FAERS processing scripts | [results](results) |
 | Synthetic reviews for an offline pipeline check | [tests/fixtures/reviews.json](tests/fixtures/reviews.json) |
 
-The complete question list preserves the question IDs, text, order, evaluation groups, and intended response types. The groups describe the study's evaluation tasks and can overlap in content. The question-set README distinguishes intended responses from system outputs and human ratings. Representative questions and the human-rating rules remain in Appendix C of the paper.
+The complete question list preserves the question IDs, text, order, evaluation groups, and intended response types. The groups describe the study's evaluation tasks and can overlap in content. The question-set README distinguishes intended responses from system outputs and human ratings. Representative questions and the human-rating rules remain in the paper’s annotation appendix.
 
 ## Setup and offline check
 
