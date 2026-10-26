@@ -1,0 +1,178 @@
+{
+    "total_side_effects": 20,
+    "unique_original_terms": 19,
+    "successful_mappings": 11,
+    "mapping_rate": "57.89%",
+    "detailed_mappings": [
+        {
+            "original": "difficulty swallowing",
+            "standardized": "dysphagia",
+            "review_id": 0,
+            "severity": "Severe"
+        },
+        {
+            "original": "constipation",
+            "standardized": "constipation",
+            "review_id": 2,
+            "severity": null
+        },
+        {
+            "original": "allergic reaction",
+            "standardized": "hypersensitivity",
+            "review_id": 3,
+            "severity": null
+        },
+        {
+            "original": "dumping syndrome",
+            "standardized": "dumping syndrome",
+            "review_id": 4,
+            "severity": null
+        },
+        {
+            "original": "dizziness",
+            "standardized": "dizziness",
+            "review_id": 5,
+            "severity": null
+        },
+        {
+            "original": "sick",
+            "standardized": "illness",
+            "review_id": 6,
+            "severity": null
+        },
+        {
+            "original": "dizzy",
+            "standardized": "dizziness",
+            "review_id": 6,
+            "severity": null
+        },
+        {
+            "original": "nauseated",
+            "standardized": "nausea",
+            "review_id": 6,
+            "severity": null
+        },
+        {
+            "original": "throwing up",
+            "standardized": "vomiting",
+            "review_id": 6,
+            "severity": null
+        },
+        {
+            "original": "disgusted by food",
+            "standardized": "food aversion",
+            "review_id": 6,
+            "severity": null
+        },
+        {
+            "original": "sickness",
+            "standardized": "illness",
+            "review_id": 7,
+            "severity": null
+        },
+        {
+            "original": "constipation",
+            "standardized": "constipation",
+            "review_id": 9,
+            "severity": null
+        }
+    ],
+    "unmapped_terms": [
+        "taste and smell of food changed",
+        "tired and sleepy",
+        "stomach pain",
+        "weak",
+        "bppv (benign paroxysmal positional vertigo)",
+        "acid reflux",
+        "intestinal pain with diarrhea and bleeding",
+        "bloating"
+    ],
+    "term_frequency": {
+        "bloating": 1,
+        "acid reflux": 1,
+        "difficulty swallowing": 1,
+        "tired and sleepy": 1,
+        "constipation": 2,
+        "allergic reaction": 1,
+        "dumping syndrome": 1,
+        "dizziness": 1,
+        "intestinal pain with diarrhea and bleeding": 1,
+        "bppv (benign paroxysmal positional vertigo)": 1,
+        "sick": 1,
+        "dizzy": 1,
+        "nauseated": 1,
+        "throwing up": 1,
+        "taste and smell of food changed": 1,
+        "disgusted by food": 1,
+        "weak": 1,
+        "sickness": 1,
+        "stomach pain": 1
+    },
+    "standardized_term_frequency": {
+        "dysphagia": 1,
+        "constipation": 2,
+        "hypersensitivity": 1,
+        "dumping syndrome": 1,
+        "dizziness": 2,
+        "illness": 2,
+        "nausea": 1,
+        "vomiting": 1,
+        "food aversion": 1
+    },
+    "severity_distribution": {
+        "Severe": 3,
+        "Not specified": 17
+    },
+    "review_level_stats": {
+        "Review_0": {
+            "total_side_effects": 3,
+            "standardized_side_effects": 1,
+            "standardization_rate": "33.3%"
+        },
+        "Review_1": {
+            "total_side_effects": 1,
+            "standardized_side_effects": 0,
+            "standardization_rate": "0.0%"
+        },
+        "Review_2": {
+            "total_side_effects": 1,
+            "standardized_side_effects": 1,
+            "standardization_rate": "100.0%"
+        },
+        "Review_3": {
+            "total_side_effects": 1,
+            "standardized_side_effects": 1,
+            "standardization_rate": "100.0%"
+        },
+        "Review_4": {
+            "total_side_effects": 1,
+            "standardized_side_effects": 1,
+            "standardization_rate": "100.0%"
+        },
+        "Review_5": {
+            "total_side_effects": 3,
+            "standardized_side_effects": 1,
+            "standardization_rate": "33.3%"
+        },
+        "Review_6": {
+            "total_side_effects": 7,
+            "standardized_side_effects": 5,
+            "standardization_rate": "71.4%"
+        },
+        "Review_7": {
+            "total_side_effects": 1,
+            "standardized_side_effects": 1,
+            "standardization_rate": "100.0%"
+        },
+        "Review_8": {
+            "total_side_effects": 1,
+            "standardized_side_effects": 0,
+            "standardization_rate": "0.0%"
+        },
+        "Review_9": {
+            "total_side_effects": 1,
+            "standardized_side_effects": 1,
+            "standardization_rate": "100.0%"
+        }
+    }
+}

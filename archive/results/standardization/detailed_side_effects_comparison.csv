@@ -1,0 +1,21 @@
+Review_ID,User,Original_Term,Severity,Standardized_Term,Is_Standardized,Standardization_Status
+0,JB,bloating,Severe,,False,Not Mapped
+0,JB,acid reflux,Severe,,False,Not Mapped
+0,JB,difficulty swallowing,Severe,dysphagia,True,Successfully Mapped
+1,mouse,tired and sleepy,,,False,Not Mapped
+2,CJS,constipation,,constipation,True,Successfully Mapped
+3,Janj,Allergic reaction,,hypersensitivity,True,Successfully Mapped
+4,Dale G,dumping syndrome,,dumping syndrome,True,Successfully Mapped
+5,Dumbfounded,Dizziness,,dizziness,True,Successfully Mapped
+5,Dumbfounded,Intestinal pain with diarrhea and bleeding,,,False,Not Mapped
+5,Dumbfounded,BPPV (Benign Paroxysmal Positional Vertigo),,,False,Not Mapped
+6,Lala,sick,,illness,True,Successfully Mapped
+6,Lala,dizzy,,dizziness,True,Successfully Mapped
+6,Lala,nauseated,,nausea,True,Successfully Mapped
+6,Lala,throwing up,,vomiting,True,Successfully Mapped
+6,Lala,taste and smell of food changed,,,False,Not Mapped
+6,Lala,disgusted by food,,food aversion,True,Successfully Mapped
+6,Lala,weak,,,False,Not Mapped
+7,Patty,Sickness,,illness,True,Successfully Mapped
+8,Bob,stomach pain,,,False,Not Mapped
+9,Liz C.,constipation,,constipation,True,Successfully Mapped

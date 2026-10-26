@@ -36,7 +36,6 @@ class AnnotationTests(unittest.TestCase):
         old={**row,'structured_info':json.dumps({'side_effects':[{'name':'nausea','associated_drug':'Metformin'}]}),'relations':'[]'}
         self.assertEqual(annotation(row,index([old]),'structured_info','relations')[2],'pending')
 
-    @unittest.skipUnless((ROOT/'data/raw/webmd/2026-09-12/webmd_all_reviews.csv').exists(), 'WebMD review data are not distributed with the repository')
     def test_stale_index_rejected(self):
         with tempfile.TemporaryDirectory() as temp:
             with self.assertRaises(ValueError):verify_index(temp,'test')

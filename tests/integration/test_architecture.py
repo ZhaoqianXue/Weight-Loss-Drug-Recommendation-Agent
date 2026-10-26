@@ -17,8 +17,6 @@ from weightloss.provenance import dataset_digest
 from weightloss.runs import atomic_json, operation, new_run, freeze
 
 ROOT=Path(__file__).resolve().parents[2]
-WEBMD=(ROOT/'data/raw/webmd/2026-09-12/webmd_all_reviews.csv').exists()
-needs_webmd=unittest.skipUnless(WEBMD, 'WebMD review data are not distributed with the repository')
 
 @contextlib.contextmanager
 def isolated_run():
@@ -53,13 +51,11 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
 '''
         subprocess.run([sys.executable,'-c',code],cwd=tempfile.gettempdir(),check=True)
 
-    @needs_webmd
     def test_cli_runs_outside_checkout(self):
         result=subprocess.run([sys.executable,'-m','weightloss','--root',str(ROOT),'validate'],cwd=tempfile.gettempdir(),capture_output=True,text=True)
         self.assertEqual(result.returncode,0,result.stderr)
         self.assertEqual(json.loads(result.stdout)['reviews'],2727)
 
-    @needs_webmd
     def test_frozen_snapshot_rejects_writes_without_changes(self):
         paths=get_settings();before=dataset_digest()
         result=subprocess.run([sys.executable,'-m','weightloss','refresh'],capture_output=True,text=True)
@@ -67,7 +63,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
         self.assertIn('frozen',result.stderr)
         self.assertEqual(dataset_digest(),before)
 
-    @needs_webmd
     def test_refresh_from_migrated_seeds_matches_frozen_bytes(self):
         from weightloss.pipeline.refresh_data import main
         with isolated_run() as paths:
@@ -75,7 +70,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             with contextlib.redirect_stdout(io.StringIO()):main()
             self.assertEqual([dataset_digest(paths.path(k)) for k in ('extracted','standardized')],before)
 
-    @needs_webmd
     def test_new_run_is_separate_and_cannot_overwrite(self):
         with isolated_run() as paths:
             before=dataset_digest()
@@ -89,7 +83,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             with self.assertRaises(ValueError):new_run('next-run')
             with self.assertRaises(ValueError):new_run('../escape')
 
-    @needs_webmd
     def test_failed_operation_records_failure_and_releases_lock(self):
         with isolated_run() as paths:
             with self.assertRaises(RuntimeError):
@@ -101,14 +94,12 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             self.assertFalse((paths.path('results')/'.operation.lock').exists())
             self.assertTrue(report['input_sha256'])
 
-    @needs_webmd
     def test_freeze_validates_and_prevents_future_writes(self):
         with isolated_run() as paths:
             freeze()
             self.assertTrue(get_settings().config['frozen'])
             with self.assertRaises(ValueError):get_settings().require_writable()
 
-    @needs_webmd
     def test_corrupt_snapshot_rejected_before_web_build(self):
         from weightloss.pipeline.build_web import build_web
         with isolated_run() as paths:
@@ -143,7 +134,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
                 with self.assertRaises(ValueError):batch_scraper.main(['--output-dir',str(destination)])
             self.assertFalse(destination.exists())
 
-    @needs_webmd
     def test_stages_share_environment_and_new_environment_gets_new_file(self):
         from weightloss.runs import environment_reference
         from types import SimpleNamespace
@@ -161,7 +151,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             self.assertNotEqual(changed['fingerprint'],reference['fingerprint'])
             self.assertEqual(len(list(environment.parent.glob('*.json'))),2)
 
-    @needs_webmd
     def test_corrupt_environment_is_rejected_and_lock_released(self):
         with isolated_run() as paths:
             with operation('first') as report:
@@ -172,7 +161,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             self.assertFalse((paths.path('results')/'.operation.lock').exists())
             self.assertEqual(environment.read_text(),'{}')
 
-    @needs_webmd
     def test_web_build_has_only_current_manifest_and_run_reference(self):
         with isolated_run() as paths:
             from weightloss.cli import main
@@ -187,7 +175,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
             self.assertFalse((paths.path('results')/'operations').exists())
             self.assertFalse((paths.path('results')/'environments').exists())
 
-    @needs_webmd
     def test_web_and_operation_share_cross_process_write_lock(self):
         from weightloss.pipeline.build_web import build_web
         with isolated_run() as paths:
@@ -201,7 +188,6 @@ with patch.object(Path, 'read_text', side_effect=AssertionError('read_text at im
                 self.assertEqual(dataset_digest(paths.path('web_build')/'build_manifest.json'),before)
             self.assertFalse((paths.path('results')/'.operation.lock').exists())
 
-    @needs_webmd
     def test_extraction_resumes_after_interruption_without_repeating_completed_row(self):
         from types import SimpleNamespace
         from weightloss.extraction.extract_all import main

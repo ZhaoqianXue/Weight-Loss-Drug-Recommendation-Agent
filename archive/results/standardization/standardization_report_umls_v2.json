@@ -1,0 +1,4008 @@
+{
+    "summary": {
+        "total_unique_terms": 1530,
+        "successfully_mapped": 820,
+        "unmapped_terms": 710,
+        "mapping_success_rate": "53.59%"
+    },
+    "method_breakdown": {
+        "Direct Match": 121,
+        "UMLS Match": 512,
+        "Fuzzy Match": 187
+    },
+    "mappings": {
+        "lethargic": {
+            "standard_name": "Lethargy",
+            "method": "UMLS Match"
+        },
+        "Stress incontinence": {
+            "standard_name": "Stress",
+            "method": "UMLS Match"
+        },
+        "Muscle spasms": {
+            "standard_name": "Muscle Spasms",
+            "method": "Direct Match"
+        },
+        "Burping": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "vomiting at night": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gas and Burping": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "morning sickness": {
+            "standard_name": "Morning Sickness",
+            "method": "Direct Match"
+        },
+        "constipation": {
+            "standard_name": "Constipation",
+            "method": "Direct Match"
+        },
+        "diabetic ketoacidosis (DKA)": {
+            "standard_name": "Ketosis",
+            "method": "UMLS Match"
+        },
+        "itching scalp, legs, arms and body": {
+            "standard_name": "Impatience",
+            "method": "UMLS Match"
+        },
+        "Blackouts": {
+            "standard_name": "Syncope",
+            "method": "UMLS Match"
+        },
+        "Feeling full": {
+            "standard_name": "Early Satiety",
+            "method": "UMLS Match"
+        },
+        "Bruises at injection sites": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Candida yeast infection": {
+            "standard_name": "Candida Infection",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "Acid reflux": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Gastrointestinal discomfort (hard belly)": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Itching or burning at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gallbladder stone": {
+            "standard_name": "Cholelithiasis",
+            "method": "UMLS Match"
+        },
+        "Pain swallowing": {
+            "standard_name": "Odynophagia",
+            "method": "UMLS Match"
+        },
+        "Loose stools": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "vomit": {
+            "standard_name": "Vomiting",
+            "method": "UMLS Match"
+        },
+        "Gained weight": {
+            "standard_name": "Weight Increased",
+            "method": "UMLS Match"
+        },
+        "lethargy": {
+            "standard_name": "Lethargy",
+            "method": "Direct Match"
+        },
+        "Loss of taste": {
+            "standard_name": "Ageusia",
+            "method": "UMLS Match"
+        },
+        "ringing in ears": {
+            "standard_name": "Tinnitus",
+            "method": "UMLS Match"
+        },
+        "sleep disturbance (feeling like being on a high and crashing)": {
+            "standard_name": "Sleep Disorder",
+            "method": "UMLS Match"
+        },
+        "low blood sugar": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "Injection site itching": {
+            "standard_name": "Injection Site Pruritus",
+            "method": "UMLS Match"
+        },
+        "Wind": {
+            "standard_name": "Flatulence",
+            "method": "UMLS Match"
+        },
+        "Dry skin": {
+            "standard_name": "Dry Skin",
+            "method": "Direct Match"
+        },
+        "Throat pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Projectile vomiting of food and liquids": {
+            "standard_name": "Pneumonia Aspiration",
+            "method": "UMLS Match"
+        },
+        "Black stools": {
+            "standard_name": "Melaena",
+            "method": "UMLS Match"
+        },
+        "Panic attack": {
+            "standard_name": "Panic Attack",
+            "method": "Direct Match"
+        },
+        "Headaches": {
+            "standard_name": "Headache",
+            "method": "UMLS Match"
+        },
+        "Irritable bowel syndrome (IBS)": {
+            "standard_name": "Irritable Bowel Syndrome",
+            "method": "UMLS Match"
+        },
+        "Loss of appetite": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "sensitive skin": {
+            "standard_name": "Sensitive Skin",
+            "method": "Direct Match"
+        },
+        "Night sweats": {
+            "standard_name": "Night Sweats",
+            "method": "Direct Match"
+        },
+        "Gassy": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "Lips burning and tingling": {
+            "standard_name": "Burning Sensation",
+            "method": "UMLS Match"
+        },
+        "excessive fatigue": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Injection site irritation": {
+            "standard_name": "Injection Site Irritation",
+            "method": "Direct Match"
+        },
+        "feeling off": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "blurred vision": {
+            "standard_name": "Vision Blurred",
+            "method": "UMLS Match"
+        },
+        "blurry vision": {
+            "standard_name": "Vision Blurred",
+            "method": "UMLS Match"
+        },
+        "Hiccups": {
+            "standard_name": "Hiccups",
+            "method": "Direct Match"
+        },
+        "aches and pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Nausea after eating": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "feeling unwell": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "bad breath": {
+            "standard_name": "Breath Odour",
+            "method": "UMLS Match"
+        },
+        "Soreness at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Weight loss (initial)": {
+            "standard_name": "Insomnia",
+            "method": "UMLS Match"
+        },
+        "Slight hunger": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Queasy": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "bad headache": {
+            "standard_name": "Headache",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Feeling full quickly": {
+            "standard_name": "Early Satiety",
+            "method": "UMLS Match"
+        },
+        "Lower left quadrant pain": {
+            "standard_name": "Abdominal Pain Lower",
+            "method": "UMLS Match"
+        },
+        "Blood glucose fluctuations": {
+            "standard_name": "Blood Glucose Fluctuation",
+            "method": "UMLS Match"
+        },
+        "Breathing problems": {
+            "standard_name": "Respiration Abnormal",
+            "method": "UMLS Match"
+        },
+        "Ketoacidosis": {
+            "standard_name": "Ketoacidosis",
+            "method": "Direct Match"
+        },
+        "Taste disturbance": {
+            "standard_name": "Dysgeusia",
+            "method": "UMLS Match"
+        },
+        "Backache": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "dry heaving": {
+            "standard_name": "Retching",
+            "method": "UMLS Match"
+        },
+        "Muscle pains": {
+            "standard_name": "Myalgia",
+            "method": "UMLS Match"
+        },
+        "Hyperactivity": {
+            "standard_name": "Attention Deficit Hyperactivity Disorder",
+            "method": "UMLS Match"
+        },
+        "Difficulty swallowing": {
+            "standard_name": "Dysphagia",
+            "method": "UMLS Match"
+        },
+        "Fecal incontinence": {
+            "standard_name": "Incontinence",
+            "method": "UMLS Match"
+        },
+        "Sticky saliva": {
+            "standard_name": "Tic",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Fullness / Feeling like vomiting": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Urinary Tract Infection (UTI)": {
+            "standard_name": "Infection",
+            "method": "UMLS Match"
+        },
+        "Yeast infection": {
+            "standard_name": "Oral Infection",
+            "method": "UMLS Match"
+        },
+        "migraine": {
+            "standard_name": "Migraine",
+            "method": "Direct Match"
+        },
+        "Low blood sugar": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "Nerve pain in left foot": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Morning sickness": {
+            "standard_name": "Morning Sickness",
+            "method": "Direct Match"
+        },
+        "Dry heaving": {
+            "standard_name": "Retching",
+            "method": "UMLS Match"
+        },
+        "Elevated WBC": {
+            "standard_name": "Leukocytosis",
+            "method": "UMLS Match"
+        },
+        "Nose bleed": {
+            "standard_name": "Epistaxis",
+            "method": "UMLS Match"
+        },
+        "Skin irritation with spots that feel burny and rubbed": {
+            "standard_name": "Skin Irritation",
+            "method": "UMLS Match"
+        },
+        "tiredness": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Vaginal odor": {
+            "standard_name": "Vaginal Odour",
+            "method": "UMLS Match"
+        },
+        "Blood sugar crash": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "No hunger": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "cold sweats": {
+            "standard_name": "Cold Sweat",
+            "method": "UMLS Match"
+        },
+        "achy": {
+            "standard_name": "Tachyphrenia",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Severe illness": {
+            "standard_name": "Respiratory Fatigue",
+            "method": "UMLS Match"
+        },
+        "Queasiness": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "Hunger pangs": {
+            "standard_name": "Hunger",
+            "method": "UMLS Match"
+        },
+        "Nausea and Vomiting": {
+            "standard_name": "Vomiting",
+            "method": "UMLS Match"
+        },
+        "Dry mouth": {
+            "standard_name": "Dry Mouth",
+            "method": "Direct Match"
+        },
+        "joint pain in knee": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Bad breath": {
+            "standard_name": "Breath Odour",
+            "method": "UMLS Match"
+        },
+        "bloating": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "ED": {
+            "standard_name": "Erectile Dysfunction",
+            "method": "UMLS Match"
+        },
+        "indigestion": {
+            "standard_name": "Dyspepsia",
+            "method": "UMLS Match"
+        },
+        "Lethargy": {
+            "standard_name": "Lethargy",
+            "method": "Direct Match"
+        },
+        "Explosive diarrhea": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Sore throat": {
+            "standard_name": "Pharyngitis Streptococcal",
+            "method": "UMLS Match"
+        },
+        "Pancreatic reaction": {
+            "standard_name": "Tic",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "sleep disturbances": {
+            "standard_name": "Sleep Disorder",
+            "method": "UMLS Match"
+        },
+        "Excessive burping": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "illness": {
+            "standard_name": "Illness",
+            "method": "Direct Match"
+        },
+        "Injection anxiety": {
+            "standard_name": "Anxiety",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "confusion": {
+            "standard_name": "Disorientation",
+            "method": "UMLS Match"
+        },
+        "difficulty urinating": {
+            "standard_name": "Dysuria",
+            "method": "UMLS Match"
+        },
+        "Gastrointestinal issues (diarrhea, nausea)": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Mood changes": {
+            "standard_name": "Mood Swings",
+            "method": "UMLS Match"
+        },
+        "loose bowel": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "hypoglycemia": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "itchiness at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "low potassium levels": {
+            "standard_name": "Hypokalaemia",
+            "method": "UMLS Match"
+        },
+        "High blood pressure": {
+            "standard_name": "Hypertension",
+            "method": "UMLS Match"
+        },
+        "weight loss": {
+            "standard_name": "Weight Decreased",
+            "method": "UMLS Match"
+        },
+        "Discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Direct Match"
+        },
+        "Thyroid cancer": {
+            "standard_name": "Thyroid Cancer",
+            "method": "Direct Match"
+        },
+        "vision problems": {
+            "standard_name": "Visual Impairment",
+            "method": "UMLS Match"
+        },
+        "gastroparesis": {
+            "standard_name": "Gastric Atony",
+            "method": "UMLS Match"
+        },
+        "Frequent bowel movements": {
+            "standard_name": "Frequent Bowel Movements",
+            "method": "Direct Match"
+        },
+        "High blood sugar levels": {
+            "standard_name": "Hyperglycaemia",
+            "method": "UMLS Match"
+        },
+        "Illness when overeating and drinking": {
+            "standard_name": "Alcohol Use",
+            "method": "UMLS Match"
+        },
+        "low blood pressure": {
+            "standard_name": "Hypotension",
+            "method": "UMLS Match"
+        },
+        "Nausea": {
+            "standard_name": "Nausea",
+            "method": "Direct Match"
+        },
+        "Black stool": {
+            "standard_name": "Melaena",
+            "method": "UMLS Match"
+        },
+        "Appetite decrease": {
+            "standard_name": "Decreased Appetite",
+            "method": "UMLS Match"
+        },
+        "Severe sweating": {
+            "standard_name": "Hypertensive Crisis",
+            "method": "UMLS Match"
+        },
+        "Fear of noted side effects": {
+            "standard_name": "Fear",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Acne": {
+            "standard_name": "Acne",
+            "method": "Direct Match"
+        },
+        "No back pain": {
+            "standard_name": "Back Pain",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "Labored breathing": {
+            "standard_name": "Respiratory Distress",
+            "method": "UMLS Match"
+        },
+        "Illness": {
+            "standard_name": "Illness",
+            "method": "Direct Match"
+        },
+        "boil at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "depression": {
+            "standard_name": "Depression",
+            "method": "Direct Match"
+        },
+        "Exacerbation of rosacea": {
+            "standard_name": "Rosacea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Stomach ulcer": {
+            "standard_name": "Ulcer",
+            "method": "UMLS Match"
+        },
+        "sweats": {
+            "standard_name": "Night Sweats",
+            "method": "UMLS Match"
+        },
+        "Change in vision": {
+            "standard_name": "Hypertensive Crisis",
+            "method": "UMLS Match"
+        },
+        "light sensitivity": {
+            "standard_name": "Photophobia",
+            "method": "UMLS Match"
+        },
+        "Malnutrition (implied from not eating for 22 days)": {
+            "standard_name": "Malnutrition",
+            "method": "UMLS Match"
+        },
+        "Altered taste": {
+            "standard_name": "Dysgeusia",
+            "method": "UMLS Match"
+        },
+        "GI upset": {
+            "standard_name": "Gastrointestinal Tract Irritation",
+            "method": "UMLS Match"
+        },
+        "PVCs (premature ventricular contractions)": {
+            "standard_name": "Extrasystoles",
+            "method": "UMLS Match"
+        },
+        "Muscle cramps": {
+            "standard_name": "Muscle Spasms",
+            "method": "UMLS Match"
+        },
+        "Distended abdomen": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "Needle phobia": {
+            "standard_name": "Fear",
+            "method": "UMLS Match"
+        },
+        "Nauseated": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "Excessive fatigue": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Chills": {
+            "standard_name": "Chills",
+            "method": "Direct Match"
+        },
+        "Inflammation": {
+            "standard_name": "Inflammation",
+            "method": "Direct Match"
+        },
+        "High heart rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Itching": {
+            "standard_name": "Pruritus",
+            "method": "UMLS Match"
+        },
+        "Nausea (again)": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "Disgust with food": {
+            "standard_name": "Aversion",
+            "method": "UMLS Match"
+        },
+        "Lump at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gas and sulphur burps": {
+            "standard_name": "Flatulence",
+            "method": "UMLS Match"
+        },
+        "Personality change": {
+            "standard_name": "Personality Change",
+            "method": "Direct Match"
+        },
+        "Decreased appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "Direct Match"
+        },
+        "Joint pain": {
+            "standard_name": "Arthralgia",
+            "method": "UMLS Match"
+        },
+        "lack of energy": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Indigestion": {
+            "standard_name": "Dyspepsia",
+            "method": "UMLS Match"
+        },
+        "Inflamed hiatal hernia": {
+            "standard_name": "Hernia",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Pericardial effusion": {
+            "standard_name": "Pericardial Effusion",
+            "method": "Direct Match"
+        },
+        "Gallbladder removal": {
+            "standard_name": "Cholecystectomy",
+            "method": "UMLS Match"
+        },
+        "Heavy menstrual bleeding with clots": {
+            "standard_name": "Heavy Menstrual Bleeding",
+            "method": "UMLS Match"
+        },
+        "Fibromyalgia flares": {
+            "standard_name": "Myalgia",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gassiness": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "Moodiness": {
+            "standard_name": "Acute Abdomen",
+            "method": "UMLS Match"
+        },
+        "vision blurriness": {
+            "standard_name": "Vision Blurred",
+            "method": "UMLS Match"
+        },
+        "Extreme exhaustion": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Esophagitis": {
+            "standard_name": "Oesophagitis",
+            "method": "UMLS Match"
+        },
+        "Nightmares": {
+            "standard_name": "Nightmare",
+            "method": "UMLS Match"
+        },
+        "yeast infection": {
+            "standard_name": "Oral Infection",
+            "method": "UMLS Match"
+        },
+        "frequent urination": {
+            "standard_name": "Pollakiuria",
+            "method": "UMLS Match"
+        },
+        "crying a lot": {
+            "standard_name": "Crying",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "sharp abdominal pains": {
+            "standard_name": "Abdominal Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "blood sugar crashing": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Lightheadedness": {
+            "standard_name": "Dizziness",
+            "method": "UMLS Match"
+        },
+        "Violent illness": {
+            "standard_name": "Illness",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "vomiting sensation at night": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "back pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Shaking": {
+            "standard_name": "Tremor",
+            "method": "UMLS Match"
+        },
+        "gas and burping": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "wooziness": {
+            "standard_name": "Dizziness",
+            "method": "UMLS Match"
+        },
+        "tired": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "panic attacks": {
+            "standard_name": "Panic Attack",
+            "method": "UMLS Match"
+        },
+        "irritable bowel": {
+            "standard_name": "Irritable Bowel Syndrome",
+            "method": "UMLS Match"
+        },
+        "throwing up": {
+            "standard_name": "Vomiting",
+            "method": "UMLS Match"
+        },
+        "dehydration": {
+            "standard_name": "Dehydration",
+            "method": "Direct Match"
+        },
+        "exhaustion": {
+            "standard_name": "Heat Exhaustion",
+            "method": "UMLS Match"
+        },
+        "depressed": {
+            "standard_name": "Depression",
+            "method": "UMLS Match"
+        },
+        "fever": {
+            "standard_name": "Pyrexia",
+            "method": "UMLS Match"
+        },
+        "Weakness/Fatigue": {
+            "standard_name": "Mental Fatigue",
+            "method": "UMLS Match"
+        },
+        "Gall bladder disease": {
+            "standard_name": "Bladder Disorder",
+            "method": "UMLS Match"
+        },
+        "Reduced hunger sensation": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "IBS": {
+            "standard_name": "Irritable Bowel Syndrome",
+            "method": "UMLS Match"
+        },
+        "back pain": {
+            "standard_name": "Back Pain",
+            "method": "Direct Match"
+        },
+        "Pain radiating up to jaw": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Severe anxiety": {
+            "standard_name": "Anxiety",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Hunger increase after weight loss": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Cost": {
+            "standard_name": "Costochondritis",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Injection site discomfort": {
+            "standard_name": "Injection Site Discomfort",
+            "method": "Direct Match"
+        },
+        "Redness at injection sites": {
+            "standard_name": "Injection Site Pain",
+            "method": "UMLS Match"
+        },
+        "feeling awful": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "Headache": {
+            "standard_name": "Headache",
+            "method": "Direct Match"
+        },
+        "fullness": {
+            "standard_name": "Epigastric Discomfort",
+            "method": "UMLS Match"
+        },
+        "insomnia": {
+            "standard_name": "Insomnia",
+            "method": "Direct Match"
+        },
+        "Shortness of breath": {
+            "standard_name": "Dyspnoea",
+            "method": "UMLS Match"
+        },
+        "Muscle aches": {
+            "standard_name": "Myalgia",
+            "method": "UMLS Match"
+        },
+        "Not feeling well": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "joint pain": {
+            "standard_name": "Arthralgia",
+            "method": "UMLS Match"
+        },
+        "sleeplessness": {
+            "standard_name": "Insomnia",
+            "method": "UMLS Match"
+        },
+        "Hot flashes": {
+            "standard_name": "Hot Flush",
+            "method": "UMLS Match"
+        },
+        "Hair loss": {
+            "standard_name": "Alopecia",
+            "method": "UMLS Match"
+        },
+        "allergies": {
+            "standard_name": "Hypersensitivity",
+            "method": "UMLS Match"
+        },
+        "Weight gain (after dose increase)": {
+            "standard_name": "Weight Increased",
+            "method": "UMLS Match"
+        },
+        "cold and sweating": {
+            "standard_name": "Sweating Fever",
+            "method": "UMLS Match"
+        },
+        "nervousness": {
+            "standard_name": "Nervousness",
+            "method": "Direct Match"
+        },
+        "Pain in arms": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "lower back pain": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Diarrhea": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Tiredness": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Pain and swelling in legs/feet": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "muscle spasms": {
+            "standard_name": "Muscle Spasms",
+            "method": "Direct Match"
+        },
+        "Pain in hands": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "liver pain": {
+            "standard_name": "Hepatic Pain",
+            "method": "UMLS Match"
+        },
+        "sleep disturbance": {
+            "standard_name": "Sleep Disorder",
+            "method": "UMLS Match"
+        },
+        "Arm/leg pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Muscle and joint pain": {
+            "standard_name": "Arthralgia",
+            "method": "UMLS Match"
+        },
+        "Rash and welts": {
+            "standard_name": "Urticaria",
+            "method": "UMLS Match"
+        },
+        "Fried food intolerance": {
+            "standard_name": "Food Intolerance",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "constipation or diarrhea": {
+            "standard_name": "Constipation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Drop in blood pressure": {
+            "standard_name": "Hypotension",
+            "method": "UMLS Match"
+        },
+        "Fullness": {
+            "standard_name": "Epigastric Discomfort",
+            "method": "UMLS Match"
+        },
+        "Low blood sugars": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "Vomiting/Diarrhea": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Erectile Dysfunction (ED)": {
+            "standard_name": "Erectile Dysfunction",
+            "method": "UMLS Match"
+        },
+        "gassiness": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "acid reflux": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Severe depression": {
+            "standard_name": "Major Depression",
+            "method": "UMLS Match"
+        },
+        "heartburn": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Hot flushes": {
+            "standard_name": "Hot Flush",
+            "method": "UMLS Match"
+        },
+        "swelling in neck": {
+            "standard_name": "Swelling",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Direct Match"
+        },
+        "Fainting": {
+            "standard_name": "Syncope",
+            "method": "UMLS Match"
+        },
+        "vertigo": {
+            "standard_name": "Vertigo",
+            "method": "Direct Match"
+        },
+        "Heart palpitations": {
+            "standard_name": "Palpitations",
+            "method": "UMLS Match"
+        },
+        "Exhaustion": {
+            "standard_name": "Heat Exhaustion",
+            "method": "UMLS Match"
+        },
+        "Nervous feelings": {
+            "standard_name": "Nervousness",
+            "method": "UMLS Match"
+        },
+        "Swelling in legs": {
+            "standard_name": "Swelling Face",
+            "method": "UMLS Match"
+        },
+        "Pain": {
+            "standard_name": "Pain",
+            "method": "Direct Match"
+        },
+        "Low potassium": {
+            "standard_name": "Hypokalaemia",
+            "method": "UMLS Match"
+        },
+        "loose stool": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Severe pain": {
+            "standard_name": "Eye Pain",
+            "method": "UMLS Match"
+        },
+        "Reduced hunger and appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "UMLS Match"
+        },
+        "Heart racing": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Dehydration / Ended up in hospital with fluid IV": {
+            "standard_name": "Dehydration",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "decreased appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "Direct Match"
+        },
+        "Pancreatitis": {
+            "standard_name": "Pancreatitis",
+            "method": "Direct Match"
+        },
+        "Lack of energy": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Bruising at injection sites": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Irritability": {
+            "standard_name": "Irritability",
+            "method": "Direct Match"
+        },
+        "GER": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "fecal incontinence": {
+            "standard_name": "Incontinence",
+            "method": "UMLS Match"
+        },
+        "gas": {
+            "standard_name": "Flatulence",
+            "method": "UMLS Match"
+        },
+        "Taste change": {
+            "standard_name": "Dysgeusia",
+            "method": "UMLS Match"
+        },
+        "loose stools": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "tummy pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Severe stomach pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "migraines": {
+            "standard_name": "Migraine",
+            "method": "UMLS Match"
+        },
+        "Wakefulness disturbance": {
+            "standard_name": "Circadian Rhythm Sleep Disorder",
+            "method": "UMLS Match"
+        },
+        "irritation": {
+            "standard_name": "Irritability",
+            "method": "UMLS Match"
+        },
+        "Stomach pain and cramping": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "increased heart rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Heartbeat": {
+            "standard_name": "Arrhythmia",
+            "method": "UMLS Match"
+        },
+        "fatigue": {
+            "standard_name": "Fatigue",
+            "method": "Direct Match"
+        },
+        "Increased pulse rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Gut pain": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Constipation": {
+            "standard_name": "Constipation",
+            "method": "Direct Match"
+        },
+        "Vision loss": {
+            "standard_name": "Blindness",
+            "method": "UMLS Match"
+        },
+        "Joint pains": {
+            "standard_name": "Arthralgia",
+            "method": "UMLS Match"
+        },
+        "bad rashes": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Reflux": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Farting": {
+            "standard_name": "Flatulence",
+            "method": "UMLS Match"
+        },
+        "Sluggishness": {
+            "standard_name": "Sluggishness",
+            "method": "Direct Match"
+        },
+        "Gerd": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "sluggishness": {
+            "standard_name": "Sluggishness",
+            "method": "Direct Match"
+        },
+        "Dehydration (implied from water intake and illness)": {
+            "standard_name": "Dehydration",
+            "method": "UMLS Match"
+        },
+        "Hunger suppression": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Not sleeping": {
+            "standard_name": "Sleep Deficit",
+            "method": "UMLS Match"
+        },
+        "lack of appetite": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "Itchy redness at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Abdominal Pain": {
+            "standard_name": "Abdominal Pain",
+            "method": "Direct Match"
+        },
+        "projectile vomiting": {
+            "standard_name": "Vomiting",
+            "method": "UMLS Match"
+        },
+        "stomach tenderness": {
+            "standard_name": "Tenderness",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "rash": {
+            "standard_name": "Rash",
+            "method": "Direct Match"
+        },
+        "inflammation and swelling problems": {
+            "standard_name": "Inflammation",
+            "method": "UMLS Match"
+        },
+        "pain in the whole insides": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Financial hardship": {
+            "standard_name": "Intentional Underdose",
+            "method": "UMLS Match"
+        },
+        "Intestinal pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Nausea from fatty foods": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Hives/Rash": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "overall body discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Malaise": {
+            "standard_name": "Malaise",
+            "method": "Direct Match"
+        },
+        "hypoglycemia shock": {
+            "standard_name": "Shock Hypoglycaemic",
+            "method": "UMLS Match"
+        },
+        "disagree with me": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Pain in pancreas": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "high blood pressure": {
+            "standard_name": "Hypertension",
+            "method": "UMLS Match"
+        },
+        "teeth brittleness": {
+            "standard_name": "Teeth Brittle",
+            "method": "UMLS Match"
+        },
+        "Nervousness": {
+            "standard_name": "Nervousness",
+            "method": "Direct Match"
+        },
+        "orthostatic hypotension": {
+            "standard_name": "Orthostatic Hypotension",
+            "method": "Direct Match"
+        },
+        "Dehydration": {
+            "standard_name": "Dehydration",
+            "method": "Direct Match"
+        },
+        "Heartburn": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Poor appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "UMLS Match"
+        },
+        "Watery diarrhea": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Loss of weight": {
+            "standard_name": "Weight Decreased",
+            "method": "UMLS Match"
+        },
+        "Bloating": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "upper abdominal pain": {
+            "standard_name": "Abdominal Pain",
+            "method": "UMLS Match"
+        },
+        "Anxiety attacks": {
+            "standard_name": "Anxiety",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Dry sore throat": {
+            "standard_name": "Dry Throat",
+            "method": "UMLS Match"
+        },
+        "increased thirst": {
+            "standard_name": "Thirst",
+            "method": "UMLS Match"
+        },
+        "Feeling sick": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "extreme body pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "joint pains": {
+            "standard_name": "Arthralgia",
+            "method": "UMLS Match"
+        },
+        "heart racing with palpitations": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "breathing problems": {
+            "standard_name": "Respiration Abnormal",
+            "method": "UMLS Match"
+        },
+        "stinging at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "general malaise": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "Injection pain": {
+            "standard_name": "Allodynia",
+            "method": "UMLS Match"
+        },
+        "kidney stones": {
+            "standard_name": "Lithiasis",
+            "method": "UMLS Match"
+        },
+        "Difficulty with injection device": {
+            "standard_name": "Injection",
+            "method": "UMLS Match"
+        },
+        "Hurt (needle pain)": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gastrointestinal upset": {
+            "standard_name": "Gastrointestinal Tract Irritation",
+            "method": "UMLS Match"
+        },
+        "Sweating": {
+            "standard_name": "Sweating Fever",
+            "method": "UMLS Match"
+        },
+        "no appetite": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "Cold sweats": {
+            "standard_name": "Cold Sweat",
+            "method": "UMLS Match"
+        },
+        "burning sensation in stomach": {
+            "standard_name": "Burning Sensation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Upper stomach discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Tiredness and Sleepiness": {
+            "standard_name": "Somnolence",
+            "method": "UMLS Match"
+        },
+        "High blood sugar": {
+            "standard_name": "Hyperglycaemia",
+            "method": "UMLS Match"
+        },
+        "Loose bowel movements": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Kidney failure": {
+            "standard_name": "Renal Failure",
+            "method": "UMLS Match"
+        },
+        "Injection pen malfunction": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "cold": {
+            "standard_name": "Nasopharyngitis",
+            "method": "UMLS Match"
+        },
+        "tired all the time": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "BPPV (Benign Paroxysmal Positional Vertigo)": {
+            "standard_name": "Vertigo Positional",
+            "method": "UMLS Match"
+        },
+        "Dizziness": {
+            "standard_name": "Dizziness",
+            "method": "Direct Match"
+        },
+        "Rash on cheeks": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "muscle mass decrease": {
+            "standard_name": "Muscle Mass",
+            "method": "UMLS Match"
+        },
+        "considerable intestinal discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Pain in legs and feet": {
+            "standard_name": "Radicular Pain",
+            "method": "UMLS Match"
+        },
+        "Indifference": {
+            "standard_name": "Indifference",
+            "method": "Direct Match"
+        },
+        "rash on injection site": {
+            "standard_name": "Injection Site Rash",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "Missed doses due to device issues": {
+            "standard_name": "Device Issue",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Lower back pain": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "ear problem": {
+            "standard_name": "Ear Disorder",
+            "method": "UMLS Match"
+        },
+        "No energy": {
+            "standard_name": "Listless",
+            "method": "UMLS Match"
+        },
+        "splatter flatulence": {
+            "standard_name": "Flatulence",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "No appetite or hunger signals": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Skin irritation": {
+            "standard_name": "Skin Irritation",
+            "method": "Direct Match"
+        },
+        "extreme labor/mistral pains": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gas pain": {
+            "standard_name": "Abdominal Pain",
+            "method": "UMLS Match"
+        },
+        "Increased energy and ability to exercise": {
+            "standard_name": "Exercise Tolerance Decreased",
+            "method": "UMLS Match"
+        },
+        "Muscle tightness": {
+            "standard_name": "Muscle Tightness",
+            "method": "Direct Match"
+        },
+        "Extreme fatigue": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Fogginess": {
+            "standard_name": "Vision Blurred",
+            "method": "UMLS Match"
+        },
+        "Saggy skin": {
+            "standard_name": "Fuchs' Syndrome",
+            "method": "UMLS Match"
+        },
+        "Extreme hunger": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "leg and foot aches and pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Pukie (nausea)": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "violent vomiting": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Decreased libido": {
+            "standard_name": "Loss Of Libido",
+            "method": "UMLS Match"
+        },
+        "sore back": {
+            "standard_name": "Back Injury",
+            "method": "UMLS Match"
+        },
+        "Throat cancer": {
+            "standard_name": "Throat Cancer",
+            "method": "Direct Match"
+        },
+        "Heart pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Feeling colder than normal": {
+            "standard_name": "Feeling Cold",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "feeling weird like something is wrong with me": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Soreness at site of injection": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Increased appetite": {
+            "standard_name": "Increased Appetite",
+            "method": "Direct Match"
+        },
+        "Symptoms (related to gallbladder issues)": {
+            "standard_name": "Neurological Symptom",
+            "method": "UMLS Match"
+        },
+        "abdominal swelling": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "thirst": {
+            "standard_name": "Thirst",
+            "method": "Direct Match"
+        },
+        "Fatigue": {
+            "standard_name": "Fatigue",
+            "method": "Direct Match"
+        },
+        "Chronic constipation": {
+            "standard_name": "Constipation",
+            "method": "UMLS Match"
+        },
+        "arthritis inflammation": {
+            "standard_name": "Inflammation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "extreme fatigue": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "irregular bowel movements": {
+            "standard_name": "Bowel Movement Irregularity",
+            "method": "UMLS Match"
+        },
+        "Acid": {
+            "standard_name": "Bile Acid Malabsorption",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "loose bowel movements": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Increased energy": {
+            "standard_name": "Energy Increased",
+            "method": "UMLS Match"
+        },
+        "Headache (HA)": {
+            "standard_name": "Headache",
+            "method": "UMLS Match"
+        },
+        "Change in food cravings": {
+            "standard_name": "Food Craving",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "bladderfulness": {
+            "standard_name": "Incontinence",
+            "method": "UMLS Match"
+        },
+        "Shivering and shaking": {
+            "standard_name": "Tremor",
+            "method": "UMLS Match"
+        },
+        "Bowel movements (unusual number)": {
+            "standard_name": "Number of Cases",
+            "method": "UMLS Match"
+        },
+        "Gallbladder stones": {
+            "standard_name": "Cholelithiasis",
+            "method": "UMLS Match"
+        },
+        "passing of gas": {
+            "standard_name": "Flatulence",
+            "method": "UMLS Match"
+        },
+        "not good for diabetic": {
+            "standard_name": "Tic",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "GERD": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Intestinal blockage": {
+            "standard_name": "Ileus",
+            "method": "UMLS Match"
+        },
+        "headache": {
+            "standard_name": "Headache",
+            "method": "Direct Match"
+        },
+        "distention": {
+            "standard_name": "Urinary Retention",
+            "method": "UMLS Match"
+        },
+        "Hanger": {
+            "standard_name": "Anger",
+            "method": "Fuzzy Match (Score: 91)"
+        },
+        "Increased thirst": {
+            "standard_name": "Thirst",
+            "method": "UMLS Match"
+        },
+        "taste disturbance": {
+            "standard_name": "Dysgeusia",
+            "method": "UMLS Match"
+        },
+        "jittery feeling": {
+            "standard_name": "Feeling Jittery",
+            "method": "UMLS Match"
+        },
+        "Flu-like symptoms": {
+            "standard_name": "Influenza Like Illness",
+            "method": "UMLS Match"
+        },
+        "possible colostomy": {
+            "standard_name": "Colostomy",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "mild constipation": {
+            "standard_name": "Constipation",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "No appetite": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "skin pain": {
+            "standard_name": "Pain Of Skin",
+            "method": "UMLS Match"
+        },
+        "pain": {
+            "standard_name": "Pain",
+            "method": "Direct Match"
+        },
+        "muscle cramps": {
+            "standard_name": "Muscle Spasms",
+            "method": "UMLS Match"
+        },
+        "Flushing": {
+            "standard_name": "Flushing",
+            "method": "Direct Match"
+        },
+        "Muscle loss": {
+            "standard_name": "Atrophy",
+            "method": "UMLS Match"
+        },
+        "Crying/Emotional disturbance": {
+            "standard_name": "Crying",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Nausea/vomiting urge": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Edema": {
+            "standard_name": "Oedema",
+            "method": "UMLS Match"
+        },
+        "GI tract abnormality": {
+            "standard_name": "X-Ray Gastrointestinal Tract Abnormal",
+            "method": "UMLS Match"
+        },
+        "fast heart rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "headaches": {
+            "standard_name": "Headache",
+            "method": "UMLS Match"
+        },
+        "rash on arms": {
+            "standard_name": "Rash Papular",
+            "method": "UMLS Match"
+        },
+        "Reduced hunger": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "daze": {
+            "standard_name": "Disorientation",
+            "method": "UMLS Match"
+        },
+        "stomach pain": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "vomiting": {
+            "standard_name": "Vomiting",
+            "method": "Direct Match"
+        },
+        "Constipation pain": {
+            "standard_name": "Urinary Tract Pain",
+            "method": "UMLS Match"
+        },
+        "Burps": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "allergic dermatitis": {
+            "standard_name": "Dermatitis",
+            "method": "UMLS Match"
+        },
+        "irritability": {
+            "standard_name": "Irritability",
+            "method": "Direct Match"
+        },
+        "vision blurry": {
+            "standard_name": "Vision Blurred",
+            "method": "UMLS Match"
+        },
+        "Stomach discomfort (GERD)": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "rash around the injection site": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "itchy welt at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Throat discomfort (burning, tingling, funny feeling)": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "pancreatic infection": {
+            "standard_name": "Pancreas Infection",
+            "method": "UMLS Match"
+        },
+        "Passing out": {
+            "standard_name": "Loss Of Consciousness",
+            "method": "UMLS Match"
+        },
+        "Intestinal pain with diarrhea and bleeding": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Cholesterol normalization": {
+            "standard_name": "Blood Cholesterol",
+            "method": "UMLS Match"
+        },
+        "pancreatitis": {
+            "standard_name": "Pancreatitis",
+            "method": "Direct Match"
+        },
+        "gallstones": {
+            "standard_name": "Cholelithiasis",
+            "method": "UMLS Match"
+        },
+        "Abnormal EKG": {
+            "standard_name": "Electrocardiogram Abnormal",
+            "method": "UMLS Match"
+        },
+        "lightheadedness": {
+            "standard_name": "Dizziness",
+            "method": "UMLS Match"
+        },
+        "itching": {
+            "standard_name": "Pruritus",
+            "method": "UMLS Match"
+        },
+        "Migraines": {
+            "standard_name": "Migraine",
+            "method": "UMLS Match"
+        },
+        "body pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Decreased energy": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Gastrointestinal discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "anemia": {
+            "standard_name": "Anaemia",
+            "method": "UMLS Match"
+        },
+        "Trouble sleeping": {
+            "standard_name": "Feeling Cold",
+            "method": "UMLS Match"
+        },
+        "Extreme nausea": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Reduced appetite/hunger": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Illness when smelling food": {
+            "standard_name": "Illness",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "flu-like symptoms": {
+            "standard_name": "Influenza Like Illness",
+            "method": "UMLS Match"
+        },
+        "Bruising at injection site": {
+            "standard_name": "Injection Site Bruising",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "Feeling more energetic": {
+            "standard_name": "Tic",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "food intolerance": {
+            "standard_name": "Food Intolerance",
+            "method": "Direct Match"
+        },
+        "Tremors": {
+            "standard_name": "Tremor",
+            "method": "UMLS Match"
+        },
+        "stomach distress": {
+            "standard_name": "Stress",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Lack of effectiveness": {
+            "standard_name": "Drug Ineffective",
+            "method": "UMLS Match"
+        },
+        "White tongue": {
+            "standard_name": "Tongue Coated",
+            "method": "UMLS Match"
+        },
+        "hair loss": {
+            "standard_name": "Alopecia",
+            "method": "UMLS Match"
+        },
+        "Acid buildup": {
+            "standard_name": "Starvation Ketoacidosis",
+            "method": "UMLS Match"
+        },
+        "Pain in knees": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "craving": {
+            "standard_name": "Salt Craving",
+            "method": "UMLS Match"
+        },
+        "Feeling unwell / malaise": {
+            "standard_name": "Malaise",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Anorexia": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "Stomach discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "hive/rash": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "hiccups": {
+            "standard_name": "Hiccups",
+            "method": "Direct Match"
+        },
+        "gag reflex leading to vomiting": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gastroenteritis": {
+            "standard_name": "Gastroenteritis",
+            "method": "Direct Match"
+        },
+        "Vertigo": {
+            "standard_name": "Vertigo",
+            "method": "Direct Match"
+        },
+        "burping": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "burning": {
+            "standard_name": "Burning Sensation",
+            "method": "UMLS Match"
+        },
+        "Hemorrhoids": {
+            "standard_name": "Haemorrhoids",
+            "method": "UMLS Match"
+        },
+        "reflux": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Gastroparesis": {
+            "standard_name": "Gastric Atony",
+            "method": "UMLS Match"
+        },
+        "Food cravings reduction": {
+            "standard_name": "Food Craving",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Kidney pain": {
+            "standard_name": "Renal Pain",
+            "method": "UMLS Match"
+        },
+        "Bruising": {
+            "standard_name": "Contusion",
+            "method": "UMLS Match"
+        },
+        "Kidney problems": {
+            "standard_name": "Nephropathy",
+            "method": "UMLS Match"
+        },
+        "Depression": {
+            "standard_name": "Depression",
+            "method": "Direct Match"
+        },
+        "painful bloating": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Soreness": {
+            "standard_name": "Tenderness",
+            "method": "UMLS Match"
+        },
+        "sick": {
+            "standard_name": "Illness",
+            "method": "UMLS Match"
+        },
+        "feeling “off”": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "Injection site rashes": {
+            "standard_name": "Injection Site Rash",
+            "method": "UMLS Match"
+        },
+        "bloat": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "Diarrhoea": {
+            "standard_name": "Diarrhoea",
+            "method": "Direct Match"
+        },
+        "Constipation (use of prune juice)": {
+            "standard_name": "Constipation",
+            "method": "UMLS Match"
+        },
+        "Feeling poorly": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "Nausea/Vomiting": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "cold and chills": {
+            "standard_name": "Chills",
+            "method": "UMLS Match"
+        },
+        "Hypoglycemic shock": {
+            "standard_name": "Shock Hypoglycaemic",
+            "method": "UMLS Match"
+        },
+        "Pain episodes": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "low blood sugar (hypos)": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "belching": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "burps": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "Chest pain": {
+            "standard_name": "Chest Pain",
+            "method": "Direct Match"
+        },
+        "Weakness": {
+            "standard_name": "Asthenia",
+            "method": "UMLS Match"
+        },
+        "Pain in shoulder blades": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Loss of energy": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Acid Reflux": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Injection difficulty": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Extreme constipation": {
+            "standard_name": "Constipation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "upper stomach pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Hypoglycemia": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "abdominal pain": {
+            "standard_name": "Abdominal Pain",
+            "method": "Direct Match"
+        },
+        "shaking": {
+            "standard_name": "Tremor",
+            "method": "UMLS Match"
+        },
+        "Extreme stomach pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "severe, uncomfortableness in upper diaphragm": {
+            "standard_name": "Pre-Eclampsia",
+            "method": "UMLS Match"
+        },
+        "queasiness": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "Rash": {
+            "standard_name": "Rash",
+            "method": "Direct Match"
+        },
+        "blurriness": {
+            "standard_name": "Vision Blurred",
+            "method": "UMLS Match"
+        },
+        "Throat closing feeling (threatening)": {
+            "standard_name": "Abortion",
+            "method": "UMLS Match"
+        },
+        "Nausea or sickness": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Tiredness (potentially reversed)": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "appendicitis": {
+            "standard_name": "Appendicitis",
+            "method": "Direct Match"
+        },
+        "Heaviness and fullness": {
+            "standard_name": "Epigastric Discomfort",
+            "method": "UMLS Match"
+        },
+        "Aching": {
+            "standard_name": "Myalgia",
+            "method": "UMLS Match"
+        },
+        "muscle soreness": {
+            "standard_name": "Myalgia",
+            "method": "UMLS Match"
+        },
+        "sleepiness": {
+            "standard_name": "Somnolence",
+            "method": "UMLS Match"
+        },
+        "Gastrointestinal discomfort (related to wheat/inflammation)": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "dumping syndrome": {
+            "standard_name": "Dumping Syndrome",
+            "method": "Direct Match"
+        },
+        "Racing heart": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Thirst": {
+            "standard_name": "Thirst",
+            "method": "Direct Match"
+        },
+        "increased hunger": {
+            "standard_name": "Increased Appetite",
+            "method": "UMLS Match"
+        },
+        "Hunger": {
+            "standard_name": "Hunger",
+            "method": "Direct Match"
+        },
+        "loss of appetite": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "Fever": {
+            "standard_name": "Pyrexia",
+            "method": "UMLS Match"
+        },
+        "Sinus congestion": {
+            "standard_name": "Sinus Congestion",
+            "method": "Direct Match"
+        },
+        "shakiness": {
+            "standard_name": "Feeling Of Relaxation",
+            "method": "UMLS Match"
+        },
+        "abdominal pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "faint": {
+            "standard_name": "Syncope",
+            "method": "UMLS Match"
+        },
+        "Drowsiness": {
+            "standard_name": "Somnolence",
+            "method": "UMLS Match"
+        },
+        "stomach discomfort": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Sweats": {
+            "standard_name": "Night Sweats",
+            "method": "UMLS Match"
+        },
+        "Blurred vision": {
+            "standard_name": "Vision Blurred",
+            "method": "UMLS Match"
+        },
+        "swelling": {
+            "standard_name": "Swelling",
+            "method": "Direct Match"
+        },
+        "Projectile vomiting": {
+            "standard_name": "Vomiting",
+            "method": "UMLS Match"
+        },
+        "Vomiting": {
+            "standard_name": "Vomiting",
+            "method": "Direct Match"
+        },
+        "feeling sick": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "Gastroesophageal reflux disease (GERD)": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "Stomach distension": {
+            "standard_name": "Gastric Dilatation",
+            "method": "UMLS Match"
+        },
+        "food getting stuck in stomach and throat": {
+            "standard_name": "Pharyngitis Streptococcal",
+            "method": "UMLS Match"
+        },
+        "Loss of libido": {
+            "standard_name": "Loss Of Libido",
+            "method": "Direct Match"
+        },
+        "itchy swelling red at injection site": {
+            "standard_name": "Swelling",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Feelings of hopelessness and worthlessness": {
+            "standard_name": "Feelings Of Worthlessness",
+            "method": "UMLS Match"
+        },
+        "enlarged thyroid": {
+            "standard_name": "Goitre",
+            "method": "UMLS Match"
+        },
+        "Hunger and overeating": {
+            "standard_name": "Hyperphagia",
+            "method": "UMLS Match"
+        },
+        "mild stomach pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "flatulence": {
+            "standard_name": "Flatulence",
+            "method": "Direct Match"
+        },
+        "Sickness/Nausea from alcohol": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Weight gain": {
+            "standard_name": "Weight Increased",
+            "method": "UMLS Match"
+        },
+        "Abdominal pain": {
+            "standard_name": "Abdominal Pain",
+            "method": "Direct Match"
+        },
+        "Increased heartbeat": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Pancreatic cancer": {
+            "standard_name": "Neoplasm",
+            "method": "UMLS Match"
+        },
+        "Hyperkalemia": {
+            "standard_name": "Hyperkalaemia",
+            "method": "UMLS Match"
+        },
+        "enlarged lymph nodes": {
+            "standard_name": "Lymphadenopathy",
+            "method": "UMLS Match"
+        },
+        "Cramping": {
+            "standard_name": "Abdominal Discomfort",
+            "method": "UMLS Match"
+        },
+        "Low sex drive": {
+            "standard_name": "Libido Decreased",
+            "method": "UMLS Match"
+        },
+        "Suicidal thoughts": {
+            "standard_name": "Suicidal Ideation",
+            "method": "UMLS Match"
+        },
+        "leg pain (especially calves)": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Sneezing": {
+            "standard_name": "Sneezing",
+            "method": "Direct Match"
+        },
+        "Severe reaction (hot flashes, dizziness, sweats, passing out)": {
+            "standard_name": "Severe Cutaneous Adverse Reaction",
+            "method": "UMLS Match"
+        },
+        "Stomach problems (gastroparesis)": {
+            "standard_name": "Gastric Atony",
+            "method": "UMLS Match"
+        },
+        "nauseated feeling": {
+            "standard_name": "Nausea",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "dry skin": {
+            "standard_name": "Dry Skin",
+            "method": "Direct Match"
+        },
+        "Gall stones": {
+            "standard_name": "Gallbladder Disorder",
+            "method": "UMLS Match"
+        },
+        "discomfort after eating": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Severe fatigue": {
+            "standard_name": "Respiratory Fatigue",
+            "method": "UMLS Match"
+        },
+        "Injection site reaction": {
+            "standard_name": "Injection Site Reaction",
+            "method": "Direct Match"
+        },
+        "hives": {
+            "standard_name": "Urticaria",
+            "method": "UMLS Match"
+        },
+        "Difficulty administering injection": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "jittery": {
+            "standard_name": "Feeling Jittery",
+            "method": "UMLS Match"
+        },
+        "Constant Belching": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "Heavy bleeding": {
+            "standard_name": "Intermenstrual Bleeding",
+            "method": "UMLS Match"
+        },
+        "Manic episode": {
+            "standard_name": "Mania",
+            "method": "UMLS Match"
+        },
+        "Sever stomach pains": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "abdominal discomfort": {
+            "standard_name": "Abdominal Discomfort",
+            "method": "Direct Match"
+        },
+        "swelling of feet and ankles": {
+            "standard_name": "Swelling",
+            "method": "UMLS Match"
+        },
+        "increased pulse rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "No abdominal pain": {
+            "standard_name": "Abdominal Pain",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "Dairy intolerance (limit dairy, no yellow cheese, small amounts of white cheese)": {
+            "standard_name": "Dairy Intolerance",
+            "method": "UMLS Match"
+        },
+        "cramping pains": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "bruising": {
+            "standard_name": "Contusion",
+            "method": "UMLS Match"
+        },
+        "hemorrhoids": {
+            "standard_name": "Haemorrhoids",
+            "method": "UMLS Match"
+        },
+        "Nauseous": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "Cravings": {
+            "standard_name": "Salt Craving",
+            "method": "UMLS Match"
+        },
+        "malaise": {
+            "standard_name": "Malaise",
+            "method": "Direct Match"
+        },
+        "rapid heart rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Discomfort from injection": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Stomach pain": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "sensitivity to touch": {
+            "standard_name": "Hyperaesthesia",
+            "method": "UMLS Match"
+        },
+        "Anxiety": {
+            "standard_name": "Anxiety",
+            "method": "Direct Match"
+        },
+        "Hunger returning": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Low blood pressure": {
+            "standard_name": "Hypotension",
+            "method": "UMLS Match"
+        },
+        "Paradoxical reaction": {
+            "standard_name": "Paradoxical Drug Reaction",
+            "method": "UMLS Match"
+        },
+        "eye pain": {
+            "standard_name": "Eye Pain",
+            "method": "Direct Match"
+        },
+        "hunger": {
+            "standard_name": "Hunger",
+            "method": "Direct Match"
+        },
+        "hypoglycaemic symptoms (low blood sugar)": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "Weight loss": {
+            "standard_name": "Weight Decreased",
+            "method": "UMLS Match"
+        },
+        "Allergic reaction": {
+            "standard_name": "Hypersensitivity",
+            "method": "UMLS Match"
+        },
+        "Shakiness": {
+            "standard_name": "Feeling Of Relaxation",
+            "method": "UMLS Match"
+        },
+        "Abdominal cramping": {
+            "standard_name": "Abdominal Discomfort",
+            "method": "UMLS Match"
+        },
+        "Injection device malfunction": {
+            "standard_name": "Device Malfunction",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "irritation at injection site": {
+            "standard_name": "Injection Site Irritation",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "Nausea and vomiting": {
+            "standard_name": "Vomiting",
+            "method": "UMLS Match"
+        },
+        "Increased hunger": {
+            "standard_name": "Increased Appetite",
+            "method": "UMLS Match"
+        },
+        "nervous": {
+            "standard_name": "Nervousness",
+            "method": "UMLS Match"
+        },
+        "bloody diarrhea": {
+            "standard_name": "Diarrhoea Haemorrhagic",
+            "method": "UMLS Match"
+        },
+        "Extreme pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Hunger between meals": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "no energy": {
+            "standard_name": "Listless",
+            "method": "UMLS Match"
+        },
+        "Needle pain/dull needle": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Feeling unwell": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "chills": {
+            "standard_name": "Chills",
+            "method": "Direct Match"
+        },
+        "Rapid palpitations": {
+            "standard_name": "Palpitations",
+            "method": "UMLS Match"
+        },
+        "Belching": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "stomach and GI tract upset": {
+            "standard_name": "Neoplasm",
+            "method": "UMLS Match"
+        },
+        "Irregular heart beats": {
+            "standard_name": "Heart Rate Irregular",
+            "method": "UMLS Match"
+        },
+        "Hunger pains": {
+            "standard_name": "Hunger",
+            "method": "UMLS Match"
+        },
+        "Pain in back": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Stomach pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "stomach pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "neck pain": {
+            "standard_name": "Neck Pain",
+            "method": "Direct Match"
+        },
+        "pain in right kidney": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Fluctuating weight (seesaw pattern)": {
+            "standard_name": "Weight Fluctuation",
+            "method": "UMLS Match"
+        },
+        "Extreme pain on right side": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Burping (Sulfer smell)": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "Pain or discomfort at injection site": {
+            "standard_name": "Injection Site Discomfort",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "itchy, red blotch at injection site": {
+            "standard_name": "Pruritus",
+            "method": "UMLS Match"
+        },
+        "redness around injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Confusion": {
+            "standard_name": "Disorientation",
+            "method": "UMLS Match"
+        },
+        "Head feeling funny, lightheadedness": {
+            "standard_name": "Dizziness",
+            "method": "UMLS Match"
+        },
+        "weight gain": {
+            "standard_name": "Weight Increased",
+            "method": "UMLS Match"
+        },
+        "Nose Bleeds": {
+            "standard_name": "Epistaxis",
+            "method": "UMLS Match"
+        },
+        "Altered sense of taste (e.g., apple tasting like poison)": {
+            "standard_name": "Dysgeusia",
+            "method": "UMLS Match"
+        },
+        "tummy pains": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "stress and anxiety": {
+            "standard_name": "Anxiety",
+            "method": "UMLS Match"
+        },
+        "pain relief with omeprazole": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Difficulty falling asleep": {
+            "standard_name": "Insomnia",
+            "method": "UMLS Match"
+        },
+        "bitter taste": {
+            "standard_name": "Taste Disorder",
+            "method": "UMLS Match"
+        },
+        "loss of weight": {
+            "standard_name": "Weight Decreased",
+            "method": "UMLS Match"
+        },
+        "swollen tongue": {
+            "standard_name": "Swollen Tongue",
+            "method": "Direct Match"
+        },
+        "brain fog": {
+            "standard_name": "Brain Fog",
+            "method": "Direct Match"
+        },
+        "watery diarrhoea": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Burping (egg taste/smell)": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "water retention": {
+            "standard_name": "Fluid Retention",
+            "method": "UMLS Match"
+        },
+        "Red rash on left forearm": {
+            "standard_name": "Rash",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "fainting": {
+            "standard_name": "Syncope",
+            "method": "UMLS Match"
+        },
+        "Gout in knee": {
+            "standard_name": "Gout",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "unusual symptoms": {
+            "standard_name": "Cyanosis",
+            "method": "UMLS Match"
+        },
+        "Bowel control loss": {
+            "standard_name": "Incontinence",
+            "method": "UMLS Match"
+        },
+        "light headaches": {
+            "standard_name": "Headache",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Diarrhea or constipation": {
+            "standard_name": "Constipation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Atrial fibrillation (A-FIB)": {
+            "standard_name": "Atrial Fibrillation",
+            "method": "UMLS Match"
+        },
+        "muscle weakness": {
+            "standard_name": "Muscular Weakness",
+            "method": "UMLS Match"
+        },
+        "Food tasting foamy, pasty, and gross": {
+            "standard_name": "Syncope",
+            "method": "UMLS Match"
+        },
+        "abdominal cramping": {
+            "standard_name": "Abdominal Discomfort",
+            "method": "UMLS Match"
+        },
+        "Chest pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "watery stools": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Severe pancreatitis": {
+            "standard_name": "Pancreatitis",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Mood swings": {
+            "standard_name": "Mood Swings",
+            "method": "Direct Match"
+        },
+        "not feeling great": {
+            "standard_name": "Malaise",
+            "method": "UMLS Match"
+        },
+        "Increased heart rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Injection site lump": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "heartburn and acid reflux": {
+            "standard_name": "Gastrooesophageal Reflux Disease",
+            "method": "UMLS Match"
+        },
+        "gas and bloating": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "Pain in knees and feet": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Injection site pain": {
+            "standard_name": "Injection Site Pain",
+            "method": "Direct Match"
+        },
+        "Back pain": {
+            "standard_name": "Back Pain",
+            "method": "Direct Match"
+        },
+        "Apathetic mood": {
+            "standard_name": "Tic",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "flushing": {
+            "standard_name": "Flushing",
+            "method": "Direct Match"
+        },
+        "Body pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Decrease in appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "UMLS Match"
+        },
+        "heart rate fluctuations": {
+            "standard_name": "Heart Rate",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "stomach and intestinal tract": {
+            "standard_name": "Neoplasm",
+            "method": "UMLS Match"
+        },
+        "Gas": {
+            "standard_name": "Flatulence",
+            "method": "UMLS Match"
+        },
+        "Tachycardia": {
+            "standard_name": "Tachycardia",
+            "method": "Direct Match"
+        },
+        "Muscle pain": {
+            "standard_name": "Myalgia",
+            "method": "UMLS Match"
+        },
+        "wind": {
+            "standard_name": "Flatulence",
+            "method": "UMLS Match"
+        },
+        "injection site soreness": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Stomach pains and cramps": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Loss of appetite and gag reflex": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "Vision problems": {
+            "standard_name": "Visual Impairment",
+            "method": "UMLS Match"
+        },
+        "Hunger fluctuations": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Blurred near vision": {
+            "standard_name": "Vision Blurred",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "miserable": {
+            "standard_name": "Depression",
+            "method": "UMLS Match"
+        },
+        "dizziness": {
+            "standard_name": "Dizziness",
+            "method": "Direct Match"
+        },
+        "shortness of breath": {
+            "standard_name": "Dyspnoea",
+            "method": "UMLS Match"
+        },
+        "Pain in stomach": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "weakness": {
+            "standard_name": "Asthenia",
+            "method": "UMLS Match"
+        },
+        "abscess at injection site": {
+            "standard_name": "Injection Site Abscess",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "epigastric pain": {
+            "standard_name": "Abdominal Pain Upper",
+            "method": "UMLS Match"
+        },
+        "Loss of appetite, early satiety, severe belching": {
+            "standard_name": "Anorexia Nervosa",
+            "method": "UMLS Match"
+        },
+        "dry mouth": {
+            "standard_name": "Dry Mouth",
+            "method": "Direct Match"
+        },
+        "Bleeding hemorrhoids": {
+            "standard_name": "Haemorrhoids",
+            "method": "UMLS Match"
+        },
+        "nausea": {
+            "standard_name": "Nausea",
+            "method": "Direct Match"
+        },
+        "Gas and Bloating": {
+            "standard_name": "Abdominal Symptom",
+            "method": "UMLS Match"
+        },
+        "Post nasal drip": {
+            "standard_name": "Rhinorrhoea",
+            "method": "UMLS Match"
+        },
+        "Gastric emptying delay": {
+            "standard_name": "Gastric Atony",
+            "method": "UMLS Match"
+        },
+        "Increased insulin requirement": {
+            "standard_name": "Increased Insulin Requirement",
+            "method": "Direct Match"
+        },
+        "Gallstones": {
+            "standard_name": "Cholelithiasis",
+            "method": "UMLS Match"
+        },
+        "Stool softening/constipation": {
+            "standard_name": "Constipation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Palpitations": {
+            "standard_name": "Palpitations",
+            "method": "Direct Match"
+        },
+        "tightness in throat": {
+            "standard_name": "Throat Tightness",
+            "method": "UMLS Match"
+        },
+        "cramping": {
+            "standard_name": "Abdominal Discomfort",
+            "method": "UMLS Match"
+        },
+        "Migraine": {
+            "standard_name": "Migraine",
+            "method": "Direct Match"
+        },
+        "restless sleep": {
+            "standard_name": "Sleep Disorder",
+            "method": "UMLS Match"
+        },
+        "Frequent bowel movements / urgency": {
+            "standard_name": "Frequent Bowel Movements",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "racing heart": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "Muscle aches/pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Fast heart rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "palpitations": {
+            "standard_name": "Palpitations",
+            "method": "Direct Match"
+        },
+        "Pen injection issue": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Gallbladder pain": {
+            "standard_name": "Biliary Colic",
+            "method": "UMLS Match"
+        },
+        "Ringing in ears": {
+            "standard_name": "Tinnitus",
+            "method": "UMLS Match"
+        },
+        "High blood glucose (hyperglycemia)": {
+            "standard_name": "Hyperglycaemia",
+            "method": "UMLS Match"
+        },
+        "Hives": {
+            "standard_name": "Urticaria",
+            "method": "UMLS Match"
+        },
+        "Difficulty using injection": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Sleepiness": {
+            "standard_name": "Somnolence",
+            "method": "UMLS Match"
+        },
+        "hip pain": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Overdose": {
+            "standard_name": "Overdose",
+            "method": "Direct Match"
+        },
+        "worse constipation": {
+            "standard_name": "Constipation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Stomach full of food for 11 hours and then vomiting": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Back pains": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Allergic reaction at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "pain in lower legs": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "mild headache": {
+            "standard_name": "Headache",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "urinary tract infection": {
+            "standard_name": "Urinary Tract Infection",
+            "method": "Direct Match"
+        },
+        "Pain at injection site": {
+            "standard_name": "Allodynia",
+            "method": "UMLS Match"
+        },
+        "anxiety": {
+            "standard_name": "Anxiety",
+            "method": "Direct Match"
+        },
+        "severe vertigo": {
+            "standard_name": "Vertigo",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Digestive discomfort after dairy and greasy foods": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Medication leakage at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Exhaustion and fatigue": {
+            "standard_name": "Heat Exhaustion",
+            "method": "UMLS Match"
+        },
+        "Crying": {
+            "standard_name": "Crying",
+            "method": "Direct Match"
+        },
+        "body pains": {
+            "standard_name": "Pain",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "constipated": {
+            "standard_name": "Constipation",
+            "method": "UMLS Match"
+        },
+        "Acute kidney disease": {
+            "standard_name": "Tonsillitis Bacterial",
+            "method": "UMLS Match"
+        },
+        "Stomach discomfort/feeling like filled with rocks": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Vaginal bleeding": {
+            "standard_name": "Vaginal Haemorrhage",
+            "method": "UMLS Match"
+        },
+        "Light sensitivity": {
+            "standard_name": "Photophobia",
+            "method": "UMLS Match"
+        },
+        "Inflammation in body": {
+            "standard_name": "Inflammation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Brain fog": {
+            "standard_name": "Brain Fog",
+            "method": "Direct Match"
+        },
+        "blotchy purple skin from dehydration": {
+            "standard_name": "Dehydration",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "eye floaters": {
+            "standard_name": "Vitreous Floaters",
+            "method": "UMLS Match"
+        },
+        "Discouragement": {
+            "standard_name": "Discouragement",
+            "method": "Direct Match"
+        },
+        "Faintness": {
+            "standard_name": "Syncope",
+            "method": "UMLS Match"
+        },
+        "swelling in legs, ankles, and feet": {
+            "standard_name": "Swelling Face",
+            "method": "UMLS Match"
+        },
+        "medullary thyroid cancer": {
+            "standard_name": "Medullary Thyroid Cancer",
+            "method": "Direct Match"
+        },
+        "joint aches": {
+            "standard_name": "Arthralgia",
+            "method": "UMLS Match"
+        },
+        "Burning tongue": {
+            "standard_name": "Tongue Erythema",
+            "method": "UMLS Match"
+        },
+        "Discomfort from injection needle": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "numbness in mouth and tongue": {
+            "standard_name": "Tongue Disorder",
+            "method": "UMLS Match"
+        },
+        "heart flutters": {
+            "standard_name": "Palpitations",
+            "method": "UMLS Match"
+        },
+        "No decrease in hunger": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Violent vomiting": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Vomiting sensation": {
+            "standard_name": "Vomiting",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Stomach issues after gallbladder removal (gas, trips to bathroom, constipation)": {
+            "standard_name": "Constipation",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Delirium": {
+            "standard_name": "Delirium",
+            "method": "Direct Match"
+        },
+        "Gastrointestinal discomfort (burping, sour stomach, feeling full, nausea)": {
+            "standard_name": "Discomfort",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Rapid heart rate": {
+            "standard_name": "Tachycardia",
+            "method": "UMLS Match"
+        },
+        "hard stool and crampy bowel movements": {
+            "standard_name": "Faeces Hard",
+            "method": "UMLS Match"
+        },
+        "High white blood cell count": {
+            "standard_name": "Leukocytosis",
+            "method": "UMLS Match"
+        },
+        "explosive diarrhea": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "lump at injection site": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "craving junk food": {
+            "standard_name": "Food Craving",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "reduced appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "UMLS Match"
+        },
+        "diarrhoea": {
+            "standard_name": "Diarrhoea",
+            "method": "Direct Match"
+        },
+        "potential infection": {
+            "standard_name": "Infection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Sickness": {
+            "standard_name": "Motion Sickness",
+            "method": "UMLS Match"
+        },
+        "blood in vomit": {
+            "standard_name": "Mouth Swelling",
+            "method": "UMLS Match"
+        },
+        "Dry Mouth": {
+            "standard_name": "Dry Mouth",
+            "method": "Direct Match"
+        },
+        "hunger pains": {
+            "standard_name": "Hunger",
+            "method": "UMLS Match"
+        },
+        "nauseous": {
+            "standard_name": "Nausea",
+            "method": "UMLS Match"
+        },
+        "Hangover-like symptoms": {
+            "standard_name": "Hangover",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Sleep disturbance": {
+            "standard_name": "Sleep Disorder",
+            "method": "UMLS Match"
+        },
+        "cold intolerance": {
+            "standard_name": "Temperature Intolerance",
+            "method": "UMLS Match"
+        },
+        "decrease in appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "UMLS Match"
+        },
+        "Major Fatigue": {
+            "standard_name": "Fatigue",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Increased resting heart rate": {
+            "standard_name": "Heart Rate Increased",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "diarrhea": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "sleep disruption/insomnia": {
+            "standard_name": "Insomnia",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "sickness": {
+            "standard_name": "Motion Sickness",
+            "method": "UMLS Match"
+        },
+        "gastric paralysis": {
+            "standard_name": "Gastric Atony",
+            "method": "UMLS Match"
+        },
+        "Reduced appetite": {
+            "standard_name": "Decreased Appetite",
+            "method": "UMLS Match"
+        },
+        "abdominal pain radiating to back": {
+            "standard_name": "Abdominal Pain Upper",
+            "method": "UMLS Match"
+        },
+        "loss of energy": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Sleep disturbances (waking up multiple times in the night)": {
+            "standard_name": "Sleep Disorder",
+            "method": "UMLS Match"
+        },
+        "Hemorrhoid bleeding": {
+            "standard_name": "Haemorrhoids",
+            "method": "UMLS Match"
+        },
+        "gas, burping, farting": {
+            "standard_name": "Eructation",
+            "method": "UMLS Match"
+        },
+        "Loose stool": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Incontinence": {
+            "standard_name": "Incontinence",
+            "method": "Direct Match"
+        },
+        "muscle aches": {
+            "standard_name": "Myalgia",
+            "method": "UMLS Match"
+        },
+        "abdomen pain": {
+            "standard_name": "Pain",
+            "method": "UMLS Match"
+        },
+        "Severe abdominal pain": {
+            "standard_name": "Abdominal Rigidity",
+            "method": "UMLS Match"
+        },
+        "Bedridden state": {
+            "standard_name": "Bedridden",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "hot, flushed face": {
+            "standard_name": "Hot Flush",
+            "method": "UMLS Match"
+        },
+        "Tired": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Burning sensation in body": {
+            "standard_name": "Burning Sensation",
+            "method": "Fuzzy Match (Score: 95)"
+        },
+        "cravings": {
+            "standard_name": "Salt Craving",
+            "method": "UMLS Match"
+        },
+        "bruising at injection sites": {
+            "standard_name": "Injection",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "ear ringing": {
+            "standard_name": "Tinnitus",
+            "method": "UMLS Match"
+        },
+        "Insomnia": {
+            "standard_name": "Insomnia",
+            "method": "Direct Match"
+        },
+        "constant hunger feeling": {
+            "standard_name": "Hunger",
+            "method": "Fuzzy Match (Score: 90)"
+        },
+        "Low blood sugar (hypoglycemia)": {
+            "standard_name": "Hypoglycaemia",
+            "method": "UMLS Match"
+        },
+        "hot flashes": {
+            "standard_name": "Hot Flush",
+            "method": "UMLS Match"
+        },
+        "Redness of skin": {
+            "standard_name": "Erythema",
+            "method": "UMLS Match"
+        },
+        "Breast tenderness": {
+            "standard_name": "Breast Tenderness",
+            "method": "Direct Match"
+        },
+        "allergic reaction": {
+            "standard_name": "Hypersensitivity",
+            "method": "UMLS Match"
+        },
+        "Loose bowels": {
+            "standard_name": "Diarrhoea",
+            "method": "UMLS Match"
+        },
+        "Side effects (general)": {
+            "standard_name": "Paralysis",
+            "method": "UMLS Match"
+        },
+        "Tiredness and fatigue": {
+            "standard_name": "Fatigue",
+            "method": "UMLS Match"
+        },
+        "Blood pressure changes": {
+            "standard_name": "Heart Rate Increased",
+            "method": "UMLS Match"
+        },
+        "Increased blood glucose levels": {
+            "standard_name": "Blood Glucose Increased",
+            "method": "UMLS Match"
+        },
+        "heart palpitations": {
+            "standard_name": "Palpitations",
+            "method": "UMLS Match"
+        },
+        "Bladder infection": {
+            "standard_name": "Cystitis",
+            "method": "UMLS Match"
+        },
+        "Gastrointestinal symptoms": {
+            "standard_name": "Symptom Recurrence",
+            "method": "UMLS Match"
+        }
+    },
+    "unmapped_list": [
+        "Sulfur smell in nose",
+        "Increased physical health",
+        "very smell makes me want to vomit",
+        "attacks when drinking milk",
+        "Hoarseness",
+        "Inability to hold food down",
+        "IBS symptoms",
+        "Slower bowel movements",
+        "Loss of appetite suppression",
+        "Sweets too sweet",
+        "Weird feeling in gut",
+        "Decreased breakfast intake",
+        "None mentioned",
+        "runny stools",
+        "sore upper arms",
+        "Less interest in snacking",
+        "Dry reaching",
+        "gallbladder failure",
+        "Sleep disruption",
+        "Inability to hold food or liquid down",
+        "Upsetting dreams",
+        "disturbed sleep",
+        "cold sensitivity",
+        "Sensitivity in feet",
+        "Gall Bladder damage",
+        "trapped wind",
+        "bile in vomit",
+        "Fullness/Bloating",
+        "Liquefied stomach contents",
+        "general feelings of yuckiness",
+        "tingling skin",
+        "Blood levels rising",
+        "Inability to continue medication due to access issues",
+        "fuzzy mind",
+        "Sickness after eating greasy or fried foods",
+        "Allergy to semiglutide",
+        "Loss of desire to cook",
+        "Feeling like throwing up",
+        "gastric issues",
+        "Frozen shoulder",
+        "feeling quizzy",
+        "stomach spasms",
+        "Gagging",
+        "bad gas",
+        "Increase in A1c levels",
+        "Medicine leakage",
+        "Fullness in upper chest",
+        "joint/muscle pain and aching/twitching",
+        "Feeling freezing cold",
+        "Low back spasms",
+        "High blood pressure behind eyes",
+        "Severe cramping",
+        "Inability to keep food or water down",
+        "Crankiness",
+        "body ache",
+        "Uneasy stomach",
+        "Gastric issues",
+        "Fullness experienced in esophagus",
+        "Stomach rumbling",
+        "Stomach gurgles",
+        "vision issues",
+        "Rotten taste and smell in burps",
+        "appetite surge",
+        "Sulphuric burps",
+        "inability to keep down",
+        "Pen issues (stuck plunger, stopped working)",
+        "Taste buds change",
+        "change in stool consistency",
+        "Fuzzy vision",
+        "Sulfuric belching",
+        "Cold sensitivity",
+        "sleep issues",
+        "Swollen Tonsils",
+        "Suppressed appetite",
+        "Craving sweets",
+        "interest in daily tasks",
+        "distinct metallic taste in mouth",
+        "stinky sulphur burps",
+        "bowel movement issues",
+        "Eggs tasting funny",
+        "Feeling full very quickly",
+        "acid stomach",
+        "tingling in hands and feet",
+        "Skin Sensitivity",
+        "fidgety",
+        "Access issues to medication",
+        "feeling unwell/feverish",
+        "No side effects",
+        "feeling extremely tired",
+        "Stomach cramps",
+        "Confusion about dose counter display",
+        "Low energy",
+        "Projectile diarrhea",
+        "Reduced desire to drink alcohol",
+        "diarrhea like water",
+        "Visual changes",
+        "Queasy stomach",
+        "severe diarrhea",
+        "Feeling weird",
+        "Severe sickness at 1.0 dose",
+        "Red splotches on face",
+        "Feelings of being very very weak",
+        "loss of taste for alcohol",
+        "IBS cramping",
+        "not really being hungry",
+        "Liver problems",
+        "Tightness in the chest",
+        "stomach issues",
+        "foul burping",
+        "afraid of any food",
+        "Terrible acid reflux",
+        "Feeling of stomach and esophagus shrinking",
+        "Slow bowel movements",
+        "Urine passage issues",
+        "Cannot taste food",
+        "Miserable when overeating",
+        "Sleep disturbance due to stomach pain",
+        "Blood level reduction",
+        "feeling sick to stomach",
+        "taste of medication",
+        "attacks when drinking protein shakes",
+        "More energy",
+        "Diet change to junk food",
+        "side effect",
+        "Aches all over body",
+        "Abdominal cramps",
+        "Feeling less hungry",
+        "bathroom problems",
+        "Bowel disturbance",
+        "mouth odor",
+        "Sleep improvement",
+        "Full after drinking water",
+        "Hard to give myself a shot",
+        "itchy dry patches",
+        "GI side effects",
+        "Cravings for sugar",
+        "Cost/Expense",
+        "Body cramps",
+        "upset stomach",
+        "Pain when Eating even bland foods in small quantities",
+        "gas bloating",
+        "small bumps on the body",
+        "Blood sugar control worsening",
+        "Defective syringe",
+        "Gastric uneasiness",
+        "Blood pressure change",
+        "Digestive issues",
+        "Unpleasant side effects",
+        "Difficulty understanding device operation",
+        "Throat feeling swollen",
+        "Eggs smelling funny",
+        "heaviness on stomach",
+        "Upset stomach",
+        "Inability to handle water",
+        "Reduction in belly fat",
+        "terrible side effects",
+        "Hair softening",
+        "Small bumps under skin",
+        "nighttime acid reflux",
+        "super tired",
+        "soiling in sleep",
+        "Full water feeling in stomach",
+        "Stomach bug-like symptoms",
+        "Brick on sternum",
+        "Severe loss of appetite",
+        "not being hungry at all",
+        "feeling full all the time",
+        "Zero appetite",
+        "PCOS symptoms slowing down",
+        "gastrointestinal issues",
+        "heavy chest",
+        "Skin sensitivity",
+        "change in taste and smell of food",
+        "heaviness on chest",
+        "extreme moodiness",
+        "Low Testosterone Levels",
+        "Bitter or nasty taste in mouth",
+        "hard to have bowel movements",
+        "Cravings not controlled",
+        "Feeling very low",
+        "little side effects",
+        "taste side effect",
+        "Side effects warnings",
+        "lower intestinal revenge",
+        "Undernourishment-related symptoms (feeling poorly, no energy, blacking out)",
+        "Gastric mobility issues (e.g., burping, throwing up)",
+        "Throat issue",
+        "High cost",
+        "weird sense of fullness",
+        "Stomach burning",
+        "surfer burps",
+        "weird tummy feeling",
+        "Side effects were so bad I had to go to the hospital",
+        "Repulsed by food",
+        "Cravings reduction",
+        "Low GFR readings",
+        "Stomach rolling",
+        "Disappearance of pain in hands and feet",
+        "Low energy for exercise",
+        "Odor in urine",
+        "Ineffectiveness of medication",
+        "Bad taste",
+        "Strange steely/sweet taste in mouth",
+        "Calf cramps",
+        "Feeling ill after eating",
+        "Gastrointestinal effects",
+        "physical side effects listed as common",
+        "Upset tummy",
+        "stomach cramping",
+        "Troublesome controlling temper or tantrums",
+        "Gastric problems",
+        "Tender stomach",
+        "Deterioration of liver function",
+        "Severe stomach cramping",
+        "problems swallowing food",
+        "Sulphur burping",
+        "feeling lightheaded or passing out",
+        "BP off the charts",
+        "Weight change",
+        "Stabbing pain in middle left side",
+        "terrible GI reaction",
+        "Side effects when starting medication",
+        "Severe diarrhea",
+        "sore throat from acid",
+        "GI issues",
+        "none",
+        "Loss of enjoyment of eating",
+        "stomach ache",
+        "minor side effects",
+        "Reduced cravings",
+        "Nauseousness",
+        "No cravings for sweet foods",
+        "stools smell severely bad",
+        "Thyroid dysfunction (including thyroid failure, increased TSH, weight loss, muscle loss, fatigue, difficulty climbing stairs, swallowing problems)",
+        "Can't get out of bed",
+        "Inflamed left elbow",
+        "Pain in right side of back under ribs",
+        "Kidney issues",
+        "sulphur burps",
+        "sore shoulders",
+        "Difficulty swallowing pills due to taste",
+        "mild side effects",
+        "Stomach sounds like a washing machine",
+        "weight change",
+        "feeling bloated",
+        "Horrible sulfur tasting belching",
+        "Aches everywhere",
+        "Difficulty keeping high blood pressure meds in",
+        "Inability to eat or drink",
+        "Belly ache",
+        "Difficulty concentrating",
+        "Uncertainty about dose",
+        "tingling in hands",
+        "Blood glucose levels not controlled",
+        "Significant reduction in appetite",
+        "Excess skin after weight loss",
+        "bad taste",
+        "slowed digestion",
+        "low blood sugar episodes that do not resolve with eating or drinking",
+        "bad diarrhea for three days",
+        "sleep disturbance due to GERD",
+        "tummy cramps",
+        "Slowing down on the stomach to empty",
+        "None",
+        "Feeling fuller longer",
+        "bad side effects",
+        "Throwing up bile",
+        "sulphur burping",
+        "vivid dreams",
+        "No cravings",
+        "Stomach ache after eating carbs like potatoes and bread",
+        "stomach sickness",
+        "Harder stools",
+        "Decreased willingness to listen",
+        "difficulty eating more than 600 calories",
+        "Loss of appetite or digestion issues",
+        "Difficulty drinking beer (possible side effect or behavioral change)",
+        "freezing cold hands",
+        "Pens failure",
+        "Insurance denial",
+        "Feeling like bowling balls in stomach",
+        "Lasting aftereffects",
+        "sour stomachs",
+        "face numbness",
+        "churning feeling in stomach",
+        "bad egg taste in mouth",
+        "Horrible side effects",
+        "Stomach cramping",
+        "Defective syringes",
+        "symptoms returning after re-taking medication",
+        "feeling not myself",
+        "IBS episodes",
+        "craving sugar",
+        "Pen stoppage or blockage",
+        "Heavy transit",
+        "No neck/thyroid issues",
+        "Needle detachment/dispersal",
+        "stomach soreness",
+        "Fullness/Feeling full",
+        "less energy",
+        "Trouble swallowing",
+        "Eggy burps",
+        "feeling just plain off",
+        "Gallbladder problems",
+        "Muscle dryness",
+        "Stomach soreness",
+        "Gastrointestinal issues",
+        "Less appetite",
+        "less energy than normal",
+        "Frequent bathroom trips",
+        "Few side effects",
+        "Cotton mouth",
+        "Gastric slowdown",
+        "stomach gas build up",
+        "sinus issues",
+        "Feeling run down",
+        "feeling like food sits in stomach for hours",
+        "Muscle cramps in back",
+        "short temper",
+        "bruising around the needle site",
+        "Elevated blood glucose levels",
+        "Nasty burps",
+        "Sick to stomach",
+        "heart burn",
+        "foggy feeling",
+        "Burning in throat",
+        "Feeling pretty bad",
+        "Slowed metabolic rate",
+        "foul smelling belching",
+        "Clothing hurts",
+        "stomach cramp",
+        "gallbladder issues",
+        "Sleepless nights due to painful burping",
+        "can't sleep at night",
+        "feeling a little bit \"super full\"",
+        "Pancreas problems",
+        "Feeling freezing and exhausted after exercise",
+        "Feeling of fullness after consuming very little",
+        "horrible sulfur belching",
+        "effected sleep",
+        "feeling like rocks in stomach",
+        "leg cramps",
+        "Body hurts when touched",
+        "minimal side effects",
+        "liquid diarrhea",
+        "Lack of transparency",
+        "Unpleasant taste",
+        "Nasty belching",
+        "Burning bile backs up",
+        "slight side effects",
+        "feeling so down",
+        "Stomach queasiness",
+        "Bone chilling cold",
+        "Sulfuric burps",
+        "other little things",
+        "appetite suppression",
+        "Skin aches",
+        "belching like darth Vader",
+        "Increased urge to snack in late evening",
+        "Side effects",
+        "Stomach upset",
+        "Febrile but hypothermic",
+        "Inability to work properly",
+        "appetite change",
+        "Gasy",
+        "ocular episodes",
+        "Throat burn",
+        "Unclear vision",
+        "Blood sugar not low yet",
+        "Uncertainty about medication administration",
+        "Sickness/Feeling unwell",
+        "loose or runny stool",
+        "Loss of enjoyment of food",
+        "bad urine smell",
+        "Hair shedding",
+        "Unpleasant smell passing wind",
+        "Sour stomach",
+        "Vision issues",
+        "cravings for alcohol",
+        "No significant side effects",
+        "rotten eggs burping",
+        "burping a lot",
+        "Blood sugar fluctuation",
+        "Profuse SI diarrhea",
+        "low iron",
+        "Having very little appetite",
+        "Sulphur belches",
+        "gastrointestinal cramps",
+        "achiness",
+        "Numbness in left hand",
+        "Loss of desire for sugars and junk food",
+        "Few side effects in first week",
+        "loss of cravings",
+        "Stomach hurting",
+        "Burping of rotten egg gas",
+        "Shakiness from hypoglycemia",
+        "Slower metabolism",
+        "stomach off",
+        "Insufficient medication supply",
+        "Cramps",
+        "Feeling full after a few bites of food",
+        "Light headedness",
+        "Heat burn",
+        "Sore behind",
+        "Lower blood sugar level",
+        "loss of taste for foods",
+        "inability to keep fluids down",
+        "IBS attacks",
+        "freezing cold toes",
+        "pressure in upper abdomen",
+        "Severe bloating",
+        "Loss of sleep due to gurgling",
+        "nauseous feeling",
+        "Feeling of heaviness in legs",
+        "Horrible heart burn",
+        "Intolerable side effects",
+        "Leg shaking or movement",
+        "severe stomach cramps",
+        "stomach upset",
+        "Hypoglycemic attack",
+        "ringing of the ears",
+        "Gastrointestinal side effects",
+        "Gassy stomach",
+        "stomachache",
+        "Cramping in stomach",
+        "Thyroid gland issues",
+        "Serious side effects",
+        "Food in stomach after fasting",
+        "side effects",
+        "Stomach sickness",
+        "Passing clots",
+        "Appetite change",
+        "puking",
+        "Sulfur burps",
+        "High blood glucose symptoms (e.g., feet tingling)",
+        "Feet hurting",
+        "Horrible taste",
+        "Feeling very tired",
+        "Diarrhea/Gas",
+        "Stomach issues",
+        "appetite suppression failure",
+        "stomach cramps",
+        "lethargic episodes",
+        "None reported",
+        "change in taste of foods",
+        "Poor blood sugar control",
+        "Climbing blood sugar levels",
+        "Feeling over full",
+        "sinus stuffiness",
+        "hive-like itching",
+        "metallic taste in mouth",
+        "heart problems",
+        "Rotten egg burps",
+        "zero appetite",
+        "Uneasy stomach feeling",
+        "Sense of smell off",
+        "sleep may have not been as before",
+        "Almost life threatening condition",
+        "Tummy ache",
+        "No allergy symptoms",
+        "Loss of taste buds",
+        "Sleepless nights",
+        "reduced enjoyment of food",
+        "body aches",
+        "stomach aches",
+        "digestive upset",
+        "stomach problems",
+        "Sense of dying",
+        "tummy aches",
+        "lack of interest in food",
+        "feeling the need to burp",
+        "Burps that tasted like bad ham",
+        "Bad taste in mouth",
+        "weight regain",
+        "Gallbladder effects",
+        "stomach knots",
+        "Thyroid issues",
+        "Gassy noises",
+        "Stomach ache",
+        "stomach feels off",
+        "stomach gurgling",
+        "extreme diarrhea",
+        "Altered bowel movement",
+        "Disgusting taste in food",
+        "inability to hold down food or liquids",
+        "inability to eat",
+        "stool becoming infrequent",
+        "room spinning",
+        "Rapid health decline",
+        "mood deterioration",
+        "Inconsistent blood sugars",
+        "sulfur burps",
+        "gassy/bloating",
+        "Fullness at the beginning of treatment",
+        "extreme acrid reflux",
+        "Bathroom urgency",
+        "Weight regain",
+        "Twisting to inject",
+        "Needle not breaking skin",
+        "feeling sick all over",
+        "lump on tongue",
+        "Achiness",
+        "diarreha",
+        "feeling of undigested food in stomach",
+        "Pens quitting",
+        "Twitchiness",
+        "Gastro issues",
+        "Hard to wake up",
+        "Severe stomach cramps",
+        "Gurgling noises",
+        "trouble waking after sleep",
+        "Whole-body weakness",
+        "weird sensations in legs and feet",
+        "Feeling away with the fairies",
+        "Urge for late night snacking",
+        "lump in throat",
+        "Ongoing stomach bug",
+        "bowel movement frequency change",
+        "crazy dreams",
+        "Refusal to continue medication",
+        "sick stomach",
+        "Puking",
+        "Rebound diarrhea",
+        "Profuse sweating",
+        "difficulty to take a deep breath",
+        "desire to eat",
+        "Bowel issues",
+        "Weight loss has stopped",
+        "Increased urination at night",
+        "crappy feeling",
+        "Feeling wrong after eating pork",
+        "dry feeling in hair",
+        "feeling of being blah",
+        "Cravings for salty and sweet foods",
+        "Severe tiredness",
+        "Feeling full faster",
+        "HSV 1 reactivation",
+        "Horrible diarrhea",
+        "weird taste in mouth",
+        "loss of appetite (not explicitly mentioned but implied by",
+        "not able to eat",
+        "ucky feeling",
+        "gas burps",
+        "Blood sugar improvement",
+        "Body aches",
+        "Difficulty getting up in the morning",
+        "Gastrointestinal problems",
+        "Minimal side effects",
+        "loss of appetite due to sick feeling",
+        "Chest tingling",
+        "Gradual behavioral change",
+        "None explicitly mentioned",
+        "Sulphur burps",
+        "strange taste in mouth",
+        "Medication spillage",
+        "Horrible taste in mouth",
+        "Increased cravings for carbohydrate",
+        "Nutrient deficiency / getting sick",
+        "Short temper",
+        "light headedness",
+        "metallic taste",
+        "Couldn't keep dinner down",
+        "Thyroid level changes",
+        "lingual thyroid",
+        "Stomach knots",
+        "light-headedness",
+        "throw up tendency",
+        "reduced feeling of fullness",
+        "mildly queasy",
+        "Inability to eat non-clear liquids",
+        "food taste changes",
+        "Heaviness in chest",
+        "Feeling drained",
+        "rotten egg smell",
+        "Pains on right and left sides of stomach",
+        "Feeling sick to stomach",
+        "Dry hair",
+        "ringing/buzzing in ears",
+        "nauseousness",
+        "Tummy upsets",
+        "Slower digestion",
+        "metallic flavour",
+        "belching of foul sulfurous tasting gas",
+        "bowel color change to clay",
+        "multiple lumps",
+        "no appetite at all",
+        "Sick through the night",
+        "Blood sugar fluctuations",
+        "Heavy legs",
+        "exhausted",
+        "severe hair loss",
+        "Improved muscle tone in stomach",
+        "burping indigestion",
+        "Egg burps",
+        "Brittle hair and hair breaking off",
+        "Inability to stomach pills",
+        "Itchiness behind arms",
+        "slowed bowel movements",
+        "upset tummy",
+        "Inability to eat",
+        "Loss of natural curl",
+        "Burning diarrhea",
+        "being constantly cold",
+        "Stomach aches",
+        "bowel movement changes",
+        "Yucky feeling",
+        "Feeling awful all day and every day",
+        "going",
+        "No weight loss",
+        "Drop in consumption of root beer and transition to water",
+        "digestive matters",
+        "Weight loss stagnation",
+        "Stomach bloating",
+        "stiff neck",
+        "Sugar cravings",
+        "Horrible heartburn",
+        "Impacted colon",
+        "overall feeling of sickness",
+        "softening of stools",
+        "feeling full right away",
+        "eggy burps",
+        "weight loss not achieved",
+        "vision changes",
+        "Side effects from Byetta",
+        "disgusted by food",
+        "extremely warm sensation",
+        "extreme bloating",
+        "Horrid side effects",
+        "Intolerance to red meat or ham",
+        "no side effects",
+        "sour stomach",
+        "Appetite suppression",
+        "increased burping",
+        "taste buds change",
+        "light side effects",
+        "rotten egg burps",
+        "Blood sugar spikes after eating sugar",
+        "Unbelievable fibro flares",
+        "cramps",
+        "throat burning",
+        "Cost/Price issue",
+        "dry heeves",
+        "Nasty belches",
+        "horrible taste in mouth",
+        "Reduced eyesight and increased eyeglass prescription",
+        "Nerve irritation in feet",
+        "freezing cold nose",
+        "Appetite control issues",
+        "Feeling hungover",
+        "stomach bloating",
+        "cranky",
+        "Intestinal problems",
+        "Bad dreams",
+        "feeling very sick",
+        "Deterioration of kidney function",
+        "curbed appetite",
+        "Mood increase",
+        "Blood vessel rupture in face",
+        "Stomachaches",
+        "Reduced effectiveness of medication due to freezing",
+        "feeling suicidal",
+        "Taste issues",
+        "Sleep pattern disturbance",
+        "Difficulty drinking water",
+        "nighttime blood glucose fluctuations",
+        "urinary tract issues",
+        "Functioning decline",
+        "no sleep",
+        "Constant diarrhea",
+        "laxative",
+        "Egg tasting/repeating",
+        "Problems moving around",
+        "general uneasiness",
+        "Elevated Liver Function levels",
+        "Thinning hair loss",
+        "Sleep schedule off",
+        "Hurts to hug my 5 yo",
+        "Altered menstrual cycle",
+        "gas bloat",
+        "Needle bending easily",
+        "frequent bathroom visits",
+        "Heart problems",
+        "Gut ache",
+        "Plateaued weight loss",
+        "ER visit",
+        "reduced urination",
+        "itching at the site",
+        "Feeling of overeating",
+        "horrible side effects",
+        "Kidney dysfunction",
+        "Gastrointestinal issues (stomach problems)",
+        "cramping in intestines",
+        "Feeling very sick after greasy food",
+        "digestive problems",
+        "Uneasiness",
+        "Breathing reaction",
+        "Acute gallbladder disease",
+        "Stomach problems",
+        "Aching legs and butt",
+        "sulfer burps",
+        "Acid reflux tore up my throat",
+        "Cost-related issues",
+        "Full body sweat",
+        "Foggy thought process",
+        "bleeding sores from backside",
+        "Lack of efficacy",
+        "food interest fluctuation",
+        "acid feeling",
+        "Feeling fuller sooner",
+        "bad taste in mouth"
+    ],
+    "timestamp": "2025-06-20T04:19:13.647061"
+}
